@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-Vue.use(Vuex)
-
 /* global wayfinder: false, WayfinderAPI */
 
 export default new Vuex.Store({

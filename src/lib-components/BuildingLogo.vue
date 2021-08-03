@@ -24,8 +24,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="less">
-	@import '../theme/variables';
+<style scoped>
 	.building-logo {
 		background-size: contain;
 		background-repeat: no-repeat;
