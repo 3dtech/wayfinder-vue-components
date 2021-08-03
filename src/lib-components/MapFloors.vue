@@ -23,7 +23,7 @@ export default {
 	},
 	methods: {
 		changeFloor (floor) {
-			wayfinder.showFloor(floor);
+			Vue.prototype.$wayfinder.showFloor(floor);
 		},
 
 		undeground (floor) {

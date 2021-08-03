@@ -10,6 +10,7 @@
 /* global wayfinder: true, Wayfinder3D Wayfinder2D WayfinderAPI WF_MAP_TYPE, location */
 import { mapActions, mapState } from 'vuex';
 import Vue from 'vue';
+var wayfinder;
 
 export default {
 	name: 'Map',
@@ -30,7 +31,7 @@ export default {
 			//if (typeof Wayfinder2D !== "undefined" || typeof Wayfinder2D !== "undefined")
 			//	throw new Error("Wayfinder not loaded");
 			// wayfinder = new Wayfinder3D();
-			var wayfinder;
+			
 			
 			if (typeof WF_MAP_TYPE !== "undefined" && WF_MAP_TYPE == "2d") {
 				wayfinder = new Wayfinder2D();
@@ -43,7 +44,7 @@ export default {
 			wayfinder.options.assetsLocation = "//static.3dwayfinder.com/shared/";
 			wayfinder.options.project = this.project || "demo";
 			wayfinder.open();
-			this.setWayfinder(wayfinder);
+
 			var scope = this;
 			var pathTextTime = wayfinder.settings.getInt('path.message.duration', 5) * 1000;
 			wayfinder.events.on("data-loaded", function () {
