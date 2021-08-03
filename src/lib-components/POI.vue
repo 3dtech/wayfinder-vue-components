@@ -110,8 +110,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-	@import '../theme/variables';
-
 	.layout-view {
 		display: flex;
 		flex-direction: column;

@@ -120,8 +120,6 @@ export default {
 </script>
 
 <style lang="less">
-	@import '../theme/variables';
-
 	.search {
 		background-color: @search-background;
 

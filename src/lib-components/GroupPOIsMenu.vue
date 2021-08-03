@@ -54,8 +54,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
-	@import '../theme/variables';
-
 	.list-header {
 		.highlight-gradient();
 		color: @highlight-font-color;
@@ -86,7 +84,6 @@ export default {
 		.list-item {
 			list-style: none;
 			padding: 0.3rem;
-			border-bottom: 1px solid @menu-item-border-color;
 			padding: 1.5rem 2rem 1.5rem 4rem;
 			font-size: 120%;
 		}

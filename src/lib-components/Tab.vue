@@ -24,8 +24,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
-	@import '../theme/variables';
-
 	.tab {
 		display: none;
 		//height: 100%;
