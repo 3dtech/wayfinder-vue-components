@@ -23,7 +23,7 @@ export default {
 	methods: {
 		changeLanguage (language) {
 			if (this.active) {
-				wayfinder.setLanguage(language.name);
+				Vue.prototype.$wayfinder.setLanguage(language.name);
 			}
 			this.active = !this.active;
 		},
@@ -41,54 +41,45 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="less">
-	@import '../theme/variables';
+<style scoped>
+	.languages-container.active {
+		height: fit-content;
+		z-index: 10;
+	}
 
-	.languages-container {
-		padding: 0.5rem;
+	.languages-container.active .languages-container-select {
+		visibility: initial;
+		opacity: 1;
+	}
 
-		&.active {
-			height: fit-content;
-			z-index: 10;
+	.languages-container .languages-container-select {
+		opacity: 0;
+		padding-bottom: 0.5rem;
+		margin: auto;
+		text-align: center;
+		transition: opacity 0.2s ease-in;
+		overflow: hidden;
+		height: 1.5rem;
+		font-size: 1rem;
+	}
 
-			.languages-container-select {
-				visibility: initial;
-				opacity: 1;
-			}
-		}
+	.languages-container .language {
+		width: 63%;
+		height: 0rem;
+		margin: auto;
+		margin-bottom: 0rem;
+		background-size: cover;
+		background-position: 50%;
+		background-repeat: no-repeat;
+		transition: height 0.25s ease-in;
+	}
 
-		.language {
-			width: 63%;
-			height: 0rem;
-			margin: auto;
-			margin-bottom: 0rem;
-			background-size: cover;
-			background-position: 50% 50%;
-			background-repeat: no-repeat;
-			transition: height 0.25s ease-in;
-
-			.flag-drop-shadow();
-
-			&.active {
-				height: 3.5rem;
-				margin-bottom: 1rem;
-			}
-
-			&.display {
-				height: 3.5rem;
-				margin-bottom: 1.5rem;
-			}
-		}
-
-		.languages-container-select {
-			opacity: 0;
-			padding-bottom: 0.5rem;
-			margin: auto;
-			text-align: center;
-			transition: opacity 0.2s ease-in;
-			overflow: hidden;
-			height: 1.5rem;
-			font-size: 1rem;
-		}
+	.languages-container .language .active {
+		height: 3.5rem;
+		margin-bottom: 1rem;
+	}
+	.languages-container .language .display {
+		height: 3.5rem;
+		margin-bottom: 1.5rem;
 	}
 </style>

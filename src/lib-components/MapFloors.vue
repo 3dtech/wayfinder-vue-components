@@ -13,7 +13,7 @@
 import { mapState } from 'vuex';
 
 export default {
-	name: 'HelloWorld',
+	name: 'MapFloors',
 	data () {
 		return {
 		}
@@ -34,54 +34,19 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="less">
-	@import '../theme/variables';
-
-	@floor-button-margin: 0.5rem;
-	@floor-button-padding: @floor-button-size / 4;
-
+<style scoped>
 	.map-floors {		
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-end;
-
-		.button-floor {
-			width: @floor-button-size;
-			height: @floor-button-size;
-			background-color: white;
-			border: none;
-			margin: @floor-button-margin;
-			text-overflow: ellipsis;
-			border-radius: @floor-button-radius;
-			color: @floor-button-color;
-			position: relative;
-			font-size: @floor-button-size / 2;
-			text-align: center;
-			line-height: @floor-button-size;
-			.default-drop-shadow();
-			margin-left: auto;
-			font-weight: 400;
-			overflow: hidden;
-		}
-
-		.active {
-			.highlight-gradient();
-			color: @highlight-font-color;
-			width: @floor-button-size * 1.3;
-			height: @floor-button-size * 1.3;
-			font-size: (@floor-button-size / 2) * 1.4;
-			line-height: @floor-button-size * 1.3;
-		}
-
-		.undeground {
-			background-color: @floor-underground-background;
-		}
 	}
 
-
-@media @landscape {
-	.map-floors {		
-
+	.map-floors .button-floor {
+		border: none;
+		text-overflow: ellipsis;
+		position: relative;
+		text-align: center;
+		margin-left: auto;
+		overflow: hidden;
 	}
-}
 </style>

@@ -51,41 +51,18 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="less">
-	@import '../theme/variables';
-
+<style scoped>
 	.az-menu {
 		overflow: hidden;
 		user-select: none;
-
-		ul {
-			margin: 0;
-			padding: 0;
-		}
-
-		.list-item {
-			list-style: none;
-			padding: 0.3rem;
-			border-bottom: 1px solid @menu-item-border-color;
-			padding: 1.5rem 2rem 1.5rem 4rem;
-			font-size: 120%;
-		}
-
-		.list-item:active, .list-item.active {
-			.list-item-gradient();
-		}
 	}
 
-	@media @landscape {
-		.az-menu {
-			.az-menu-inner {
-				align-content: stretch;
-				align-items: stretch;
+	.az-menu .list-item {
+		list-style: none;
+	}
 
-				.floor {
-					width: auto;
-				}
-			}
-		}
+	.az-menu ul {
+		margin: 0;
+		padding: 0;
 	}
 </style>

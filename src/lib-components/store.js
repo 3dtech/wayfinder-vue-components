@@ -1,4 +1,9 @@
-export default {
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+/* global wayfinder: false, WayfinderAPI */
+
+export default new Vuex.Store({
 	state: {
 		floors: [],
 		pois: [],
@@ -151,4 +156,4 @@ export default {
 			context.commit('SET_CURRENT_FLOOR',  Object.freeze(floor));
 		},
 	}
-};
+});
