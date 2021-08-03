@@ -1,7 +1,7 @@
 {
-  "name": "wayfinder-vue-components",
+  "name": "@3dwayfinder/wayfinder-vue-components",
   "version": "1.0.0",
-  "description": "",
+  "description": "VueJS UI components for 3D Wayfinder floor plans",
   "main": "dist/wayfinder-vue-components.ssr.js",
   "browser": "dist/wayfinder-vue-components.esm.js",
   "module": "dist/wayfinder-vue-components.esm.js",
@@ -46,5 +46,23 @@
   },
   "engines": {
     "node": ">=12"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3dtech/wayfinder-vue-components.git"
+  },
+  "keywords": [
+    "3dwayfinder",
+    "vuejs",
+    "ui",
+    "components",
+    "map",
+    "floorplan"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/3dtech/wayfinder-vue-components/issues"
+  },
+  "homepage": "https://github.com/3dtech/wayfinder-vue-components#readme"
 }
