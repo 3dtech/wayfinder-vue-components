@@ -116,22 +116,6 @@ export default {
 			}
 		},
 
-		renderQR () {
-			let kiosk = wayfinder.getKiosk() || 47;
-			let rotations = {
-				422: 180,
-				380: 180,
-				420: 180
-			};
-
-			let rot = rotations[kiosk] || 0;
-			let url = "https://clients.3dwayfinder.com/Horisont/?mobile=1&kiosk={kiosk}&map2DRotation={rot}";
-			url = url.replace('{kiosk}', kiosk);
-			url = url.replace('{rot}', rot);
-			const QRCode = require("qrcode-svg");
-			this.qr = new QRCode({content: url, container: "svg-viewbox", padding: 0}).svg();
-		},
-
 		playVideo (video, duration) {
 			video.pause();
 			video.currentTime = 0;
@@ -180,71 +164,42 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="less">
+<style scoped>
 	.banner-set {
 		position: relative; 
 		width: 100%; 
 		height: 100%;
+	}
 
-		.frame {
-			width: 100%;
-			height: 100%;
-			position: absolute;
-			background-size: cover;
-			background-position: 50% 50%;
-			background-repeat: no-repeat;
-			left: 0%; 
-			top: 0%; 
-			width: 100%; 
-			height: 100%;
-			opacity: 0;
-			transition: opacity 0.5s ease-in-out;
+	.banner-set .frame {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		background-size: cover;
+		background-position: 50% 50%;
+		background-repeat: no-repeat;
+		left: 0%; 
+		top: 0%; 
+		width: 100%; 
+		height: 100%;
+		opacity: 0;
+		transition: opacity 0.5s ease-in-out;
+	}
 
-			.qr {
-				width: 25%;
-				height: auto;
-				position: absolute;
-				bottom: 27.5%;
-				left: 35%;
-				border: 10px solid white;
-           	}
+	.banner-set .frame .container {
+		background-size: cover;
+		background-position: 50% 50%;
+		background-repeat: no-repeat;
+	}
 
-           	&.keyword-qr-1 .qr {
-           		width: 30%;
-			}
+	.banner-set .frame.active {
+		opacity: 1;
+		transition: opacity 0.5s ease-in-out;
+	}
 
-           	&.keyword-qr-2 .qr {
-           		width: 30%;
-				bottom: 3% !important;
-			}
-
-			&.keyword-qr-3 .qr {
-				right: 10% !important;
-				left: auto !important;
-				bottom: 7.5% !important;
-			}
-
-			&.keyword-qr-4 .qr {
-				left: 8.5% !important;
-				bottom: 7.5% !important;
-			}
-
-			.container {
-				background-size: cover;
-				background-position: 50% 50%;
-				background-repeat: no-repeat;
-			}
-
-			&.active {
-				opacity: 1;
-				transition: opacity 0.5s ease-in-out;
-			}
-
-			video {
-				position: relative;
-				top: 50%;
-				transform: translateY(-50%);
-			}
-		}
+	.banner-set .frame video {
+		position: relative;
+		top: 50%;
+		transform: translateY(-50%);
 	}
 </style>
