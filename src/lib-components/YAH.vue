@@ -16,7 +16,7 @@ export default {
 	},
 	methods: {
 		onClicked () {
-			Vue.prototype.$wayfinder.showKiosk();
+			this.$wayfinder.showKiosk();
 		}
 	}
 };

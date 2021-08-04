@@ -31,9 +31,9 @@ export default {
 	},
 	methods: {
 		showShortcut (shortcut) {
-			var nearest = Vue.prototype.$wayfinder.getNearestPOI(Vue.prototype.$wayfinder.getKiosk(), shortcut.pois);
+			var nearest = this.$wayfinder.getNearestPOI(this.$wayfinder.getKiosk(), shortcut.pois);
 			if (typeof nearest === 'object' && nearest != null) {
-				Vue.prototype.$wayfinder.showPath(nearest.node, nearest);
+				this.$wayfinder.showPath(nearest.node, nearest);
 			}
 		},
 		getImage (id) {

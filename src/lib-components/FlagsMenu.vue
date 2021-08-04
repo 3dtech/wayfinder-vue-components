@@ -2,7 +2,8 @@
 	<div class="languages-container" :class="{'active': active }">
 		<div class="languages-container-select" v-if="showTitle">Select language</div>
 		<div class="list">
-			<div v-for="(lang, index) in languages" :key='index' @click="changeLanguage(lang)" :class='["item", "language", "lang-" + lang.getName(), { active: lang.getName() == language, display: active}]' :style="{ backgroundImage: 'url('+getFlagImage(lang.flagImage)+')'}">
+			<div v-for="(lang, index) in languages" :key='index' @click="changeLanguage(lang)" :class='["item", "language", "lang-" + lang.getName(), { active: lang.getName() == language, display: active}]'>
+				<div v-if="showFlag" class="flag" :style="{ backgroundImage: 'url('+getFlagImage(lang.flagImage)+')'}"></div>
 				<label v-if="labelType == 'code'">{{lang.getName()}}</label>
 				<label v-if="labelType == 'native'">{{lang.getNativeName()}}</label>
 			</div>
@@ -21,6 +22,10 @@ export default {
 	},
 	props: {
 		showTitle: {
+			type: Boolean,
+			default: true
+		},
+		showFlag: {
 			type: Boolean,
 			default: true
 		},
@@ -77,15 +82,12 @@ export default {
 		font-size: 1rem;
 	}
 
-	.languages-container .language {
-		width: 63%;
-		height: 0rem;
-		margin: auto;
-		margin-bottom: 0rem;
+	.languages-container .language .flag {
+		width: 70%;
+		height: 100%;
 		background-size: cover;
 		background-position: 50%;
 		background-repeat: no-repeat;
-		transition: height 0.25s ease-in;
 	}
 
 	.languages-container .language .active {
