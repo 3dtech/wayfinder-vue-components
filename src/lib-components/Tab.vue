@@ -1,5 +1,5 @@
 <template>
-	<section class="tab" :class="{'tab-active': isActive}" v-if="isActive">
+	<section class="tab" :class="{'active': isActive}" v-if="isActive">
         	<slot/>
     	</section>
 </template>
@@ -23,13 +23,11 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="less">
+<style scoped>
 	.tab {
 		display: none;
-		//height: 100%;
-
-		&.tab-active {
-			display: blocK;
-		}
+	}
+	.tab.active {
+		display: blocK;
 	}
 </style>

@@ -1,7 +1,7 @@
 <template>
 	<div class="languages-container" :class="{'active': active }">
 		<div class="languages-container-select">Select language</div>
-		<div v-for="(lang, index) in languages" :key='index' @click="changeLanguage(lang)" :class='["language", "lang-" + lang.getName(), { active: lang.getName() == language, display: active}]' :style="{ backgroundImage: 'url('+getFlagImage(lang.flagImage)+')'}">
+		<div v-for="(lang, index) in languages" :key='index' @click="changeLanguage(lang)" :class='["item", "language", "lang-" + lang.getName(), { active: lang.getName() == language, display: active}]' :style="{ backgroundImage: 'url('+getFlagImage(lang.flagImage)+')'}">
 		</div>
 	</div>
 </template>

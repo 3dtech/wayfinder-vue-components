@@ -1,7 +1,7 @@
 <template>
     <div class="wf-zoommenu">
-        <div class="in">+</div>
-        <div class="out">-</div>
+        <div class="item in">+</div>
+        <div class="item out">-</div>
     </div>
 </template>
 <script>

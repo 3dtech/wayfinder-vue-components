@@ -1,7 +1,7 @@
 <template>
 		<div class="map-floors-container">
 			<div class="map-floors">
-				<div v-for="(floor, index) in floors" :key='index' v-if="floor.showInMenu" @click="changeFloor(floor)" class="button button-floor" :class='["lang-" + language, "floor-" + floor.index, { active: floor == currentFloor, undeground: undeground(floor)}]'>
+				<div v-for="(floor, index) in floors" :key='index' v-if="floor.showInMenu" @click="changeFloor(floor)" class="item" :class='["lang-" + language, "floor-" + floor.index, { active: floor == currentFloor, undeground: undeground(floor)}]'>
 					{{floor.getName(language)}}
 				</div>
 			</div>
@@ -41,7 +41,7 @@ export default {
 		justify-content: flex-end;
 	}
 
-	.map-floors .button-floor {
+	.map-floors .item {
 		border: none;
 		text-overflow: ellipsis;
 		position: relative;

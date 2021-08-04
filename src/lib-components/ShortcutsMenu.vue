@@ -1,6 +1,6 @@
 <template>
 	<div class="shortcuts-container">
-		<div v-for="(shortcut, index) in sortedShortcuts" :key='index' class="tab-button shortcut" @click="showShortcut(shortcut)" :class='["shortcut-" + shortcut.getID()]' :style="{ backgroundImage: 'url('+getImage(shortcut.imageID)+')'}">
+		<div v-for="(shortcut, index) in sortedShortcuts" :key='index' class="item shortcut" @click="showShortcut(shortcut)" :class='["shortcut-" + shortcut.getID()]' :style="{ backgroundImage: 'url('+getImage(shortcut.imageID)+')'}">
 			{{shortcut.getName(language)}}
 		</div>
 	</div>

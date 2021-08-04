@@ -1,7 +1,7 @@
 <template>
 	<div class="topics-menu">
 		<ul class="list">
-			<li class="list-item" v-touch:tap="onClick(topic)" :class='{"active": topic.id == currentGroup.id}' v-for="(topic, index) in sortedGroups" :key='index' v-if="topic && topic.getShowInMenu()" v-html="topic.getName(language)"></li>
+			<li class="item list-item" v-touch:tap="onClick(topic)" :class='{"active": topic.id == currentGroup.id}' v-for="(topic, index) in sortedGroups" :key='index' v-if="topic && topic.getShowInMenu()" v-html="topic.getName(language)"></li>
 		</ul>
 	</div>
 </template>

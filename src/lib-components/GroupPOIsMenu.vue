@@ -1,8 +1,8 @@
 <template>
 	<div class="topics-menu">
 		<ul class="list">
-			<li class="list-item list-header" v-touch:tap="back()">{{ currentGroupName }}</li>
-			<li class="list-item" v-touch:tap="onClick(poi)" :class='{"active": currentPOI && poi.id == currentPOI.id}' v-for="poi in getPOIs" :key='poi.id' v-if="poi && poi.getShowInMenu()" v-html="poi.getName(language)"></li>
+			<li class="item list-item list-header" v-touch:tap="back()">{{ currentGroupName }}</li>
+			<li class="item list-item" v-touch:tap="onClick(poi)" :class='{"active": currentPOI && poi.id == currentPOI.id}' v-for="poi in getPOIs" :key='poi.id' v-if="poi && poi.getShowInMenu()" v-html="poi.getName(language)"></li>
 		</ul>
 	</div>
 </template>
