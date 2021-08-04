@@ -1,7 +1,7 @@
 <template>
 	<div class="shortcuts-container">
 		<div v-for="(shortcut, index) in sortedShortcuts" :key='index' class="item shortcut" @click="showShortcut(shortcut)" :class='["shortcut-" + shortcut.getID()]' :style="{ backgroundImage: 'url('+getImage(shortcut.imageID)+')'}">
-			{{shortcut.getName(language)}}
+			<label v-if="showLabel">{{shortcut.getName(language)}}</label>
 		</div>
 	</div>
 </template>
@@ -14,6 +14,12 @@ import YAH from './YAH.vue'
 export default {
 	name: 'ShortcutsMenu',
 	components: { YAH },
+	props: {
+		showLabel: {
+			type: Boolean,
+			default: true
+		},
+	},
 	computed: {
 		...mapState(['shortcuts', 'language', 'landscape', 'mobile']),
 		sortedShortcuts() {
