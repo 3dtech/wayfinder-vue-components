@@ -8,10 +8,10 @@
 export default {
     methods: {
 		zoomIn () {
-			Vue.prototype.$wayfinder.zoomIn();
+			this.$wayfinder.zoomIn();
 		},
         zoomOut () {
-			Vue.prototype.$wayfinder.zoomOut();
+			this.$wayfinder.zoomOut();
 		},
 	}
 }

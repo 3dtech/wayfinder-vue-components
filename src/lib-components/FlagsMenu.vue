@@ -1,7 +1,11 @@
 <template>
 	<div class="languages-container" :class="{'active': active }">
-		<div class="languages-container-select">Select language</div>
-		<div v-for="(lang, index) in languages" :key='index' @click="changeLanguage(lang)" :class='["item", "language", "lang-" + lang.getName(), { active: lang.getName() == language, display: active}]' :style="{ backgroundImage: 'url('+getFlagImage(lang.flagImage)+')'}">
+		<div class="languages-container-select" v-if="showTitle">Select language</div>
+		<div class="list">
+			<div v-for="(lang, index) in languages" :key='index' @click="changeLanguage(lang)" :class='["item", "language", "lang-" + lang.getName(), { active: lang.getName() == language, display: active}]' :style="{ backgroundImage: 'url('+getFlagImage(lang.flagImage)+')'}">
+				<label v-if="labelType == 'code'">{{lang.getName()}}</label>
+				<label v-if="labelType == 'native'">{{lang.getNativeName()}}</label>
+			</div>
 		</div>
 	</div>
 </template>
@@ -15,6 +19,16 @@ export default {
 	computed: {
 		...mapState(['languages', 'language', 'reset'])
 	},
+	props: {
+		showTitle: {
+			type: Boolean,
+			default: true
+		},
+		labelType: {
+			type: String,
+			default: "none"
+		},
+	},
 	data () {
 		return {
 			active: false
@@ -23,7 +37,7 @@ export default {
 	methods: {
 		changeLanguage (language) {
 			if (this.active) {
-				Vue.prototype.$wayfinder.setLanguage(language.name);
+				this.$wayfinder.setLanguage(language.name);
 			}
 			this.active = !this.active;
 		},
