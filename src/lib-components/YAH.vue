@@ -15,13 +15,8 @@ export default {
 		...mapState(['yahLogo', 'language'])
 	},
 	methods: {
-		getLogo () {
-			if (wayfinder) {
-				return 
-			}
-		},
 		onClicked () {
-			wayfinder.showKiosk();
+			Vue.prototype.$wayfinder.showKiosk();
 		}
 	}
 };
