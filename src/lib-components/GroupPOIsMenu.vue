@@ -53,56 +53,21 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="less">
-	.list-header {
-		.highlight-gradient();
-		color: @highlight-font-color;
-
-		&:before {
-			content: '';
-			background-repeat: no-repeat;
-			background-size: contain;
-			background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 512'%3E%3Cpath d='M4.2 247.5L151 99.5c4.7-4.7 12.3-4.7 17 0l19.8 19.8c4.7 4.7 4.7 12.3 0 17L69.3 256l118.5 119.7c4.7 4.7 4.7 12.3 0 17L168 412.5c-4.7 4.7-12.3 4.7-17 0L4.2 264.5c-4.7-4.7-4.7-12.3 0-17z' id='path2' style='fill:%23ffffff' /%3E%3C/svg%3E%0A");
-			width: 2rem;
-			height: 2rem;
-			display: block;
-			position: absolute;
-			margin-left: -1.3rem;
-			margin-top: -0.2rem;
-		}
-	}
-
-	.az-menu {
+<style scoped>
+	.topics-menu {
 		overflow: hidden;
 		user-select: none;
-
-		ul {
-			margin: 0;
-			padding: 0;
-		}
-
-		.list-item {
-			list-style: none;
-			padding: 0.3rem;
-			padding: 1.5rem 2rem 1.5rem 4rem;
-			font-size: 120%;
-		}
-
-		.list-item:active, .list-item.active {
-			.list-item-gradient();
-		}
 	}
 
-	@media @landscape {
-		.az-menu {
-			.az-menu-inner {
-				align-content: stretch;
-				align-items: stretch;
+	.topics-menu ul {
+		margin: 0;
+		padding: 0;
+	}
 
-				.floor {
-					width: auto;
-				}
-			}
-		}
+	.az-menu .list-item {
+		list-style: none;
+		padding: 0.3rem;
+		padding: 1.5rem 2rem 1.5rem 4rem;
+		font-size: 120%;
 	}
 </style>

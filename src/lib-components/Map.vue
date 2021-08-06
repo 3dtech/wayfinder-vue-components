@@ -48,6 +48,7 @@ export default {
 			var scope = this;
 			var pathTextTime = wayfinder.settings.getInt('path.message.duration', 5) * 1000;
 			wayfinder.events.on("data-loaded", function () {
+				console.log('data-loaded', scope.loaded);
 				if(!scope.loaded) {
 					// update getters
 					scope.$store.dispatch('SET_CURRENT_FLOOR', wayfinder.getCurrentFloor());

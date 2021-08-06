@@ -6,6 +6,16 @@ import store from '../src/lib-components/store.js';
 import WayfinderVueComponents from '@/entry.esm';
 Vue.use(WayfinderVueComponents);
 
+import Vue2TouchEvents from 'vue2-touch-events'
+import VueObserveVisibility from 'vue-observe-visibility'
+
+Vue.use(VueObserveVisibility)
+
+Vue.use(Vue2TouchEvents,
+  {
+    tapTolerance: 20
+  })
+
 Vue.config.productionTip = false;
 var wayfinder;
 var WF_MAP_TYPE = "3d";

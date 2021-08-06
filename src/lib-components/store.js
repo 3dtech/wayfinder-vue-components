@@ -1,6 +1,11 @@
-/* global wayfinder: false, WayfinderAPI Vue */
+import Vue from 'vue'
+import Vuex from 'vuex'
 
-export default {
+Vue.use(Vuex)
+
+/* global wayfinder: false, WayfinderAPI */
+
+export default new Vuex.Store({
 	state: {
 		floors: [],
 		pois: [],
@@ -9,6 +14,7 @@ export default {
 		language: 'en',
 		languages: [],
 		shortcuts: [],
+		filteredPOIs: [],
 		currentFloor: 'X',
 		building: {},
 		yahLogo: '',
@@ -122,6 +128,9 @@ export default {
 		},
 		SET_CURRENT_FLOOR: (state, floor) => {
 			state.currentFloor = floor;
+		},
+		SET_FILTERED_POIS: (state, pois) => {
+			state.filteredPOIs = pois;
 		}
 	},
 	actions: {
@@ -152,5 +161,8 @@ export default {
 		SET_CURRENT_FLOOR :  (context, floor) => {
 			context.commit('SET_CURRENT_FLOOR',  Object.freeze(floor));
 		},
+		SET_FILTERED_POIS : (context, pois) => {
+			context.commit('SET_FILTERED_POIS',  Object.freeze(pois));
+		}
 	}
-};
+});

@@ -41,10 +41,7 @@ export default {
 	},
 	methods: {
 		changeLanguage (language) {
-			if (this.active) {
-				this.$wayfinder.setLanguage(language.name);
-			}
-			this.active = !this.active;
+			this.$wayfinder.setLanguage(language.name);
 		},
 
 		getFlagImage (id) {

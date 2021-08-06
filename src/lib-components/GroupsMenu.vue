@@ -1,7 +1,10 @@
 <template>
 	<div class="topics-menu">
 		<ul class="list">
-			<li class="item list-item" v-touch:tap="onClick(topic)" :class='{"active": topic.id == currentGroup.id}' v-for="(topic, index) in sortedGroups" :key='index' v-if="topic && topic.getShowInMenu()" v-html="topic.getName(language)"></li>
+			<li class="item list-item" v-touch:tap="onClick(topic)" :class='{"active": topic.id == currentGroup.id}' v-for="(topic, index) in sortedGroups" :key='index' v-if="topic && topic.getShowInMenu()" >
+				<label class="name" v-html="topic.getName(language)"></label>
+				<label class="count" v-if="showPOICount">{{topic.poi}}</label>
+			</li>
 		</ul>
 	</div>
 </template>
@@ -10,9 +13,12 @@
 import { mapState } from 'vuex';
 
 export default {
-	name: 'TopicsMenu',
-	mounted () {
-
+	name: 'GroupsMenu',
+	props: {
+		showPOICount: {
+			type: Boolean,
+			default: false
+		}
 	},
 	data () {
 		return {
