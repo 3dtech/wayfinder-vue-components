@@ -1,5 +1,5 @@
 <template>
-	<div class="az-menu">
+	<div class="filteredmenu">
 		<ul class="list">
 			<li class="item list-item" @click="onClick(poiitem)" v-touch:tap="onClick(poiitem)" :class='{"active": currentPOI && poiitem.id == currentPOI.id}' v-for="(poiitem) in sortedPOIs" :key='poiitem.id'>
 				<slot :poi="poiitem"><POI :poi="poiitem"/></slot>

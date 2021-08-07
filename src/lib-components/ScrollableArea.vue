@@ -42,13 +42,11 @@ export default {
 	},
 	mounted () {
 		this.$nextTick(() => {
-			if (this.currentTab != null) {
-				this.scroll = new BScroll(this.$refs.area, this.scrollOptions);
-			}
+			this.scroll = new BScroll(this.$refs.area, this.scrollOptions);
 		});
 	},
 	watch: {
-		activeTab: function(newVal) { // watch it
+		changed: function(newVal) { // watch it
 			if(newVal) {
 				this.activate(newVal);
 			}

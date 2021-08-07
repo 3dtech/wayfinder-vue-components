@@ -31,12 +31,21 @@ export default Vue.extend({
     </div>
     <div class="menu">
       <WFGroupsMenu @clicked="setGroup"/>
-      <WFFilteredMenu scope="props">
-          <template v-slot:default="slotProps">
-            <WFPOI :poi="slotProps.poi" />
-            <div class="footer">ROOM ID: {{slotProps.poi.room_id}}</div>
-          </template>
-      </WFFilteredMenu>
+      <WFScrollableArea>
+        <WFFilteredMenu scope="props">
+            <template v-slot:default="slotProps">
+              <WFPOI :poi="slotProps.poi" />
+              <div class="footer">ROOM ID: {{slotProps.poi.room_id}}</div>
+            </template>
+        </WFFilteredMenu>
+      </WFScrollableArea>
     </div>
   </div>
 </template>
+
+<style scoped>
+  .scrollable {
+    width: 320px !important;
+    height: 240px !important;;
+  } 
+</style>
