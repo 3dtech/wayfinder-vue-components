@@ -31,7 +31,12 @@ export default Vue.extend({
     </div>
     <div class="menu">
       <WFGroupsMenu @clicked="setGroup"/>
-      <WFFilteredMenu/>
+      <WFFilteredMenu scope="props">
+          <template v-slot:default="slotProps">
+            <WFPOI :poi="slotProps.poi" />
+            <div class="footer">ROOM ID: {{slotProps.poi.room_id}}</div>
+          </template>
+      </WFFilteredMenu>
     </div>
   </div>
 </template>

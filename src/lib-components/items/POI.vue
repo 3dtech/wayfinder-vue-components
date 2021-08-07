@@ -1,19 +1,14 @@
 <template>
-	<div class="layout-view" v-if="currentPOI">
-		<div class="poi-header">
-			<div class="poi-image" :style="{'background-image': getImage()}" :class="[isImage()]" v-if="getImage()"></div>
-			<div class="poi-info">
-				<h2 v-html="currentPOI.getName(language) || ''"></h2>
-				<div class="show-path" v-touch:tap="showPath">
-					<button class="button secondary round button-small">
-						<span data-translation-element="show_path">{{show_path}}</span> <i class="icon icon-pin"></i>
-					</button>
-				</div>
-			</div>
+	<div class="poi" v-if="poi">
+		<div class="poi-image" v-if="showLogo && getImage()" :style="{'background-image': getImage()}" :class="[isImage()]"></div>
+		<div class="poi-name" v-if="showName" v-html="poi.getName(language) || 'POI'"></div>
+		<div class="show-path" v-if="showPathButton" v-touch:tap="showPath">
+			<button class="button secondary round button-small">
+				<span data-translation-element="show_path">{{show_path}}</span> <i class="icon icon-pin"></i>
+			</button>
 		</div>
-		<div class="poi-body">
-			<div class="poi-description" v-html="currentPOI.getDescription(language) || ''"></div>
-		</div>
+		<div class="poi-description" v-if="showDescription" v-html="poi.getDescription(language) || ''"></div>
+		<div class="poi-description" v-if="showRoomID" v-html="poi.room_id || ''"></div>
 	</div>
 </template>
 
@@ -22,18 +17,42 @@
 import { mapState } from 'vuex';
 
 export default {
+	name: "POI",
 	computed: {
-		...mapState(['currentPOI', 'language'])
+		...mapState(['language'])
+	},
+	props: {
+		poi: {
+			type: Object,
+			default: null
+		},
+		showLogo: {
+			type: Boolean,
+			default: false
+		},
+		showName: {
+			type: Boolean,
+			default: true
+		},
+		showPathButton: {
+			type: Boolean,
+			default: false
+		},
+		showDescription: {
+			type: Boolean,
+			default: false
+		},
+		showRoomID: {
+			type: Boolean,
+			default: false
+		}
 	},
 	mounted () {
-		if (wayfinder) {
-			this.show_path = wayfinder.translator.get('show_path');
-		}
 	},
 	watch: {
 		language () {
 			if (wayfinder) {
-				this.show_path = wayfinder.translator.get('show_path');
+				this.show_path = this.$wayfinder.translator.get('show_path');
 			}
 		}
 	},
@@ -56,8 +75,8 @@ export default {
 			}
 		},
 		showPath () {
-			if (this.currentPOI) {
-				this.$emit('showPath', this.currentPOI);
+			if (this.poi) {
+				this.$emit('showPath', this.poi);
 			}
 		},
 		open (type) {
@@ -74,19 +93,19 @@ export default {
 			}
 		},
 		getImage () {
-			if (this.currentPOI.getBackgroundUrl())
-				return 'url("' + this.currentPOI.getBackgroundUrl() + '")';
+			if (this.poi.getBackgroundUrl())
+				return 'url("' + this.poi.getBackgroundUrl() + '")';
 				
 			else if (this.currentPOI.getIconUrl()) {
-				return 'url("' + this.currentPOI.getIconUrl() + '")';
+				return 'url("' + this.poi.getIconUrl() + '")';
 			}
 			else {
 				return false;
 			}
 		},
 		isImage () {
-			if(this.currentPOI.getBackgroundUrl()) return "image-background";
-			else if (this.currentPOI.getIconUrl()) return "image-logo";
+			if(this.poi.getBackgroundUrl()) return "image-background";
+			else if (this.poi.getIconUrl()) return "image-logo";
 			else return "image-none";
 		},
 		truncate (str, len) {
@@ -100,9 +119,6 @@ export default {
 	},
 	data: function () {
 		return {
-			poi: {},
-			description: '',
-			logo: '',
 			show_path: 'Show Path'
 		}
 	}
