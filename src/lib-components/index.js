@@ -12,6 +12,7 @@ export { default as WFFilteredMenu } from './FilteredMenu.vue';
 export { default as WFTabs } from './Tabs.vue';
 export { default as WFTab } from './Tab.vue';
 export { default as WFTabButtons } from './TabButtons.vue';
+export { default as WFScrollableArea } from './ScrollableArea.vue';
 
 export { default as WFPOI } from './items/POI.vue';
 

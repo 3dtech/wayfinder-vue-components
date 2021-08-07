@@ -1,5 +1,5 @@
 <template>
-	<div class="tabs" ref="tabs">
+	<div class="scrollable" ref="area">
 		<slot/>
 	</div>
 </template>
@@ -13,7 +13,7 @@ BScroll.use(ScrollBar);
 BScroll.use(MouseWheel);
 
 export default {
-	name: 'Tabs',
+	name: 'ScrollableArea',
 	props: {
 		activeTab: ''
 	},
@@ -43,7 +43,7 @@ export default {
 	mounted () {
 		this.$nextTick(() => {
 			if (this.currentTab != null) {
-				this.scroll = new BScroll(this.$refs.tabs, this.scrollOptions);
+				this.scroll = new BScroll(this.$refs.area, this.scrollOptions);
 			}
 		});
 	},
@@ -56,9 +56,7 @@ export default {
 	},
 	methods: {
 		activate () {
-			if(this.$props.activeTab !== "search") {
-				this.makeScroll();
-			}
+			this.makeScroll();
 		},
 		makeScroll () {
 			this.$nextTick(() => {
@@ -69,7 +67,7 @@ export default {
 					}
 
 					if (this.currentTab != null) {
-						this.scroll = new BScroll(this.$refs.tabs, this.scrollOptions);
+						this.scroll = new BScroll(this.$refs.area, this.scrollOptions);
 					}
 				});
 			});
@@ -83,7 +81,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	.tabs {
+	.scrollable {
 		overflow: hidden;
 	}
 </style>
