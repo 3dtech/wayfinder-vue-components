@@ -16,9 +16,15 @@ export default Vue.extend({
     mapDataLoaded () {
       console.log("mapDataLoaded", this.pois)
       this.$store.dispatch('SET_FILTERED_POIS', Object.values(this.pois));
+     // this.isit = 'yes';
     },
     setGroup (group) {
       this.$store.dispatch('SET_FILTERED_POIS', group.pois);
+    }
+  },
+  data () {
+    return {
+      isit: "no"
     }
   }
 });
@@ -32,13 +38,14 @@ export default Vue.extend({
     <div class="menu">
       <WFGroupsMenu @clicked="setGroup"/>
       <WFScrollableArea>
-        <WFFilteredMenu scope="props">
+        <WFFilteredMenu changed="isit">
             <template v-slot:default="slotProps">
               <WFPOI :poi="slotProps.poi" />
               <div class="footer">ROOM ID: {{slotProps.poi.room_id}}</div>
             </template>
         </WFFilteredMenu>
       </WFScrollableArea>
+      {{isit}}
     </div>
   </div>
 </template>
@@ -46,6 +53,8 @@ export default Vue.extend({
 <style scoped>
   .scrollable {
     width: 320px !important;
-    height: 240px !important;;
+    height: 240px !important;
+
+    
   } 
 </style>

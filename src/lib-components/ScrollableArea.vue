@@ -14,11 +14,11 @@ BScroll.use(MouseWheel);
 
 export default {
 	name: 'ScrollableArea',
-	props: {
-		activeTab: ''
-	},
 	data: () => ({
 		scroll: null,
+        changed: 0,
+        hasSlotContent: false,
+        observer: null,
 		scrollOptions: {
 			scrollbar: {
                 fade: false,
@@ -31,31 +31,80 @@ export default {
 			}
 		}
 	}),
-	created() {
-	},
+	beforeUpdate() {
+        this.hasSlotContent = this.checkForSlotContent();
+    },
+    beforeDestroy: function() {
+        // Clean up
+        this.observer.disconnect();
+    },
+    created() {
+        this.hasSlotContent = this.checkForSlotContent();
+    },
 	updated(){
+        console.log('updated')
 		this.$nextTick(() => {
-			if (this.scroll && this.currentTab != null) {
+			if (this.scroll) {
 				this.scroll.refresh();
 			}
 		});
 	},
 	mounted () {
 		this.$nextTick(() => {
-			this.scroll = new BScroll(this.$refs.area, this.scrollOptions);
+            console.log('mounted')
+            if (!this.scroll) {
+			    this.scroll = new BScroll(this.$refs.area, this.scrollOptions);
+            }
 		});
+
+        let classes = ["scrollable", "bscroll-vertical-scrollbar"];
+
+        this.observer = new MutationObserver(function(mutations) {
+            let className;
+            let reload = false;
+            let mut;
+            for (let m in mutations) {
+                mut = mutations[m];
+                className = mut.target.className;
+                console.log('mut', mut.type, className);
+                if (!(mut.type == "attributes" || classes.indexOf(className) > -1)) {
+                    reload = true;
+                }
+            }
+
+            if(reload) {
+                this.changed++;
+            }
+            //
+        }.bind(this));
+        // Setup the observer
+        this.observer.observe(
+            this.$refs.area,
+            { attributes: true, childList: true, characterData: true, subtree: true }
+        );
 	},
 	watch: {
 		changed: function(newVal) { // watch it
 			if(newVal) {
-				this.activate(newVal);
+                console.log('ScrollChanged');
+				this.makeScroll();
 			}
-		}
+		},
+        hasSlotContent: function(val) {
+            console.log('hasSlotContent', val);
+        }
 	},
 	methods: {
 		activate () {
 			this.makeScroll();
 		},
+        checkForSlotContent() {
+            let checkForContent = (hasContent, node) => {
+                return hasContent || node.tag || (node.text && node.text.trim());
+            }
+            console.log('checkForSlotContent', this.$slots.default.children);
+            return this.$slots.default && this.$slots.default.reduce(checkForContent, false);
+        },
 		makeScroll () {
 			this.$nextTick(() => {
 				this.$nextTick(() => {
@@ -64,14 +113,9 @@ export default {
 						this.scroll = null;
 					}
 
-					if (this.currentTab != null) {
-						this.scroll = new BScroll(this.$refs.area, this.scrollOptions);
-					}
+					this.scroll = new BScroll(this.$refs.area, this.scrollOptions);
 				});
 			});
-		},
-		move () {
-			//console.log('move');
 		}
 	}
 };
@@ -80,7 +124,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 	.scrollable {
-		overflow: hidden;
         overflow: hidden;
         width: 100%;
         height: 100%;

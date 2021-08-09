@@ -1,6 +1,6 @@
 {
   "name": "@3dwayfinder/wayfinder-vue-components",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "VueJS UI components for 3D Wayfinder floor plans",
   "main": "dist/wayfinder-vue-components.ssr.js",
   "browser": "dist/wayfinder-vue-components.esm.js",
@@ -20,8 +20,8 @@
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife"
   },
   "dependencies": {
-    "@better-scroll/mouse-wheel": "^2.4.2",
-    "@better-scroll/scroll-bar": "^2.4.2",
+    "@better-scroll/mouse-wheel": "^2.0.1",
+    "@better-scroll/scroll-bar": "^2.0.1",
     "on-screen-js-keyboard": "^1.2.3",
     "vue-observe-visibility": "^1.0.0",
     "vue2-touch-events": "^3.2.2",
