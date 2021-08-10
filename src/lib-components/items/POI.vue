@@ -8,8 +8,8 @@
 			</button>
 		</div>
 		<div class="poi-description" v-if="showDescription" v-html="poi.getDescription(language) || ''"></div>
-		<div class="poi-description" v-if="showRoomID" v-html="poi.room_id || ''"></div>'
-		<div class="poi-floor" v-if="showFloor && poi.getFloor()" v-html="poi.getFloor().getName(language) || ''"></div>'
+		<div class="poi-description" v-if="showRoomID" v-html="poi.room_id || ''"></div>
+		<div class="poi-floor" v-if="showFloor && poi.getFloor()" v-html="poi.getFloor().getName(language) || ''"></div>
 	</div>
 </template>
 
