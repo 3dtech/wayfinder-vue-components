@@ -99,7 +99,7 @@ export default {
 			if (this.poi.getBackgroundUrl())
 				return 'url("' + this.poi.getBackgroundUrl() + '")';
 				
-			else if (this.currentPOI.getIconUrl()) {
+			else if (this.poi.getIconUrl()) {
 				return 'url("' + this.poi.getIconUrl() + '")';
 			}
 			else {
