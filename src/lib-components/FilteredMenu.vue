@@ -2,18 +2,11 @@
 	<div class="filteredmenu">
 		<ul class="list">
 			<li class="item list-item" @click="onClick(poiitem)" v-touch:tap="onClick(poiitem)" :class='{"active": currentPOI && poiitem.id == currentPOI.id}' v-for="(poiitem) in sortedPOIs" :key='poiitem.id'>
-				<slot :poi="poiitem"><POI :poi="poiitem"/></slot>
+				<slot :poi="poiitem"><POI :poi="poiitem" :showLogo="showLogo" :showName="showName" :showPathButton="showPathButton" :showDescription="showDescription" :showRoomID="showRoomID" :showFloor="showFloor"/></slot>
 			</li>
 		</ul>
 	</div>
 </template>
-
-/**
-				<div class="logo" :style="{'background-image': getImage()}" :class="[isImage()]" v-if="getImage()"></div>
-				<div class="name" v-if="showName" v-html="poi.getName(language)"></div>
-				<div class="floor" v-if="showFloor" v-html="poi.floor.getName(language)"></div>
-			</li>
- */
 
 <script>
 /* global */
@@ -24,6 +17,32 @@ export default {
 	name: 'FilteredMenu',
 	components: {
 		POI
+	},
+	props: {
+		showLogo: {
+			type: Boolean,
+			default: false
+		},
+		showName: {
+			type: Boolean,
+			default: true
+		},
+		showPathButton: {
+			type: Boolean,
+			default: false
+		},
+		showDescription: {
+			type: Boolean,
+			default: false
+		},
+		showRoomID: {
+			type: Boolean,
+			default: false
+		},
+		showFloor: {
+			type: Boolean,
+			default: false
+		}
 	},
 	computed: {
 		...mapState(['filteredPOIs', 'language', 'currentPOI']),

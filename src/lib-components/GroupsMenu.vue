@@ -3,7 +3,7 @@
 		<ul class="list">
 			<li class="item list-item" v-touch:tap="onClick(topic)" :class='{"active": topic.id == currentGroup.id}' v-for="(topic, index) in sortedGroups" :key='index' v-if="topic && topic.getShowInMenu()" >
 				<label class="name" v-html="topic.getName(language)"></label>
-				<label class="count" v-if="showPOICount">{{topic.poi}}</label>
+				<label class="count" v-if="showPOICount">{{topic.pois.length}}</label>
 			</li>
 		</ul>
 	</div>
