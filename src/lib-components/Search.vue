@@ -1,16 +1,16 @@
 <template>
 	<div class="search" :class='{"search-visible": searchVisible}'>
-		<div class="tab-button close" @click="close($event)" data-translation-element="close" v-show="!mobile">Close</div>
+		<div class="tab-button close" v-if="showCloseButton" @click="close($event)" data-translation-element="close">Close</div>
 		<div class="search-container">
 			<div class="results">
 				<ul class="list">
 					<li class="list-item" @click="onClick(poi)" :class='{"active": poi.id == currentPOI}' v-for="(poi, index) in results" :key='index' v-if="poi && poi.getShowInMenu()" v-html="poi.getName(language)"></li>
 				</ul>
 			</div>
-			<div class="search-input-container">
+			<div class="search-input-container" v-if="showOutputField">
 				<input id="search-input" ref='searchInput'/>
 			</div>
-			<div id="keyboard-container" class="keyboard" v-show="!mobile">
+			<div id="keyboard-container" class="keyboard" v-if="showKeyboard">
 			</div>
 		</div>
 	</div>
@@ -28,6 +28,20 @@ export default {
 	},
 	computed: {
 		...mapState(['language', 'searchVisible', 'reset', 'mobile'])
+	},
+	props: {
+		showCloseButton: {
+			type: Boolean,
+			default: false
+		},
+		showOutputField: {
+			type: Boolean,
+			default: true
+		},
+		showKeyboard: {
+			type: Boolean,
+			default: true
+		}
 	},
 	data () {
 		return {
@@ -99,6 +113,9 @@ export default {
 			this.keyboard.changeLayout(this.language);
 			this.keyboard.clearValue();
 			this.$refs.searchInput.value = '';
+		},
+		setOutput (output) {
+			this.keyboard.setOutput(output);
 		}
 	}
 };
