@@ -19,14 +19,18 @@ export default {
 		showPOICount: {
 			type: Boolean,
 			default: false
-		}
+		},
+		currentFloor: {
+			type: Object,
+			default: false
+		},
 	},
 	computed: {
-		...mapState(['floors', 'language', 'currentFloor']),
+		...mapState(['floors', 'language']),
 	},
 	methods: {
 		changeFloor (floor) {
-			this.$emit("floorChange", floor);
+			this.$emit("clicked", floor);
 		},
 	}
 };

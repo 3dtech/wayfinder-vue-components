@@ -157,20 +157,19 @@ export default {
 		background-repeat: no-repeat;
 	}
 
-	.keyboard {
+	.search	.keyboard {
 		user-select: none;
 		display: flex;
 		flex-direction: column;
-		margin-bottom: 4rem;
 		flex-shrink: 0;
 	}
 
-	.keyboard-row {
+	.search	.keyboard .keyboard-row {
 		margin: auto;
 		display: flex;
 	}
 
-	.keyboard-key {
+	.search	.keyboard .keyboard-key {
 		text-align: center;
 		width: 4rem;
 		height: 4rem;
@@ -182,23 +181,23 @@ export default {
 		margin-bottom: 0.5rem;
 	}
 
-	.keyboard-key:last-child {
+	.search	.keyboard .keyboard-key:last-child {
 		margin-right: 0;
 	}
 
-	.keyboard-key:active {
+	.search	.keyboard .keyboard-key:active {
 		background-color: blue;
 	}
 
-	.keyboard-key2x {
+	.search	.keyboard .keyboard-key2x {
 		width: 8rem;
 	}
 
-	.keyboard-key3x {
+	.search	.keyboard .keyboard-key3x {
 		width: 12rem;
 	}
 
-	.keyboard-key_spacebar {
+	.search	.keyboard .keyboard-key_spacebar {
 		width: 24rem;
 	}
 </style>
