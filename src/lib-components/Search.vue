@@ -162,7 +162,6 @@ export default {
 		display: flex;
 		flex-direction: column;
 		margin-bottom: 4rem;
-		height: 4.5rem * 5;
 		flex-shrink: 0;
 	}
 
