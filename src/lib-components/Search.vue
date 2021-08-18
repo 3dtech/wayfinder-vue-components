@@ -121,7 +121,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 	.search .close {
 			position: absolute;
 			top: 0rem;

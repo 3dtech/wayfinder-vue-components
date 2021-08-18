@@ -42,10 +42,14 @@ export default {
 		showFloor: {
 			type: Boolean,
 			default: false
+		},
+		currentPOI: {
+			type: Object,
+			default: null
 		}
 	},
 	computed: {
-		...mapState(['filteredPOIs', 'language', 'currentPOI']),
+		...mapState(['filteredPOIs', 'language']),
 		sortedPOIs () {
 			let arr = this.filteredPOIs.slice().filter((poi) => {
 				return (poi && poi.getShowInMenu());
