@@ -6,6 +6,7 @@
 				<ul class="list">
 					<li class="list-item" @click="onClick(poi)" :class='{"active": poi.id == currentPOI}' v-for="(poi, index) in results" :key='index' v-if="poi && poi.getShowInMenu()" v-html="poi.getName(language)"></li>
 				</ul>
+				<span v-if="showNoResultsText && results.length == 0">{{noResultsText}}</span>
 			</div>
 			<div class="search-input-container" v-if="showOutputField">
 				<input id="search-input" ref='searchInput'/>
@@ -41,6 +42,14 @@ export default {
 		showKeyboard: {
 			type: Boolean,
 			default: true
+		},
+		showNoResultsText: {
+			type: Boolean,
+			default: true
+		},
+		noResultsText: {
+			type: String,
+			default: "No results"
 		}
 	},
 	data () {
@@ -84,7 +93,7 @@ export default {
 	},
 	watch: {
 		searchVisible (current) {
-			if (current) {
+			if (current && this.$refs.searchInput) {
 				this.$refs.searchInput.focus();
 			}
 		},
@@ -112,7 +121,8 @@ export default {
 			this.results = [];
 			this.keyboard.changeLayout(this.language);
 			this.keyboard.clearValue();
-			this.$refs.searchInput.value = '';
+			if (this.$refs.searchInput)
+				this.$refs.searchInput.value = '';
 		},
 		setOutput (output) {
 			this.keyboard.setOutput(output);
