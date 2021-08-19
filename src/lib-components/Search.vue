@@ -126,6 +126,9 @@ export default {
 		},
 		setOutput (output) {
 			this.keyboard.setOutput(output);
+		},
+		addLayout (lang, layout) {
+			this.keyboard.addLayout(lang, layout);
 		}
 	}
 };
