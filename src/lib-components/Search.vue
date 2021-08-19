@@ -63,13 +63,13 @@ export default {
 	mounted () {
 		this.keyboard = new OSK('search-input', 'keyboard-container');
 		this.keyboard.on('change', (keyword) => {
-			this.results = Object.freeze(Object.assign({}, wayfinder.search.search(keyword)));
+			this.results = Object.freeze(Object.assign({}, this.$wayfinder.search.search(keyword)));
 			if (keyword.length > 1) {
 				if (this.results.length > 0) {
-					wayfinder.statistics.onSearch(keyword, "successful");
+					this.$wayfinder.statistics.onSearch(keyword, "successful");
 				}
 				else {
-					wayfinder.statistics.onSearch(keyword, "unsuccessful");
+					this.$wayfinder.statistics.onSearch(keyword, "unsuccessful");
 				}
 			}
 		});
