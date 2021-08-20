@@ -4,7 +4,7 @@
 		<div class="search-container">
 			<div class="results">
 				<ul class="list">
-					<li class="list-item" @click="onClick(poiitem)" :class='{"active": poiitem.id == currentPOI.id}' v-for="poiitem in results" :key='poiitem.id' v-if="poiitem && poiitem.getShowInMenu()">
+					<li class="list-item" @click="onClick(poiitem)" :class='{"active": currentPOI && poiitem.id == currentPOI.id}' v-for="poiitem in results" :key='poiitem.id' v-if="poiitem && poiitem.getShowInMenu()">
 						<slot :poi="poiitem"><POI :poi="poiitem" :showLogo="showLogo" :showName="showName" :showPathButton="showPathButton" :showDescription="showDescription" :showRoomID="showRoomID" :showFloor="showFloor"/></slot>
 					</li>
 				</ul>
