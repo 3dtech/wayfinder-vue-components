@@ -22,12 +22,14 @@
 <script>
 /* global wayfinder: false */
 import { mapState } from 'vuex';
+import POI from './items/POI.vue';
 import OSK from 'on-screen-js-keyboard';
 
 export default {
 	name: 'Search',
 	components: {
-		OSK
+		OSK,
+		POI
 	},
 	computed: {
 		...mapState(['language', 'reset'])
