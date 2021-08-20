@@ -1,10 +1,12 @@
 <template>
-	<div class="search" :class='{"search-visible": searchVisible}'>
+	<div class="search">
 		<div class="tab-button close" v-if="showCloseButton" @click="close($event)" data-translation-element="close">Close</div>
 		<div class="search-container">
 			<div class="results">
 				<ul class="list">
-					<li class="list-item" @click="onClick(poi)" :class='{"active": poi.id == currentPOI}' v-for="(poi, index) in results" :key='index' v-if="poi && poi.getShowInMenu()" v-html="poi.getName(language)"></li>
+					<li class="list-item" @click="onClick(poiitem)" :class='{"active": poiitem.id == currentPOI.id}' v-for="poiitem in results" :key='poiitem.id' v-if="poiitem && poiitem.getShowInMenu()">
+						<slot :poi="poiitem"><POI :poi="poiitem" :showLogo="showLogo" :showName="showName" :showPathButton="showPathButton" :showDescription="showDescription" :showRoomID="showRoomID" :showFloor="showFloor"/></slot>
+					</li>
 				</ul>
 				<span v-if="showNoResultsText && results.length == 0">{{noResultsText}}</span>
 			</div>
@@ -28,7 +30,7 @@ export default {
 		OSK
 	},
 	computed: {
-		...mapState(['language', 'searchVisible', 'reset', 'mobile'])
+		...mapState(['language', 'reset'])
 	},
 	props: {
 		showCloseButton: {
@@ -50,6 +52,34 @@ export default {
 		noResultsText: {
 			type: String,
 			default: "No results"
+		},
+		showLogo: {
+			type: Boolean,
+			default: false
+		},
+		showName: {
+			type: Boolean,
+			default: true
+		},
+		showPathButton: {
+			type: Boolean,
+			default: false
+		},
+		showDescription: {
+			type: Boolean,
+			default: false
+		},
+		showRoomID: {
+			type: Boolean,
+			default: false
+		},
+		showFloor: {
+			type: Boolean,
+			default: false
+		},
+		currentPOI: {
+			type: Object,
+			default: null
 		}
 	},
 	data () {
