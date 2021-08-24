@@ -35,6 +35,10 @@ export default {
 		...mapState(['language', 'reset'])
 	},
 	props: {
+		limit: {
+			type: Number,
+			default: -1
+		},
 		showCloseButton: {
 			type: Boolean,
 			default: false
@@ -95,7 +99,13 @@ export default {
 	mounted () {
 		this.keyboard = new OSK('search-input', 'keyboard-container');
 		this.keyboard.on('change', (keyword) => {
-			this.results = Object.freeze(Object.assign({}, this.$wayfinder.search.search(keyword)));
+			let results = this.$wayfinder.search.search(keyword);
+
+			if (this.limit > 0) {
+				results = results.slice(0, this.limit);
+			}
+
+			this.results = Object.freeze(Object.assign({}, results));
 			if (keyword.length > 1) {
 				if (this.results.length > 0) {
 					this.$wayfinder.statistics.onSearch(keyword, "successful");
@@ -181,7 +191,6 @@ export default {
 	}
 
 	.search .search-container {
-		width: 54rem;
 		margin: auto;
 		display: flex;
 		flex-direction: column;
