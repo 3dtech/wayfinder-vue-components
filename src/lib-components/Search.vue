@@ -151,11 +151,8 @@ export default {
 	methods: {
 		onClick (poi) {
 			this.$emit('clicked', poi);
-			this.$store.dispatch('SHOW_SEARCH', false);
-			this.resetValues();
 		},
 		close () {
-			this.$store.dispatch('SHOW_SEARCH', false);
 			this.$emit('close');
 			this.resetValues();
 		},
