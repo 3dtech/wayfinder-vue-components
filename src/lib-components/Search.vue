@@ -2,7 +2,7 @@
 	<div class="search">
 		<div class="tab-button close" v-if="showCloseButton" @click="close($event)" data-translation-element="close">Close</div>
 		<div class="search-container">
-			<div class="results">
+			<div class="results" :class='{"no-results": results.length == 0}'>
 				<ul class="list">
 					<li class="list-item" @click="onClick(poiitem)" :class='{"active": currentPOI && poiitem.id == currentPOI.id}' v-for="poiitem in results" :key='poiitem.id' v-if="poiitem && poiitem.getShowInMenu()">
 						<slot :poi="poiitem"><POI :poi="poiitem" :showLogo="showLogo" :showName="showName" :showPathButton="showPathButton" :showDescription="showDescription" :showRoomID="showRoomID" :showFloor="showFloor"/></slot>
