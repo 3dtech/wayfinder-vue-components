@@ -69,7 +69,7 @@ export default {
 					return 0;
 				}
 			});
-			return arr;
+			this.sortedPOIs = arr;
 		},	
 	},
 	methods: {
