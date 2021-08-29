@@ -1,7 +1,7 @@
 <template>
 	<div class="filteredmenu">
 		<ul class="list">
-			<li class="item list-item" @click="onClick(poiitem)" v-touch:tap="onClick(poiitem)" :class='{"active": currentPOI && poiitem.id == currentPOI.id}' v-for="(poiitem) in sortedPOIs" :key='poiitem.id'>
+			<li class="item list-item" @click="onClick(poiitem)" v-touch:tap="onClick(poiitem)" :class='{"active": currentPOI && poiitem.id == currentPOI.id}' v-for="(poiitem, index) in sortedPOIs" :key='index'>
 				<slot :poi="poiitem"><POI :poi="poiitem" :showLogo="showLogo" :showName="showName" :showPathButton="showPathButton" :showDescription="showDescription" :showRoomID="showRoomID" :showFloor="showFloor"/></slot>
 			</li>
 		</ul>
@@ -58,6 +58,7 @@ export default {
 	},
 	watch: {
 		filteredPOIs: function (val) {
+			console.log("filteredPOIs.watch", val);
 			let arr = val.slice().filter((poi) => {
 				return (poi && poi.getShowInMenu());
 			}); // Copy and filter array
