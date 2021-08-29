@@ -92,7 +92,6 @@ export default {
 		return {
 			results: [],
 			poi: {},
-			currentPOI: false,
 			keyboard: false
 		}
 	},

@@ -66,7 +66,6 @@ export default {
             for (let m in mutations) {
                 mut = mutations[m];
                 className = mut.target.className;
-                console.log('mut', mut.type, className);
                 if (!(mut.type == "attributes" || classes.indexOf(className) > -1)) {
                     reload = true;
                 }

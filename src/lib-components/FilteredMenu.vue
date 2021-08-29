@@ -65,6 +65,11 @@ export default {
 			return arr;
 		}
 	},
+	watch: {
+		filteredPOIs: function (val) {
+			console.log('watch.filteredPOIs', val);
+		},	
+	},
 	methods: {
 		onClick (poi) {
 			return () => {
