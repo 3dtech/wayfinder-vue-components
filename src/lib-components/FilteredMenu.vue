@@ -18,6 +18,11 @@ export default {
 	components: {
 		POI
 	},
+	data () {
+		return {
+			sortedPOIs: []
+		}
+	},
 	props: {
 		showLogo: {
 			type: Boolean,
@@ -50,8 +55,10 @@ export default {
 	},
 	computed: {
 		...mapState(['filteredPOIs', 'language']),
-		sortedPOIs () {
-			let arr = this.filteredPOIs.slice().filter((poi) => {
+	},
+	watch: {
+		filteredPOIs: function (val) {
+			let arr = val.slice().filter((poi) => {
 				return (poi && poi.getShowInMenu());
 			}); // Copy and filter array
 			arr = arr.sort((a, b) => {
@@ -63,11 +70,6 @@ export default {
 				}
 			});
 			return arr;
-		}
-	},
-	watch: {
-		filteredPOIs: function (val) {
-			console.log('watch.filteredPOIs', val);
 		},	
 	},
 	methods: {
