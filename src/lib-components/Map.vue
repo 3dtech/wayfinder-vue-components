@@ -103,6 +103,8 @@ export default {
 			for(var i in this.$store._wrappedGetters) {
 				this.$store._wrappedGetters[i](this.$store.state, wayfinder);
 			}
+			wayfinder.update();
+			wayfinder.resize();
 		},
 		reset () {
 			wayfinder.restoreDefaultState();
