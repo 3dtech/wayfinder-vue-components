@@ -64,10 +64,10 @@ export default {
 				this.update(wayfinder);
 			});
 
-			wayfinder.cbOnBeforeFloorChange = (currentFloor, nextFloor, destinationFloor) => {
+			wayfinder.events.on("floor-change-before", (currentFloor, nextFloor, destinationFloor) => {
 				this.pathText = wayfinder.translator.get("go_to_floor", [currentFloor.getName(wayfinder.getLanguage()), destinationFloor.getName(wayfinder.getLanguage()), nextFloor.getName(wayfinder.getLanguage())])
 				this.showPathText = true;
-			};
+			});
 
 			wayfinder.events.on("floor-change", (floor) => {
 				// console.log('cbOnFloorChange', floor, wayfinder.settings.getInt('path.message.duration', 1))
@@ -80,18 +80,18 @@ export default {
 						this.showPathText = false;
 					}, pathTextTime);
 				}
-			};
+			});
 
 			wayfinder.events.on("map-click", (poi) => {
 				if (poi) {
 					this.$emit('poiClicked', poi, true);
 					wayfinder.statistics.onClick(poi.id, "map");
 				}
-			};
+			});
 
 			wayfinder.events.on("map-touch", () => {
 				this.$emit('onTouch');
-			};
+			});
 
 			window.addEventListener('resize', () => {
 				if (wayfinder) {
