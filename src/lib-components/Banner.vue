@@ -95,6 +95,10 @@ export default {
 				clearTimeout(this.timer);
 			}
 
+			if(!frame) {
+				return;
+			}
+
 			
 			this.displayQR = frame && frame.keywords ? frame.keywords.join(",").indexOf("qr-") > -1: false;
 			this.frameKeywords = frame.keywords.map(k => "keyword-" + k);
