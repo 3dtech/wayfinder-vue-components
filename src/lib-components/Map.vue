@@ -69,7 +69,7 @@ export default {
 				this.showPathText = true;
 			};
 
-			wayfinder.cbOnFloorChange = (floor) => {
+			wayfinder.events.on("floor-change", (floor) => {
 				// console.log('cbOnFloorChange', floor, wayfinder.settings.getInt('path.message.duration', 1))
 				if (floor) {
 					this.$store.dispatch('SET_CURRENT_FLOOR', floor);
@@ -82,14 +82,14 @@ export default {
 				}
 			};
 
-			wayfinder.cbOnPOIClick = (poi) => {
+			wayfinder.events.on("map-click", (poi) => {
 				if (poi) {
 					this.$emit('poiClicked', poi, true);
 					wayfinder.statistics.onClick(poi.id, "map");
 				}
 			};
 
-			wayfinder.cbOnTouch = () => {
+			wayfinder.events.on("map-touch", () => {
 				this.$emit('onTouch');
 			};
 
@@ -99,12 +99,12 @@ export default {
 				}
 			});
 		},
-		update (wayfinder) {
+		update () {
 			for(var i in this.$store._wrappedGetters) {
-				this.$store._wrappedGetters[i](this.$store.state, wayfinder);
+				this.$store._wrappedGetters[i](this.$store.state);
 			}
-			wayfinder.update();
-			wayfinder.resize();
+			Vue.prototype.$wayfinder.update();
+			Vue.prototype.$wayfinder.resize();
 		},
 		reset () {
 			wayfinder.restoreDefaultState();
