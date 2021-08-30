@@ -85,7 +85,7 @@ export default {
 				return;
 			}
 
-			if (this.frames.length > 1) {
+			if (this.frames.length > 0) {
 				this.next();
 			}
 
