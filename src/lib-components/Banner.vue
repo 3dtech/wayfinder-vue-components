@@ -42,9 +42,6 @@ export default {
 			last: 0
 		}
 	},
-	mounted () {
-		this.renderQR();
-	},
 	watch: {
 		banners () {
 			let now = Date.now();
