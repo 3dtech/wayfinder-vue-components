@@ -42,7 +42,6 @@ export default {
         this.hasSlotContent = this.checkForSlotContent();
     },
 	updated(){
-        console.log('updated')
 		this.$nextTick(() => {
 			if (this.scroll) {
 				this.scroll.refresh();
@@ -51,7 +50,6 @@ export default {
 	},
 	mounted () {
 		this.$nextTick(() => {
-            console.log('mounted')
             if (!this.scroll) {
 			    this.scroll = new BScroll(this.$refs.area, this.scrollOptions);
             }
@@ -85,12 +83,10 @@ export default {
 	watch: {
 		changed: function(newVal) { // watch it
 			if(newVal) {
-                console.log('ScrollChanged');
 				this.makeScroll();
 			}
 		},
         hasSlotContent: function(val) {
-            console.log('hasSlotContent', val);
         }
 	},
 	methods: {
@@ -101,7 +97,6 @@ export default {
             let checkForContent = (hasContent, node) => {
                 return hasContent || node.tag || (node.text && node.text.trim());
             }
-            console.log('checkForSlotContent', this.$slots.default.children);
             return this.$slots.default && this.$slots.default.reduce(checkForContent, false);
         },
 		makeScroll () {
