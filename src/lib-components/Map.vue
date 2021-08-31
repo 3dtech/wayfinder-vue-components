@@ -1,5 +1,5 @@
 <template>
-	<div class="map-container">
+	<div class="map-container" v-observe-visibility="visibilityChanged">
 		<canvas id="map"/>
 		<div class="map-path-text" v-show="showPathText">{{pathText}}</div>
 		<!--div class="map-shadow"></div-->
@@ -119,7 +119,10 @@ export default {
 		},
 		run () {
 			wayfinder.run();
-		}
+		},
+		visibilityChanged (visible) {
+			Vue.prototype.$wayfinder.resize();
+		},
 	},
 	data () {
 		return {
