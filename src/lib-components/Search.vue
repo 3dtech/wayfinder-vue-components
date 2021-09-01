@@ -167,6 +167,9 @@ export default {
 		},
 		addLayout (lang, layout) {
 			this.keyboard.addLayout(lang, layout);
+		},
+		changeLayout (lang) {
+			this.keyboard.changeLayout(lang);
 		}
 	}
 };
