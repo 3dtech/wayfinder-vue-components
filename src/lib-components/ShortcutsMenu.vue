@@ -35,6 +35,8 @@ export default {
 			if (typeof nearest === 'object' && nearest != null) {
 				this.$wayfinder.showPath(nearest.node, nearest);
 			}
+
+			this.$emit("clicked", nearest);
 		},
 		getImage (id) {
 			return WayfinderAPI.getURL("images", "thumbnail", [id]);		
