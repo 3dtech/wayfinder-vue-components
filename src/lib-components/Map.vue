@@ -40,7 +40,8 @@ export default {
 				wayfinder = new Wayfinder3D();
 			}
 			// WayfinderAPI.LOCATION = 'http://localhost:8080/api/';
-			Vue.prototype.$wayfinder = wayfinder; 
+			Vue.prototype.$wayfinder = wayfinder;
+			
 			wayfinder.options.assetsLocation = "//static.3dwayfinder.com/shared/";
 			wayfinder.options.project = this.project || "demo";
 			wayfinder.open();
@@ -57,6 +58,15 @@ export default {
 					scope.update(wayfinder);
 					scope.$store.dispatch('SET_INACTIVITY_TIME', wayfinder.settings.getInt('kiosk.max-inactivity', 30));
 					scope.$emit('loaded');
+
+					Vue.directive('wf-translate', {
+						bind: function (el, binding, vnode) {
+							
+							if (wayfinder) {
+								el.innerText = wayfinder.translator.get(binding.expression);
+							} 
+						}
+					});
 				}
 			});
 
