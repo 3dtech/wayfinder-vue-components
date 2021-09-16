@@ -8,7 +8,7 @@
 						<slot :poi="poiitem"><POI :poi="poiitem" :showLogo="showLogo" :showName="showName" :showPathButton="showPathButton" :showDescription="showDescription" :showRoomID="showRoomID" :showFloor="showFloor"/></slot>
 					</li>
 				</transition-group>
-				<span v-if="showNoResultsText && results.length == 0">{{noResultsText}}</span>
+				<span v-show="showNoResultsText && results.length == 0">{{noResultsText}}</span>
 			</div>
 			<div class="search-input-container" v-if="showOutputField">
 				<input id="search-input" ref='searchInput'/>

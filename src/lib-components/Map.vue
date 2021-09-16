@@ -105,6 +105,7 @@ export default {
 			}
 			Vue.prototype.$wayfinder.update();
 			Vue.prototype.$wayfinder.resize();
+			Vue.prototype.$wayfinder.translator.translate();
 		},
 		reset () {
 			wayfinder.restoreDefaultState();
