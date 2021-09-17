@@ -49,6 +49,7 @@ export default {
 			}
 
 			if (this.highlight) {
+				this.$wayfinder.clearDisplaying();
 				this.$wayfinder.setDisplaying(shortcut.pois);
 			}
 
