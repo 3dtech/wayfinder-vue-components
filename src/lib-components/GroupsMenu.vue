@@ -18,6 +18,10 @@ export default {
 		showPOICount: {
 			type: Boolean,
 			default: false
+		},
+		az: {
+			type: Boolean,
+			default: false
 		}
 	},
 	data () {
@@ -34,7 +38,7 @@ export default {
 			}
 
 			return arr.sort((a, b) => {
-				if (a && b) {
+				if (a && a.getName(this.language) && b && b.getName(this.language)) {
 					return a.getName(this.language).localeCompare(b.getName(this.language), this.language, {sensitivity: 'accent'});
 				}
 				else {

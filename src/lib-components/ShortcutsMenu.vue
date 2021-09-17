@@ -19,6 +19,18 @@ export default {
 			type: Boolean,
 			default: true
 		},
+		showPath: {
+			type: Boolean,
+			default: true
+		},
+		highlight: {
+			type: Boolean,
+			default: true
+		},
+		dehighlightOverlay: {
+			type: Boolean,
+			default: false
+		},
 	},
 	computed: {
 		...mapState(['shortcuts', 'language', 'landscape', 'mobile']),
@@ -32,11 +44,32 @@ export default {
 	methods: {
 		showShortcut (shortcut) {
 			var nearest = this.$wayfinder.getNearestPOI(this.$wayfinder.getKiosk(), shortcut.pois);
-			if (typeof nearest === 'object' && nearest != null) {
+			if (this.showPath && typeof nearest === 'object' && nearest != null) {
 				this.$wayfinder.showPath(nearest.node, nearest);
 			}
 
+			if (this.highlight) {
+				this.$wayfinder.setHighlights(shortcut.pois);
+			}
+
+			if (this.dehighlightOverlay && this.$wayfinder.setDehighlightOverlay) {
+				this.$wayfinder.setDehighlightOverlay(true);
+			}
+
+			this.$wayfinder.update();
+
 			this.$emit("clicked", nearest);
+		},
+		clear () {
+			if (this.dehighlightOverlay && this.$wayfinder.setDehighlightOverlay) {
+				this.$wayfinder.setDehighlightOverlay(false);
+			}
+
+			if (this.highlight) {
+				this.$wayfinder.clearHighlights();
+			}
+
+			this.$wayfinder.update();
 		},
 		getImage (id) {
 			return WayfinderAPI.getURL("images", "thumbnail", [id]);		
