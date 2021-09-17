@@ -36,15 +36,19 @@ export default {
 			for (let i in this.poiGroups) {
 				arr.push(this.poiGroups[i]);
 			}
-
-			return arr.sort((a, b) => {
-				if (a && a.getName(this.language) && b && b.getName(this.language)) {
-					return a.getName(this.language).localeCompare(b.getName(this.language), this.language, {sensitivity: 'accent'});
-				}
-				else {
-					return 0;
-				}
-			});
+			if (this.az) {
+				return arr.sort((a, b) => {
+					if (a && a.getName(this.language) && b && b.getName(this.language)) {
+						return a.getName(this.language).localeCompare(b.getName(this.language), this.language, {sensitivity: 'accent'});
+					}
+					else {
+						return 0;
+					}
+				});
+			}
+			else {
+				return arr;
+			}
 		}
 	},
 	methods: {

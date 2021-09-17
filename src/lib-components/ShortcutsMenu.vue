@@ -49,7 +49,7 @@ export default {
 			}
 
 			if (this.highlight) {
-				this.$wayfinder.setHighlights(shortcut.pois);
+				this.$wayfinder.setDisplaying(shortcut.pois);
 			}
 
 			if (this.dehighlightOverlay && this.$wayfinder.setDehighlightOverlay) {
