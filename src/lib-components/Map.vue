@@ -44,8 +44,9 @@ export default {
 			Vue.directive('wf-translate', {
 				bind: function (el, binding, vnode) {
 					if (wayfinder) {
-						el.setAttribute("data-translation-element", binding.expression)
-						wayfinder.translator.translateElement(binding.expression, el);
+						var key = typeof binding.value == "string" ? binding.value : binding.expression;
+						el.setAttribute("data-translation-element", key);
+						wayfinder$1.translator.translateElement(key, el);
 					} 
 				}
 			});
