@@ -46,7 +46,7 @@ export default {
 					if (wayfinder) {
 						var key = typeof binding.value == "string" ? binding.value : binding.expression;
 						el.setAttribute("data-translation-element", key);
-						wayfinder$1.translator.translateElement(key, el);
+						wayfinder.translator.translateElement(key, el);
 					} 
 				}
 			});
