@@ -59,7 +59,7 @@ export default {
 
 			this.$wayfinder.update();
 
-			this.$emit("clicked", nearest);
+			this.$emit("clicked", nearest, shortcut);
 		},
 		clear () {
 			if (this.dehighlightOverlay && this.$wayfinder.setDehighlightOverlay) {
