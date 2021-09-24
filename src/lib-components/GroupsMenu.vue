@@ -1,7 +1,7 @@
 <template>
 	<div class="topics-menu">
 		<ul class="list">
-			<li class="item list-item" v-touch:tap="onClick(topic)" :class='{"active": currentGroup && topic.id == currentGroup.id}' v-for="(topic, index) in sortedGroups" :key='index' v-if="topic && topic.getShowInMenu()" >
+			<li class="item list-item" v-touch:tap="onClick(topic)" :class='{"active": currentGroup && topic.id == currentGroup.id}' v-for="topic in sortedGroups" :key='topic.id' >
 				<label class="name" v-html="topic.getName(language)"></label>
 				<label class="count" v-if="showPOICount">{{topic.pois.length}}</label>
 			</li>
@@ -33,8 +33,12 @@ export default {
 		...mapState(['poiGroups', 'currentGroup', 'language']),
 		sortedGroups () {
 			let arr = []; // Copy arr for sorting
+			let topic;
 			for (let i in this.poiGroups) {
-				arr.push(this.poiGroups[i]);
+				topic = this.poiGroups[i];
+				if(topic && topic.getShowInMenu() && topic.getName(this.language)) {
+					arr.push(topic);
+				}
 			}
 			if (this.az) {
 				return arr.sort((a, b) => {
