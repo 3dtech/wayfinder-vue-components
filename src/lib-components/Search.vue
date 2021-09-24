@@ -150,6 +150,7 @@ export default {
 	methods: {
 		onClick (poi) {
 			this.$emit('clicked', poi);
+			this.$wayfinder.statistics.onClick(poi.id, "menu");
 		},
 		close () {
 			this.$emit('close');

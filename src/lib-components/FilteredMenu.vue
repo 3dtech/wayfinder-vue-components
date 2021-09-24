@@ -76,6 +76,7 @@ export default {
 		onClick (poi) {
 			return () => {
 				this.$emit('clicked', poi);
+				this.$wayfinder.statistics.onClick(poi.id, "menu");
 			};
 		},
 	}
