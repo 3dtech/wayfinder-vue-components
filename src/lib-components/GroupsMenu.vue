@@ -36,7 +36,6 @@ export default {
 			let topic;
 			for (let i in this.poiGroups) {
 				topic = this.poiGroups[i];
-				console.log('topic', topic);
 				if(topic && topic.getShowInMenu() && topic.getName(this.language)) {
 					arr.push(topic);
 				}

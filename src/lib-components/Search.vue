@@ -106,7 +106,7 @@ export default {
 
 			this.results = Object.freeze(Object.assign({}, results));
 			if (keyword.length > 1) {
-				if (this.results.length > 0) {
+				if (Object.values(this.results).length > 0) {
 					this.$wayfinder.statistics.onSearch(keyword, "successful");
 				}
 				else {

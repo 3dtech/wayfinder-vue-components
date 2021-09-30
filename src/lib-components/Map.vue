@@ -67,9 +67,11 @@ export default {
 					scope.update(wayfinder);
 					scope.$store.dispatch('SET_INACTIVITY_TIME', wayfinder.settings.getInt('kiosk.max-inactivity', 30));
 					scope.$emit('loaded');
-
-					
 				}
+			});
+
+			wayfinder.events.on("map-ready", function () {
+				wayfinder.resize();
 			});
 
 			wayfinder.events.on('language-change', () => {
