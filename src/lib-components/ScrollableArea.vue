@@ -110,6 +110,13 @@ export default {
 					this.scroll = new BScroll(this.$refs.area, this.scrollOptions);
 				});
 			});
+		},
+		reset () {
+			this.$nextTick(() => {
+				if(this.scroll) {
+					this.scroll.refresh();
+				}
+			});
 		}
 	}
 };
