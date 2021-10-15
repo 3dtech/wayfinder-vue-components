@@ -4,6 +4,17 @@
 			<li class="item list-item" v-touch:tap="onClick(topic)" :class='{"active": currentGroup && topic.id == currentGroup.id}' v-for="topic in sortedGroups" :key='topic.id' >
 				<label class="name" v-html="topic.getName(language)"></label>
 				<label class="count" v-if="showPOICount">{{topic.pois.length}}</label>
+				<ul v-if="topic.childGroups.length > 0 && showSubGroups" v-show="currentGroup && topic.id == currentGroup.id">
+					<li v-for="subtopic in subGroups(topic.childGroups)" :key='subtopic.id'>
+						<label class="name" v-html="subtopic.getName(language)"></label>
+						<label class="count" v-if="showPOICount">{{subtopic.pois.length}}</label>
+					</li>
+				</ul>
+				<ul v-if="topic.pois.length > 0 && showPOIs" v-show="currentGroup && topic.id == currentGroup.id">
+					<li v-for="poi in topic.pois" :key='poi.id'>
+						<label class="name" v-html="poi.getName(language)"></label>
+					</li>
+				</ul>
 			</li>
 		</ul>
 	</div>
@@ -20,6 +31,14 @@ export default {
 			default: false
 		},
 		az: {
+			type: Boolean,
+			default: false
+		},
+		showSubGroups: {
+			type: Boolean,
+			default: true
+		},
+		showPOIs: {
 			type: Boolean,
 			default: false
 		}
@@ -63,6 +82,21 @@ export default {
 		},
 		reset () {
 			this.$store.dispatch('SET_CURRENT_GROUP', false);
+		},
+
+		subGroups (subGroups) {
+			if (subGroups) {
+				let groups = [];
+				for(let g in subGroups) {
+					groups.push(this.poiGroups[g]);
+				}
+
+				return groups;
+			}
+			else {
+				return [];
+			}
+			 
 		}
 	}
 };

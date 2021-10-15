@@ -18,6 +18,36 @@ export default {
 	components: {
 		POI
 	},
+	props: {
+		showLogo: {
+			type: Boolean,
+			default: false
+		},
+		showName: {
+			type: Boolean,
+			default: true
+		},
+		showPathButton: {
+			type: Boolean,
+			default: false
+		},
+		showDescription: {
+			type: Boolean,
+			default: false
+		},
+		showRoomID: {
+			type: Boolean,
+			default: false
+		},
+		showFloor: {
+			type: Boolean,
+			default: false
+		},
+		currentPOI: {
+			type: Object,
+			default: null
+		}
+	},
 	computed: {
 		...mapState(['pois', 'language', 'currentPOI']),
 		sortedPOIs () {
