@@ -11,16 +11,12 @@
 <script>
 /* global */
 import { mapState } from 'vuex';
+import POI from './items/POI.vue';
 
 export default {
 	name: 'AZMenu',
-	mounted () {
-
-	},
-	data () {
-		return {
-			height: '100rem',
-		}
+	components: {
+		POI
 	},
 	computed: {
 		...mapState(['pois', 'language', 'currentPOI']),
@@ -38,21 +34,6 @@ export default {
 			});
 			return arr;
 		}
-	},
-	updated () {
-		var _height = 0;
-		var _poi;
-		for(var f in this.floors) {
-			_height += 2.5;
-			for (var p in this.floors[f].pois) {
-				_poi = this.floors[f].pois[p];
-				if (_poi && _poi.showInMenu) {
-					_height += 2;
-				}
-			}
-		}
-
-		this.height = _height + 'rem';
 	},
 	methods: {
 		onClick (poi) {
