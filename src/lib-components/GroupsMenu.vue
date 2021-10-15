@@ -1,8 +1,8 @@
 <template>
 	<div class="topics-menu">
 		<ul class="list">
-			<li class="item list-item" v-touch:tap="onClick(topic)" :class='{"active": currentGroup && topic.id == currentGroup.id}' v-for="topic in sortedGroups" :key='topic.id' >
-				<div class="item-content">
+			<li class="item list-item" :class='{"active": currentGroup && topic.id == currentGroup.id}' v-for="topic in sortedGroups" :key='topic.id' >
+				<div class="item-content" v-touch:tap="onClick(topic)">
 					<label class="name" v-html="topic.getName(language)"></label>
 					<label class="count" v-if="showPOICount">{{topic.pois.length}}</label>
 				</div>

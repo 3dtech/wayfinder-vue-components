@@ -42,6 +42,7 @@ export default {
 	methods: {
 		changeLanguage (language) {
 			this.$wayfinder.setLanguage(language.name);
+			this.$emit("changeLanguage", language);
 		},
 
 		getFlagImage (id) {
