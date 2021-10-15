@@ -80,6 +80,12 @@ export default {
 				this.$emit('clicked', group);
 			};
 		},
+
+		onPOICLick (poi) {
+			return () => {
+				this.$emit('poiClicked', poi);
+			};
+		},
 		reset () {
 			this.$store.dispatch('SET_CURRENT_GROUP', false);
 		},
