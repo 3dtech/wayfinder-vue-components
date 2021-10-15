@@ -11,7 +11,7 @@
 					</li>
 				</ul>
 				<ul class="list sublist" v-if="topic.pois.length > 0 && showPOIs" v-show="currentGroup && topic.id == currentGroup.id">
-					<li class="item" v-for="poi in topic.pois" :key='poi.id' v-touch:tap="onPOICLick(poi)">
+					<li class="item list-item" v-for="poi in topic.pois" :key='poi.id' v-touch:tap="onPOICLick(poi)">
 						<label class="name" v-html="poi.getName(language)"></label>
 					</li>
 				</ul>
