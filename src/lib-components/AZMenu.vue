@@ -49,7 +49,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(['pois', 'language', 'currentPOI']),
+		...mapState(['pois', 'language']),
 		sortedPOIs () {
 			let arr = this.pois.slice().filter((poi) => {
 				return (poi && poi.getShowInMenu());

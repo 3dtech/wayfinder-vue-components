@@ -1,5 +1,5 @@
 <template>
-	<div class="tabs" ref="tabs">
+	<div class="tabs" ref="tabs" :class="['tabs-'+ activeTab]">
 		<slot/>
 	</div>
 </template>
