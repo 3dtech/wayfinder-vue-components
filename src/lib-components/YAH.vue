@@ -9,7 +9,7 @@
 import { mapState } from 'vuex';
 
 export default {
-	name: 'BuildingLogo',
+	name: 'YAH',
 	
 	computed: {//yahLogo
 		...mapState(['yahLogo', 'language'])
