@@ -1,7 +1,9 @@
 <template>
 	<div class="az-menu">
 		<ul class="list">
-			<li class="item list-item" @click="onClick(poi)" v-touch:tap="onClick(poi)" :class='{"active": currentPOI && poi.id == currentPOI.id}' v-for="(poi, index) in sortedPOIs" :key='index' v-if="poi && poi.getShowInMenu()" v-html="poi.getName(language)"></li>
+			<li class="item list-item" @click="onClick(poiitem)" v-touch:tap="onClick(poiitem)" :class='{"active": currentPOI && poiitem.id == currentPOI.id}' v-for="poiitem in sortedPOIs" :key='poiitem.id'>
+				<slot :poi="poiitem"><POI :poi="poiitem" :showLogo="showLogo" :showName="showName" :showPathButton="showPathButton" :showDescription="showDescription" :showRoomID="showRoomID" :showFloor="showFloor"/></slot>
+			</li>
 		</ul>
 	</div>
 </template>
