@@ -2,8 +2,10 @@
 	<div class="topics-menu">
 		<ul class="list">
 			<li class="item list-item" v-touch:tap="onClick(topic)" :class='{"active": currentGroup && topic.id == currentGroup.id}' v-for="topic in sortedGroups" :key='topic.id' >
-				<label class="name" v-html="topic.getName(language)"></label>
-				<label class="count" v-if="showPOICount">{{topic.pois.length}}</label>
+				<div class="item-content">
+					<label class="name" v-html="topic.getName(language)"></label>
+					<label class="count" v-if="showPOICount">{{topic.pois.length}}</label>
+				</div>
 				<ul v-if="topic.childGroups.length > 0 && showSubGroups" v-show="currentGroup && topic.id == currentGroup.id">
 					<li v-for="subtopic in subGroups(topic.childGroups)" :key='subtopic.id'>
 						<label class="name" v-html="subtopic.getName(language)"></label>
