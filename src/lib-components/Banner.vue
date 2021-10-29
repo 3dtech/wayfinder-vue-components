@@ -23,7 +23,8 @@ export default {
 	name: 'Banner',
 	props: {
 		template: String,
-		container: String
+		container: String,
+		playOnBoot: {type: Boolean, default: false }
 	},
 	computed: {//yahLogo
 		...mapState(['banners'])
@@ -39,7 +40,7 @@ export default {
 			qr: null,
 			displayQR: false,
 			frameKeywords: [],
-			last: 0
+			last: 0,
 		}
 	},
 	watch: {
@@ -67,8 +68,16 @@ export default {
 				});
 
 				this.$emit('hasbanners', (this.frames.length > 0));
+				if(this.playOnBoot) {
+					this.$nextTick(function () {
+						this.play();
+					});
+				}
 			}
 		}
+	},
+	mounted () {
+		
 	},
 	methods: {
 		visibilityChanged (visible) {
@@ -103,15 +112,21 @@ export default {
 			this.displayQR = frame && frame.keywords ? frame.keywords.join(",").indexOf("qr-") > -1: false;
 			this.frameKeywords = frame.keywords.map(k => "keyword-" + k);
 
-			//console.log('displayQR', this.displayQR, this.qr);
-
+			// console.log('displayQR', this.displayQR, this.qr);
+			// console.log('this.refs', this.$refs['frames']);
 			if(this.$refs['frames']) {
-				let video = this.$refs['frames'].querySelector('video');
-				if (video && video.readyState) {
-					setTimeout(() => {
-						this.playVideo(video, frame.duration);
-					}, 0);
-				} else {
+				let _frame = this.$refs['frames'].children[this.current];
+				if (_frame) {
+					let video = _frame.querySelector("video");
+					if (video && video.readyState) {
+						setTimeout(() => {
+							this.playVideo(video, frame.duration);
+						}, 0);
+					} else {
+						this.timer = setTimeout(this.play, frame.duration);
+					}
+				}
+				else {
 					this.timer = setTimeout(this.play, frame.duration);
 				}
 			}
@@ -181,8 +196,6 @@ export default {
 		background-repeat: no-repeat;
 		left: 0%; 
 		top: 0%; 
-		width: 100%; 
-		height: 100%;
 		opacity: 0;
 		transition: opacity 0.5s ease-in-out;
 	}
