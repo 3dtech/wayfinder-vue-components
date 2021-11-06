@@ -15,7 +15,15 @@ var wayfinder;
 export default {
 	name: 'Map',
 	props: {
-		project: String
+		project: {type: String, default: "demo"},
+		api: {
+			type: String,
+			default: "//api.3dwayfinder.com/"
+		},
+		assets: {
+			type: String,
+			default: "//static.3dwayfinder.com/shared/"
+		},		
 	},
 	computed: {
 		...mapState(['currentFloor']),
@@ -50,9 +58,9 @@ export default {
 					} 
 				}
 			});
-			
-			wayfinder.options.assetsLocation = "//static.3dwayfinder.com/shared/";
-			wayfinder.options.project = this.project || "demo";
+			WayfinderAPI.LOCATION = this.api;
+			wayfinder.options.assetsLocation = this.assets;
+			wayfinder.options.project = this.project;
 			wayfinder.open();
 
 			var scope = this;
