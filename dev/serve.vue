@@ -57,13 +57,13 @@ export default Vue.extend({
         </div>
         <WFTabs :activeTab="currentTab">
           <WFTab name="1">
-            1
+            Sisustus, Kodu, Ehitus 1
           </WFTab>
           <WFTab name="2">
-            2
+            Elektroonika, Tehnika, Side 2
           </WFTab>
           <WFTab name="3">
-            3
+            Teenused 3
           </WFTab>
         </WFTabs>
       </div>
@@ -88,7 +88,7 @@ export default Vue.extend({
   }
 
   .tab-serve {
-     width: 200px;
+     width: 160px;
      display: flex;
      flex-direction: column;
   }

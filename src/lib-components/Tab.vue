@@ -29,15 +29,7 @@ export default {
 		height: 100%;
 		overflow: hidden;
 		flex-grow: 1;
-		transition: width 0.5s ease-in-out;
-	}
-
-	.tab {
-		width: 0px;
-	}
-
-	.tab.active {
-		width: 100%;	
+		flex-shrink: 0;
 	}
 
 </style>

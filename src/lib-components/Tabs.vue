@@ -118,6 +118,21 @@ export default {
 		width: auto;
 		display: flex;
 		flex-direction: row;
-		
+		margin-left: 0;
+		transform: translateX(0);
+		transition: transform 0.5s ease-in-out;
+	}
+
+	.tabs-2 .tabs-content {
+		transform: translateX(-100%);
+	}
+	.tabs-3 .tabs-content {
+		transform: translateX(-200%);
+	}
+	.tabs-4 .tabs-content {
+		transform: translateX(-300%);
+	}
+	.tabs-5 .tabs-content {
+		transform: translateX(-400%);
 	}
 </style>
