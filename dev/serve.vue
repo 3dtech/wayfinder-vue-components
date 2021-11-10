@@ -25,7 +25,8 @@ export default Vue.extend({
   },
   data () {
     return {
-      isit: "no"
+      isit: "no",
+      currentTab: 1
     }
   }
 });
@@ -48,6 +49,24 @@ export default Vue.extend({
           </WFFilteredMenu>
         </WFScrollableArea>
       </div>
+      <div class="tab-serve">
+        <div>
+          <button @click="currentTab = 1">1</button>
+          <button @click="currentTab = 2">2</button>
+          <button @click="currentTab = 3">3</button>
+        </div>
+        <WFTabs :activeTab="currentTab">
+          <WFTab name="1">
+            1
+          </WFTab>
+          <WFTab name="2">
+            2
+          </WFTab>
+          <WFTab name="3">
+            3
+          </WFTab>
+        </WFTabs>
+      </div>
       <WFBanner template="default" container="screensaver" :playOnBoot="true"></WFBanner>
     </div>
   </div>
@@ -66,5 +85,23 @@ export default Vue.extend({
   .banner-set {
     width: 480px !important;
     height: 320px !important;
+  }
+
+  .tab-serve {
+     width: 200px;
+     display: flex;
+     flex-direction: column;
+  }
+
+  .tab-serve .tab {
+    background-color: #999;
+  }
+
+  .tab-serve .tab:nth-child(2) {
+    background-color: teal;
+  }
+
+  .tab-serve .tab:nth-child(3) {
+    background-color: tomato;
   }
 </style>

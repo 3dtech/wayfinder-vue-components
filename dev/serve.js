@@ -22,6 +22,7 @@ var WF_MAP_TYPE = "3d";
 
 function loadVue () {
   console.log("loadVue")
+  Vue.prototype.$WF_MAP_TYPE = WF_MAP_TYPE;
   new Vue({
     store,
     render: h => h(Dev)

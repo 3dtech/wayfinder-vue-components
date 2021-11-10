@@ -1,6 +1,8 @@
 <template>
 	<div class="tabs" ref="tabs" :class="['tabs-'+ activeTab]">
-		<slot/>
+		<div class="tabs-content">
+			<slot/>
+		</div>
 	</div>
 </template>
 
@@ -106,5 +108,16 @@ export default {
 <style scoped>
 	.tabs {
 		overflow: hidden;
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
+	.tabs-content {
+		height: 100%;
+		width: auto;
+		display: flex;
+		flex-direction: row;
+		
 	}
 </style>

@@ -35,13 +35,13 @@ export default {
 	methods: {
 		...mapActions(['updateData', 'setWayfinder']),
 		load () {
-			console.log('load2', typeof Wayfinder2D, typeof Wayfinder2D)
+			console.log('load2', this.$WF_MAP_TYPE, typeof Wayfinder2D, typeof Wayfinder2D)
 			//if (typeof Wayfinder2D !== "undefined" || typeof Wayfinder2D !== "undefined")
 			//	throw new Error("Wayfinder not loaded");
 			// wayfinder = new Wayfinder3D();
 			
 			
-			if (typeof WF_MAP_TYPE !== "undefined" && WF_MAP_TYPE == "2d") {
+			if (typeof this.$WF_MAP_TYPE !== "undefined" && this.$WF_MAP_TYPE == "2d") {
 				wayfinder = new Wayfinder2D();
 			}
 			else {
