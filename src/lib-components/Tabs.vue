@@ -1,5 +1,5 @@
 <template>
-	<div class="tabs" ref="tabs" :class="['tabs-'+ activeTab]">
+	<div class="tabs" ref="tabs" :class="['tabs-'+ activeTab, 'tabs-index-'+ activeTabIndex]">
 		<div class="tabs-content">
 			<slot/>
 		</div>
@@ -70,10 +70,12 @@ export default {
 		activate () {
 			this.currentTab = null;
 			for (var tab in this.tabs) {
+				console.log('tab', tab);
 				if (this.tabs[tab].name == this.$props.activeTab) {
 					this.tabs[tab].isActive = true;
 					this.$emit('tabChanged', this.tabs[tab]);
 					this.currentTab = this.tabs[tab];
+					this.activeTabIndex = tab;
 				}
 				else {
 					this.tabs[tab].isActive = false;
@@ -123,16 +125,19 @@ export default {
 		transition: transform 0.5s ease-in-out;
 	}
 
-	.tabs-2 .tabs-content {
+	.tabs-index-1 .tabs-content {
 		transform: translateX(-100%);
 	}
-	.tabs-3 .tabs-content {
+	.tabs-index-2 .tabs-content {
 		transform: translateX(-200%);
 	}
-	.tabs-4 .tabs-content {
+	.tabs-index-3 .tabs-content {
 		transform: translateX(-300%);
 	}
-	.tabs-5 .tabs-content {
+	.tabs-index-4 .tabs-content {
 		transform: translateX(-400%);
+	}
+	.tabs-index-5 .tabs-content {
+		transform: translateX(-500%);
 	}
 </style>
