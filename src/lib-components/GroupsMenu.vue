@@ -96,9 +96,11 @@ export default {
 			if (subGroups) {
 				let groups = [];
 				for(let g in subGroups) {
-					groups.push(this.poiGroups[g]);
+					if(this.poiGroups[g]) {
+						groups.push(this.poiGroups[g]);
+					}
 				}
-
+				
 				return groups;
 			}
 			else {
