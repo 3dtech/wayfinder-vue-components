@@ -1,5 +1,5 @@
 <template>
-	<div class="topics-menu">
+	<div class="wf-component topics-menu">
 		<ul class="list">
 			<li class="item list-item" :class='{"active": currentGroup && topic.id == currentGroup.id}' v-for="topic in sortedGroups" :key='topic.id' >
 				<div class="item-content" v-touch:tap="onClick(topic)">

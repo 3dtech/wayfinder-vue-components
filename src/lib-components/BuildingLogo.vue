@@ -1,5 +1,5 @@
 <template>
-	<div class="building-logo" v-bind:style="{'background-image': getLogo()}">
+	<div class="wf-component building-logo" v-bind:style="{'background-image': getLogo()}">
 	</div>
 </template>
 

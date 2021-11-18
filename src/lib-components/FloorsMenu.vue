@@ -1,5 +1,5 @@
 <template>
-		<div class="map-floors-container">
+		<div class="wf-component map-floors-container">
 			<div class="map-floors list">
 				<div v-for="floor in floors" :key='floor.id' v-if="floor.showInMenu" @click="changeFloor(floor)" class="item list-item" :class='["lang-" + language, "floor-" + floor.index, { active: floor == currentFloor}]'>
 					<label class="title">{{floor.getName(language)}}</label>
@@ -22,7 +22,7 @@ export default {
 		},
 		currentFloor: {
 			type: Object,
-			default: false
+			default: null
 		},
 	},
 	computed: {

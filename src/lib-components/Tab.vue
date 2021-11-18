@@ -1,5 +1,5 @@
 <template>
-	<section class="tab" :class="{'active': isActive}">
+	<section class="wf-component tab" :class="{'active': isActive}">
 		<slot/>
 	</section>
 </template>

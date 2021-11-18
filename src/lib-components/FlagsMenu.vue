@@ -1,5 +1,5 @@
 <template>
-	<div class="languages-container" :class="{'active': active }">
+	<div class="wf-component languages-container" :class="{'active': active }">
 		<div class="languages-container-select" v-if="showTitle">Select language</div>
 		<div class="list">
 			<div v-for="(lang, index) in languages" :key='index' @click="changeLanguage(lang)" :class='["item", "language", "lang-" + lang.getName(), { active: lang.getName() == language, display: active}]'>

@@ -1,5 +1,5 @@
 <template>
-	<div class="topics-menu">
+	<div class="wf-component topics-menu">
 		<ul class="list">
 			<li class="item list-item list-header" v-touch:tap="back()">{{ currentGroupName }}</li>
 			<li class="item list-item" v-touch:tap="onClick(poi)" :class='{"active": currentPOI && poi.id == currentPOI.id}' v-for="poi in getPOIs" :key='poi.id' v-if="poi && poi.getShowInMenu()" v-html="poi.getName(language)"></li>

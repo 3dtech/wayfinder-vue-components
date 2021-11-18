@@ -1,5 +1,5 @@
 <template>
-	<div class="map-container" v-observe-visibility="visibilityChanged">
+	<div class="wf-component map-container" v-observe-visibility="visibilityChanged">
 		<canvas id="map"/>
 		<div class="map-path-text" v-show="showPathText">{{pathText}}</div>
 		<!--div class="map-shadow"></div-->

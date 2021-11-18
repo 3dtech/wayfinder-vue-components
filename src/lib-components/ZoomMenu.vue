@@ -1,5 +1,5 @@
 <template>
-    <div class="wf-zoommenu">
+    <div class="wf-component wf-zoommenu">
         <div class="item in" @click="zoomIn()">+</div>
         <div class="item out" @click="zoomOut()">-</div>
     </div>

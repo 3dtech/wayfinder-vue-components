@@ -35,21 +35,19 @@ export default Vue.extend({
 <template>
   <div id="app">
     <div class="map-container">
-      <WFMap @loaded="mapDataLoaded" project="961ecd72a20137844d5e2a24a2ffbd76"/>
+      <WFMap @loaded="mapDataLoaded" project="7a40a4f1ba5e61e8da7ae4749ef4d7c7"/>
     </div>
     <div class="content">
-      <div class="menu">
+      <section class="menu">
         <WFGroupsMenu @clicked="setGroup"/>
-        <WFScrollableArea>
-          <WFFilteredMenu changed="isit">
-              <template v-slot:default="slotProps">
-                <WFPOI :poi="slotProps.poi" />
-                <div class="footer">ROOM ID: {{slotProps.poi.room_id}}</div>
-              </template>
-          </WFFilteredMenu>
-        </WFScrollableArea>
-      </div>
-      <div class="tab-serve">
+        <WFFilteredMenu changed="isit">
+            <template v-slot:default="slotProps">
+              <WFPOI :poi="slotProps.poi" />
+              <div class="footer">ROOM ID: {{slotProps.poi.room_id}}</div>
+            </template>
+        </WFFilteredMenu>
+      </section>
+      <section class="tab-serve">
         <div>
           <button @click="currentTab = 1">1</button>
           <button @click="currentTab = 2">2</button>
@@ -57,7 +55,7 @@ export default Vue.extend({
         </div>
         <WFTabs :activeTab="currentTab">
           <WFTab name="1">
-            Sisustus, Kodu, Ehitus 1
+            <WFBrowser src="https://tahvel.edu.ee/?fbclid=IwAR3libD1dcNGqEitI8Ju04gRUMZpHL44k8jAHcaqx0aIDs9ZGs3tjgTW5Vc#/schoolBoard/36"></WFBrowser>
           </WFTab>
           <WFTab name="2">
             Elektroonika, Tehnika, Side 2
@@ -66,17 +64,44 @@ export default Vue.extend({
             Teenused 3
           </WFTab>
         </WFTabs>
-      </div>
-      <WFBanner template="default" container="screensaver" :playOnBoot="true"></WFBanner>
+      </section>
+      <section>
+        
+      </section>
+      <section>
+        <WFBanner template="default" container="screensaver" :playOnBoot="true"></WFBanner>
+      </section>
     </div>
   </div>
 </template>
 
-<style scoped>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  #app {
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
+
+  .map-container {
+    width: 50%;
+  }
   .content {
     display: flex;
-    flex-direction: row;
-    
+    flex-direction: column;
+    justify-content: space-around;
+    width: 50%;
+  }
+
+  .content section {
+    width: 100%;
+    min-height: 5rem;
   }
   .scrollable {
     width: 320px !important;
@@ -91,6 +116,7 @@ export default Vue.extend({
      width: 160px;
      display: flex;
      flex-direction: column;
+     min-height: 22rem;
   }
 
   .tab-serve .tab {

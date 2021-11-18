@@ -18,7 +18,7 @@ Vue.use(Vue2TouchEvents,
 
 Vue.config.productionTip = false;
 var wayfinder;
-var WF_MAP_TYPE = "3d";
+var WF_MAP_TYPE = "2d";
 
 function loadVue () {
   console.log("loadVue")
@@ -51,19 +51,28 @@ function load3D () {
   });
 }
 
+function load2D () {
+  loadScript("//static.3dwayfinder.com/js/dist/2d/latest/Wayfinder2D.debug.js", function () {
+    loadVue();
+  });
+}
+
 if(location && location.search) {
   var options = unescape(location.search.substring(1));
   if (options.indexOf("mobile=") > -1) {
     WF_MAP_TYPE = "2d";
-    loadScript("//static.3dwayfinder.com/js/dist/2d/latest/Wayfinder2D.debug.js", function () {
-      loadVue();
-    });
+    load2D();
   }
   else {
     load3D();
   }
 }
 else {
-  load3D();
+  if (WF_MAP_TYPE == "2d") {
+    load2D();
+  }
+  else {
+    load3D();
+  }
 }
 

@@ -1,5 +1,5 @@
 <template>
-	<div class="scrollable" ref="area">
+	<div class="wf-component scrollable" ref="area">
 		<slot/>
 	</div>
 </template>

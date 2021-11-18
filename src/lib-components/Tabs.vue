@@ -1,5 +1,5 @@
 <template>
-	<div class="tabs" ref="tabs" :class="['tabs-'+ activeTab, 'tabs-index-'+ activeTabIndex]">
+	<div class="wf-component tabs" ref="tabs" :class="['tabs-'+ activeTab, 'tabs-index-'+ activeTabIndex]">
 		<div class="tabs-content">
 			<slot/>
 		</div>

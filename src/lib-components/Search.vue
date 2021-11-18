@@ -1,5 +1,5 @@
 <template>
-	<div class="search">
+	<div class="wf-component search">
 		<div class="tab-button close" v-if="showCloseButton" @click="close($event)" data-translation-element="close">Close</div>
 		<div class="search-container">
 			<div class="results" :class='{"no-results": results.length == 0}'>

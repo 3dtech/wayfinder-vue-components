@@ -1,5 +1,5 @@
 <template>
-	<div class="shortcuts-container">
+	<div class="wf-component shortcuts-container">
 		<div v-for="(shortcut, index) in sortedShortcuts" :key='index' class="item shortcut" @click="showShortcut(shortcut)" :class='["shortcut-" + shortcut.getID()]' :style="{ backgroundImage: 'url('+getImage(shortcut.imageID)+')'}">
 			<label v-if="showLabel">{{shortcut.getName(language)}}</label>
 		</div>

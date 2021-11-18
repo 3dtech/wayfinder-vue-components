@@ -1,5 +1,5 @@
 <template>
-	<button class="yah-logo" :style="{'background-image': yahLogo}" @click="onClicked()" data-translation-element="yah">
+	<button class="wf-component yah-logo" :style="{'background-image': yahLogo}" @click="onClicked()" data-translation-element="yah">
 		YAH
 	</button>
 </template>

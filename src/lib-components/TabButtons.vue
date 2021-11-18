@@ -1,5 +1,5 @@
 <template>
-	<div class="tab-buttons">
+	<div class="wf-component tab-buttons">
 		<div class="item tab-map" :class="{active: (currentTab == 'map')}" v-show="mobile && !landscape" data-translation-element="map" @click="switchTab('map')"></div>
 		<div class="item tab-topics" :class="{active: (currentTab == 'groups' || currentTab == 'group-pois')}" data-translation-element="topics" @click="switchTab('groups')"></div>
 		<div class="item tab-az" :class="{active: currentTab == 'az'}" data-translation-element="az" @click="switchTab('az')"></div>
