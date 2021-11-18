@@ -1,18 +1,19 @@
 <template>
 	<div class="wf-component topics-menu">
+		<h2 v-if="current">{{current.getName("et")}}</h2>
 		<ul class="list">
-			<li class="item list-item" :class='{"active": currentGroup && topic.id == currentGroup.id}' v-for="topic in sortedGroups" :key='topic.id' >
+			<li class="item list-item" :class='{"active": current && topic.id == current.id}' v-for="topic in sortedGroups" :key='topic.id' >
 				<div class="item-content" v-touch:tap="onClick(topic)">
 					<label class="name" v-html="topic.getName(language)"></label>
 					<label class="count" v-if="showPOICount">{{topic.pois.length}}</label>
 				</div>
-				<ul v-if="topic.childGroups.length > 0 && showSubGroups" v-show="currentGroup && topic.id == currentGroup.id">
+				<ul v-if="topic.childGroups.length > 0 && showSubGroups" v-show="current && topic.id == current.id">
 					<li v-for="subtopic in subGroups(topic.childGroups)" :key='subtopic.id'>
 						<label class="name" v-html="subtopic.getName(language)"></label>
 						<label class="count" v-if="showPOICount">{{subtopic.pois.length}}</label>
 					</li>
 				</ul>
-				<ul class="list sublist" v-if="topic.pois.length > 0 && showPOIs" v-show="currentGroup && topic.id == currentGroup.id">
+				<ul class="list sublist" v-if="topic.pois.length > 0 && showPOIs" v-show="current && topic.id == current.id">
 					<li class="item list-item" v-for="poi in topic.pois" :key='poi.id' v-touch:tap="onPOICLick(poi)">
 						<label class="name" v-html="poi.getName(language)"></label>
 					</li>
@@ -47,7 +48,7 @@ export default {
 	},
 	data () {
 		return {
-
+			current: null
 		}
 	},
 	computed: {
@@ -76,20 +77,31 @@ export default {
 			}
 		}
 	},
+	watch: {
+		currentGroup: function () {
+			this.current = this.currentGroup;
+		}
+	},
 	methods: {
 		onClick (group) {
 			return () => {
+				if (this.current == group) {
+					this.current = null;
+				}
+				else  {
+					this.current = group;
+				}
+				
 				this.$emit('clicked', group);
 			};
 		},
-
 		onPOICLick (poi) {
 			return () => {
 				this.$emit('poiClicked', poi);
 			};
 		},
 		reset () {
-			this.$store.dispatch('SET_CURRENT_GROUP', false);
+			this.$store.dispatch('SET_CURRENT_GROUP', null);
 		},
 
 		subGroups (subGroups) {

@@ -39,7 +39,7 @@ export default Vue.extend({
     </div>
     <div class="content">
       <section class="menu">
-        <WFGroupsMenu @clicked="setGroup"/>
+        <WFGroupsMenu @clicked="setGroup" :showPOIs="true"/>
         <WFFilteredMenu changed="isit">
             <template v-slot:default="slotProps">
               <WFPOI :poi="slotProps.poi" />
