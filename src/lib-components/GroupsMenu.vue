@@ -1,21 +1,26 @@
 <template>
 	<div class="wf-component topics-menu">
-		<h2 v-if="current">{{current.getName("et")}}</h2>
 		<ul class="list">
 			<li class="item list-item" :class='{"active": current && topic.id == current.id}' v-for="topic in sortedGroups" :key='topic.id' >
 				<div class="item-content" v-touch:tap="onClick(topic)">
-					<label class="name" v-html="topic.getName(language)"></label>
-					<label class="count" v-if="showPOICount">{{topic.pois.length}}</label>
+					<slot>
+						<label class="name" v-html="topic.getName(language)"></label>
+						<label class="count" v-if="showPOICount">{{topic.pois.length}}</label>
+					</slot>
 				</div>
 				<ul v-if="topic.childGroups.length > 0 && showSubGroups" v-show="current && topic.id == current.id">
 					<li v-for="subtopic in subGroups(topic.childGroups)" :key='subtopic.id'>
-						<label class="name" v-html="subtopic.getName(language)"></label>
-						<label class="count" v-if="showPOICount">{{subtopic.pois.length}}</label>
+						<slot name="subgroup">
+							<label class="name" v-html="subtopic.getName(language)"></label>
+							<label class="count" v-if="showPOICount">{{subtopic.pois.length}}</label>
+						</slot>
 					</li>
 				</ul>
 				<ul class="list sublist" v-if="topic.pois.length > 0 && showPOIs" v-show="current && topic.id == current.id">
 					<li class="item list-item" v-for="poi in topic.pois" :key='poi.id' v-touch:tap="onPOICLick(poi)">
-						<label class="name" v-html="poi.getName(language)"></label>
+						<slot name="poi">
+							<POI :poi="poi" :showLogo="showPOILogo" :showName="showPOIName" :showPathButton="showPOIPathButton" :showDescription="showPOIDescription" :showRoomID="showPOIRoomID" :showFloor="showPOIFloor"/>
+						</slot>
 					</li>
 				</ul>
 			</li>
@@ -44,7 +49,31 @@ export default {
 		showPOIs: {
 			type: Boolean,
 			default: false
-		}
+		},
+		showPOILogo: {
+			type: Boolean,
+			default: false
+		},
+		showPOIName: {
+			type: Boolean,
+			default: true
+		},
+		showPOIPathButton: {
+			type: Boolean,
+			default: false
+		},
+		showPOIDescription: {
+			type: Boolean,
+			default: false
+		},
+		showPOIRoomID: {
+			type: Boolean,
+			default: false
+		},
+		showPOIFloor: {
+			type: Boolean,
+			default: false
+		},
 	},
 	data () {
 		return {

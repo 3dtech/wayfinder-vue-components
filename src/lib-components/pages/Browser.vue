@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style>
-    .wf-browser iframe {
+    .wf-browser, .wf-browser iframe {
         width: 100%;
         height: 100%;
         border: none;

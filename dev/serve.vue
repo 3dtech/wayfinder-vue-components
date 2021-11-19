@@ -38,15 +38,6 @@ export default Vue.extend({
       <WFMap @loaded="mapDataLoaded" project="7a40a4f1ba5e61e8da7ae4749ef4d7c7"/>
     </div>
     <div class="content">
-      <section class="menu">
-        <WFGroupsMenu @clicked="setGroup" :showPOIs="true"/>
-        <WFFilteredMenu changed="isit">
-            <template v-slot:default="slotProps">
-              <WFPOI :poi="slotProps.poi" />
-              <div class="footer">ROOM ID: {{slotProps.poi.room_id}}</div>
-            </template>
-        </WFFilteredMenu>
-      </section>
       <section class="tab-serve">
         <div>
           <button @click="currentTab = 1">1</button>
@@ -58,10 +49,17 @@ export default Vue.extend({
             <WFBrowser src="https://tahvel.edu.ee/?fbclid=IwAR3libD1dcNGqEitI8Ju04gRUMZpHL44k8jAHcaqx0aIDs9ZGs3tjgTW5Vc#/schoolBoard/36"></WFBrowser>
           </WFTab>
           <WFTab name="2">
-            Elektroonika, Tehnika, Side 2
+            <WFFilteredMenu changed="isit">
+                <template v-slot:default="slotProps">
+                  <WFPOI :poi="slotProps.poi" />
+                  <div class="footer">ROOM ID: {{slotProps.poi.room_id}}</div>
+                </template>
+            </WFFilteredMenu>
           </WFTab>
           <WFTab name="3">
-            Teenused 3
+            <WFGroupsMenu @clicked="setGroup" :showPOIs="true">
+              <template v-slot:poi><div>POI</div></template>
+            </WFGroupsMenu>
           </WFTab>
         </WFTabs>
       </section>
@@ -116,7 +114,7 @@ export default Vue.extend({
      width: 160px;
      display: flex;
      flex-direction: column;
-     min-height: 22rem;
+     min-height: 32rem;
   }
 
   .tab-serve .tab {
