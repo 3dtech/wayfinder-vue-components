@@ -18,7 +18,7 @@
 				</ul>
 				<ul class="list sublist" v-if="topic.pois.length > 0 && showPOIs" v-show="current && topic.id == current.id">
 					<li class="item list-item" v-for="poi in topic.pois" :key='poi.id' v-touch:tap="onPOICLick(poi)">
-						<slot name="poi">
+						<slot name="poi" :poi="poi">
 							<POI :poi="poi" :showLogo="showPOILogo" :showName="showPOIName" :showPathButton="showPOIPathButton" :showDescription="showPOIDescription" :showRoomID="showPOIRoomID" :showFloor="showPOIFloor"/>
 						</slot>
 					</li>
