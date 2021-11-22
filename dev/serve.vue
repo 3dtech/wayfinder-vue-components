@@ -44,7 +44,7 @@ export default Vue.extend({
           <button @click="currentTab = 2">2</button>
           <button @click="currentTab = 3">3</button>
         </div>
-        <WFTabs :activeTab="currentTab">
+        <WFTabs :activeTab="currentTab" animate="vertical">
           <WFTab name="1">
             <WFBrowser src="https://tahvel.edu.ee/?fbclid=IwAR3libD1dcNGqEitI8Ju04gRUMZpHL44k8jAHcaqx0aIDs9ZGs3tjgTW5Vc#/schoolBoard/36"></WFBrowser>
           </WFTab>

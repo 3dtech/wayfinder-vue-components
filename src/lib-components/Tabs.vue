@@ -1,5 +1,5 @@
 <template>
-	<div class="wf-component tabs" ref="tabs" :class="['tabs-'+ activeTab, 'tabs-index-'+ activeTabIndex]">
+	<div class="wf-component tabs" ref="tabs" :class="['tabs-'+ activeTab, 'tabs-index-'+ activeTabIndex, 'tabs-animate-'+ animate]">
 		<div class="tabs-content">
 			<slot/>
 		</div>
@@ -7,44 +7,19 @@
 </template>
 
 <script>
-import BScroll from 'wf-better-scroll'
-import ScrollBar from '@better-scroll/scroll-bar'
-import MouseWheel from '@better-scroll/mouse-wheel'
-
-BScroll.use(ScrollBar);
-BScroll.use(MouseWheel);
-
 export default {
 	name: 'Tabs',
 	props: {
-		activeTab: ''
+		activeTab: '',
+		animate: { type: String, default: "none" }
 	},
 	data: () => ({
 		tabs: [],
 		activeTabIndex: 0,
 		currentTab: null,
-		scroll: null,
-		scrollOptions: {
-			scrollbar: {
-                fade: false,
-                interactive: true
-            },
-			click: true,
-			mouseWheel: {
-				speed: 20,
-				invert: false
-			}
-		}
 	}),
 	created() {
 		this.tabs = this.$children;
-	},
-	updated(){
-		this.$nextTick(() => {
-			if (this.scroll && this.currentTab != null) {
-				this.scroll.refresh();
-			}
-		});
 	},
 	mounted () {
 		if (this.$props.activeTab) {
@@ -53,11 +28,6 @@ export default {
 		else {
 			console.log('no active tab')
 		}
-		this.$nextTick(() => {
-			if (this.currentTab != null) {
-				this.scroll = new BScroll(this.$refs.tabs, this.scrollOptions);
-			}
-		});
 	},
 	watch: {
 		activeTab: function(newVal) { // watch it
@@ -70,7 +40,6 @@ export default {
 		activate () {
 			this.currentTab = null;
 			for (var tab in this.tabs) {
-				console.log('tab', tab);
 				if (this.tabs[tab].name == this.$props.activeTab) {
 					this.tabs[tab].isActive = true;
 					this.$emit('tabChanged', this.tabs[tab]);
@@ -81,26 +50,6 @@ export default {
 					this.tabs[tab].isActive = false;
 				}
 			}
-			if(this.$props.activeTab !== "search") {
-				this.makeScroll();
-			}
-		},
-		makeScroll () {
-			this.$nextTick(() => {
-				this.$nextTick(() => {
-					if(this.scroll) {
-						this.scroll.destroy();
-						this.scroll = null;
-					}
-
-					if (this.currentTab != null) {
-						this.scroll = new BScroll(this.$refs.tabs, this.scrollOptions);
-					}
-				});
-			});
-		},
-		move () {
-			//console.log('move');
 		}
 	}
 };
@@ -121,8 +70,26 @@ export default {
 		display: flex;
 		flex-direction: row;
 		margin-left: 0;
-		transform: translateX(0);
-		transition: transform 0.5s ease-in-out;
+		transform: translateX(0) translateY(0);
+	}
+
+	.tabs.tabs-animate-vertical .tabs-content {
+		flex-direction: column;
+	}
+
+	.tab {
+		opacity: 0;
+		transition: opacity 0.3s ease-out 0.5s;
+	}
+
+
+	.tab.active {
+		opacity: 1;
+		transition: opacity 0.3s ease-in;
+	}
+
+	.tabs.tabs-animate-horisontal .tabs-content, .tabs.tabs-animate-vertical .tabs-content {
+		transition: transform 0.5s ease-in-out 0.2s;
 	}
 
 	.tabs-index-1 .tabs-content {
@@ -139,5 +106,21 @@ export default {
 	}
 	.tabs-index-5 .tabs-content {
 		transform: translateX(-500%);
+	}
+
+	.tabs.tabs-animate-vertical.tabs-index-1 .tabs-content {
+		transform: translateX(0) translateY(-100%) !important;
+	}
+	.tabs.tabs-animate-vertical.tabs-index-2 .tabs-content {
+		transform: translateX(0) translateY(-200%) !important;
+	}
+	.tabs.tabs-animate-vertical.tabs-index-3 .tabs-content {
+		transform: translateX(0) translateY(-300%) !important;
+	}
+	.tabs.tabs-animate-vertical.tabs-index-4 .tabs-content {
+		transform: translateX(0) translateY(-400%) !important;
+	}
+	.tabs.tabs-animate-vertical.tabs-index-5 .tabs-content {
+		transform: translateX(0) translateY(-500%) !important;
 	}
 </style>
