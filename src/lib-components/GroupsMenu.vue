@@ -3,14 +3,14 @@
 		<ul class="list">
 			<li class="item list-item" :class='{"active": current && topic.id == current.id}' v-for="topic in sortedGroups" :key='topic.id' >
 				<div class="item-content" v-touch:tap="onClick(topic)">
-					<slot>
+					<slot :group="topic">
 						<label class="name" v-html="topic.getName(language)"></label>
 						<label class="count" v-if="showPOICount">{{topic.pois.length}}</label>
 					</slot>
 				</div>
 				<ul v-if="topic.childGroups.length > 0 && showSubGroups" v-show="current && topic.id == current.id">
 					<li v-for="subtopic in subGroups(topic.childGroups)" :key='subtopic.id'>
-						<slot name="subgroup">
+						<slot name="subgroup" :group="subtopic">
 							<label class="name" v-html="subtopic.getName(language)"></label>
 							<label class="count" v-if="showPOICount">{{subtopic.pois.length}}</label>
 						</slot>
@@ -34,6 +34,10 @@ import { mapState } from 'vuex';
 export default {
 	name: 'GroupsMenu',
 	props: {
+		parent: {
+			type: Object,
+			default: null
+		},
 		showPOICount: {
 			type: Boolean,
 			default: false
@@ -85,8 +89,16 @@ export default {
 		sortedGroups () {
 			let arr = []; // Copy arr for sorting
 			let topic;
-			for (let i in this.poiGroups) {
-				topic = this.poiGroups[i];
+			let groups = this.poiGroups;
+
+			if (this.parent && this.parent.id) {
+				let groups = [];
+				if (this.poiGroups[this.parent.id]) {
+					groups = this.poiGroups[this.parent.id];
+				}
+			}
+			for (let i in groups) {
+				topic = groups[i];
 				if(topic && topic.getShowInMenu() && topic.getName(this.language)) {
 					arr.push(topic);
 				}
