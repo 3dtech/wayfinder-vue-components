@@ -35,8 +35,8 @@ export default {
 	name: 'GroupsMenu',
 	props: {
 		parent: {
-			type: Object,
-			default: null
+			type: Number,
+			default: -1
 		},
 		showPOICount: {
 			type: Boolean,
@@ -91,10 +91,10 @@ export default {
 			let topic;
 			let groups = this.poiGroups;
 
-			if (this.parent && this.parent.id) {
+			if (this.parent > -1) {
 				let groups = [];
-				if (this.poiGroups[this.parent.id]) {
-					groups = this.poiGroups[this.parent.id];
+				if (this.poiGroups[this.parent]) {
+					groups = this.poiGroups[this.parent];
 				}
 			}
 			for (let i in groups) {
