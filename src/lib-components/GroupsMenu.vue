@@ -91,16 +91,12 @@ export default {
 			let topic;
 			let groups = this.poiGroups;
 
-			if (this.parent > -1) {
-				let groups = [];
-				if (this.poiGroups[this.parent]) {
-					groups = this.poiGroups[this.parent];
-				}
-			}
 			for (let i in groups) {
 				topic = groups[i];
 				if(topic && topic.getShowInMenu() && topic.getName(this.language)) {
-					arr.push(topic);
+					if (!(this.parent > -1 && parseInt(topic.parent_id) !== this.parent)) {
+						arr.push(topic);
+					}
 				}
 			}
 			if (this.az) {
