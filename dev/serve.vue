@@ -49,18 +49,21 @@ export default Vue.extend({
             <WFBrowser src="https://tahvel.edu.ee/?fbclid=IwAR3libD1dcNGqEitI8Ju04gRUMZpHL44k8jAHcaqx0aIDs9ZGs3tjgTW5Vc#/schoolBoard/36"></WFBrowser>
           </WFTab>
           <WFTab name="2">
-            <WFFilteredMenu changed="isit">
-                <template v-slot:default="slotProps">
-                  <WFPOI :poi="slotProps.poi" />
-                  <div class="footer">ROOM ID: {{slotProps.poi.room_id}}</div>
-                </template>
-            </WFFilteredMenu>
+            <WFScrollableArea>
+              <WFFilteredMenu changed="isit">
+                  <template v-slot:default="slotProps">
+                    <WFPOI :poi="slotProps.poi" />
+                    <div class="footer">ROOM ID: {{slotProps.poi.room_id}}</div>
+                  </template>
+              </WFFilteredMenu>
+            </WFScrollableArea>
           </WFTab>
           <WFTab name="3">
             <WFGroupsMenu @clicked="setGroup" :showPOIs="true">
               <template v-slot:poi><div>POI</div></template>
             </WFGroupsMenu>
           </WFTab>
+          
         </WFTabs>
       </section>
       <section>
@@ -101,9 +104,9 @@ export default Vue.extend({
     width: 100%;
     min-height: 5rem;
   }
-  .scrollable {
-    width: 320px !important;
-    height: 240px !important;
+  .wf-scrollable {
+    width: 100%;
+    height: 100%;
   }
   .banner-set {
     width: 480px !important;
