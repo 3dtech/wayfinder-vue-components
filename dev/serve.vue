@@ -21,6 +21,9 @@ export default Vue.extend({
     setGroup (group, a) {
       console.log('setGroup', group, a)
       this.$store.dispatch('SET_FILTERED_POIS', group.pois);
+    },
+    reset () {
+      this.$store.dispatch('RESET');
     }
   },
   data () {
@@ -46,7 +49,7 @@ export default Vue.extend({
         </div>
         <WFTabs :activeTab="currentTab" animate="vertical">
           <WFTab name="1">
-            <WFBrowser src="https://tahvel.edu.ee/?fbclid=IwAR3libD1dcNGqEitI8Ju04gRUMZpHL44k8jAHcaqx0aIDs9ZGs3tjgTW5Vc#/schoolBoard/36"></WFBrowser>
+            <WFBrowser src="https://tahvel.edu.ee/#/schoolBoard/36"></WFBrowser>
           </WFTab>
           <WFTab name="2">
             <WFScrollableArea>
@@ -72,6 +75,7 @@ export default Vue.extend({
       <section>
         <WFBanner template="default" container="screensaver" :playOnBoot="true"></WFBanner>
       </section>
+      <button @click="reset()">Reset</button>
     </div>
   </div>
 </template>

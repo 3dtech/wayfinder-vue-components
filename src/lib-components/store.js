@@ -26,7 +26,8 @@ export default new Vuex.Store({
 		banners: {},
 		landscape: false,
 		mobile: false,
-		maxInActivity: 30
+		maxInActivity: 30,
+		reset: 0
 	},
 	getters: {
 		xLanguage: (state, context) => {
@@ -131,6 +132,9 @@ export default new Vuex.Store({
 		},
 		SET_FILTERED_POIS: (state, pois) => {
 			state.filteredPOIs = pois;
+		},
+		RESET: (state, pois) => {
+			state.reset = Date.now();
 		}
 	},
 	actions: {
@@ -163,6 +167,9 @@ export default new Vuex.Store({
 		},
 		SET_FILTERED_POIS : (context, pois) => {
 			context.commit('SET_FILTERED_POIS',  Object.freeze(pois));
+		},
+		RESET (context) {
+			context.commit('RESET')
 		}
 	}
 });

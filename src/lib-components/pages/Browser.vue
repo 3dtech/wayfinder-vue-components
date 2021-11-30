@@ -1,10 +1,12 @@
 <template>
   <div class="wf-component wf-browser">
-      <iframe :src="src"></iframe>
+      <iframe :src="currentSRC"></iframe>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
     name: 'MapFloors',
 	props: {
@@ -13,7 +15,22 @@ export default {
 			default: ""
 		},
 	},
-
+    computed: {
+		...mapState(['reset'])
+	},
+    data () {
+		return {
+			currentSRC: "",
+		}
+	},
+    mounted () {
+        this.currentSRC = this.src;
+    },
+    watch: {
+		reset: function(newVal) {
+            this.currentSRC = this.src + "?t=" + Date.now();
+		}
+	},
 }
 </script>
 
