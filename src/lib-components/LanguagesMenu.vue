@@ -4,8 +4,8 @@
 		<div class="wf-list">
 			<div v-for="(lang, index) in languages" :key='index' @click="changeLanguage(lang)" v-hide="hideActive && lang.getName() == language" :class='["wf-item", "wf-language", "wf-lang-" + lang.getName(), { "wf-active": lang.getName() == language, "wf-display": active}]'>
 				<div v-if="showFlag" class="wf-lang-flag" :style="{ backgroundImage: 'url('+getFlagImage(lang.flagImage)+')'}"></div>
-				<label v-if="labelType == 'wf-lang-code'">{{lang.getName()}}</label>
-				<label v-if="labelType == 'wf-lang-native'">{{lang.getNativeName()}}</label>
+				<label v-if="labelType == 'code'">{{lang.getName()}}</label>
+				<label v-if="labelType == 'native'">{{lang.getNativeName()}}</label>
 			</div>
 		</div>
 	</div>
