@@ -2,6 +2,7 @@
 export { default as WFMap } from './Map.vue';
 export { default as WFAZMenu } from './AZMenu.vue';
 export { default as WFFlagsMenu } from './FlagsMenu.vue';
+export { default as WFLanguagesMenu } from './LanguagesMenu.vue';
 export { default as WFGroupsMenu } from './GroupsMenu.vue';
 export { default as WFBuildingLogo } from './BuildingLogo.vue';
 export { default as WFShortcutsMenu } from './ShortcutsMenu.vue';
