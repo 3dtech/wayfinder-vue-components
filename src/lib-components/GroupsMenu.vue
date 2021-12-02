@@ -4,13 +4,13 @@
 			<li class="wf-list-item" :class='{"active": current && topic.id == current.id}' v-for="topic in sortedGroups" :key='topic.id' >
 				<div class="wf-item-content" v-touch:tap="onClick(topic)">
 					<slot :group="topic">
-						<Group :group="topic"/>
+						<Group :group="topic" :showIcon="showIcon" :showPOICount="showPOICount"/>
 					</slot>
 				</div>
 				<ul v-if="topic.childGroups.length > 0 && showSubGroups" v-show="current && topic.id == current.id">
 					<li v-for="subtopic in subGroups(topic.childGroups)" :key='subtopic.id'>
 						<slot name="subgroup" :group="subtopic">
-							<Group :group="subtopic"/>
+							<Group :group="subtopic" :showIcon="showIcon" :showPOICount="showPOICount"/>
 						</slot>
 					</li>
 				</ul>
