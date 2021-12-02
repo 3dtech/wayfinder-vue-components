@@ -1,5 +1,5 @@
 <template>
-	<section class="wf-component tab" :class="{'active': isActive}">
+	<section class="wf-component wf-tab" :class="{'active': isActive}">
 		<slot/>
 	</section>
 </template>
@@ -24,9 +24,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	.tab {
-		width: 100%;
-		height: 100%;
+	.wf-tab {
 		overflow: hidden;
 		flex-grow: 1;
 		flex-shrink: 0;

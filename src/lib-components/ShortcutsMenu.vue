@@ -1,8 +1,11 @@
 <template>
-	<div class="wf-component shortcuts-container">
-		<div v-for="(shortcut, index) in sortedShortcuts" :key='index' class="item shortcut" @click="showShortcut(shortcut)" :class='["shortcut-" + shortcut.getID()]' :style="{ backgroundImage: 'url('+getImage(shortcut.imageID)+')'}">
-			<label v-if="showLabel">{{shortcut.getName(language)}}</label>
-		</div>
+	<div class="wf-component wf-shortcuts-menu">
+		<ul class="wf-list">
+			<li v-for="shortcut in sortedShortcuts" :key='shortcut.getID()' class="wf-list-item wf-shortcut" @click="showShortcut(shortcut)" :class='["wf-shortcut-" + shortcut.getID()]'>
+				<img class="wf-icon" v-if="showIcon" :src="getImage(shortcut.imageID)"/>
+				<label v-if="showLabel">{{shortcut.getName(language)}}</label>
+			</li>
+		</ul>
 	</div>
 </template>
 
@@ -20,6 +23,10 @@ export default {
 			default: true
 		},
 		showPath: {
+			type: Boolean,
+			default: true
+		},
+		showIcon: {
 			type: Boolean,
 			default: true
 		},

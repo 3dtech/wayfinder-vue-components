@@ -1,15 +1,15 @@
 <template>
-	<div class="poi" v-if="poi">
-		<div class="poi-image" v-if="showLogo" :style="{'background-image': getImage()}" :class="[isImage()]"></div>
-		<div class="poi-name" v-if="showName" v-html="poi.getName(language) || 'POI'"></div>
-		<div class="show-path" v-if="showPathButton" v-touch:tap="showPath">
-			<button class="button secondary round button-small">
-				<span data-translation-element="show_path">{{show_path}}</span> <i class="icon icon-pin"></i>
+	<div class="wf-poi" v-if="poi">
+		<div class="wf-poi-image" v-if="showLogo" :style="{'background-image': getImage()}" :class="[isImage()]"></div>
+		<div class="wf-poi-name" v-if="showName" v-html="poi.getName(language) || 'POI'"></div>
+		<div class="wf-show-path" v-if="showPathButton" v-touch:tap="showPath">
+			<button>
+				<label data-translation-element="show_path">{{show_path}}</label> <i></i>
 			</button>
 		</div>
-		<div class="poi-description" v-if="showDescription" v-html="poi.getDescription(language) || ''"></div>
-		<div class="poi-description" v-if="showRoomID" v-html="poi.room_id || ''"></div>
-		<div class="poi-floor" v-if="showFloor && poi.getFloor()" v-html="poi.getFloor().getName(language) || ''"></div>
+		<div class="wf-poi-description" v-if="showDescription" v-html="poi.getDescription(language) || ''"></div>
+		<div class="wf-poi-room_id" v-if="showRoomID" v-html="poi.room_id || ''"></div>
+		<div class="wf-poi-floor" v-if="showFloor && poi.getFloor()" v-html="poi.getFloor().getName(language) || ''"></div>
 	</div>
 </template>
 

@@ -1,23 +1,21 @@
 <template>
-	<div class="wf-component topics-menu">
-		<ul class="list">
-			<li class="item list-item" :class='{"active": current && topic.id == current.id}' v-for="topic in sortedGroups" :key='topic.id' >
-				<div class="item-content" v-touch:tap="onClick(topic)">
+	<div class="wf-component wf-groups-menu">
+		<ul class="wf-list">
+			<li class="wf-list-item" :class='{"active": current && topic.id == current.id}' v-for="topic in sortedGroups" :key='topic.id' >
+				<div class="wf-item-content" v-touch:tap="onClick(topic)">
 					<slot :group="topic">
-						<label class="name" v-html="topic.getName(language)"></label>
-						<label class="count" v-if="showPOICount">{{topic.pois.length}}</label>
+						<Group :group="topic"/>
 					</slot>
 				</div>
 				<ul v-if="topic.childGroups.length > 0 && showSubGroups" v-show="current && topic.id == current.id">
 					<li v-for="subtopic in subGroups(topic.childGroups)" :key='subtopic.id'>
 						<slot name="subgroup" :group="subtopic">
-							<label class="name" v-html="subtopic.getName(language)"></label>
-							<label class="count" v-if="showPOICount">{{subtopic.pois.length}}</label>
+							<Group :group="subtopic"/>
 						</slot>
 					</li>
 				</ul>
-				<ul class="list sublist" v-if="topic.pois.length > 0 && showPOIs" v-show="current && topic.id == current.id">
-					<li class="item list-item" v-for="poi in topic.pois" :key='poi.id' v-touch:tap="onPOICLick(poi)">
+				<ul class="wf-list wf-sublist" v-if="topic.pois.length > 0 && showPOIs" v-show="current && topic.id == current.id">
+					<li class="wf-list-item" v-for="poi in topic.pois" :key='poi.id' v-touch:tap="onPOICLick(poi)">
 						<slot name="poi" :poi="poi">
 							<POI :poi="poi" :showLogo="showPOILogo" :showName="showPOIName" :showPathButton="showPOIPathButton" :showDescription="showPOIDescription" :showRoomID="showPOIRoomID" :showFloor="showPOIFloor"/>
 						</slot>
@@ -30,9 +28,13 @@
 
 <script>
 import { mapState } from 'vuex';
+import Group from './items/Group.vue';
 
 export default {
 	name: 'GroupsMenu',
+	components: {
+		Group
+	},
 	props: {
 		parent: {
 			type: Number,
@@ -43,6 +45,10 @@ export default {
 			default: false
 		},
 		az: {
+			type: Boolean,
+			default: false
+		},
+		showIcon: {
 			type: Boolean,
 			default: false
 		},
@@ -94,7 +100,10 @@ export default {
 			for (let i in groups) {
 				topic = groups[i];
 				if(topic && topic.getShowInMenu() && topic.getName(this.language)) {
-					if (!(this.parent > -1 && parseInt(topic.parent_id) !== this.parent)) {
+					if (this.parent > -1 && parseInt(topic.parent_id) !== this.parent) {
+						arr.push(topic);
+					}
+					else if (this.parent === -1 && topic.parent_id === null) {
 						arr.push(topic);
 					}
 				}
@@ -154,8 +163,7 @@ export default {
 			}
 			else {
 				return [];
-			}
-			 
+			} 
 		}
 	}
 };

@@ -1,5 +1,5 @@
 <template>
-	<button class="wf-component yah-logo" :style="{'background-image': yahLogo}" @click="onClicked()" data-translation-element="yah">
+	<button class="wf-component wf-yah-logo" :style="{'background-image': yahLogo}" @click="onClicked()" data-translation-element="yah">
 		YAH
 	</button>
 </template>
@@ -24,7 +24,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	.yah-logo {
+	.wf-yah-logo {
 		background-repeat: no-repeat;
 		font-weight: 600;
 		text-align: center;

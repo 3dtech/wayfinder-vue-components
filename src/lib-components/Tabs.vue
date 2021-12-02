@@ -1,6 +1,6 @@
 <template>
-	<div class="wf-component tabs" ref="tabs" :class="['tabs-'+ activeTab, 'tabs-index-'+ activeTabIndex, 'tabs-animate-'+ animate]">
-		<div class="tabs-content">
+	<div class="wf-component wf-tabs" ref="tabs" :class="['wf-tabs-'+ activeTab, 'wf-tabs-index-'+ activeTabIndex, 'wf-tabs-animate-'+ animate]">
+		<div class="wf-tabs-content" ref="slide">
 			<slot/>
 		</div>
 	</div>
@@ -45,6 +45,12 @@ export default {
 					this.$emit('tabChanged', this.tabs[tab]);
 					this.currentTab = this.tabs[tab];
 					this.activeTabIndex = tab;
+					if (this.animate === "vertical") {
+						this.$refs.slide.style.transform = "translateX(0) translateY(-" + tab * 100 + "%)";
+					}
+					else {
+						this.$refs.slide.style.transform = "translateY(0) translateX(-" + tab * 100 + "%)";
+					}
 				}
 				else {
 					this.tabs[tab].isActive = false;
@@ -57,14 +63,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	.tabs {
+	.wf-tabs {
 		overflow: hidden;
 		position: relative;
 		width: 100%;
 		height: 100%;
 	}
 
-	.tabs-content {
+	.wf-tabs-content {
 		height: 100%;
 		width: auto;
 		display: flex;
@@ -73,54 +79,22 @@ export default {
 		transform: translateX(0) translateY(0);
 	}
 
-	.tabs.tabs-animate-vertical .tabs-content {
+	.wf-tabs.wf-tabs-animate-vertical .wf-tabs-content {
 		flex-direction: column;
 	}
 
-	.tab {
+	.wf-tab {
 		opacity: 0;
 		transition: opacity 0.3s ease-out 0.5s;
 	}
 
 
-	.tab.active {
+	.wf-tab.wf-active {
 		opacity: 1;
 		transition: opacity 0.3s ease-in;
 	}
 
-	.tabs.tabs-animate-horisontal .tabs-content, .tabs.tabs-animate-vertical .tabs-content {
+	.wf-tabs.wf-tabs-animate-horizontal .wf-tabs-content, .wf-tabs.wf-tabs-animate-vertical .wf-tabs-content {
 		transition: transform 0.5s ease-in-out 0.2s;
-	}
-
-	.tabs-index-1 .tabs-content {
-		transform: translateX(-100%);
-	}
-	.tabs-index-2 .tabs-content {
-		transform: translateX(-200%);
-	}
-	.tabs-index-3 .tabs-content {
-		transform: translateX(-300%);
-	}
-	.tabs-index-4 .tabs-content {
-		transform: translateX(-400%);
-	}
-	.tabs-index-5 .tabs-content {
-		transform: translateX(-500%);
-	}
-
-	.tabs.tabs-animate-vertical.tabs-index-1 .tabs-content {
-		transform: translateX(0) translateY(-100%) !important;
-	}
-	.tabs.tabs-animate-vertical.tabs-index-2 .tabs-content {
-		transform: translateX(0) translateY(-200%) !important;
-	}
-	.tabs.tabs-animate-vertical.tabs-index-3 .tabs-content {
-		transform: translateX(0) translateY(-300%) !important;
-	}
-	.tabs.tabs-animate-vertical.tabs-index-4 .tabs-content {
-		transform: translateX(0) translateY(-400%) !important;
-	}
-	.tabs.tabs-animate-vertical.tabs-index-5 .tabs-content {
-		transform: translateX(0) translateY(-500%) !important;
 	}
 </style>
