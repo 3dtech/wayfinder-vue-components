@@ -1,8 +1,8 @@
 <template>
-	<div class="wf-component topics-menu">
-		<ul class="list">
-			<li class="item list-item list-header" v-touch:tap="back()">{{ currentGroupName }}</li>
-			<li class="item list-item" v-touch:tap="onClick(poi)" :class='{"active": currentPOI && poi.id == currentPOI.id}' v-for="poi in getPOIs" :key='poi.id' v-if="poi && poi.getShowInMenu()" v-html="poi.getName(language)"></li>
+	<div class="wf-component wf-group-pois-menu">
+		<ul class="wf-list">
+			<li class="wf-list-item wf-list-header" v-touch:tap="back()">{{ currentGroupName }}</li>
+			<li class="wf-list-item" v-touch:tap="onClick(poi)" :class='{"wf-active": currentPOI && poi.id == currentPOI.id}' v-for="poi in getPOIs" :key='poi.id' v-if="poi && poi.getShowInMenu()" v-html="poi.getName(language)"></li>
 		</ul>
 	</div>
 </template>
@@ -54,20 +54,18 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	.topics-menu {
+	.wf-group-pois-menu {
 		overflow: hidden;
 		user-select: none;
 	}
 
-	.topics-menu ul {
+	.wf-group-pois-menu .wf-list {
 		margin: 0;
 		padding: 0;
 	}
 
-	.az-menu .list-item {
+	.wf-group-pois-menu .list-item {
 		list-style: none;
-		padding: 0.3rem;
-		padding: 1.5rem 2rem 1.5rem 4rem;
-		font-size: 120%;
+		padding: 1em;
 	}
 </style>

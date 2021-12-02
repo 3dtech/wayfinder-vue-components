@@ -1,8 +1,10 @@
 <template>
-	<div class="wf-component az-menu">
-		<ul class="list">
-			<li class="item list-item" @click="onClick(poiitem)" v-touch:tap="onClick(poiitem)" :class='{"active": currentPOI && poiitem.id == currentPOI.id}' v-for="poiitem in sortedPOIs" :key='poiitem.id'>
-				<slot :poi="poiitem"><POI :poi="poiitem" :showLogo="showLogo" :showName="showName" :showPathButton="showPathButton" :showDescription="showDescription" :showRoomID="showRoomID" :showFloor="showFloor"/></slot>
+	<div class="wf-component wf-az-menu">
+		<ul class="wf-list">
+			<li class="wf-list-item" @click="onClick(poiitem)" v-touch:tap="onClick(poiitem)" :class='{"wf-active": currentPOI && poiitem.id == currentPOI.id}' v-for="poiitem in sortedPOIs" :key='poiitem.id'>
+				<slot :poi="poiitem">
+					<POI :poi="poiitem" :showLogo="showLogo" :showName="showName" :showPathButton="showPathButton" :showDescription="showDescription" :showRoomID="showRoomID" :showFloor="showFloor"/>
+				</slot>
 			</li>
 		</ul>
 	</div>

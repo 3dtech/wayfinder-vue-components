@@ -1,13 +1,13 @@
 <template>
 	<div class="wf-component wf-languages-menu" :class="{'wf-active': active }">
 		<div class="wf-languages-title" v-if="showTitle">{{title}}</div>
-		<div class="wf-list">
-			<div v-for="(lang, index) in languages" :key='index' @click="changeLanguage(lang)" v-show="!(hideActive && lang.getName() == language)" :class='["wf-item", "wf-language", "wf-lang-" + lang.getName(), { "wf-active": lang.getName() == language, "wf-display": active}]'>
+		<ul class="wf-list">
+			<li v-for="lang in languages" class="wf-list-item wf-language" :key='lang.getName()' @click="changeLanguage(lang)" v-show="!(hideActive && lang.getName() == language)" :class='["wf-lang-" + lang.getName(), { "wf-active": lang.getName() == language, "wf-display": active}]'>
 				<div v-if="showFlag" class="wf-lang-flag" :style="{ backgroundImage: 'url('+getFlagImage(lang.flagImage)+')'}"></div>
 				<label v-if="labelType == 'code'">{{lang.getName()}}</label>
 				<label v-if="labelType == 'native'">{{lang.getNativeName()}}</label>
-			</div>
-		</div>
+			</li>
+		</ul>
 	</div>
 </template>
 

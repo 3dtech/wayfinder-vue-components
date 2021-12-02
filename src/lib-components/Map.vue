@@ -1,8 +1,7 @@
 <template>
-	<div class="wf-component map-container" v-observe-visibility="visibilityChanged">
+	<div class="wf-component wf-map-container" v-observe-visibility="visibilityChanged">
 		<canvas id="map"/>
-		<div class="map-path-text" v-show="showPathText">{{pathText}}</div>
-		<!--div class="map-shadow"></div-->
+		<div class="wf-map-path-text" v-show="showPathText">{{pathText}}</div>
 	</div>
 </template>
 
@@ -159,50 +158,26 @@ export default {
 </script>
 
 <style scoped>
-	.map-container {
+	.wf-map-container {
 		position: relative;
 		width: 100%;
 		height: 100%;
 	}
 
-	.map-container canvas {
+	.wf-map-container canvas {
 		width: 100%;
 		height: 100%;
 	}
 
-	.map-container .map-path-text {
-		margin-top: 50%;
-		width: 20rem;
+	.wf-map-container .wf-map-path-text {
+		width: 30ch;
 		text-align: center;
 		background-color: white;
 		position: absolute;
-		bottom: 15%;
+		bottom: 25%;
 		margin: auto;
 		left: 50%;
-		margin-left: -10rem;
-		padding: 0.5rem;
-		font-size: 2rem;
-		font-weight: 600;
-		text-transform: uppercase;
-	}
-
-	.map-container .map-shadow {
-		position: absolute;
-		bottom: -1px;
-		width: 100%;
-		height: 9rem;
-	}
-
-	.currentFloor {
-		color: white;
-		font-size: 9rem;
-		position: absolute;
-		font-weight: 800;
-		text-shadow: 0.1rem 0.1rem 0.3rem #666;
-		text-align: center;
-		width: 8rem;
-		top: 0rem;
-		right: 1rem;
-	}
-	
+		margin-left: -15ch;
+		padding: 0.5em;
+	}	
 </style>

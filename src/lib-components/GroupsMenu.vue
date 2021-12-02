@@ -171,16 +171,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	.az-menu {
-		overflow: hidden;
-		user-select: none;
-	}
-
-	.az-menu .list-item {
+	.wf-groups-menu .wf-list-item {
 		list-style: none;
 	}
 
-	.az-menu ul {
+	.wf-groups-menu .wf-list {
 		margin: 0;
 		padding: 0;
 	}

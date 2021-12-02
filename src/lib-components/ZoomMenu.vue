@@ -1,7 +1,7 @@
 <template>
     <div class="wf-component wf-zoommenu">
-        <div class="item in" @click="zoomIn()">+</div>
-        <div class="item out" @click="zoomOut()">-</div>
+        <div class="wf-item wf-zoom-in" @click="zoomIn()">+</div>
+        <div class="wf-item wf-zoom-out" @click="zoomOut()">-</div>
     </div>
 </template>
 <script>

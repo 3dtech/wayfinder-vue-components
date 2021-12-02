@@ -1,5 +1,5 @@
 <template>
-	<div class="wf-component building-logo" v-bind:style="{'background-image': getLogo()}">
+	<div class="wf-component wf-building-logo" v-bind:style="{'background-image': getLogo()}">
 	</div>
 </template>
 
@@ -25,7 +25,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	.building-logo {
+	.wf-building-logo {
 		background-size: contain;
 		background-repeat: no-repeat;
 		background-position: 50%;

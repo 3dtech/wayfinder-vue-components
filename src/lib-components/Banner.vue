@@ -1,14 +1,14 @@
 <template>
-	<div class="wf-component banner-set" ref="frames" v-observe-visibility="visibilityChanged">
-		<div class="frame" v-for="(frame, index) in frames" :key="frame.id" :class="[{ active: index == current }, frameKeywords]">
-			<div class="container" v-for="container in frame.containers" :key="container.id" @click="onClick(frame, container)" :style="{
+	<div class="wf-component wf-banner" ref="frames" v-observe-visibility="visibilityChanged">
+		<div class="wf-frame" v-for="(frame, index) in frames" :key="frame.id" :class="[{ active: index == current }, frameKeywords]">
+			<div class="wf-frame-container" v-for="container in frame.containers" :key="container.id" @click="onClick(frame, container)" :style="{
 				left: container.left + '%',
 				top: container.top + '%',
 				width: container.width + '%',
 				height: container.height + '%',
 				backgroundImage: 'url(\'' + container.url + '\')'
 			}">
-				<div class="qr" v-show="displayQR" v-html="qr"></div>
+				<div class="wf-qr" v-show="displayQR" v-html="qr"></div>
 				<video width="100%" height="auto" :src="container.url" v-if="isVideo(container)" muted></video>'
 			</div>
 		</div>
@@ -181,13 +181,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	.banner-set {
+	.wf-banner {
 		position: relative; 
 		width: 100%; 
 		height: 100%;
 	}
 
-	.banner-set .frame {
+	.wf-banner .frame {
 		width: 100%;
 		height: 100%;
 		position: absolute;
@@ -200,18 +200,18 @@ export default {
 		transition: opacity 0.5s ease-in-out;
 	}
 
-	.banner-set .frame .container {
+	.wf-banner .wf-frame .wf-frame-container {
 		background-size: cover;
 		background-position: 50% 50%;
 		background-repeat: no-repeat;
 	}
 
-	.banner-set .frame.active {
+	.wf-banner .wf-frame.wf-active {
 		opacity: 1;
 		transition: opacity 0.5s ease-in-out;
 	}
 
-	.banner-set .frame video {
+	.wf-banner .wf-frame video {
 		position: relative;
 		top: 50%;
 		transform: translateY(-50%);

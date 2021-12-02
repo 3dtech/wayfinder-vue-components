@@ -1,9 +1,9 @@
 <template>
-	<div class="wf-component tab-buttons">
-		<div class="item tab-map" :class="{active: (currentTab == 'map')}" v-show="mobile && !landscape" data-translation-element="map" @click="switchTab('map')"></div>
-		<div class="item tab-topics" :class="{active: (currentTab == 'groups' || currentTab == 'group-pois')}" data-translation-element="topics" @click="switchTab('groups')"></div>
-		<div class="item tab-az" :class="{active: currentTab == 'az'}" data-translation-element="az" @click="switchTab('az')"></div>
-		<div class="item tab-search" :class="{active: currentTab == 'search'}" data-translation-element="search" @click="switchTab('search')"></div>
+	<div class="wf-component wf-tab-buttons">
+		<div class="wf-item tab-map" :class="{active: (currentTab == 'map')}" v-show="mobile && !landscape" data-translation-element="map" @click="switchTab('map')"></div>
+		<div class="wf-item tab-topics" :class="{active: (currentTab == 'groups' || currentTab == 'group-pois')}" data-translation-element="topics" @click="switchTab('groups')"></div>
+		<div class="wf-item tab-az" :class="{active: currentTab == 'az'}" data-translation-element="az" @click="switchTab('az')"></div>
+		<div class="wf-item tab-search" :class="{active: currentTab == 'search'}" data-translation-element="search" @click="switchTab('search')"></div>
 	</div>
 </template>
 
@@ -32,13 +32,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	.tab-buttons {
+	.wf-tab-buttons {
 		display: flex;
 		align-content: stretch;
 		justify-content: space-between;
 	}
 
-	.tab-buttons .item {
+	.wf-tab-buttons .wf-item {
 			background-size: auto 30%;
 			background-repeat: no-repeat;
 	}
