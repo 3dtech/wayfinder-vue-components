@@ -1,7 +1,6 @@
 <template>
 	<div class="wf-component wf-languages-menu" :class="{'wf-active': active }">
-		<div class="wf-languages-title" v-if="showTitle">{{title}}</div>
-		<ul class="wf-list">
+		<ul class="wf-list" :class="['wf-list-count-' + count, (active ? 'wf-active': '')]">
 			<li v-for="lang in languages" class="wf-list-item wf-language" :key='lang.getName()' @click="changeLanguage(lang)" v-show="!(hideActive && lang.getName() == language)" :class='["wf-lang-" + lang.getName(), { "wf-active": lang.getName() == language, "wf-display": active}]'>
 				<div v-if="showFlag" class="wf-lang-flag" :style="{ backgroundImage: 'url('+getFlagImage(lang.flagImage)+')'}"></div>
 				<label v-if="labelType == 'code'">{{lang.getName()}}</label>
@@ -18,7 +17,10 @@ import { mapState } from 'vuex';
 export default {
 	name: 'LanguagesMenu',
 	computed: {
-		...mapState(['languages', 'language', 'reset'])
+		...mapState(['languages', 'language', 'reset']),
+		count () {
+			return this.languages.length;
+		}
 	},
 	props: {
 		showTitle: {

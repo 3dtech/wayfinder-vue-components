@@ -1,6 +1,6 @@
 <template>
 	<div class="wf-component wf-az-menu">
-		<ul class="wf-list">
+		<ul class="wf-list" :class="['wf-list-count-' + count]">
 			<li class="wf-list-item" @click="onClick(poiitem)" v-touch:tap="onClick(poiitem)" :class='{"wf-active": currentPOI && poiitem.id == currentPOI.id}' v-for="poiitem in sortedPOIs" :key='poiitem.id'>
 				<slot :poi="poiitem">
 					<POI :poi="poiitem" :showLogo="showLogo" :showName="showName" :showPathButton="showPathButton" :showDescription="showDescription" :showRoomID="showRoomID" :showFloor="showFloor"/>
@@ -50,6 +50,11 @@ export default {
 			default: null
 		}
 	},
+	data () {
+		return {
+			count: 0
+		}
+	},
 	computed: {
 		...mapState(['pois', 'language']),
 		sortedPOIs () {
@@ -64,6 +69,8 @@ export default {
 					return 0;
 				}
 			});
+
+			this.count = arr.length;
 			return arr;
 		}
 	},

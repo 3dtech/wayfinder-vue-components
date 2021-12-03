@@ -1,6 +1,6 @@
 <template>
 	<div class="wf-component wf-shortcuts-menu">
-		<ul class="wf-list">
+		<ul class="wf-list" :class="['wf-list-count-' + count]">
 			<li v-for="shortcut in sortedShortcuts" :key='shortcut.getID()' class="wf-list-item wf-shortcut" @click="showShortcut(shortcut)" :class='["wf-shortcut-" + shortcut.getID()]'>
 				<img class="wf-icon" v-if="showIcon" :src="getImage(shortcut.imageID)"/>
 				<label v-if="showLabel">{{shortcut.getName(language)}}</label>
@@ -46,6 +46,9 @@ export default {
 				return 1;
 			})
 			return sortedShortcuts;
+		},
+		count () {
+			return this.shortcuts.length;
 		}
 	},
 	methods: {

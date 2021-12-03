@@ -1,6 +1,6 @@
 <template>
-		<div class="wf-component wf-map-floors-menu" :class="{'wf-single-floor': hideWhenSingleFloor && floors.length === 0}">
-			<ul class="wf-list" v-show="!(hideWhenSingleFloor && floors.length === 0)">
+		<div class="wf-component wf-map-floors-menu">
+			<ul class="wf-list" v-show="!(hideWhenSingleFloor && floors.length === 0)" :class="['wf-list-count-' + count]">
 				<li v-for="floor in filteredFloors" :key='floor.id' @click="changeFloor(floor)" class="wf-list-item" :class='["wf-lang-" + language, "wf-floor-" + floor.index, { active: floor == currentFloor}]'>
 					<label class="wf-title">{{floor.getName(language)}}</label>
 					<label class="wf-count" v-if="showPOICount">{{floor.pois.length}}</label>
@@ -29,6 +29,11 @@ export default {
 			default: true
 		},
 	},
+	data () {
+		return {
+			count: 0
+		}
+	},
 	computed: {
 		...mapState(['floors', 'language']),
 		filteredFloors () {
@@ -42,7 +47,7 @@ export default {
 					arr.push(floor);
 				}
 			}
-			
+			this.count = arr.length;
 			return arr;
 		}
 	},

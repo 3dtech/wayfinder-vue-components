@@ -1,9 +1,9 @@
 <template>
-	<div class="wf-component wf-languages-container" :class="{'active': active }">
-		<div class="languages-container-select" v-if="showTitle">Select language</div>
-		<div class="list">
-			<div v-for="(lang, index) in languages" :key='index' @click="changeLanguage(lang)" :class='["item", "language", "lang-" + lang.getName(), { active: lang.getName() == language, display: active}]'>
-				<div v-if="showFlag" class="flag" :style="{ backgroundImage: 'url('+getFlagImage(lang.flagImage)+')'}"></div>
+	<div class="wf-component wf-languages-container" :class="[(active ? 'wf-active': '')]">
+		<div class="wf-languages-container-select" v-if="showTitle">Select language</div>
+		<div class="wf-list" :class="['wf-list-count-' + count]">
+			<div v-for="lang in languages" :key='lang.getName()' @click="changeLanguage(lang)" :class='["item", "language", "lang-" + lang.getName(), { active: lang.getName() == language, display: active}]'>
+				<div v-if="showFlag" class="wf-flag" :style="{ backgroundImage: 'url('+getFlagImage(lang.flagImage)+')'}"></div>
 				<label v-if="labelType == 'code'">{{lang.getName()}}</label>
 				<label v-if="labelType == 'native'">{{lang.getNativeName()}}</label>
 			</div>
@@ -18,7 +18,10 @@ import { mapState } from 'vuex';
 export default {
 	name: 'FlagsMenu',
 	computed: {
-		...mapState(['languages', 'language', 'reset'])
+		...mapState(['languages', 'language', 'reset']),
+		count () {
+			return this.languages.length;
+		}
 	},
 	props: {
 		showTitle: {
@@ -36,7 +39,7 @@ export default {
 	},
 	data () {
 		return {
-			active: false
+			active: false,
 		}
 	},
 	methods: {

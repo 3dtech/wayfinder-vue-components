@@ -1,6 +1,6 @@
 <template>
 	<div class="wf-component wf-groups-menu">
-		<ul class="wf-list">
+		<ul class="wf-list" :class="['wf-list-count-' + count]">
 			<li class="wf-list-item" :class='{"active": current && topic.id == current.id}' v-for="topic in sortedGroups" :key='topic.id' >
 				<div class="wf-item-content" v-touch:tap="onClick(topic)">
 					<slot :group="topic">
@@ -84,10 +84,15 @@ export default {
 			type: Boolean,
 			default: false
 		},
+		openGroup: {
+			type: Boolean,
+			default: true
+		}
 	},
 	data () {
 		return {
-			current: null
+			current: null,
+			count: 0
 		}
 	},
 	computed: {
@@ -109,7 +114,7 @@ export default {
 				}
 			}
 			if (this.az) {
-				return arr.sort((a, b) => {
+				arr = arr.sort((a, b) => {
 					if (a && a.getName(this.language) && b && b.getName(this.language)) {
 						return a.getName(this.language).localeCompare(b.getName(this.language), this.language, {sensitivity: 'accent'});
 					}
@@ -118,9 +123,9 @@ export default {
 					}
 				});
 			}
-			else {
-				return arr;
-			}
+			
+			this.count = arr.length;
+			return arr;
 		}
 	},
 	watch: {
