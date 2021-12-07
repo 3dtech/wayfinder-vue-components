@@ -26,10 +26,7 @@ export default {
 <style scoped>
 	.wf-yah-logo {
 		background-repeat: no-repeat;
-		font-weight: 600;
 		text-align: center;
-		margin-right: 0.5rem;
-		text-transform: uppercase;
 		border: none;
 		outline: none;
 	}

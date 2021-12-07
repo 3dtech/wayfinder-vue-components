@@ -105,7 +105,7 @@ export default {
 			for (let i in groups) {
 				topic = groups[i];
 				if(topic && topic.getShowInMenu() && topic.getName(this.language)) {
-					if (this.parent > -1 && parseInt(topic.parent_id) !== this.parent) {
+					if (this.parent > -1 && parseInt(topic.parent_id) == this.parent) {
 						arr.push(topic);
 					}
 					else if (this.parent === -1 && topic.parent_id === null) {
