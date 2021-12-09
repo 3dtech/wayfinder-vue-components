@@ -160,8 +160,11 @@ export default {
 		},
 		resetValues () {
 			this.results = [];
-			this.keyboard.changeLayout(this.language);
-			this.keyboard.clearValue();
+			if (this.keyboard) {
+				this.keyboard.changeLayout(this.language);
+				this.keyboard.clearValue();
+			}
+
 			if (this.$refs.searchInput)
 				this.$refs.searchInput.value = '';
 		},
