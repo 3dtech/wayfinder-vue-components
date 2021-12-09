@@ -100,7 +100,7 @@ export default {
 	mounted () {
 		this.keyboard = new OSK('wf-search-input', 'wf-keyboard-container');
 		this.keyboard.on('change', (keyword) => {
-			let results = this.$wayfinder.wf-search.wf-search(keyword);
+			let results = this.$wayfinder.search.search(keyword);
 
 			if (this.limit > 0) {
 				results = results.slice(0, this.limit);
@@ -230,14 +230,11 @@ export default {
 
 	.wf-search	.wf-keyboard .keyboard-key {
 		text-align: center;
-		width: 4rem;
-		height: 4rem;
-		font-size: 1.8rem;
-		line-height: 4rem;
+		width: 4ch;
+		height: 4ch;
+		line-height: 1.5;
 		overflow: hidden;
 		user-select: none;
-		margin-right: 0.5rem;
-		margin-bottom: 0.5rem;
 	}
 
 	.wf-search	.wf-keyboard .keyboard-key:last-child {
@@ -249,14 +246,14 @@ export default {
 	}
 
 	.wf-search	.wf-keyboard .keyboard-key2x {
-		width: 8rem;
+		width: 8ch;
 	}
 
 	.wf-search	.wf-keyboard .keyboard-key3x {
-		width: 12rem;
+		width: 12ch;
 	}
 
 	.wf-search	.wf-keyboard .keyboard-key_spacebar {
-		width: 24rem;
+		width: 24ch;
 	}
 </style>
