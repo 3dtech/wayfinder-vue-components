@@ -98,7 +98,7 @@ export default {
 		}
 	},
 	mounted () {
-		this.keyboard = new OSK('wf-search-input', 'keyboard-container');
+		this.keyboard = new OSK('wf-search-input', 'wf-keyboard-container');
 		this.keyboard.on('change', (keyword) => {
 			let results = this.$wayfinder.wf-search.wf-search(keyword);
 
