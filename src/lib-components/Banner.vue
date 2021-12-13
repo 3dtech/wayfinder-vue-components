@@ -8,9 +8,9 @@
 				height: container.height + '%',
 				backgroundImage: 'url(\'' + container.url + '\')'
 			}">
-				<div class="wf-qr" v-show="displayQR" v-html="qr"></div>
-				<video width="100%" height="auto" :src="container.url" v-if="isVideo(container)" muted></video>'
+				<video width="100%" height="auto" :src="container.url" v-if="isVideo(container)" muted></video>
 			</div>
+			<slot :frame="frame"></slot>
 		</div>
 	</div>
 </template>
@@ -187,7 +187,7 @@ export default {
 		height: 100%;
 	}
 
-	.wf-banner .frame {
+	.wf-banner .wf-frame {
 		width: 100%;
 		height: 100%;
 		position: absolute;
