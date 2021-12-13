@@ -1,6 +1,6 @@
 <template>
 	<div class="wf-component wf-banner" ref="frames" v-observe-visibility="visibilityChanged">
-		<div class="wf-frame" v-for="(frame, index) in frames" :key="frame.id" :class="[{ active: index == current }, frameKeywords]">
+		<div class="wf-frame" v-for="(frame, index) in frames" :key="frame.id" :class="[{ 'wf-active': index == current }, frameKeywords]">
 			<div class="wf-frame-container" v-for="container in frame.containers" :key="container.id" @click="onClick(frame, container)" :style="{
 				left: container.left + '%',
 				top: container.top + '%',

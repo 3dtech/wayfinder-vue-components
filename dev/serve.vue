@@ -38,7 +38,7 @@ export default Vue.extend({
 <template>
   <div id="app">
     <div class="map-container">
-      <WFMap @loaded="mapDataLoaded" project="fe7cb3986e880c59463404bc047634ac"/>
+      <WFMap @loaded="mapDataLoaded" project="7a40a4f1ba5e61e8da7ae4749ef4d7c7"/>
     </div>
     <div class="content">
       <section class="tab-serve">
@@ -62,7 +62,7 @@ export default Vue.extend({
             </WFScrollableArea>
           </WFTab>
           <WFTab name="3">
-            <WFGroupsMenu @clicked="setGroup" parent="38" :showPOIs="true">
+            <WFGroupsMenu @clicked="setGroup" :parent="38" :showPOIs="true">
               <template v-slot:poi><div>POI</div></template>
             </WFGroupsMenu>
           </WFTab>
