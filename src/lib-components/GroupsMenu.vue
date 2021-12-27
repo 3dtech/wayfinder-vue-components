@@ -29,11 +29,13 @@
 <script>
 import { mapState } from 'vuex';
 import Group from './items/Group.vue';
+import POI from './items/POI.vue';
 
 export default {
 	name: 'GroupsMenu',
 	components: {
-		Group
+		Group,
+		POI
 	},
 	props: {
 		parent: {
