@@ -10,7 +10,6 @@
 						</slot>
 					</li>
 				</transition-group>
-				{{results.length}}
 				<span class="wf-search-no-results-text" v-show="showNoResultsText && results.length == 0">{{noResultsText}}</span>
 			</div>
 			<div class="wf-search-input-container" v-if="showOutputField">
