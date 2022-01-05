@@ -46,6 +46,7 @@ export default Vue.extend({
           <button @click="currentTab = 1">1</button>
           <button @click="currentTab = 2">2</button>
           <button @click="currentTab = 3">3</button>
+          <button @click="currentTab = 4">4</button>
         </div>
         <WFTabs :activeTab="currentTab" animate="none">
           <WFTab name="1">
@@ -65,6 +66,10 @@ export default Vue.extend({
             <WFGroupsMenu @clicked="setGroup" :parent="38" :showPOIs="true">
               <template v-slot:poi><div>POI</div></template>
             </WFGroupsMenu>
+          </WFTab>
+          <WFTab name="4">
+            <WFSearch>
+            </WFSearch>
           </WFTab>
           
         </WFTabs>

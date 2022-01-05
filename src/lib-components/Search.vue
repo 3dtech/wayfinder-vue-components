@@ -10,7 +10,8 @@
 						</slot>
 					</li>
 				</transition-group>
-				<span v-show="showNoResultsText && results.length == 0">{{noResultsText}}</span>
+				{{results.length}}
+				<span class="wf-search-no-results-text" v-show="showNoResultsText && results.length == 0">{{noResultsText}}</span>
 			</div>
 			<div class="wf-search-input-container" v-if="showOutputField">
 				<input id="wf-search-input" ref='searchInput'/>
@@ -106,7 +107,7 @@ export default {
 				results = results.slice(0, this.limit);
 			}
 
-			this.results = Object.freeze(Object.assign({}, results));
+			this.results = Object.freeze(Object.values(results));
 			if (keyword.length > 1) {
 				if (Object.values(this.results).length > 0) {
 					this.$wayfinder.statistics.onSearch(keyword, "successful");
