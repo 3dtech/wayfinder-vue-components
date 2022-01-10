@@ -63,7 +63,7 @@ export default Vue.extend({
             </WFScrollableArea>
           </WFTab>
           <WFTab name="3">
-            <WFGroupsMenu @clicked="setGroup" :parent="38" :showPOIs="true">
+            <WFGroupsMenu @clicked="setGroup" :parent="2" :showPOIs="true" :order="true">
               <template v-slot:poi><div>POI</div></template>
             </WFGroupsMenu>
           </WFTab>

@@ -52,6 +52,10 @@ export default {
 			type: Boolean,
 			default: false
 		},
+		order: {
+			type: Boolean,
+			default: false
+		},
 		showIcon: {
 			type: Boolean,
 			default: false
@@ -125,6 +129,14 @@ export default {
 					else {
 						return 0;
 					}
+				});
+			}
+			else if (this.order) {
+				arr = arr.sort((a, b) => {
+					if (a && b) {
+						return a.order - b.order;
+					}
+					return 0;
 				});
 			}
 			
