@@ -47,6 +47,8 @@ export default Vue.extend({
           <button @click="currentTab = 2">2</button>
           <button @click="currentTab = 3">3</button>
           <button @click="currentTab = 4">4</button>
+          <button @click="currentTab = 5">5</button>
+          <button @click="reset()">Reset</button>
         </div>
         <WFTabs :activeTab="currentTab" animate="none">
           <WFTab name="1">
@@ -71,16 +73,11 @@ export default Vue.extend({
             <WFSearch>
             </WFSearch>
           </WFTab>
-          
+          <WFTab name="5">
+             <WFBanner template="default" container="screensaver-portrait" :playOnBoot="true"></WFBanner>
+          </WFTab>
         </WFTabs>
       </section>
-      <section>
-        
-      </section>
-      <section>
-        <WFBanner template="default" container="screensaver" :playOnBoot="true"></WFBanner>
-      </section>
-      <button @click="reset()">Reset</button>
     </div>
   </div>
 </template>
@@ -139,5 +136,14 @@ export default Vue.extend({
 
   .tab-serve .tab:nth-child(3) {
     background-color: tomato;
+  }
+  .sa-scrollbar {
+    width: 1em;
+    background-color: lightblue;
+  }
+
+  .sa-bar {
+      width: 1em;
+      background-color: antiquewhite;
   }
 </style>
