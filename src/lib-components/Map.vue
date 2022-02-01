@@ -14,7 +14,7 @@ var wayfinder;
 export default {
 	name: 'Map',
 	props: {
-		project: {type: String, default: "demo"},
+		project: {type: String},
 		api: {
 			type: String,
 			default: "//api.3dwayfinder.com/"
@@ -59,7 +59,11 @@ export default {
 			});
 			WayfinderAPI.LOCATION = this.api;
 			wayfinder.options.assetsLocation = this.assets;
-			wayfinder.options.project = this.project;
+			console.log('this.project', this.project);
+			if (this.project) {
+				wayfinder.options.project = this.project;
+			}
+			
 			wayfinder.open();
 
 			var scope = this;
