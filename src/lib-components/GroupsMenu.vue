@@ -175,7 +175,7 @@ export default {
 			if (subGroups) {
 				let groups = [];
 				for(let g in subGroups) {
-					if(this.poiGroups[g]) {
+					if(this.poiGroups[g] && this.poiGroups[g].getShowInMenu()) {
 						groups.push(this.poiGroups[g]);
 					}
 				}
