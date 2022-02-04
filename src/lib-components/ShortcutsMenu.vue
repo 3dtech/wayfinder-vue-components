@@ -49,27 +49,33 @@ export default {
 		},
 		count () {
 			return this.shortcuts.length;
+		},
+		hasClickedListener(){
+			return !!(this.$listeners && this.$listeners.clicked);
 		}
 	},
 	methods: {
 		showShortcut (shortcut) {
-			var nearest = this.$wayfinder.getNearestPOI(this.$wayfinder.getKiosk(), shortcut.pois);
-			if (this.showPath && typeof nearest === 'object' && nearest != null) {
-				this.$wayfinder.showPath(nearest.node, nearest);
+			if (this.hasClickedListener) {
+				this.$emit("clicked", nearest, shortcut);
 			}
+			else {
+				var nearest = this.$wayfinder.getNearestPOI(this.$wayfinder.getKiosk(), shortcut.pois);
+				if (this.showPath && typeof nearest === 'object' && nearest != null) {
+					this.$wayfinder.showPath(nearest.node, nearest);
+				}
 
-			if (this.highlight) {
-				this.$wayfinder.clearDisplaying();
-				this.$wayfinder.setDisplaying(shortcut.pois);
+				if (this.highlight) {
+					this.$wayfinder.clearDisplaying();
+					this.$wayfinder.setDisplaying(shortcut.pois);
+				}
+
+				if (this.dehighlightOverlay && this.$wayfinder.setDehighlightOverlay) {
+					this.$wayfinder.setDehighlightOverlay(true);
+				}
+
+				this.$wayfinder.update();
 			}
-
-			if (this.dehighlightOverlay && this.$wayfinder.setDehighlightOverlay) {
-				this.$wayfinder.setDehighlightOverlay(true);
-			}
-
-			this.$wayfinder.update();
-
-			this.$emit("clicked", nearest, shortcut);
 		},
 		clear () {
 			if (this.dehighlightOverlay && this.$wayfinder.setDehighlightOverlay) {

@@ -24,6 +24,9 @@ export default Vue.extend({
     },
     reset () {
       this.$store.dispatch('RESET');
+    },
+    log (msg) {
+      console.log('log', msg);
     }
   },
   data () {
@@ -39,15 +42,18 @@ export default Vue.extend({
   <div id="app">
     <div class="map-container">
       <WFMap @loaded="mapDataLoaded"/>
+      <WFFloorsMenu/>
     </div>
     <div class="content">
       <section class="tab-serve">
         <div>
-          <button @click="currentTab = 1">1</button>
-          <button @click="currentTab = 2">2</button>
-          <button @click="currentTab = 3">3</button>
-          <button @click="currentTab = 4">4</button>
-          <button @click="currentTab = 5">5</button>
+          <button @click="currentTab = 1">Browser</button>
+          <button @click="currentTab = 2">Filtered</button>
+          <button @click="currentTab = 3">GroupsMenu</button>
+          <button @click="currentTab = 4">Search</button>
+          <button @click="currentTab = 5">Banner</button>
+          <button @click="currentTab = 6">AZ</button>
+          <button @click="currentTab = 7">Shortcuts</button>
           <button @click="reset()">Reset</button>
         </div>
         <WFTabs :activeTab="currentTab" animate="none">
@@ -76,6 +82,12 @@ export default Vue.extend({
           <WFTab name="5">
              <WFBanner template="default" container="screensaver-portrait" :playOnBoot="true"></WFBanner>
           </WFTab>
+          <WFTab name="6">
+             <WFAZMenu></WFAZMenu>
+          </WFTab>
+          <WFTab name="7">
+             <WFShortcutsMenu></WFShortcutsMenu>
+          </WFTab>
         </WFTabs>
       </section>
     </div>
@@ -98,6 +110,7 @@ export default Vue.extend({
 
   .map-container {
     width: 50%;
+    position: relative;
   }
   .content {
     display: flex;
@@ -145,5 +158,11 @@ export default Vue.extend({
   .sa-bar {
       width: 1em;
       background-color: antiquewhite;
+  }
+
+  .wf-floors-menu {
+    position: absolute;
+    right: 0;
+    bottom: 2rem;
   }
 </style>

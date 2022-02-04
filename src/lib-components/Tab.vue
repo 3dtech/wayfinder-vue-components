@@ -28,6 +28,7 @@ export default {
 		overflow: hidden;
 		flex-grow: 1;
 		flex-shrink: 0;
+		width: 100%;
 	}
 
 </style>

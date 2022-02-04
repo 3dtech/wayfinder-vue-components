@@ -1,5 +1,5 @@
 <template>
-		<div class="wf-component wf-map-floors-menu">
+		<div class="wf-component wf-floors-menu">
 			<ul class="wf-list" v-show="!(hideWhenSingleFloor && floors.length === 0)" :class="['wf-list-count-' + count]">
 				<li v-for="floor in filteredFloors" :key='floor.id' @click="changeFloor(floor)" class="wf-list-item" :class='["wf-lang-" + language, "wf-floor-" + floor.index, { active: floor == currentFloor}]'>
 					<label class="wf-title">{{floor.getName(language)}}</label>
@@ -49,11 +49,19 @@ export default {
 			}
 			this.count = arr.length;
 			return arr;
+		},
+		hasClickedListener(){
+			return !!(this.$listeners && this.$listeners.clicked);
 		}
 	},
 	methods: {
 		changeFloor (floor) {
-			this.$emit("clicked", floor);
+			if (this.hasClickedListener) {
+				this.$emit("clicked", floor);
+			}
+			else {
+				this.$wayfinder.showFloor(floor);
+			}
 		},
 	}
 };
