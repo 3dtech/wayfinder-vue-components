@@ -1,6 +1,6 @@
 <template>
-	<button class="wf-component wf-yah" :style="{'background-image': yahLogo}" @click="onClicked()">
-		<i class="wf-icon"/>
+	<button class="wf-component wf-yah" @click="onClicked()">
+		<i class="wf-icon" :style="{'background-image': yahLogo}"/>
 		<label data-translation-element="yah">YAH</label>
 	</button>
 </template>
