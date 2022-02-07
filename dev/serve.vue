@@ -42,6 +42,7 @@ export default Vue.extend({
   <div id="app">
     <div class="map-container">
       <WFMap @loaded="mapDataLoaded"/>
+      <WFYAH/>
       <WFFloorsMenu/>
     </div>
     <div class="content">
@@ -164,5 +165,12 @@ export default Vue.extend({
     position: absolute;
     right: 0;
     bottom: 2rem;
+  }
+
+  .wf-yah {
+    position: absolute;
+    bottom: 1rem;
+    width: 4rem;
+    height: 4rem;
   }
 </style>

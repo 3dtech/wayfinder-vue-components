@@ -20,7 +20,10 @@ import { mapState } from 'vuex';
 export default {
 	name: "POI",
 	computed: {
-		...mapState(['language'])
+		...mapState(['language']),
+		hasShowPathListener(){
+			return !!(this.$listeners && this.$listeners.showPath);
+		}
 	},
 	props: {
 		poi: {
@@ -79,7 +82,12 @@ export default {
 		},
 		showPath () {
 			if (this.poi) {
-				this.$emit('showPath', this.poi);
+				if (this.hasShowPathListener) {
+					this.$emit('showPath', this.poi);
+				}
+				else {
+					this.$wayfinder.showPath(this.poi.getNode(), this.poi);
+				}
 			}
 		},
 		open (type) {
