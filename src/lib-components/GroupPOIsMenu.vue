@@ -2,7 +2,7 @@
 	<div class="wf-component wf-group-pois-menu">
 		<ul class="wf-list" :class="['wf-list-count-' + count]">
 			<li class="wf-list-item wf-list-header" v-touch:tap="back()">{{ currentGroupName }}</li>
-			<li class="wf-list-item" v-touch:tap="onClick(poi)" :class='{"wf-active": currentPOI && poi.id == currentPOI.id}' v-for="poi in getPOIs" :key='poi.id' v-if="poi && poi.getShowInMenu()" v-html="poi.getName(language)"></li>
+			<li class="wf-list-item" v-touch:tap="onClick(poi)" :class='{"wf-active": currentPOI && poi.id == currentPOI.id}' v-for="poi in getPOIs" :key='poi.id' v-html="poi.getName(language)"></li>
 		</ul>
 	</div>
 </template>
@@ -16,6 +16,10 @@ export default {
 		group: {
 			type: Object,
 			default: null
+		},
+		currentPOI: {
+			type: Object,
+			default: null
 		}
 	},
 	data () {
@@ -24,10 +28,11 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(['currentGroup', 'currentPOI', 'language']),
+		...mapState(['language']),
 		getPOIs() {
-			if (this.currentGroup.pois) {
-				let arr = this.currentGroup.pois.slice(0);
+			if (this.group && this.group.pois) {
+				let arr = this.group.pois.slice(0);
+				arr = arr.filter(p => p.getShowInMenu());
 				this.count = arr.length;
 				return arr.sort((a, b) => {
 					return a.getName(this.language).localeCompare(b.getName(this.language));
@@ -39,7 +44,7 @@ export default {
 			}
 		},
 		currentGroupName () {
-			return this.currentGroup ? this.currentGroup.getName(this.language) : '';
+			return this.group ? this.group.getName(this.language) : '';
 		}
 	},
 	methods: {

@@ -10,7 +10,15 @@ export default Vue.extend({
   //  WayfinderVueComponentsSample,
   // }
   computed: {
-  ...mapState(['pois']),
+    ...mapState(['pois', 'poiGroups']),
+    group () {
+      console.log('group', this.poiGroups);
+      if (this.poiGroups && Object.values(this.poiGroups).length > 0) {
+        return Object.values(this.poiGroups)[0];
+      }
+      
+      return null;
+    }
   },
   methods: {
     mapDataLoaded () {
@@ -55,6 +63,7 @@ export default Vue.extend({
           <button @click="currentTab = 5">Banner</button>
           <button @click="currentTab = 6">AZ</button>
           <button @click="currentTab = 7">Shortcuts</button>
+          <button @click="currentTab = 8">GroupPOIs</button>
           <button @click="reset()">Reset</button>
         </div>
         <WFTabs :activeTab="currentTab" animate="none">
@@ -72,7 +81,7 @@ export default Vue.extend({
             </WFScrollableArea>
           </WFTab>
           <WFTab name="3">
-            <WFGroupsMenu @clicked="setGroup" :parent="2" :showPOIs="true" :order="true">
+            <WFGroupsMenu @clicked="setGroup" :showPOIs="true" :order="true">
               <template v-slot:poi><div>POI</div></template>
             </WFGroupsMenu>
           </WFTab>
@@ -88,6 +97,9 @@ export default Vue.extend({
           </WFTab>
           <WFTab name="7">
              <WFShortcutsMenu></WFShortcutsMenu>
+          </WFTab>
+          <WFTab name="8">
+             <WFGroupPOIsMenu :group="group"></WFGroupPOIsMenu>
           </WFTab>
         </WFTabs>
       </section>
