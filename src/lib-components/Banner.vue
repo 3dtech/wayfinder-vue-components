@@ -1,7 +1,7 @@
 <template>
 	<div class="wf-component wf-banner" ref="frames" v-observe-visibility="visibilityChanged">
 		<div class="wf-frame" v-for="(frame, index) in frames" :key="frame.id" :class="[{ 'wf-active': index == current }, frameKeywords]">
-			<div class="wf-frame-container" v-for="container in frame.containers" :key="container.id" @click="onClick(frame, container)" :style="{
+			<div class="wf-frame-container" v-for="container in frame.containers" :key="container.id" :class="[container.containerType]" @click="onClick(frame, container)" :style="{
 				left: container.left + '%',
 				top: container.top + '%',
 				width: container.width + '%',
@@ -9,6 +9,7 @@
 				backgroundImage: 'url(\'' + container.url + '\')'
 			}">
 				<video width="100%" height="auto" :src="container.url" v-if="isVideo(container)" muted></video>
+				<div class="wf-qr" v-html="qr" v-show="container.containerType.indexOf('qr') > -1 && qr != null" :class="[qrPos]"></div>
 			</div>
 			<slot :frame="frame"></slot>
 		</div>
@@ -24,7 +25,8 @@ export default {
 	props: {
 		template: String,
 		container: String,
-		playOnBoot: {type: Boolean, default: false }
+		playOnBoot: {type: Boolean, default: false },
+		qrURL: {type: String, default: "https://3dwayfinder.com" }
 	},
 	computed: {//yahLogo
 		...mapState(['banners'])
@@ -38,6 +40,7 @@ export default {
 			backgroundColor: "#fff",
 			visible: false,
 			qr: null,
+			qrPos: "",
 			displayQR: false,
 			frameKeywords: [],
 			last: 0,
@@ -74,10 +77,15 @@ export default {
 					});
 				}
 			}
+		},
+		qrURL (val) {
+			if (val && val !== "") {
+				this.renderQR();
+			}
 		}
 	},
 	mounted () {
-		
+		this.renderQR();
 	},
 	methods: {
 		visibilityChanged (visible) {
@@ -174,7 +182,15 @@ export default {
 
 		getUrl (container) {
 			return WayfinderAPI.advertisements.data.url(container.advertisement_id);
-		}
+		},
+
+		renderQR () {
+			let url = this.qrURL;
+			const QRCode = require("qrcode-svg");
+			if (QRCode && url) {
+				this.qr = new QRCode({content: url, container: "svg-viewbox", padding: 0}).svg();
+			}
+		},
 	}
 };
 </script>

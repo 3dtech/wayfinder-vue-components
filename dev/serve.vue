@@ -90,7 +90,8 @@ export default Vue.extend({
             </WFSearch>
           </WFTab>
           <WFTab name="5">
-             <WFBanner template="default" container="screensaver-portrait" :playOnBoot="true"></WFBanner>
+             <!--WFBanner template="default" container="screensaver-portrait" :playOnBoot="true"></WFBanner-->
+              <WFBanner template="default" container="advertisements" qrURL="https://google.com" :playOnBoot="true"></WFBanner>
           </WFTab>
           <WFTab name="6">
              <WFAZMenu></WFAZMenu>
@@ -184,5 +185,16 @@ export default Vue.extend({
     bottom: 1rem;
     width: 4rem;
     height: 4rem;
+  }
+
+  .wf-qr {
+    width: 10rem;
+    height: 10rem;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -5rem;
+    margin-left: -5rem;
   }
 </style>
