@@ -9,7 +9,7 @@
 				backgroundImage: 'url(\'' + container.url + '\')'
 			}">
 				<video width="100%" height="auto" :src="container.url" v-if="isVideo(container)" muted></video>
-				<div class="wf-qr" v-html="qr" v-show="container.containerType.indexOf('qr') > -1 && qr != null" :class="[qrPos]"></div>
+				<div class="wf-qr" v-html="qr" v-show="container.containerType.indexOf('qr') > -1 && qr != null" :class="[container.containerType]"></div>
 			</div>
 			<slot :frame="frame"></slot>
 		</div>
