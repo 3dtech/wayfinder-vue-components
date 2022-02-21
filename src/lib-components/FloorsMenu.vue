@@ -35,7 +35,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(['floors', 'language']),
+		...mapState('wayfinder', ['floors', 'language']),
 		filteredFloors () {
 			let arr = []; // Copy arr for sorting
 			let floor;
@@ -69,17 +69,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	.wf-map-floors-menu .wf-list {		
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-end;
-	}
-
-	.wf-map-floors-menu .wf-list .wf-list-item {
+	.wf-floors-menu .wf-list-item {
 		text-overflow: ellipsis;
-		position: relative;
-		text-align: center;
-		margin-left: auto;
-		overflow: hidden;
+		list-style: none;
 	}
 </style>

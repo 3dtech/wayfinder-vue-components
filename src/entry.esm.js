@@ -1,9 +1,14 @@
 
 // Import vue components
 import * as components from '@/lib-components/index';
+import app from '@/lib-components/app';
 
 // install function executed by Vue.use()
-const install = function installWayfinderVueComponents(Vue) {
+const install = function installWayfinderVueComponents(Vue, store) {
+  console.log('Install', store)
+  app.init(store);
+  Vue.prototype.$wayfinderApp = app;
+
   Object.entries(components).forEach(([componentName, component]) => {
     Vue.component(componentName, component);
   });

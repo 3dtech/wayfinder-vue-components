@@ -1,5 +1,6 @@
 <script>
 import Vue from 'vue';
+
 import { mapState } from 'vuex';
 // Uncomment import and local "components" registration if library is not registered globally.
 // import { WayfinderVueComponentsSample } from '@/entry.esm';
@@ -10,9 +11,9 @@ export default Vue.extend({
   //  WayfinderVueComponentsSample,
   // }
   computed: {
-    ...mapState(['pois', 'poiGroups']),
+    ...mapState('wayfinder', ['pois', 'poiGroups', 'building']),
+    ...mapState(['appName']),
     group () {
-      console.log('group', this.poiGroups);
       if (this.poiGroups && Object.values(this.poiGroups).length > 0) {
         return Object.values(this.poiGroups)[0];
       }
@@ -20,18 +21,22 @@ export default Vue.extend({
       return null;
     }
   },
+  mounted () {
+    console.log('mounted', this.$wayfinderApp)
+    this.$wayfinderApp.loadPages();
+  },
   methods: {
     mapDataLoaded () {
       console.log("mapDataLoaded", this.pois)
-      this.$store.dispatch('SET_FILTERED_POIS', Object.values(this.pois));
+      this.$store.dispatch('wayfinder/SET_FILTERED_POIS', Object.values(this.pois));
      // this.isit = 'yes';
     },
     setGroup (group, a) {
       console.log('setGroup', group, a)
-      this.$store.dispatch('SET_FILTERED_POIS', group.pois);
+      this.$store.dispatch('wayfinder/SET_FILTERED_POIS', group.pois);
     },
     reset () {
-      this.$store.dispatch('RESET');
+      this.$store.dispatch('wayfinder/RESET');
     },
     log (msg) {
       console.log('log', msg);
@@ -55,6 +60,7 @@ export default Vue.extend({
     </div>
     <div class="content">
       <section class="tab-serve">
+        <h2 class="appName">{{appName}} @ <label v-if="building">{{building.name}}</label></h2>
         <div>
           <button @click="currentTab = 1">Browser</button>
           <button @click="currentTab = 2">Filtered</button>

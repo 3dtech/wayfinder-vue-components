@@ -24,17 +24,11 @@ export default {
 			default: "//static.3dwayfinder.com/shared/"
 		},		
 	},
-	computed: {
-		...mapState(['currentFloor']),
-	},
-
 	mounted () {
 		this.load();
 	},	
 	methods: {
-		...mapActions(['updateData', 'setWayfinder']),
 		load () {
-			console.log('load2', this.$WF_MAP_TYPE, typeof Wayfinder2D, typeof Wayfinder2D)
 			//if (typeof Wayfinder2D !== "undefined" || typeof Wayfinder2D !== "undefined")
 			//	throw new Error("Wayfinder not loaded");
 			// wayfinder = new Wayfinder3D();
@@ -69,15 +63,15 @@ export default {
 			var scope = this;
 			var pathTextTime = wayfinder.settings.getInt('path.message.duration', 5) * 1000;
 			wayfinder.events.on("data-loaded", function () {
-				console.log('data-loaded', scope.loaded);
+				console.log('data-loaded', scope.loaded, scope.$store);
 				if(!scope.loaded) {
 					// update getters
-					scope.$store.dispatch('SET_CURRENT_FLOOR', wayfinder.getCurrentFloor());
-					scope.$store.dispatch('SET_INACTIVITY_TIME', wayfinder.settings.getInt('kiosk.max-inactivity', 30));
+					scope.$store.dispatch('wayfinder/SET_CURRENT_FLOOR', wayfinder.getCurrentFloor());
+					scope.$store.dispatch('wayfinder/SET_INACTIVITY_TIME', wayfinder.settings.getInt('kiosk.max-inactivity', 30));
 
 					scope.update(wayfinder);
-					scope.$store.dispatch('SET_INACTIVITY_TIME', wayfinder.settings.getInt('kiosk.max-inactivity', 30));
-					scope.$emit('loaded');
+					scope.$store.dispatch('wayfinder/SET_INACTIVITY_TIME', wayfinder.settings.getInt('kiosk.max-inactivity', 30));
+					scope.$emit('loaded');	
 				}
 			});
 
@@ -97,7 +91,7 @@ export default {
 			wayfinder.events.on("floor-change", (floor) => {
 				// console.log('cbOnFloorChange', floor, wayfinder.settings.getInt('path.message.duration', 1))
 				if (floor) {
-					this.$store.dispatch('SET_CURRENT_FLOOR', floor);
+					this.$store.dispatch('wayfinder/SET_CURRENT_FLOOR', floor);
 					this.$emit('onTouch');
 				}
 				if (this.showPathText) {
@@ -126,7 +120,9 @@ export default {
 		},
 		update () {
 			for(var i in this.$store._wrappedGetters) {
-				this.$store._wrappedGetters[i](this.$store.state);
+				if (i.indexOf("wayfinder") === 0) {
+					this.$store._wrappedGetters[i](this.$store.state);
+				}
 			}
 			Vue.prototype.$wayfinder.update();
 			Vue.prototype.$wayfinder.resize();

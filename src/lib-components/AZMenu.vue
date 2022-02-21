@@ -56,7 +56,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(['pois', 'language']),
+		...mapState('wayfinder', ['pois', 'language']),
 		sortedPOIs () {
 			let arr = this.pois.slice().filter((poi) => {
 				return (poi && poi.getShowInMenu());
@@ -87,5 +87,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+	.wf-list-item {
+		list-style: none;
+	}
 </style>

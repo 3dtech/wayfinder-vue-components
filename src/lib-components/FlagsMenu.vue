@@ -18,7 +18,7 @@ import { mapState } from 'vuex';
 export default {
 	name: 'FlagsMenu',
 	computed: {
-		...mapState(['languages', 'language', 'reset']),
+		...mapState('wayfinder', ['languages', 'language', 'reset']),
 		count () {
 			return this.languages.length;
 		}

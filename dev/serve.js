@@ -1,16 +1,16 @@
 import Vue from 'vue';
+import Vuex from 'vuex';
+
+
 import Dev from './serve.vue';
-import store from '../src/lib-components/store.js';
 // To register individual components where they are used (serve.vue) instead of using the
 // library as a whole, comment/remove this import and it's corresponding "Vue.use" call
 import WayfinderVueComponents from '@/entry.esm';
-Vue.use(WayfinderVueComponents);
 
 import Vue2TouchEvents from 'vue2-touch-events'
 import VueObserveVisibility from 'vue-observe-visibility'
-
+Vue.use(Vuex);
 Vue.use(VueObserveVisibility)
-
 Vue.use(Vue2TouchEvents,
   {
     tapTolerance: 20
@@ -23,6 +23,20 @@ const host = "//static.3dwayfinder.com";
 //const host = "../../../"
 
 /* global WF_MAP_TYPE WayfinderAPI wayfinder*/
+const store = new Vuex.Store({
+  state: {
+    count: 0,
+    appName: "Wayfinder Vue Components",
+    currentPOI: false,
+		currentTab: 'groups',
+    currentGroup: false,
+  },
+  mutations: {
+    showCount(state) {
+      console.log(state.count)
+    }
+  }
+})
 
 function loadScript(url, callback) {
   var s = document.createElement('script');
@@ -42,7 +56,10 @@ function loadVue () {
   Vue.prototype.$WF_MAP_TYPE = WF_MAP_TYPE;
   new Vue({
     store,
-    render: h => h(Dev)
+    render: h => h(Dev),
+    created () {
+      Vue.use(WayfinderVueComponents, this.$store) // Create it by passing in the store you want to use
+    }
   }).$mount('#app')
 }
 

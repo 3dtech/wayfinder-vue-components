@@ -17,7 +17,7 @@ import { mapState } from 'vuex';
 export default {
 	name: 'LanguagesMenu',
 	computed: {
-		...mapState(['languages', 'language', 'reset']),
+		...mapState('wayfinder', ['languages', 'language', 'reset']),
 		count () {
 			return this.languages.length;
 		}

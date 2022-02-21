@@ -13,7 +13,7 @@ export default {
 	name: 'YAH',
 	
 	computed: {//yahLogo
-		...mapState(['yahLogo', 'language'])
+		...mapState('wayfinder', ['yahLogo', 'language'])
 	},
 	methods: {
 		onClicked () {

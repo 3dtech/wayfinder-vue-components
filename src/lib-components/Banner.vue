@@ -29,7 +29,7 @@ export default {
 		qrURL: {type: String, default: "https://3dwayfinder.com" }
 	},
 	computed: {//yahLogo
-		...mapState(['banners'])
+		...mapState('wayfinder', ['banners'])
 	},
 	data () {
 		return {

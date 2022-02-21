@@ -28,7 +28,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(['language']),
+		...mapState('wayfinder', ['language']),
 		getPOIs() {
 			if (this.group && this.group.pois) {
 				let arr = this.group.pois.slice(0);

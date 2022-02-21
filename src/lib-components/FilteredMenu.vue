@@ -55,7 +55,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(['filteredPOIs', 'language']),
+		...mapState('wayfinder', ['filteredPOIs', 'language']),
 	},
 	watch: {
 		filteredPOIs: function (val) {

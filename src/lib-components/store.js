@@ -1,11 +1,8 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-
-Vue.use(Vuex)
-
 /* global wayfinder: false, WayfinderAPI */
+import Vue from 'vue';
 
-export default new Vuex.Store({
+export default {
+	namespaced: true,
 	state: {
 		floors: [],
 		pois: [],
@@ -15,19 +12,15 @@ export default new Vuex.Store({
 		languages: [],
 		shortcuts: [],
 		filteredPOIs: [],
-		currentFloor: 'X',
-		building: {},
+		currentFloor: null,
+		building: null,
 		yahLogo: '',
-		currentPOI: false,
-		currentTab: 'groups',
-		currentGroup: false,
-		searchVisible: false,
-		reset: 0,
-		banners: {},
+		banners: null,
 		landscape: false,
 		mobile: false,
 		maxInActivity: 30,
-		reset: 0
+		reset: 0,
+		pages: []
 	},
 	getters: {
 		xLanguage: (state, context) => {
@@ -39,7 +32,7 @@ export default new Vuex.Store({
 		},
 		xFloors: (state) => {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined' && Vue.prototype.$wayfinder.building) {
-				state.floors = Object.freeze(Vue.prototype.$wayfinder.building.getSortedFloors());
+				state.floors = Object.freeze(Object.assign({}, Vue.prototype.$wayfinder.building.getSortedFloors()));
 			}
 
 			return state.floors;
@@ -74,7 +67,8 @@ export default new Vuex.Store({
 		},
 		xBuilding: (state) => {
 			if (Vue.prototype.$wayfinder !== 'undefined') {
-				state.building =  Object.freeze(Object.assign({}, Vue.prototype.$wayfinder.building));
+				let building = Object.assign({}, Vue.prototype.$wayfinder.building);
+				state.building =  Object.freeze(building);
 			}
 
 			return state.building;
@@ -133,6 +127,9 @@ export default new Vuex.Store({
 		SET_FILTERED_POIS: (state, pois) => {
 			state.filteredPOIs = pois;
 		},
+		SET_PAGES: (state, pages) => {
+			state.pages = pages;
+		},
 		RESET: (state, pois) => {
 			state.reset = Date.now();
 		}
@@ -168,8 +165,12 @@ export default new Vuex.Store({
 		SET_FILTERED_POIS : (context, pois) => {
 			context.commit('SET_FILTERED_POIS',  Object.freeze(pois));
 		},
+		LOAD_PAGES : (context) => {
+			console.log('LOAD_PAGES', Logistics, Vue.prototype.$wayfinder);
+			context.commit('SET_PAGES',  Object.freeze(pois));
+		},
 		RESET (context) {
 			context.commit('RESET')
 		}
 	}
-});
+};

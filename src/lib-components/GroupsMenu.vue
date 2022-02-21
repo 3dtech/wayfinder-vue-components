@@ -104,7 +104,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(['poiGroups', 'currentGroup', 'language']),
+		...mapState('wayfinder', ['poiGroups', 'currentGroup', 'language']),
 		sortedGroups () {
 			let arr = []; // Copy arr for sorting
 			let topic;
