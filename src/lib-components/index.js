@@ -19,5 +19,6 @@ export { default as WFScrollableArea } from './ScrollableArea.vue';
 export { default as WFBanner } from './Banner.vue';
 
 export { default as WFPOI } from './items/POI.vue';
+export { default as WFPage } from './items/Page.vue';
 export { default as WFYAH } from './YAH.vue';
 export { default as WFBrowser } from './pages/Browser.vue';

@@ -27,7 +27,6 @@ export default Vue.extend({
   },
   methods: {
     mapDataLoaded () {
-      console.log("mapDataLoaded", this.pois)
       this.$store.dispatch('wayfinder/SET_FILTERED_POIS', Object.values(this.pois));
      // this.isit = 'yes';
     },
@@ -70,6 +69,7 @@ export default Vue.extend({
           <button @click="currentTab = 6">AZ</button>
           <button @click="currentTab = 7">Shortcuts</button>
           <button @click="currentTab = 8">GroupPOIs</button>
+          <button @click="currentTab = 9">Page</button>
           <button @click="reset()">Reset</button>
         </div>
         <WFTabs :activeTab="currentTab" animate="none">
@@ -107,6 +107,9 @@ export default Vue.extend({
           </WFTab>
           <WFTab name="8">
              <WFGroupPOIsMenu :group="group"></WFGroupPOIsMenu>
+          </WFTab>
+          <WFTab name="9">
+            <WFPage container="default"></WFPage>
           </WFTab>
         </WFTabs>
       </section>

@@ -16,7 +16,7 @@
 					</li>
 				</ul>
 				<ul class="wf-list wf-sublist" v-if="topic.pois.length > 0 && showPOIs" v-show="current && topic.id == current.id">
-					<li class="wf-list-item" v-for="poi in topic.pois" :key='poi.id' v-touch:tap="onPOICLick(poi)">
+					<li class="wf-list-item" v-for="poi in sortedPOIs(topic.pois)" :key='poi.id' v-touch:tap="onPOICLick(poi)">
 						<slot name="poi" :poi="poi">
 							<POI :poi="poi" :showLogo="showPOILogo" :showName="showPOIName" :showPathButton="showPOIPathButton" :showDescription="showPOIDescription" :showRoomID="showPOIRoomID" :showFloor="showPOIFloor"/>
 						</slot>
@@ -95,6 +95,10 @@ export default {
 		openGroup: {
 			type: Boolean,
 			default: true
+		},
+		sortPOIs: {
+			type: Boolean,
+			default: true
 		}
 	},
 	data () {
@@ -170,7 +174,6 @@ export default {
 		reset () {
 			this.$store.dispatch('SET_CURRENT_GROUP', null);
 		},
-
 		subGroups (subGroups) {
 			if (subGroups) {
 				let groups = [];
@@ -185,6 +188,23 @@ export default {
 			else {
 				return [];
 			} 
+		},
+		sortedPOIs (pois) {
+			let arr = pois.slice().filter((poi) => {
+				return (poi && poi.getShowInMenu());
+			}); // Copy and filter array
+
+			if (!this.sortPOIs) return arr;
+			
+			arr = arr.sort((a, b) => {
+				if (a.getName(this.language) && b.getName(this.language)) {
+					return a.getName(this.language).localeCompare(b.getName(this.language));
+				}
+				else {
+					return 0;
+				}
+			});
+			return arr;
 		}
 	}
 };

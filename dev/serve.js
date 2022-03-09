@@ -80,7 +80,7 @@ function load2D () {
 if(location && location.search) {
 	var options = decodeURI(location.search.substring(1));
 	if (options.indexOf("mobile=") > -1) {
-		WF_MAP_TYPE = "2d";
+		Vue.prototype.$WF_MAP_TYPE = "2d";
 		load2D();
 	} else if (WF_MAP_TYPE == "2d") {
 		load2D();

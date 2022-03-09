@@ -5,7 +5,6 @@ import app from '@/lib-components/app';
 
 // install function executed by Vue.use()
 const install = function installWayfinderVueComponents(Vue, store) {
-  console.log('Install', store)
   app.init(store);
   Vue.prototype.$wayfinderApp = app;
 

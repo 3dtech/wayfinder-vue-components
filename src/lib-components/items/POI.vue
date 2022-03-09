@@ -57,29 +57,12 @@ export default {
 	},
 	watch: {
 		language () {
-			if (wayfinder) {
+			if (this.$wayfinder) {
 				this.show_path = this.$wayfinder.translator.get('show_path');
 			}
 		}
 	},
 	methods: {
-		update (id) {
-			/* global wayfinder window */
-			if (wayfinder.pois[id]) {
-				this.poi = Object.freeze(wayfinder.pois[id]);
-				this.language = wayfinder.getLanguage()
-				this.$emit('titleChanged', this.poi.getName(wayfinder.getLanguage()))
-				this.description = this.poi.getDescription(wayfinder.getLanguage()) ? this.poi.getDescription(wayfinder.getLanguage()) : '';
-				if (this.poi.shop_logo) {
-					var scope = this;
-					window.requestAnimationFrame(function () {
-						scope.$app.getImage(scope.poi.shop_logo).then(function (image) {
-							scope.logo = image.url
-						})
-					});
-				}
-			}
-		},
 		showPath () {
 			if (this.poi) {
 				if (this.hasShowPathListener) {

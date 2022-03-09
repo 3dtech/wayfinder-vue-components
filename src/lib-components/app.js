@@ -1,11 +1,11 @@
 import store from './store';
-
+let wfStore;
 export default {
     init (_store) {
-        console.log('init', _store, store)
-        _store.registerModule('wayfinder', store)
+        _store.registerModule('wayfinder', store);
+        wfStore = _store;
     },
     loadPages () {
-        console.log('loadPages')
+        wfStore.dispatch('wayfinder/LOAD_PAGES');
     }
 }

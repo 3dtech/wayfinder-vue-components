@@ -20,7 +20,7 @@ export default {
 		mobile: false,
 		maxInActivity: 30,
 		reset: 0,
-		pages: []
+		pages: {}
 	},
 	getters: {
 		xLanguage: (state, context) => {
@@ -128,6 +128,7 @@ export default {
 			state.filteredPOIs = pois;
 		},
 		SET_PAGES: (state, pages) => {
+			console.log('SET_PAGES', pages);
 			state.pages = pages;
 		},
 		RESET: (state, pois) => {
@@ -166,8 +167,12 @@ export default {
 			context.commit('SET_FILTERED_POIS',  Object.freeze(pois));
 		},
 		LOAD_PAGES : (context) => {
-			console.log('LOAD_PAGES', Logistics, Vue.prototype.$wayfinder);
-			context.commit('SET_PAGES',  Object.freeze(pois));
+			Logistics.getJSON(WayfinderAPI.getURL("pages", "getAll", []), null, function (data){
+				console.log('data', data.data);
+				if (data && data.data) {
+					context.commit('SET_PAGES',  Object.freeze(data.data));
+				}
+			});		
 		},
 		RESET (context) {
 			context.commit('RESET')
