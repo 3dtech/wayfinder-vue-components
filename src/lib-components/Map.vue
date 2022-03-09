@@ -7,7 +7,6 @@
 
 <script>
 /* global wayfinder: true, Wayfinder3D Wayfinder2D WayfinderAPI WF_MAP_TYPE, location */
-import { mapActions, mapState } from 'vuex';
 import Vue from 'vue';
 var wayfinder;
 
@@ -66,11 +65,11 @@ export default {
 				console.log('data-loaded', scope.loaded, scope.$store);
 				if(!scope.loaded) {
 					// update getters
-					scope.$store.dispatch('wayfinder/SET_CURRENT_FLOOR', wayfinder.getCurrentFloor());
-					scope.$store.dispatch('wayfinder/SET_INACTIVITY_TIME', wayfinder.settings.getInt('kiosk.max-inactivity', 30));
+					scope.$store.dispatch('wf/SET_CURRENT_FLOOR', wayfinder.getCurrentFloor());
+					scope.$store.dispatch('wf/SET_INACTIVITY_TIME', wayfinder.settings.getInt('kiosk.max-inactivity', 30));
 
 					scope.update(wayfinder);
-					scope.$store.dispatch('wayfinder/SET_INACTIVITY_TIME', wayfinder.settings.getInt('kiosk.max-inactivity', 30));
+					scope.$store.dispatch('wf/SET_INACTIVITY_TIME', wayfinder.settings.getInt('kiosk.max-inactivity', 30));
 					scope.$emit('loaded');	
 				}
 			});
@@ -91,7 +90,7 @@ export default {
 			wayfinder.events.on("floor-change", (floor) => {
 				// console.log('cbOnFloorChange', floor, wayfinder.settings.getInt('path.message.duration', 1))
 				if (floor) {
-					this.$store.dispatch('wayfinder/SET_CURRENT_FLOOR', floor);
+					this.$store.dispatch('wf/SET_CURRENT_FLOOR', floor);
 					this.$emit('onTouch');
 				}
 				if (this.showPathText) {
@@ -120,7 +119,7 @@ export default {
 		},
 		update () {
 			for(var i in this.$store._wrappedGetters) {
-				if (i.indexOf("wayfinder") === 0) {
+				if (i.indexOf("wf") === 0) {
 					this.$store._wrappedGetters[i](this.$store.state);
 				}
 			}

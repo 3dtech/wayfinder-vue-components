@@ -16,7 +16,7 @@ export default {
 		},
 	},
     computed: {
-		...mapState(['reset'])
+		...mapState('wf', ['reset'])
 	},
     data () {
 		return {

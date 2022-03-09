@@ -13,7 +13,7 @@ import { mapState } from 'vuex';
 export default {
 	name: "Group",
 	computed: {
-		...mapState(['language'])
+		...mapState('wf', ['language'])
 	},
 	props: {
 		group: {

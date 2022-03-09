@@ -11,7 +11,7 @@ export default Vue.extend({
   //  WayfinderVueComponentsSample,
   // }
   computed: {
-    ...mapState('wayfinder', ['pois', 'poiGroups', 'building']),
+    ...mapState('wf', ['pois', 'poiGroups', 'building']),
     ...mapState(['appName']),
     group () {
       if (this.poiGroups && Object.values(this.poiGroups).length > 0) {

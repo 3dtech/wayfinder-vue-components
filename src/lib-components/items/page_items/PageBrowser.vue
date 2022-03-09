@@ -11,7 +11,7 @@ import { mapState } from 'vuex';
 export default {
 	name: "html",
 	computed: {
-		...mapState('wayfinder', ['language']),
+		...mapState('wf', ['language']),
 	},
 	props: {
 		item: {

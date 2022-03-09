@@ -52,7 +52,6 @@ function loadScript(url, callback) {
 }
 
 function loadVue () {
-  console.log("loadVue")
   Vue.prototype.$WF_MAP_TYPE = WF_MAP_TYPE;
   new Vue({
     store,

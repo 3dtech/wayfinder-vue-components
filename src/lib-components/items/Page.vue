@@ -20,7 +20,7 @@ export default {
 		PageHTML
 	},
 	computed: {
-		...mapState('wayfinder', ['language', 'pages']),
+		...mapState('wf', ['language', 'pages']),
         pageName () {
             if (this.page && this.page.name) {
                 return this.page.name[this.language];

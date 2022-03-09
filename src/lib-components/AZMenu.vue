@@ -56,7 +56,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState('wayfinder', ['pois', 'language']),
+		...mapState('wf', ['pois', 'language']),
 		sortedPOIs () {
 			let arr = this.pois.slice().filter((poi) => {
 				return (poi && poi.getShowInMenu());

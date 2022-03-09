@@ -108,7 +108,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState('wayfinder', ['poiGroups', 'currentGroup', 'language']),
+		...mapState('wf', ['poiGroups', 'currentGroup', 'language']),
 		sortedGroups () {
 			let arr = []; // Copy arr for sorting
 			let topic;
@@ -172,7 +172,7 @@ export default {
 			};
 		},
 		reset () {
-			this.$store.dispatch('SET_CURRENT_GROUP', null);
+			this.$store.dispatch('wf/SET_CURRENT_GROUP', null);
 		},
 		subGroups (subGroups) {
 			if (subGroups) {
@@ -195,7 +195,7 @@ export default {
 			}); // Copy and filter array
 
 			if (!this.sortPOIs) return arr;
-			
+
 			arr = arr.sort((a, b) => {
 				if (a.getName(this.language) && b.getName(this.language)) {
 					return a.getName(this.language).localeCompare(b.getName(this.language));

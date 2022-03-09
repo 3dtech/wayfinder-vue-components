@@ -34,7 +34,7 @@ export default {
 		POI
 	},
 	computed: {
-		...mapState('wayfinder', ['language', 'reset'])
+		...mapState('wf', ['language', 'reset'])
 	},
 	props: {
 		limit: {

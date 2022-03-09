@@ -14,7 +14,7 @@ import { mapState } from 'vuex';
 export default {
 	name: 'Tabs',
 	computed: {
-		...mapState('wayfinder', ['currentTab', 'searchVisible', 'mobile', 'landscape', 'shortcuts', 'language'])
+		...mapState('wf', ['currentTab', 'searchVisible', 'mobile', 'landscape', 'shortcuts', 'language'])
 	},
 	data () {
 		return {

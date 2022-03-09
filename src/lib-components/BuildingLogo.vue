@@ -11,7 +11,7 @@ export default {
 	name: 'BuildingLogo',
 	
 	computed: {
-		...mapState('wayfinder', ['building'])
+		...mapState('wf', ['building'])
 	},
 	methods: {
 		getLogo () {

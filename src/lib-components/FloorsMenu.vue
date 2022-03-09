@@ -35,7 +35,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState('wayfinder', ['floors', 'language']),
+		...mapState('wf', ['floors', 'language']),
 		filteredFloors () {
 			let arr = []; // Copy arr for sorting
 			let floor;

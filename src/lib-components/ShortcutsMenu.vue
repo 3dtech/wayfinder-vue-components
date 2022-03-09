@@ -40,7 +40,7 @@ export default {
 		},
 	},
 	computed: {
-		...mapState('wayfinder', ['shortcuts', 'language', 'landscape', 'mobile']),
+		...mapState('wf', ['shortcuts', 'language', 'landscape', 'mobile']),
 		sortedShortcuts() {
 			const sortedShortcuts = this.shortcuts.sort((a,b) => {
 				return 1;

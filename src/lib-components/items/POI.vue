@@ -20,7 +20,7 @@ import { mapState } from 'vuex';
 export default {
 	name: "POI",
 	computed: {
-		...mapState(['language']),
+		...mapState('wf', ['language']),
 		hasShowPathListener(){
 			return !!(this.$listeners && this.$listeners.showPath);
 		}
