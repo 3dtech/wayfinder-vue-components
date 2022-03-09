@@ -2,10 +2,10 @@ import store from './store';
 let wfStore;
 export default {
     init (_store) {
-        _store.registerModule('wayfinder', store);
+        _store.registerModule('wf', store);
         wfStore = _store;
     },
     loadPages () {
-        wfStore.dispatch('wayfinder/LOAD_PAGES');
+        wfStore.dispatch('wf/LOAD_PAGES');
     }
 }

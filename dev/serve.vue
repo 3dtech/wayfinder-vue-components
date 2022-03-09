@@ -27,15 +27,15 @@ export default Vue.extend({
   },
   methods: {
     mapDataLoaded () {
-      this.$store.dispatch('wayfinder/SET_FILTERED_POIS', Object.values(this.pois));
+      this.$store.dispatch('wf/SET_FILTERED_POIS', Object.values(this.pois));
      // this.isit = 'yes';
     },
     setGroup (group, a) {
       console.log('setGroup', group, a)
-      this.$store.dispatch('wayfinder/SET_FILTERED_POIS', group.pois);
+      this.$store.dispatch('wf/SET_FILTERED_POIS', group.pois);
     },
     reset () {
-      this.$store.dispatch('wayfinder/RESET');
+      this.$store.dispatch('wf/RESET');
     },
     log (msg) {
       console.log('log', msg);
