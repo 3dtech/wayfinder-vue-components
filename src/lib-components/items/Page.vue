@@ -1,5 +1,6 @@
 <template>
 	<div class="wf-page" v-if="page">
+		<div class="wf-page-icon" :class="[page.icon ? 'wf-has-icon' : '']" v-html="page.icon"></div>
         <label class="wf-page-name" v-if="showName" v-html="pageName || ''"></label>
         <div class="wf-page-content">
             <div v-for="(item, index) in page.items" :key="item.id" :class="['wf-page-item-' + index ]">
@@ -37,6 +38,10 @@ export default {
 			type: Number,
 			default: -1
 		},
+		slug: {
+			type: String,
+			default: null
+		},
 		showName: {
 			type: Boolean,
 			default: true
@@ -66,11 +71,22 @@ export default {
 	},
 	methods: {
 		updatePage () {
-			if (this.pages) {
-				
-				if (this.pages[this.container] && this.pages[this.container][this.currentIndex]) {
+			if (this.pages && this.pages[this.container]) {
+				console.log('updatePage1', this.page, this.container, this.currentIndex, this.slug )
+				if (this.slug != null){
+					let page;
+					for(let p in this.pages[this.container]) {
+						page = this.pages[this.container][p];
+						if (page.slug.toLowerCase() == this.slug.toLowerCase()) {
+							console.log('updatePage2', this.page, this.container, this.currentIndex, this.slug )
+							this.page = page;
+							break;
+						}
+					}
+				}
+				else if (this.currentIndex > -1 && this.pages[this.container][this.currentIndex]) {
 					this.page = this.pages[this.container][this.currentIndex];
-					console.log('updatePage', this.page, this.container, this.currentIndex)
+					
 				}
 			}
 		},
