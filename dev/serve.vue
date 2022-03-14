@@ -109,7 +109,7 @@ export default Vue.extend({
              <WFGroupPOIsMenu :group="group"></WFGroupPOIsMenu>
           </WFTab>
           <WFTab name="9">
-            <WFPage container="default" slug="wifi"></WFPage>
+            <WFPage container="default" slug="shopassist"></WFPage>
           </WFTab>
         </WFTabs>
       </section>

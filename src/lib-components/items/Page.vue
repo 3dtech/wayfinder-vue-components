@@ -65,8 +65,11 @@ export default {
 		index () {
 			if (this.index >= 1) {
 				this.currentIndex = this.index;
-			} 
-			
+				this.updatePage();
+			}
+		},
+		slug () {
+			this.updatePage();
 		}
 	},
 	methods: {
