@@ -39,6 +39,9 @@ export default Vue.extend({
     },
     log (msg) {
       console.log('log', msg);
+    },
+    pageMenuClicked (page) {
+      console.log('page', page);
     }
   },
   data () {
@@ -109,6 +112,7 @@ export default Vue.extend({
              <WFGroupPOIsMenu :group="group"></WFGroupPOIsMenu>
           </WFTab>
           <WFTab name="9">
+            <WFPageMenu container="default" @clicked="pageMenuClicked"></WFPageMenu>
             <WFPage container="default" slug="shopassist"></WFPage>
           </WFTab>
         </WFTabs>
