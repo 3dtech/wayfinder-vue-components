@@ -31,7 +31,11 @@ export default {
 		currentPage: {
 			type: Object,
 			default: null
-		}
+		},
+		sortAZ: {
+			type: Boolean,
+			default: false
+		},
 	},
 	data () {
 		return {
@@ -46,14 +50,21 @@ export default {
                 arr = Object.values(this.pages[this.container]).filter((page) => {
                     return (page && page.visible);
                 }); // Copy and filter array
-                arr = arr.sort((a, b) => {
-                    if (this.getName(a) && this.getName(b)) {
-                        return this.getName(a).localeCompare(this.getName(b));
-                    }
-                    else {
-                        return 0;
-                    }
-                });
+				if (this.sortAZ) {
+					arr = arr.sort((a, b) => {
+						if (this.getName(a) && this.getName(b)) {
+							return this.getName(a).localeCompare(this.getName(b));
+						}
+						else {
+							return 0;
+						}
+					});
+				}
+				else {
+					arr = arr.sort((a, b) => {
+						return parseInt(a.order) - parseInt(b.order);
+					});
+				}
             }
 
 			this.count = arr.length;

@@ -36,6 +36,9 @@ export default {
 					this.scroll.refresh();
 				}
 			});
+		},
+		scrollToSection (index, direction, animate, animSpeed) {
+			this.scroll.scrollToSection(index, direction, animate, animSpeed);
 		}
 	}
 };
