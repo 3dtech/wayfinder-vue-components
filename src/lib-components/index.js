@@ -18,6 +18,7 @@ export { default as WFTabButtons } from './TabButtons.vue';
 export { default as WFScrollableArea } from './ScrollableArea.vue';
 export { default as WFBanner } from './Banner.vue';
 export { default as WFPageMenu } from './PageMenu.vue';
+export { default as WFAlphabet } from './Alphabet.vue';
 
 export { default as WFPOI } from './items/POI.vue';
 export { default as WFPage } from './items/Page.vue';

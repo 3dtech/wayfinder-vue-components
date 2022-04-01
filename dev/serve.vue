@@ -107,6 +107,7 @@ export default Vue.extend({
           </WFTab>
           <WFTab name="7">
              <WFShortcutsMenu></WFShortcutsMenu>
+             <WFAlphabet :pois="Object.values(pois)"></WFAlphabet>
           </WFTab>
           <WFTab name="8">
              <WFGroupPOIsMenu :group="group"></WFGroupPOIsMenu>
