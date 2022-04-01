@@ -1,6 +1,6 @@
 <template>
     <ul class="wf-component wf-alphabet-menu">
-        <li v-for="(l, pois) in alphabet" :key="l" @click="onAZ(l, pois)" :class="[currentChar == l ? 'wf-active':'']">{{l}}</li>
+        <li v-for="l in alphabet" :key="l" @click="onAZ(l)" :class="[currentChar == l ? 'wf-active':'']">{{l}}</li>
     </ul>
 </template>
 
@@ -18,12 +18,16 @@ export default {
 			type: String,
 			default: ""
 		},
+        showInMenu: {
+            type: Boolean,
+            default: true
+        }
 	},
 	data () {
         return {
-            active: "topics",
             currentChar: "",
-            alphabet: []
+            alphabet: [],
+            poisWithChar: {}
         }
     },
 	computed: {//yahLogo
@@ -35,11 +39,16 @@ export default {
             let poi, char;
             for(let p in this.pois) {
                 poi = this.pois[p];
-                if (poi.getShowInMenu() && poi.getName(this.language) && poi.getName(this.language).length > 0) {
+                if ((!this.showInMenu || poi.getShowInMenu()) && poi.getName(this.language) && poi.getName(this.language).length > 0) {
                     char = poi.getName(this.language)[0].toLowerCase();
                     if(letters.indexOf(char) == -1) {
                         letters.push(char);
                     }
+                    
+                    if(!this.poisWithChar[char]) {
+                        this.poisWithChar[char] = [];
+                    }
+                    this.poisWithChar[char].push(poi);
                 }
             }
             letters.sort();
@@ -52,9 +61,9 @@ export default {
         }
     },
 	methods: {
-		onAZ (letter, pois) {
+		onAZ (letter) {
             this.currentChar = letter;
-            this.$emit("clicked", letter, pois);
+            this.$emit("clicked", letter, this.poisWithChar[letter]);
 		}
 	}
 };
