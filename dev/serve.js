@@ -9,6 +9,9 @@ import WayfinderVueComponents from '@/entry.esm';
 
 import Vue2TouchEvents from 'vue2-touch-events'
 import VueObserveVisibility from 'vue-observe-visibility'
+
+import "@3dwayfinder/sdk/2d"
+
 Vue.use(Vuex);
 Vue.use(VueObserveVisibility)
 Vue.use(Vue2TouchEvents,
@@ -71,27 +74,25 @@ function load3D () {
 }
 
 function load2D () {
-	loadScript(host + "/js/dist/2d/latest/Wayfinder2D.debug.js", function () {
+	/*loadScript(host + "/js/dist/2d/latest/Wayfinder2D.debug.js", function () {
+  	loadVue();
+	});*/
+
+  loadScript("js/node_modules/@3dwayfinder/sdk/dist/Wayfinder2D.debug.js", function () {
   	loadVue();
 	});
 }
 
 if(location && location.search) {
 	var options = decodeURI(location.search.substring(1));
+  Vue.prototype.$WF_MAP_TYPE = "3d"
 	if (options.indexOf("mobile=") > -1) {
 		Vue.prototype.$WF_MAP_TYPE = "2d";
-		load2D();
-	} else if (WF_MAP_TYPE == "2d") {
-		load2D();
 	}
-  else {
-    load3D();
-  }
-} else {
-  console.log('WF_MAP_TYPE', WF_MAP_TYPE);
-	if (typeof WF_MAP_TYPE == "undefined" ||  WF_MAP_TYPE == "3d") {
-		load3D();
-	} else {
-		load2D();
-	}
+ 
 }
+import("@3dwayfinder/sdk/2d").then(() => {
+  console.log('loaded')
+  loadVue();
+});
+

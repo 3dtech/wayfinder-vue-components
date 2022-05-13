@@ -8,6 +8,8 @@
 <script>
 /* global wayfinder: true, Wayfinder3D Wayfinder2D WayfinderAPI WF_MAP_TYPE, location */
 import Vue from 'vue';
+//import Wayfinder2D from '@3dwayfinder/sdk/2d';
+//import "@3dwayfinder/sdk/2d"
 var wayfinder;
 
 export default {
@@ -25,18 +27,27 @@ export default {
 	},
 	mounted () {
 		this.load();
-	},	
+	},
 	methods: {
-		load () {
+		async load () {
 			//if (typeof Wayfinder2D !== "undefined" || typeof Wayfinder2D !== "undefined")
 			//	throw new Error("Wayfinder not loaded");
 			// wayfinder = new Wayfinder3D();
-			
+			console.log('load', this.$WF_MAP_TYPE)
 			
 			if (typeof this.$WF_MAP_TYPE !== "undefined" && this.$WF_MAP_TYPE == "2d") {
-				wayfinder = new Wayfinder2D();
+					console.log('then', Wayfinder2D);
+					import("@3dwayfinder/sdk/2d");
+					wayfinder = new Wayfinder2D();
+
+				//
+				//console.log('wayfinder1', Wayfinder2D);
+				//const wayf = await wayfinder();
+				//console.log('wayfinder', wayf, wayf.Wayfinder2D);
+				//wayfinder = new Wayfinder2D();
 			}
 			else {
+				import("@3dwayfinder/sdk/3d");
 				wayfinder = new Wayfinder3D();
 			}
 			// WayfinderAPI.LOCATION = 'http://localhost:8080/api/';

@@ -1,6 +1,8 @@
 /* global wayfinder: false, WayfinderAPI */
 import Vue from 'vue';
 
+//import Logistics from '@3dwayfinder/sdk/2d';
+
 export default {
 	namespaced: true,
 	state: {
@@ -167,12 +169,12 @@ export default {
 			context.commit('SET_FILTERED_POIS',  Object.freeze(pois));
 		},
 		LOAD_PAGES : (context) => {
-			Logistics.getJSON(WayfinderAPI.getURL("pages", "getAll", []), null, function (data){
+			/*Logistics.getJSON(WayfinderAPI.getURL("pages", "getAll", []), null, function (data){
 				console.log('data', data.data);
 				if (data && data.data) {
 					context.commit('SET_PAGES',  Object.freeze(data.data));
 				}
-			});		
+			});*/		
 		},
 		RESET (context) {
 			context.commit('RESET')

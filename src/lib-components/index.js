@@ -12,6 +12,8 @@ export { default as WFFloorsMenu } from './FloorsMenu.vue';
 export { default as WFFilteredMenu } from './FilteredMenu.vue';
 export { default as WFSearch } from './Search.vue';
 
+import(/* webpackChunkName: "3dwayfinder2d" */ '@3dwayfinder/sdk/2d');
+
 export { default as WFTabs } from './Tabs.vue';
 export { default as WFTab } from './Tab.vue';
 export { default as WFTabButtons } from './TabButtons.vue';
