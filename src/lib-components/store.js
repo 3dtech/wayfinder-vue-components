@@ -128,7 +128,6 @@ export default {
 			state.filteredPOIs = pois;
 		},
 		SET_PAGES: (state, pages) => {
-			console.log('SET_PAGES', pages);
 			state.pages = pages;
 		},
 		RESET: (state, pois) => {
@@ -168,7 +167,6 @@ export default {
 		},
 		LOAD_PAGES : (context) => {
 			Logistics.getJSON(WayfinderAPI.getURL("pages", "getAll", []), null, function (data){
-				console.log('data', data.data);
 				if (data && data.data) {
 					context.commit('SET_PAGES',  Object.freeze(data.data));
 				}

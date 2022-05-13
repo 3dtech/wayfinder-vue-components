@@ -1,16 +1,12 @@
 <template>
 	<div class="wf-component wf-groups-menu">
 		<ul class="wf-list" :class="['wf-list-count-' + count]">
-			<slot name="prepend"/>
 			<li class="wf-list-item" :class='{"active": current && topic.id == current.id}' v-for="topic in sortedGroups" :key='topic.id' >
 				<div class="wf-item-content" v-touch:tap="onClick(topic)">
 					<slot :group="topic">
 						<Group :group="topic" :showIcon="showIcon" :showPOICount="showPOICount"/>
 					</slot>
 				</div>
-				<ul v-show="current && topic.id == current.id && subGroups(topic.childGroups).length > 0">
-					<SubGroupMenu :parent="parseInt(topic.id)" :showPOICount="showPOICount" :az="az" :order="order" :showIcon="showIcon" :showPOIs="showPOIs" :sortPOIs="sortPOIs" @onPOICLick="onPOICLick"/>
-				</ul>
 				<ul class="wf-list wf-sublist" v-if="topic.pois.length > 0 && showPOIs" v-show="current && topic.id == current.id">
 					<li class="wf-list-item" v-for="poi in sortedPOIs(topic.pois)" :key='poi.id' v-touch:tap="onPOICLick(poi)">
 						<slot name="poi" :poi="poi">
@@ -19,7 +15,6 @@
 					</li>
 				</ul>
 			</li>
-			<slot name="append"/>
 		</ul>
 	</div>
 </template>
@@ -29,14 +24,11 @@ import { mapState } from 'vuex';
 import Group from './items/Group.vue';
 import POI from './items/POI.vue';
 
-import SubGroupMenu from './SubGroupMenu.vue';
-
 export default {
 	name: 'GroupsMenu',
 	components: {
 		Group,
-		POI,
-		SubGroupMenu
+		POI
 	},
 	props: {
 		parent: {
@@ -116,6 +108,7 @@ export default {
 			for (let i in groups) {
 				topic = groups[i];
 				if(topic && topic.getShowInMenu() && topic.getName(this.language)) {
+                    console.log('sorted', topic.parent_id, this.parent)
 					if (this.parent > -1 && parseInt(topic.parent_id) == this.parent) {
 						arr.push(topic);
 					}
@@ -161,7 +154,6 @@ export default {
 				else  {
 					this.current = group;
 				}
-				
 				this.$emit('clicked', group);
 			};
 		},
