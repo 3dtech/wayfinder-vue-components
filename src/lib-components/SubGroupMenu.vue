@@ -108,7 +108,6 @@ export default {
 			for (let i in groups) {
 				topic = groups[i];
 				if(topic && topic.getShowInMenu() && topic.getName(this.language)) {
-                    console.log('sorted', topic.parent_id, this.parent)
 					if (this.parent > -1 && parseInt(topic.parent_id) == this.parent) {
 						arr.push(topic);
 					}
@@ -158,7 +157,9 @@ export default {
 			};
 		},
 		onPOICLick (poi) {
+            
 			return () => {
+                console.log('onPOICLick01', poi)
 				this.$emit('poiClicked', poi);
 			};
 		},

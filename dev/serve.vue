@@ -42,6 +42,9 @@ export default Vue.extend({
     },
     pageMenuClicked (page) {
       console.log('page', page);
+    },
+    groupPOIClicked (poi) {
+      console.log('poi', poi);
     }
   },
   data () {
@@ -90,7 +93,7 @@ export default Vue.extend({
             </WFScrollableArea>
           </WFTab>
           <WFTab name="3">
-            <WFGroupsMenu @clicked="setGroup" :showPOIs="true" :order="true">
+            <WFGroupsMenu @clicked="setGroup" :showPOIs="true" :order="true" @poiClicked="groupPOIClicked">
               <template v-slot:poi><div>POI</div></template>
             </WFGroupsMenu>
           </WFTab>
