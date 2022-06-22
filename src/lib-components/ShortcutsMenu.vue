@@ -56,11 +56,11 @@ export default {
 	},
 	methods: {
 		showShortcut (shortcut) {
+			var nearest = this.$wayfinder.getNearestPOI(this.$wayfinder.getKiosk(), shortcut.pois);
 			if (this.hasClickedListener) {
 				this.$emit("clicked", nearest, shortcut);
 			}
 			else {
-				var nearest = this.$wayfinder.getNearestPOI(this.$wayfinder.getKiosk(), shortcut.pois);
 				if (this.showPath && typeof nearest === 'object' && nearest != null) {
 					this.$wayfinder.showPath(nearest.node, nearest);
 				}
