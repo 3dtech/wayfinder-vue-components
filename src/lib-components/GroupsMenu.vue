@@ -106,7 +106,6 @@ export default {
 	},
 	data () {
 		return {
-			current: null,
 			count: 0
 		}
 	},
@@ -171,9 +170,6 @@ export default {
 		},
 		onSubPOICLick (poi) {
 			this.$emit('poiClicked', poi);
-		},
-		reset () {
-			this.$store.dispatch('wf/SET_CURRENT_GROUP', null);
 		},
 		subGroups (subGroups) {
 			if (subGroups) {
