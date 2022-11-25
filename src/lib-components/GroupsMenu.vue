@@ -39,6 +39,10 @@ export default {
 		SubGroupMenu
 	},
 	props: {
+		current: {
+			type: Object,
+			default: null
+		},
 		parent: {
 			type: Number,
 			default: -1
@@ -107,7 +111,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState('wf', ['poiGroups', 'currentGroup', 'language']),
+		...mapState('wf', ['poiGroups', 'language']),
 		sortedGroups () {
 			let arr = []; // Copy arr for sorting
 			let topic;
@@ -145,11 +149,6 @@ export default {
 			
 			this.count = arr.length;
 			return arr;
-		}
-	},
-	watch: {
-		currentGroup: function () {
-			this.current = this.currentGroup;
 		}
 	},
 	methods: {
