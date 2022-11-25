@@ -45,6 +45,9 @@ export default Vue.extend({
     },
     groupPOIClicked (poi) {
       console.log('poi', poi);
+    },
+    resetScroll() {
+      this.$refs.filteredScroll.reset();
     }
   },
   data () {
@@ -83,13 +86,16 @@ export default Vue.extend({
             <WFBrowser src="https://tahvel.edu.ee/#/schoolBoard/36"></WFBrowser>
           </WFTab>
           <WFTab name="2">
-            <WFScrollableArea>
-              <WFFilteredMenu changed="isit">
-                  <template v-slot:default="slotProps">
-                    <WFPOI :poi="slotProps.poi" />
-                    <div class="footer">ROOM ID: {{slotProps.poi.room_id}}</div>
-                  </template>
-              </WFFilteredMenu>
+            <WFScrollableArea ref="filteredScroll">
+              <div>
+                <WFFilteredMenu changed="isit">
+                    <template v-slot:default="slotProps">
+                      <WFPOI :poi="slotProps.poi" />
+                      <div class="footer">ROOM ID: {{slotProps.poi.room_id}}</div>
+                    </template>
+                </WFFilteredMenu>
+                <button @click="resetScroll">Reset scroll</button>
+              </div>
             </WFScrollableArea>
           </WFTab>
           <WFTab name="3">
@@ -156,8 +162,13 @@ export default Vue.extend({
   }
   .wf-scrollable {
     width: 100%;
-    height: 100%;
+    height: 240px;
   }
+
+  .wf-scrollable > div {
+      padding-bottom: 3rem;
+  }
+
   .banner-set {
     width: 480px !important;
     height: 320px !important;
