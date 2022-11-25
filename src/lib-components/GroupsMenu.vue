@@ -39,7 +39,7 @@ export default {
 		SubGroupMenu
 	},
 	props: {
-		current: {
+		currentGroup: {
 			type: Object,
 			default: null
 		},
@@ -104,9 +104,15 @@ export default {
 			default: true
 		}
 	},
+	watch: {
+		currentGroup () {
+			this.current = this.currentGroup;
+		}
+	},
 	data () {
 		return {
-			count: 0
+			count: 0,
+			current: null
 		}
 	},
 	computed: {
@@ -170,6 +176,9 @@ export default {
 		},
 		onSubPOICLick (poi) {
 			this.$emit('poiClicked', poi);
+		},
+		reset () {
+			this.current = null;
 		},
 		subGroups (subGroups) {
 			if (subGroups) {

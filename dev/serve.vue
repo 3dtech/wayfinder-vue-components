@@ -32,6 +32,7 @@ export default Vue.extend({
     },
     setGroup (group, a) {
       console.log('setGroup', group, a)
+      this.currentGroup = group;
       this.$store.dispatch('wf/SET_FILTERED_POIS', group.pois);
     },
     reset () {
@@ -53,7 +54,8 @@ export default Vue.extend({
   data () {
     return {
       isit: "no",
-      currentTab: 1
+      currentTab: 1,
+      currentGroup: null
     }
   }
 });
@@ -99,7 +101,7 @@ export default Vue.extend({
             </WFScrollableArea>
           </WFTab>
           <WFTab name="3">
-            <WFGroupsMenu @clicked="setGroup" :showPOIs="true" :order="true" @poiClicked="groupPOIClicked">
+            <WFGroupsMenu @clicked="setGroup" :currentGroup="currentGroup" :showPOIs="true" :order="true" @poiClicked="groupPOIClicked">
               <template v-slot:poi><div>POI</div></template>
             </WFGroupsMenu>
           </WFTab>
