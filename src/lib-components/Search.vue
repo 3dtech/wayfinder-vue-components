@@ -22,7 +22,7 @@
 </template>
 
 <script>
-/* global wayfinder: false */
+/* todo: fix output when no is given */
 import { mapState } from 'vuex';
 import POI from './items/POI.vue';
 import OSK from 'on-screen-js-keyboard';

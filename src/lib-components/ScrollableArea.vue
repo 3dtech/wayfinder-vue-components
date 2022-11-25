@@ -33,7 +33,7 @@ export default {
 		reset () {
 			this.$nextTick(() => {
 				if(this.scroll) {
-					this.scroll.refresh();
+					this.scroll.reset();
 				}
 			});
 		},
