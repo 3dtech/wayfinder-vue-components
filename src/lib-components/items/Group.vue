@@ -31,7 +31,7 @@ export default {
 	},
 	watch: {
 		language () {
-			if (wayfinder) {
+			if (this.$wayfinder) {
 				this.show_path = this.$wayfinder.translator.get('show_path');
 			}
 		}
