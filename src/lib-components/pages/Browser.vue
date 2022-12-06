@@ -29,7 +29,10 @@ export default {
     watch: {
 		reset: function(newVal) {
             this.currentSRC = this.src + "?t=" + Date.now();
-		}
+		},
+        src: function () {
+            this.currentSRC = this.src;
+        }
 	},
 }
 </script>
