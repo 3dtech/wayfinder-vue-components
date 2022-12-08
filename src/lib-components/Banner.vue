@@ -50,8 +50,8 @@ export default {
 		banners () {
 			let now = Date.now();
 			
-			if (this.template && this.container && this.banners['template-' + this.template.toLowerCase()] && this.banners['template-' + this.template.toLowerCase()][this.container]) {
-				this.frames = this.banners['template-' + this.template.toLowerCase()][this.container].filter((frame) => {
+			if (this.template && this.container && this.banners['template-' + this.template] && this.banners['template-' + this.template][this.container]) {
+				this.frames = this.banners['template-' + this.template][this.container].filter((frame) => {
 					let enabled = frame.enabled;
 					
 					if (enabled && frame.from_date) {
