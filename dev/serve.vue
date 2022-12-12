@@ -49,13 +49,19 @@ export default Vue.extend({
     },
     resetScroll() {
       this.$refs.filteredScroll.reset();
+    },
+    showPOI (poi) {
+      console.log('showPOI', poi)
+      this.currentTab = 10;
+      this.currentPOI = poi;
     }
   },
   data () {
     return {
       isit: "no",
       currentTab: 1,
-      currentGroup: null
+      currentGroup: null,
+      currentPOI: null
     }
   }
 });
@@ -81,6 +87,7 @@ export default Vue.extend({
           <button @click="currentTab = 7">Shortcuts</button>
           <button @click="currentTab = 8">GroupPOIs</button>
           <button @click="currentTab = 9">Page</button>
+          <button @click="currentTab = 10">POI</button>
           <button @click="reset()">Reset</button>
         </div>
         <WFTabs :activeTab="currentTab" animate="none">
@@ -90,7 +97,7 @@ export default Vue.extend({
           <WFTab name="2">
             <WFScrollableArea ref="filteredScroll">
               <div>
-                <WFFilteredMenu changed="isit">
+                <WFFilteredMenu changed="isit" @clicked="showPOI">
                     <template v-slot:default="slotProps">
                       <WFPOI :poi="slotProps.poi" />
                       <div class="footer">ROOM ID: {{slotProps.poi.room_id}}</div>
@@ -126,6 +133,9 @@ export default Vue.extend({
           <WFTab name="9">
             <WFPageMenu container="default" @clicked="pageMenuClicked"></WFPageMenu>
             <WFPage container="default" slug="shopassist"></WFPage>
+          </WFTab>
+          <WFTab name="10">
+            <WFPOI :poi="currentPOI" :showLogo="true"></WFPOI>
           </WFTab>
         </WFTabs>
       </section>
@@ -226,5 +236,11 @@ export default Vue.extend({
     left: 50%;
     margin-top: -5rem;
     margin-left: -5rem;
+  }
+
+  .wf-poi-image {
+    height: 5rem;
+    width: 5rem;
+    background-size: contain;
   }
 </style>

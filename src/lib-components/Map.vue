@@ -1,7 +1,7 @@
 <template>
 	<div class="wf-component wf-map-container" v-observe-visibility="visibilityChanged">
 		<canvas id="map"/>
-		<div class="wf-map-path-text" v-show="showPathText">{{pathText}}</div>
+		<div class="wf-map-path-text" v-show="(showPathText && pathTextVisible)">{{pathText}}</div>
 	</div>
 </template>
 
@@ -21,7 +21,11 @@ export default {
 		assets: {
 			type: String,
 			default: "//static.3dwayfinder.com/shared/"
-		},		
+		},	
+		showPathText: {
+			type: Boolean,
+			default: true
+		},	
 	},
 	mounted () {
 		this.load();
@@ -62,7 +66,7 @@ export default {
 			var scope = this;
 			var pathTextTime = wayfinder.settings.getInt('path.message.duration', 5) * 1000;
 			wayfinder.events.on("data-loaded", function () {
-				console.log('data-loaded', scope.loaded, scope.$store);
+				console.log('data-loaded', scope.loaded);
 				if(!scope.loaded) {
 					// update getters
 					scope.$store.dispatch('wf/SET_CURRENT_FLOOR', wayfinder.getCurrentFloor());
@@ -84,7 +88,7 @@ export default {
 
 			wayfinder.events.on("floor-change-before", (currentFloor, nextFloor, destinationFloor) => {
 				this.pathText = wayfinder.translator.get("go_to_floor", [currentFloor.getName(wayfinder.getLanguage()), destinationFloor.getName(wayfinder.getLanguage()), nextFloor.getName(wayfinder.getLanguage())])
-				this.showPathText = true;
+				this.pathTextVisible = true;
 			});
 
 			wayfinder.events.on("floor-change", (floor) => {
@@ -93,9 +97,9 @@ export default {
 					this.$store.dispatch('wf/SET_CURRENT_FLOOR', floor);
 					this.$emit('onTouch');
 				}
-				if (this.showPathText) {
+				if (this.pathTextVisible) {
 					setTimeout(() => {
-						this.showPathText = false;
+						this.pathTextVisible = false;
 					}, pathTextTime);
 				}
 			});
@@ -148,7 +152,7 @@ export default {
 	data () {
 		return {
 			loaded: false,
-			showPathText: false,
+			pathTextVisible: false,
 			pathText: ''
 		}
 	}

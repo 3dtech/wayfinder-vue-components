@@ -94,7 +94,7 @@ export default {
 				return 'url("' + this.poi.getIconUrl() + '")';
 			}
 			else {
-				return false;
+				return "";
 			}
 		},
 		isImage () {
