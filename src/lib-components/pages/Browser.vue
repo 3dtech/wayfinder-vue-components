@@ -14,6 +14,10 @@ export default {
 			type: String,
 			default: ""
 		},
+        resetPage: {
+			type: Boolean,
+			default: false
+		},
 	},
     computed: {
 		...mapState('wf', ['reset'])
@@ -28,7 +32,9 @@ export default {
     },
     watch: {
 		reset: function(newVal) {
-            this.currentSRC = this.src + "?t=" + Date.now();
+            if (this.resetPage) {
+                this.currentSRC = this.src + "?t=" + Date.now();
+            }
 		},
         src: function () {
             this.currentSRC = this.src;
