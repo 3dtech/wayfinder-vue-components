@@ -79,25 +79,4 @@ You need to change the project argument from **demo** to your **project ID** (a 
 
 # Components
 
-- WFMap - The map itself
-- WFFloorsMenu - list of floors
-- WFTabs - a tab component
-- WFTab - a tab
-- WFGroupsMenu - list of groups
-- WFAZMenu - alphabetically ordered list of locations
-- WFScrollableArea - touch and mouse friendly scrollable area
-- WFPOI - info about a single location
-- WFBanner - advertisement banner
-- WFBuildingLogo - project logo
-- WFYAH - You are here button
-- WFGroupPOIsMenu - List of locations under given group
-- WFFlagsMenu - language selection menu with flag icons
-- WFLanguagesMenu - language selection menu
-- WFShortcutsMenu - list of shortcuts (wc, atm etc)
-- WFZoomMenu - Zoom in and out
-- WFFilteredMenu - show a given array of locations
-- WFSearch - search component with builtin keyboard
-- WFAlphabet - list of used first letters
-- WFPageMenu - list of content pages
-- WFPage - show content of a page
-- WFBrowser - show a iframe with given URL
+[Components](./COMPONENTS.md)

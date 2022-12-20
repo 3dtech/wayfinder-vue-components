@@ -11,7 +11,7 @@ export default Vue.extend({
   //  WayfinderVueComponentsSample,
   // }
   computed: {
-    ...mapState('wf', ['pois', 'poiGroups', 'building']),
+    ...mapState('wf', ['pois', 'poiGroups', 'building', 'template']),
     ...mapState(['appName']),
     group () {
       if (this.poiGroups && Object.values(this.poiGroups).length > 0) {
@@ -139,6 +139,7 @@ export default Vue.extend({
           </WFTab>
         </WFTabs>
       </section>
+      {{template}}
     </div>
   </div>
 </template>

@@ -20,7 +20,10 @@ export default {
 		mobile: false,
 		maxInActivity: 30,
 		reset: 0,
-		pages: {}
+		pages: {},
+		template: {
+
+		}
 	},
 	getters: {
 		xLanguage: (state, context) => {
@@ -91,6 +94,27 @@ export default {
 		xBanners: (state) => {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined') {
 				state.banners = Object.assign({}, Vue.prototype.$wayfinder.getFilteredAdvertisements());
+			}
+		},
+		xTemplateSettings: (state) => {
+			if (typeof Vue.prototype.$wayfinder !== 'undefined') {
+				const wfSettings = Vue.prototype.$wayfinder.settings;
+				let setting;
+				function camelize(str) {
+					let strs = str.split(".");
+					str = strs[strs.length - 1];
+					str = str.replaceAll("-", " ");
+					return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
+						return index === 0 ? word.toLowerCase() : word.toUpperCase();
+					}).replace(/\s+/g, '');
+				}
+
+				for(let s in wfSettings.data) {
+					if(s.indexOf("template.default") === 0) {
+						setting = wfSettings.data[s];
+						state.template[camelize(s)] = wfSettings.get(s);
+					}
+				}
 			}
 		}
 	},
@@ -172,8 +196,8 @@ export default {
 				}
 			});		
 		},
-		RESET (context) {
-			context.commit('RESET')
+		SET_TEMPLATE_SETTINGS: (context) => {
+			xTemplateSettings
 		}
 	}
 };
