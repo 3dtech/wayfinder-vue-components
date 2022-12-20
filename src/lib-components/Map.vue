@@ -29,7 +29,12 @@ export default {
 	},
 	mounted () {
 		this.load();
-	},	
+		this.resize();
+
+		window.onresize = () => {
+			this.resize();
+		}
+	},
 	methods: {
 		load () {
 			//if (typeof Wayfinder2D !== "undefined" || typeof Wayfinder2D !== "undefined")
@@ -120,6 +125,12 @@ export default {
 					wayfinder.resize();
 				}
 			});
+		},
+		resize () {
+			let _l = window.matchMedia("(orientation: landscape)");
+			this.landscape = _l ? _l.matches : false;
+			this.$store.dispatch('wf/SET_LANDSCAPE', this.landscape);
+			this.$store.dispatch('wf/SET_PORTRAIT', !this.landscape);
 		},
 		update () {
 			for(var i in this.$store._wrappedGetters) {

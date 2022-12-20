@@ -17,6 +17,7 @@ export default {
 		yahLogo: '',
 		banners: null,
 		landscape: false,
+		portrait: false,
 		mobile: false,
 		maxInActivity: 30,
 		reset: 0,
@@ -139,6 +140,9 @@ export default {
 		SET_LANDSCAPE: (state, landscape) => {
 			state.landscape = landscape;
 		},
+		SET_PORTRAIT: (state, portrait) => {
+			state.portrait = portrait;
+		},
 		SET_MOBILE: (state, mobile) => {
 			state.mobile = mobile;
 		},
@@ -176,6 +180,9 @@ export default {
 		},
 		SET_LANDSCAPE : (context, landscape) => {
 			context.commit('SET_LANDSCAPE', landscape);
+		},
+		SET_PORTRAIT : (context, portrait) => {
+			context.commit('SET_PORTRAIT', portrait);
 		},
 		SET_INACTIVITY_TIME :  (context, time) => {
 			context.commit('SET_INACTIVITY_TIME', time);
