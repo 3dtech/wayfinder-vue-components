@@ -9,7 +9,7 @@
 import { mapState } from 'vuex';
 
 export default {
-	name: "html",
+	name: "page-html",
 	computed: {
 		...mapState('wf', ['language']),
 	},

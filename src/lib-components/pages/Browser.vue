@@ -1,6 +1,6 @@
 <template>
   <div class="wf-component wf-browser">
-      <iframe :src="currentSRC"></iframe>
+      <iframe :src="currentSRC" nwdisable nwfaketop></iframe>
   </div>
 </template>
 
@@ -44,7 +44,7 @@ export default {
 </script>
 
 <style>
-    .wf-browser, .wf-browser iframe {
+    .wf-browser, .wf-browser iframe, .wf-browser webview {
         width: 100%;
         height: 100%;
         border: none;

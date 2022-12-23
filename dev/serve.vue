@@ -92,7 +92,7 @@ export default Vue.extend({
         </div>
         <WFTabs :activeTab="currentTab" animate="none">
           <WFTab name="1">
-            <WFBrowser src="https://tahvel.edu.ee/#/schoolBoard/36"></WFBrowser>
+            <WFBrowser src="https://kiilikool.edupage.org/timetable/view.php?fullscreen=1"></WFBrowser>
           </WFTab>
           <WFTab name="2">
             <WFScrollableArea ref="filteredScroll">
