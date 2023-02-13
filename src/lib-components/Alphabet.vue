@@ -1,6 +1,6 @@
 <template>
     <ul class="wf-component wf-alphabet-menu">
-        <li v-for="l in alphabet" :key="l" @click="onAZ(l)" :class="[currentChar == l ? 'wf-active':'']">{{l}}</li>
+        <li v-for="l in alphabet" :key="l" @click="onAZ(l)" :class="[currentChar == l ? 'wf-active':'', 'wf-char-'+l]">{{l}}</li>
     </ul>
 </template>
 
@@ -73,6 +73,7 @@ export default {
         },
         generate () {
             let letters = [];
+            this.poisWithChar = [];
             let poi, char;
             for(let p in this.pois) {
                 poi = this.pois[p];
