@@ -70,7 +70,7 @@ export default Vue.extend({
 <template>
   <div id="app">
     <div class="map-container">
-      <WFMap @loaded="mapDataLoaded"/>
+      <WFMap @loaded="mapDataLoaded" project="44003380d0f5698b6707799fd3b1fc87"/>
       <WFYAH/>
       <WFFloorsMenu/>
     </div>
@@ -117,15 +117,15 @@ export default Vue.extend({
             </WFSearch>
           </WFTab>
           <WFTab name="5">
-             <!--WFBanner template="default" container="screensaver-portrait" :playOnBoot="true"></WFBanner-->
-              <WFBanner template="default" container="advertisements" qrURL="https://google.com" :playOnBoot="true"></WFBanner>
+            <WFBanner template="Default" container="screensaver-portrait" :playOnBoot="true"></WFBanner>
+            <!--WFBanner template="default" container="advertisements" qrURL="https://google.com" :playOnBoot="true"></WFBanner-->
           </WFTab>
           <WFTab name="6">
              <WFAZMenu></WFAZMenu>
           </WFTab>
           <WFTab name="7">
              <WFShortcutsMenu></WFShortcutsMenu>
-             <WFAlphabet :pois="Object.values(pois)"></WFAlphabet>
+             <WFAlphabet :pois="Object.values(pois)" :group="'12'"></WFAlphabet>
           </WFTab>
           <WFTab name="8">
              <WFGroupPOIsMenu :group="group"></WFGroupPOIsMenu>

@@ -49,7 +49,6 @@ export default {
 	watch: {
 		banners () {
 			let now = Date.now();
-			
 			if (this.template && this.container && this.banners['template-' + this.template] && this.banners['template-' + this.template][this.container]) {
 				this.frames = this.banners['template-' + this.template][this.container].filter((frame) => {
 					let enabled = frame.enabled;
