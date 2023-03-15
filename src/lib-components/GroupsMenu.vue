@@ -8,7 +8,7 @@
 						<Group :group="topic" :showIcon="showIcon" :showPOICount="showPOICount"/>
 					</slot>
 				</div>
-				<ul v-show="current && topic.id == current.id && subGroups(topic.childGroups).length > 0">
+				<ul v-show="current && topic.id == current.id && subGroups(topic.childGroups).length > 0" v-if="showSubGroups">
 					<SubGroupMenu :parent="parseInt(topic.id)" :showPOICount="showPOICount" :az="az" :order="order" :showIcon="showIcon" :showPOIs="showPOIs" :sortPOIs="sortPOIs" @poiClicked="onSubPOICLick"/>
 				</ul>
 				<ul class="wf-list wf-sublist" v-if="topic.pois.length > 0 && showPOIs" v-show="current && topic.id == current.id">
