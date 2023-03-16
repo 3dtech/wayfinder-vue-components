@@ -9,7 +9,7 @@
 					</slot>
 				</div>
 				<ul v-show="current && topic.id == current.id && subGroups(topic.childGroups).length > 0" v-if="showSubGroups">
-					<SubGroupMenu :parent="parseInt(topic.id)" :showPOICount="showPOICount" :az="az" :order="order" :showIcon="showIcon" :showPOIs="showPOIs" :sortPOIs="sortPOIs" @poiClicked="onSubPOICLick"/>
+					<SubGroupMenu :parent="parseInt(topic.id)" :showPOICount="showPOICount" :az="az" :order="order" :showIcon="showIcon" :showPOIs="showPOIs" :sortPOIs="sortPOIs" @clicked="onSubGroupCLick" @poiClicked="onSubPOICLick"/>
 				</ul>
 				<ul class="wf-list wf-sublist" v-if="topic.pois.length > 0 && showPOIs" v-show="current && topic.id == current.id">
 					<li class="wf-list-item" v-for="poi in sortedPOIs(topic.pois)" :key='poi.id' v-touch:tap="onPOICLick(poi)">
@@ -173,6 +173,9 @@ export default {
 			return () => {
 				this.$emit('poiClicked', poi);
 			};
+		},
+		onSubGroupCLick (group) {
+			this.$emit('subGroupClicked', group);
 		},
 		onSubPOICLick (poi) {
 			this.$emit('poiClicked', poi);
