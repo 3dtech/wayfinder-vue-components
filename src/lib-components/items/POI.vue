@@ -7,6 +7,11 @@
 				<label data-translation-element="show_path">{{show_path}}</label> <i></i>
 			</button>
 		</div>
+		<div class="wf-show-path wf-show-accessibility-path" v-if="showAccessibilityPathButton" v-touch:tap="showAccessibilityPath">
+			<button>
+				<label data-translation-element="show_accessibility_path">{{show_accessibility_path}}</label> <i></i>
+			</button>
+		</div>
 		<div class="wf-poi-description" v-if="showDescription" v-html="poi.getDescription(language) || ''"></div>
 		<div class="wf-poi-room_id" v-if="showRoomID" v-html="poi.room_id || ''"></div>
 		<div class="wf-poi-floor" v-if="showFloor && poi.getFloor()" v-html="poi.getFloor().getName(language) || ''"></div>
@@ -22,6 +27,9 @@ export default {
 	computed: {
 		...mapState('wf', ['language']),
 		hasShowPathListener(){
+			return !!(this.$listeners && this.$listeners.showPath);
+		},
+		hasShowAccessibilityPathListener () {
 			return !!(this.$listeners && this.$listeners.showPath);
 		}
 	},
@@ -39,6 +47,10 @@ export default {
 			default: true
 		},
 		showPathButton: {
+			type: Boolean,
+			default: false
+		},
+		showAccessibilityPathButton: {
 			type: Boolean,
 			default: false
 		},
@@ -70,6 +82,16 @@ export default {
 				}
 				else {
 					this.$wayfinder.showPath(this.poi.getNode(), this.poi);
+				}
+			}
+		},
+		showAccessibilityPath () {
+			if (this.poi) {
+				if (this.hasShowAccessibilityPathListener) {
+					this.$emit('showAccessibilityPath', this.poi);
+				}
+				else {
+					this.$wayfinder.showPath(this.poi.getNode(), this.poi, {"ignoreTypes": ["escalator", "stairs"]});
 				}
 			}
 		},

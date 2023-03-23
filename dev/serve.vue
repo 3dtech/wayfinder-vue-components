@@ -70,7 +70,7 @@ export default Vue.extend({
 <template>
   <div id="app">
     <div class="map-container">
-      <WFMap @loaded="mapDataLoaded" project="44003380d0f5698b6707799fd3b1fc87"/>
+      <WFMap @loaded="mapDataLoaded" project="d6ab149b5f01979b4e5ed3f245c9faae"/>
       <WFYAH/>
       <WFFloorsMenu/>
     </div>
@@ -99,7 +99,7 @@ export default Vue.extend({
               <div>
                 <WFFilteredMenu changed="isit" @clicked="showPOI">
                     <template v-slot:default="slotProps">
-                      <WFPOI :poi="slotProps.poi" />
+                      <WFPOI :poi="slotProps.poi" :showAccessibilityPathButton="true"/>
                       <div class="footer">ROOM ID: {{slotProps.poi.room_id}}</div>
                     </template>
                 </WFFilteredMenu>
@@ -135,7 +135,7 @@ export default Vue.extend({
             <WFPage container="default" slug="shopassist"></WFPage>
           </WFTab>
           <WFTab name="10">
-            <WFPOI :poi="currentPOI" :showLogo="true"></WFPOI>
+            <WFPOI :poi="currentPOI" :showLogo="true" :showAccessibilityPathButton="true"></WFPOI>
           </WFTab>
         </WFTabs>
       </section>
