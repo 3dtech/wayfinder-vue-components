@@ -71,6 +71,7 @@ export default {
 		language () {
 			if (this.$wayfinder) {
 				this.show_path = this.$wayfinder.translator.get('show_path');
+				this.show_accessibility_path = this.$wayfinder.translator.get('show_accessibility_path');
 			}
 		}
 	},
@@ -135,7 +136,8 @@ export default {
 	},
 	data: function () {
 		return {
-			show_path: 'Show Path'
+			show_path: 'Show Path',
+			show_accessibility_path: "Show Accessibility Path"
 		}
 	}
 };
