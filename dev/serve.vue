@@ -43,6 +43,7 @@ export default Vue.extend({
     },
     pageMenuClicked (page) {
       console.log('page', page);
+      this.pageSlug = page.slug;
     },
     groupPOIClicked (poi) {
       console.log('poi', poi);
@@ -61,7 +62,8 @@ export default Vue.extend({
       isit: "no",
       currentTab: 1,
       currentGroup: null,
-      currentPOI: null
+      currentPOI: null,
+      pageSlug: "slug"
     }
   }
 });
@@ -70,7 +72,7 @@ export default Vue.extend({
 <template>
   <div id="app">
     <div class="map-container">
-      <WFMap @loaded="mapDataLoaded" project="d6ab149b5f01979b4e5ed3f245c9faae"/>
+      <WFMap @loaded="mapDataLoaded" project="61d5526622058083f3988c118fbf0139"/>
       <WFYAH/>
       <WFFloorsMenu/>
     </div>
@@ -132,7 +134,7 @@ export default Vue.extend({
           </WFTab>
           <WFTab name="9">
             <WFPageMenu container="default" @clicked="pageMenuClicked"></WFPageMenu>
-            <WFPage container="default" slug="shopassist"></WFPage>
+            <WFPage container="default" :slug="pageSlug"></WFPage>
           </WFTab>
           <WFTab name="10">
             <WFPOI :poi="currentPOI" :showLogo="true" :showAccessibilityPathButton="true"></WFPOI>

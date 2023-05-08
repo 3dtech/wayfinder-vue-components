@@ -3,8 +3,11 @@
 		<div class="wf-page-icon" :class="[page.icon ? 'wf-has-icon' : '']" v-html="page.icon"></div>
         <label class="wf-page-name" v-if="showName" v-html="pageName || ''"></label>
         <div class="wf-page-content">
-            <div v-for="(item, index) in page.items" :key="item.id" :class="['wf-page-item-' + index ]">
-				<component :is="itemType(item)" :item="item"></component> 
+			<div v-if="page.type == 'wf-page-collection'">
+				<component v-for="(item, index) in page.items" :key="item.id" :class="['wf-page-item-' + index ]" :is="itemType(item)" :item="item"></component> 
+			</div>
+			<div v-if="page.type !== 'collection'" class="wf-page-single">
+				<component :is="itemType(page)" :item="page"></component> 
             </div>
         </div>
 	</div>
@@ -14,11 +17,13 @@
 /* global wayfinder: false */
 import { mapState } from 'vuex';
 import PageHTML from './page_items/PageHTML.vue';
+import PageURL from './page_items/PageUrl.vue';
 
 export default {
 	name: "Page",
 	components: {
-		PageHTML
+		PageHTML,
+		PageURL
 	},
 	computed: {
 		...mapState('wf', ['language', 'pages']),
@@ -94,7 +99,8 @@ export default {
 			}
 		},
 		itemType (item) {
-			if (this.page) {
+			console.log('item', item);
+			if (item && item.type) {
 				return "Page"+item.type.toUpperCase();
 			}
 
