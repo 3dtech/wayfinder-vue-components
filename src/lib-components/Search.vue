@@ -105,6 +105,9 @@ export default {
 			if (this.limit > 0) {
 				results = results.slice(0, this.limit);
 			}
+			else {
+				results = results.slice();
+			}
 
 			this.results = Object.freeze(Object.values(results));
 			if (keyword.length > 1) {

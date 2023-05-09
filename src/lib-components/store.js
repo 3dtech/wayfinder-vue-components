@@ -29,7 +29,7 @@ export default {
 	getters: {
 		xLanguage: (state, context) => {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined') {
-				state.language = Vue.prototype.$wayfinder.getLanguage();
+				state.language = Object.freeze(Vue.prototype.$wayfinder.getLanguage());
 			}
 
 			return state.language;
@@ -84,7 +84,11 @@ export default {
 		},
 		xPOIs: (state) => {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined') {
-				state.pois = Object.freeze(Vue.prototype.$wayfinder.poisArray.slice());
+				var pois = [];
+				for(var p = 0; p < Vue.prototype.$wayfinder.poisArray.length; p++) {
+					pois.push(Object.freeze(Vue.prototype.$wayfinder.poisArray[p]));
+				}
+				state.pois = pois;
 			}
 		},
 		xTopics: (state) => {
@@ -127,7 +131,7 @@ export default {
 			state.currentTab = tab;
 		},
 		SET_GROUP: (state, group) => {
-			state.currentGroup = group;
+			state.currentGroup = Object.freeze(group);
 		},
 		SET_SHOW_SEARCH:  (state, visible) => {
 			state.searchVisible = visible;
@@ -204,7 +208,7 @@ export default {
 			});		
 		},
 		SET_TEMPLATE_SETTINGS: (context) => {
-			xTemplateSettings
+
 		}
 	}
 };
