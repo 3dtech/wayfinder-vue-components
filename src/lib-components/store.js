@@ -82,13 +82,9 @@ export default {
 				state.yahLogo = 'url(' + WayfinderAPI.getURL("images", "get", Vue.prototype.$wayfinder.settings.getInt('kiosk.you-are-here-image', 0)) + ')';
 			}
 		},
-		xPOIs: (state) => {
+		xPOIs: state => {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined') {
-				var pois = [];
-				for(var p = 0; p < Vue.prototype.$wayfinder.poisArray.length; p++) {
-					pois.push(Object.freeze(Vue.prototype.$wayfinder.poisArray[p]));
-				}
-				state.pois = pois;
+				state.pois = Object.freeze(Vue.prototype.$wayfinder.poisArray.slice());
 			}
 		},
 		xTopics: (state) => {
