@@ -194,7 +194,10 @@ export default {
 			context.commit('SET_CURRENT_FLOOR',  Object.freeze(floor));
 		},
 		SET_FILTERED_POIS : (context, pois) => {
-			context.commit('SET_FILTERED_POIS',  Object.freeze(pois));
+			pois = pois.map(p => {
+				return Object.freeze(p);
+			});
+			context.commit('SET_FILTERED_POIS',  pois);
 		},
 		LOAD_PAGES : (context) => {
 			Logistics.getJSON(WayfinderAPI.getURL("pages", "getAll", []), null, function (data){

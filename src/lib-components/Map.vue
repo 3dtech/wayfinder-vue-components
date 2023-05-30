@@ -74,7 +74,7 @@ export default {
 				console.log('data-loaded', scope.loaded);
 				if(!scope.loaded) {
 					// update getters
-					scope.$store.dispatch('wf/SET_CURRENT_FLOOR', wayfinder.getCurrentFloor());
+					scope.$store.dispatch('wf/SET_CURRENT_FLOOR', wayfinder.getCurrentFloor() || null);
 					scope.$store.dispatch('wf/SET_INACTIVITY_TIME', wayfinder.settings.getInt('kiosk.max-inactivity', 30));
 
 					scope.update(wayfinder);
