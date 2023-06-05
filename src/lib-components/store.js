@@ -1,6 +1,9 @@
 /* global wayfinder: false, WayfinderAPI */
 import Vue from 'vue';
 
+function clone(obj) {
+	return Object.assign(Object.create(Object.getPrototypeOf(obj)), obj);
+}
 export default {
 	namespaced: true,
 	state: {
@@ -36,7 +39,7 @@ export default {
 		},
 		xFloors: (state) => {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined' && Vue.prototype.$wayfinder.building) {
-				state.floors = Object.freeze(Object.assign({}, Vue.prototype.$wayfinder.building.getSortedFloors()));
+				state.floors = Vue.prototype.$wayfinder.building.getSortedFloors().map(f => clone(f));
 			}
 
 			return state.floors;
@@ -54,11 +57,9 @@ export default {
 				let shortcuts = [];
 				Object.keys(groups).forEach((key) => {
 					if (parseInt(groups[key].showInTopMenu)) {
-						shortcuts.push(Object.freeze(groups[key]));
+						shortcuts.push(clone(groups[key]));
 					}
 				});
-
-				shortcuts = shortcuts.slice(0, 6);
 
 				shortcuts = shortcuts.sort((a, b) => {
 					return -(a.order - b.order);
@@ -71,8 +72,7 @@ export default {
 		},
 		xBuilding: (state) => {
 			if (Vue.prototype.$wayfinder !== 'undefined') {
-				let building = Object.assign({}, Vue.prototype.$wayfinder.building);
-				state.building =  Object.freeze(building);
+				state.building = clone(Vue.prototype.$wayfinder.building);
 			}
 
 			return state.building;
@@ -84,12 +84,14 @@ export default {
 		},
 		xPOIs: state => {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined') {
-				state.pois = Object.freeze(Vue.prototype.$wayfinder.poisArray.slice());
+				state.pois = Vue.prototype.$wayfinder.poisArray.map(p => clone(p));
 			}
 		},
 		xTopics: (state) => {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined') {
-				state.poiGroups = Object.freeze(Object.assign({}, Vue.prototype.$wayfinder.poiGroups));
+				//state.poiGroups = Object.freeze(Object.assign({}, Vue.prototype.$wayfinder.poiGroups));
+				state.poiGroups = clone(Vue.prototype.$wayfinder.poiGroups);
+
 			}
 		},
 		xBanners: (state) => {

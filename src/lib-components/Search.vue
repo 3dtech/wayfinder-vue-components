@@ -108,8 +108,10 @@ export default {
 			else {
 				results = results.slice();
 			}
-
-			this.results = Object.freeze(Object.values(results));
+			let resultArr = Object.values(results).map((poi) => {
+				return Object.assign(Object.create(Object.getPrototypeOf(poi)), poi);;
+			});
+			this.results = resultArr;
 			if (keyword.length > 1) {
 				if (Object.values(this.results).length > 0) {
 					this.$wayfinder.statistics.onSearch(keyword, "successful");
