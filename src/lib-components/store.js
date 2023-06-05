@@ -39,7 +39,14 @@ export default {
 		},
 		xFloors: (state) => {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined' && Vue.prototype.$wayfinder.building) {
-				state.floors = Vue.prototype.$wayfinder.building.getSortedFloors().map(f => clone(f));
+				let _f;
+				state.floors = Object.freeze(Vue.prototype.$wayfinder.building.getSortedFloors().map(f => {
+					_f = clone(f);
+					_f.pois = _f.pois.slice();
+					delete _f.nodes;
+					delete _f.node3D;
+					return _f;
+				}));
 			}
 
 			return state.floors;
@@ -55,10 +62,14 @@ export default {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined') {
 				let groups = Vue.prototype.$wayfinder.getPOIGroups();
 				let shortcuts = [];
-				Object.keys(groups).forEach((key) => {
-					if (parseInt(groups[key].showInTopMenu)) {
-						shortcuts.push(clone(groups[key]));
-					}
+				let g;
+				Object.keys(groups).forEach(key => {
+				  if (parseInt(groups[key].showInTopMenu)) {
+					g = clone(groups[key]);
+					g.pois = g.pois.map(p => Object.freeze(clone(p)));
+					Object.defineProperty(g, 'parent', { configurable: false });
+					shortcuts.push(Object.freeze(g));
+				  }
 				});
 
 				shortcuts = shortcuts.sort((a, b) => {
@@ -72,7 +83,11 @@ export default {
 		},
 		xBuilding: (state) => {
 			if (Vue.prototype.$wayfinder !== 'undefined') {
-				state.building = clone(Vue.prototype.$wayfinder.building);
+				let building = clone(Vue.prototype.$wayfinder.building);
+				Object.defineProperty(building, 'floors', { configurable: false });
+				Object.defineProperty(building, 'currentFloor', { configurable: false });
+				Object.defineProperty(building, 'sortedFloors', { configurable: false });
+				state.building = Object.freeze(building);
 			}
 
 			return state.building;
@@ -84,14 +99,29 @@ export default {
 		},
 		xPOIs: state => {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined') {
-				state.pois = Vue.prototype.$wayfinder.poisArray.map(p => clone(p));
+				state.pois = Object.freeze(Vue.prototype.$wayfinder.poisArray.map(p => {
+					let _p = clone(p)
+					Object.defineProperty(_p, 'floor', { configurable: false });
+					Object.defineProperty(_p, 'groups', { configurable: false });
+					delete _p.node;
+					delete _p.object;
+					delete _p.meshNode;
+					delete _p.submesh;
+					delete _p.wayfinder;
+					delete _p.engine;
+					delete _p.canvasBoard;
+					return _p;
+				  }));
 			}
 		},
 		xTopics: (state) => {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined') {
-				//state.poiGroups = Object.freeze(Object.assign({}, Vue.prototype.$wayfinder.poiGroups));
-				state.poiGroups = clone(Vue.prototype.$wayfinder.poiGroups);
-
+				let groups = clone(Vue.prototype.$wayfinder.poiGroups);
+				for(let g in groups) {
+				  groups[g].pois = groups[g].pois.map(p => Object.freeze(clone(p)));
+				  Object.defineProperty(groups[g], 'parent', { configurable: false });
+				}
+				state.poiGroups =  Object.freeze(groups);
 			}
 		},
 		xBanners: (state) => {

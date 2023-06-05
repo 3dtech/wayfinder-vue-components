@@ -163,7 +163,7 @@ export default {
 					this.current = null;
 				}
 				else  {
-					this.current = group;
+					this.current = Object.freeze(group);
 				}
 				
 				this.$emit('clicked', group);
