@@ -103,7 +103,7 @@ export default {
 					let _p = clone(p)
 					Object.defineProperty(_p, 'floor', { configurable: false });
 					Object.defineProperty(_p, 'groups', { configurable: false });
-					delete _p.node;
+					Object.defineProperty(_p, 'node', { configurable: false });
 					delete _p.object;
 					delete _p.meshNode;
 					delete _p.submesh;
