@@ -11,7 +11,7 @@ export default Vue.extend({
   //  WayfinderVueComponentsSample,
   // }
   computed: {
-    ...mapState('wf', ['pois', 'poiGroups', 'building', 'template']),
+    ...mapState('wf', ['pois', 'poiGroups', 'building', 'template', 'currentFloor']),
     ...mapState(['appName']),
     group () {
       if (this.poiGroups && Object.values(this.poiGroups).length > 0) {
@@ -74,7 +74,7 @@ export default Vue.extend({
     <div class="map-container">
       <WFMap @loaded="mapDataLoaded" project="61d5526622058083f3988c118fbf0139"/>
       <WFYAH/>
-      <WFFloorsMenu/>
+      <WFFloorsMenu :currentFloor="currentFloor"/>
     </div>
     <div class="content">
       <section class="tab-serve">

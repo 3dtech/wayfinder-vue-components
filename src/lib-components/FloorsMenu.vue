@@ -1,7 +1,7 @@
 <template>
 		<div class="wf-component wf-floors-menu">
 			<ul class="wf-list" v-show="!(hideWhenSingleFloor && floors.length <= 1)" :class="['wf-list-count-' + count]">
-				<li v-for="floor in filteredFloors" :key='floor.id' @click="changeFloor(floor)" class="wf-list-item" :class='["wf-lang-" + language, "wf-floor-" + floor.index, { active: floor == currentFloor}]'>
+				<li v-for="floor in filteredFloors" :key='floor.id' @click="changeFloor(floor)" class="wf-list-item" :class='["wf-lang-" + language, "wf-floor-" + floor.index, { "wf-active": currentFloor && floor.id == currentFloor.id}]'>
 					<label class="wf-title">{{floor.getName(language)}}</label>
 					<label class="wf-count" v-if="showPOICount">{{floor.pois.length}}</label>
 				</li>
