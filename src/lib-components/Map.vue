@@ -128,9 +128,13 @@ export default {
 		},
 		resize () {
 			let _l = window.matchMedia("(orientation: landscape)");
+			let _pm = window.matchMedia("(max-height: 1024px) and (orientation: portrait)");
+			let _lm = window.matchMedia("(max-width: 1024px) and (orientation: landscape)");
 			this.landscape = _l ? _l.matches : false;
+			let mobile = (_pm ? _pm.matches : false) || (_lm ? _lm.matches : false);
 			this.$store.dispatch('wf/SET_LANDSCAPE', this.landscape);
 			this.$store.dispatch('wf/SET_PORTRAIT', !this.landscape);
+			this.$store.dispatch('wf/SET_MOBILE', mobile);
 		},
 		update () {
 			for(var i in this.$store._wrappedGetters) {

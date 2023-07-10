@@ -37,6 +37,13 @@ export default {
 				}
 			});
 		},
+		resize () {
+			this.$nextTick(() => {
+				if(this.scroll) {
+					this.scroll.resize();
+				}
+			});
+		},
 		scrollToSection (index, direction, animate, animSpeed) {
 			this.scroll.scrollToSection(index, direction, animate, animSpeed);
 		}
