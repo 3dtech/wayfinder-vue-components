@@ -219,6 +219,7 @@ export default {
 		background-size: cover;
 		background-position: 50% 50%;
 		background-repeat: no-repeat;
+		position: absolute;
 	}
 
 	.wf-banner .wf-frame.wf-active {
