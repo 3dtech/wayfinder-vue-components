@@ -137,7 +137,7 @@ export default Vue.extend({
             <WFPage container="default" :slug="pageSlug"></WFPage>
           </WFTab>
           <WFTab name="10">
-            <WFPOI :poi="currentPOI" :showLogo="true" :showAccessibilityPathButton="true"></WFPOI>
+            <WFPOI :poi="currentPOI" :showLogo="true" :showAccessibilityPathButton="true" :showDistance="true"></WFPOI>
           </WFTab>
         </WFTabs>
       </section>

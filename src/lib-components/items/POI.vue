@@ -15,6 +15,11 @@
 		<div class="wf-poi-description" v-if="showDescription" v-html="poi.getDescription(language) || ''"></div>
 		<div class="wf-poi-room_id" v-if="showRoomID" v-html="poi.room_id || ''"></div>
 		<div class="wf-poi-floor" v-if="showFloor && poi.getFloor()" v-html="poi.getFloor().getName(language) || ''"></div>
+		<div class="wf-poi-distance" v-if="showDistance">
+			<span class="wf-path-time">{{pathTime}}</span>
+			<span class="wf-path-steps">{{pathSteps}}</span>
+			<span class="wf-path-length">{{pathLength}}</span>
+		</div>
 	</div>
 </template>
 
@@ -65,6 +70,10 @@ export default {
 		showFloor: {
 			type: Boolean,
 			default: false
+		},
+		showDistance: {
+			type: Boolean,
+			default: false
 		}
 	},
 	watch: {
@@ -72,6 +81,13 @@ export default {
 			if (this.$wayfinder) {
 				this.show_path = this.$wayfinder.translator.get('show_path');
 				this.show_accessibility_path = this.$wayfinder.translator.get('show_accessibility_path');
+			}
+		},
+		poi () {
+			if (this.showDistance && this.$wayfinder) {
+				let path = this.$wayfinder.findPath(this.$wayfinder.getKioskNode(), this.poi.getNode());
+				this.path2Text = this.$wayfinder.pathToText(path);
+				console.log('watch.path', this.path2Text);
 			}
 		}
 	},
@@ -137,7 +153,10 @@ export default {
 	data: function () {
 		return {
 			show_path: 'Show Path',
-			show_accessibility_path: "Show Accessibility Path"
+			show_accessibility_path: "Show Accessibility Path",
+			pathTime: '',
+			unit: 'm',
+			path2Text: null
 		}
 	}
 };
