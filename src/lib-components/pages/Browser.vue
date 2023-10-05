@@ -1,6 +1,7 @@
 <template>
   <div class="wf-component wf-browser">
-      <iframe :src="currentSRC" nwdisable nwfaketop></iframe>
+        <!--webview :src="currentSRC" ref="frame" v-if="webview"></webview-->
+        <iframe :src="currentSRC" ref="frame" nwdisable></iframe>
   </div>
 </template>
 
@@ -8,7 +9,7 @@
 import { mapState } from 'vuex';
 
 export default {
-    name: 'MapFloors',
+    name: 'Browser',
 	props: {
 		src: {
 			type: String,
@@ -20,7 +21,15 @@ export default {
 		},
 	},
     computed: {
-		...mapState('wf', ['reset'])
+		...mapState('wf', ['reset']),
+        webview () {
+            if ('options' in document.createElement('webview')) {
+                console.log('webview exists')
+                return true;
+            }
+            console.log('webview not exists')
+            return false;
+        }
 	},
     data () {
 		return {
@@ -29,6 +38,9 @@ export default {
 	},
     mounted () {
         this.currentSRC = this.src;
+        this.$refs.frame.addEventListener("load", () => {
+            console.log('frame.load', this.$refs.frame.contentWindow.document)
+        });
     },
     watch: {
 		reset: function(newVal) {
@@ -38,6 +50,7 @@ export default {
 		},
         src: function () {
             this.currentSRC = this.src;
+            console.log('src', src)
         }
 	},
 }
