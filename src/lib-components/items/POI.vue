@@ -76,6 +76,12 @@ export default {
 			default: false
 		}
 	},
+	mounted () {
+		if (this.$wayfinder) {
+			this.show_path = this.$wayfinder.translator.get('show_path');
+			this.show_accessibility_path = this.$wayfinder.translator.get('show_accessibility_path');
+		}
+	},
 	watch: {
 		language () {
 			if (this.$wayfinder) {
