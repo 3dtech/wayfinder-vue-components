@@ -116,12 +116,18 @@ export default {
 		},
 		xTopics: (state) => {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined') {
-				let groups = clone(Vue.prototype.$wayfinder.poiGroups);
+				let groups = Vue.prototype.$wayfinder.poiGroups;
+				let _groups = [];
+
 				for(let g in groups) {
-				  groups[g].pois = groups[g].pois.map(p => Object.freeze(clone(p)));
-				  Object.defineProperty(groups[g], 'parent', { configurable: false });
-				}
-				state.poiGroups =  Object.freeze(groups);
+					let group = clone(groups[g]);
+					group.pois = groups[g].pois.map(p => Object.freeze(clone(p)));
+					Object.defineProperty(group, 'parent', {
+						configurable: false
+					});
+					_groups.push(group);
+				}		
+				state.poiGroups = Object.freeze(_groups);
 			}
 		},
 		xBanners: (state) => {
