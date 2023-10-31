@@ -100,18 +100,61 @@ export default {
 	data () {
 		return {
 			current: null,
+			parentGroup: null,
 			count: 0
 		}
 	},
 	computed: {
 		...mapState('wf', ['poiGroups', 'currentGroup', 'language']),
-		sortedGroups () {
+		currentGroupName () {
+			return this.parentGroup ? this.parentGroup.getName(this.language) : '';
+		}
+	},
+	watch: {
+		parent: function () {
+			this.sortGroups();
+		},
+		currentGroup: function () {
+			this.current = this.currentGroup;
+		}
+	},
+	methods: {
+		onClick (group) {
+			return () => {
+				if (this.current == group) {
+					this.current = null;
+				}
+				else  {
+					this.current = group;
+				}
+				this.$emit('clicked', group);
+			};
+		},
+		onPOICLick (poi) {
+            
+			return () => {
+				this.$emit('poiClicked', poi);
+			};
+		},
+		back () {
+			return () => {
+				this.$emit('back');
+			};
+		},
+		reset () {
+			this.$store.dispatch('wf/SET_CURRENT_GROUP', null);
+		},
+		sortGroups () {
 			let arr = []; // Copy arr for sorting
 			let topic;
 			let groups = this.poiGroups;
 
 			for (let i in groups) {
 				topic = groups[i];
+				if(topic.id == this.parent) {
+					this.parentGroup = topic;
+				}
+
 				if(topic && topic.getShowInMenu() && topic.getName(this.language)) {
 					if (this.parent > -1 && parseInt(topic.parent_id) == this.parent) {
 						arr.push(topic);
@@ -142,41 +185,6 @@ export default {
 			
 			this.count = arr.length;
 			return arr;
-		},
-		currentGroupName () {
-			return this.current ? this.current.getName(this.language) : '';
-		}
-	},
-	watch: {
-		currentGroup: function () {
-			this.current = this.currentGroup;
-		}
-	},
-	methods: {
-		onClick (group) {
-			return () => {
-				if (this.current == group) {
-					this.current = null;
-				}
-				else  {
-					this.current = group;
-				}
-				this.$emit('clicked', group);
-			};
-		},
-		onPOICLick (poi) {
-            
-			return () => {
-				this.$emit('poiClicked', poi);
-			};
-		},
-		back () {
-			return () => {
-				this.$emit('back');
-			};
-		},
-		reset () {
-			this.$store.dispatch('wf/SET_CURRENT_GROUP', null);
 		},
 		subGroups (subGroups) {
 			if (subGroups) {
