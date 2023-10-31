@@ -1,6 +1,7 @@
 <template>
 	<div class="wf-component wf-groups-menu">
 		<ul class="wf-list" :class="['wf-list-count-' + count]">
+			<li class="wf-list-item wf-list-header" v-if="showParentGroup" :v-touch:tap="back()">{{ currentGroupName }}</li>
 			<li class="wf-list-item" :class='{"active": current && topic.id == current.id}' v-for="topic in sortedGroups" :key='topic.id' >
 				<div class="wf-item-content" v-touch:tap="onClick(topic)">
 					<slot :group="topic">
@@ -90,6 +91,10 @@ export default {
 		sortPOIs: {
 			type: Boolean,
 			default: true
+		},
+		showParentGroup: {
+			type: Boolean,
+			default: false
 		}
 	},
 	data () {
@@ -137,6 +142,9 @@ export default {
 			
 			this.count = arr.length;
 			return arr;
+		},
+		currentGroupName () {
+			return this.group ? this.group.getName(this.language) : '';
 		}
 	},
 	watch: {
@@ -159,8 +167,12 @@ export default {
 		onPOICLick (poi) {
             
 			return () => {
-                console.log('onPOICLick01', poi)
 				this.$emit('poiClicked', poi);
+			};
+		},
+		back () {
+			return () => {
+				this.$emit('back');
 			};
 		},
 		reset () {
