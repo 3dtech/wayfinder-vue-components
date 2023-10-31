@@ -26,7 +26,7 @@ import Group from './items/Group.vue';
 import POI from './items/POI.vue';
 
 export default {
-	name: 'GroupsMenu',
+	name: 'SubGroupMenu',
 	components: {
 		Group,
 		POI
