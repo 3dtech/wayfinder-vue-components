@@ -144,7 +144,7 @@ export default {
 			return arr;
 		},
 		currentGroupName () {
-			return this.group ? this.group.getName(this.language) : '';
+			return this.current ? this.current.getName(this.language) : '';
 		}
 	},
 	watch: {
