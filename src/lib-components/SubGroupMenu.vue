@@ -1,7 +1,7 @@
 <template>
 	<div class="wf-component wf-groups-menu">
 		<ul class="wf-list" :class="['wf-list-count-' + count]" v-if="parentGroup">
-			<li class="wf-list-item wf-list-header" v-if="showParentGroup" :v-touch:tap="back()">{{ currentGroupName }}</li>
+			<li class="wf-list-item wf-list-header" v-if="showParentGroup" v-touch:tap="back()">{{ currentGroupName }}</li>
 			<li class="wf-list-item" :class='{"active": current && topic.id == current.id}' v-for="topic in sortedGroups" :key='topic.id' >
 				<div class="wf-item-content" v-touch:tap="onClick(topic)">
 					<slot :group="topic">
@@ -144,8 +144,7 @@ export default {
 				this.$emit('clicked', group);
 			};
 		},
-		onPOICLick (poi) {
-            
+		onPOICLick (poi) {    
 			return () => {
 				this.$emit('poiClicked', poi);
 			};

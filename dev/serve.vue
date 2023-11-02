@@ -141,7 +141,7 @@ export default Vue.extend({
             <WFPOI :poi="currentPOI" :showLogo="true" :showAccessibilityPathButton="true" :showDistance="true"></WFPOI>
           </WFTab>
           <WFTab name="11">
-            <WFSubGroupMenu :parent="1" :showPOIs="true"></WFSubGroupMenu>
+            <WFSubGroupMenu :parent="1" :showPOIs="true" :showParentGroup="true"></WFSubGroupMenu>
           </WFTab>
         </WFTabs>
       </section>
