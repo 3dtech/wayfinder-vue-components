@@ -101,6 +101,7 @@ export default {
 		return {
 			current: null,
 			parentGroup: null,
+			sortedGroups: [],
 			count: 0
 		}
 	},
@@ -110,12 +111,18 @@ export default {
 			return this.parentGroup ? this.parentGroup.getName(this.language) : '';
 		}
 	},
+	mounted () {
+		this.sortedGroups = this.sortGroups();
+	},
 	watch: {
 		parent: function () {
-			this.sortGroups();
+			this.sortedGroups = this.sortGroups();
 		},
 		currentGroup: function () {
 			this.current = this.currentGroup;
+		},
+		poiGroups: function () {
+			this.sortedGroups = this.sortGroups();
 		}
 	},
 	methods: {
@@ -145,11 +152,13 @@ export default {
 			this.$store.dispatch('wf/SET_CURRENT_GROUP', null);
 		},
 		sortGroups () {
+			console.log('sortGroups')
 			let arr = []; // Copy arr for sorting
 			let topic;
 			let groups = this.poiGroups;
-
+			
 			for (let i in groups) {
+				
 				topic = groups[i];
 				if(topic.id == this.parent) {
 					this.parentGroup = topic;

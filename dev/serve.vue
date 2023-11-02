@@ -72,7 +72,7 @@ export default Vue.extend({
 <template>
   <div id="app">
     <div class="map-container">
-      <WFMap @loaded="mapDataLoaded" project="87e493e8fcacf4ee419c9544e38aa990"/>
+      <WFMap @loaded="mapDataLoaded" project="a6c045cadeac7d5992bcf5502a3ccb73"/>
       <WFYAH/>
       <WFFloorsMenu :currentFloor="currentFloor"/>
     </div>
@@ -90,6 +90,7 @@ export default Vue.extend({
           <button @click="currentTab = 8">GroupPOIs</button>
           <button @click="currentTab = 9">Page</button>
           <button @click="currentTab = 10">POI</button>
+          <button @click="currentTab = 11">SubGroupMenu</button>
           <button @click="reset()">Reset</button>
         </div>
         <WFTabs :activeTab="currentTab" animate="none">
@@ -139,9 +140,11 @@ export default Vue.extend({
           <WFTab name="10">
             <WFPOI :poi="currentPOI" :showLogo="true" :showAccessibilityPathButton="true" :showDistance="true"></WFPOI>
           </WFTab>
+          <WFTab name="11">
+            <WFSubGroupMenu :parent="1" :showPOIs="true"></WFSubGroupMenu>
+          </WFTab>
         </WFTabs>
       </section>
-      {{template}}
     </div>
   </div>
 </template>
