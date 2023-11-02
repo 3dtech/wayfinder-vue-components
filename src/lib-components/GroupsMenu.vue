@@ -2,6 +2,7 @@
 	<div class="wf-component wf-groups-menu">
 		<ul class="wf-list" :class="['wf-list-count-' + count]">
 			<slot name="prepend"/>
+			<li class="wf-list-item wf-list-header" v-if="showParentGroup" :v-touch:tap="back()">{{ currentGroupName }}</li>
 			<li class="wf-list-item" :class='{"active": current && topic.id == current.id}' v-for="topic in sortedGroups" :key='topic.id' >
 				<div class="wf-item-content" v-touch:tap="onClick(topic)">
 					<slot :group="topic">
@@ -9,7 +10,7 @@
 					</slot>
 				</div>
 				<ul v-show="current && topic.id == current.id && subGroups(topic.childGroups).length > 0" v-if="showSubGroups">
-					<SubGroupMenu :parent="parseInt(topic.id)" :showPOICount="showPOICount" :az="az" :order="order" :showIcon="showIcon" :showPOIs="showPOIs" :sortPOIs="sortPOIs" @clicked="onSubGroupCLick" @poiClicked="onSubPOICLick"/>
+					<SubGroupMenu :parent="parseInt(topic.id)" :showPOICount="showPOICount" :az="az" :order="order" :showIcon="showIcon" :showPOIs="showPOIs" :sortPOIs="sortPOIs" @clicked="onSubGroupClick" @poiClicked="onSubPOICLick"/>
 				</ul>
 				<ul class="wf-list wf-sublist" v-if="topic.pois.length > 0 && showPOIs" v-show="current && topic.id == current.id">
 					<li class="wf-list-item" v-for="poi in sortedPOIs(topic.pois)" :key='poi.id' v-touch:tap="onPOICLick(poi)">
@@ -102,6 +103,10 @@ export default {
 		sortPOIs: {
 			type: Boolean,
 			default: true
+		},
+		showParentGroup: {
+			type: Boolean,
+			default: false
 		}
 	},
 	watch: {
@@ -112,7 +117,8 @@ export default {
 	data () {
 		return {
 			count: 0,
-			current: null
+			current: null,
+			parentGroup: null
 		}
 	},
 	computed: {
@@ -124,6 +130,9 @@ export default {
 
 			for (let i in groups) {
 				topic = groups[i];
+				if(topic.id == this.parent) {
+					this.parentGroup = topic;
+				}
 				if(topic && topic.getShowInMenu() && topic.getName(this.language)) {
 					if (this.parent > -1 && parseInt(topic.parent_id) == this.parent) {
 						arr.push(topic);
@@ -154,6 +163,9 @@ export default {
 			
 			this.count = arr.length;
 			return arr;
+		},
+		currentGroupName () {
+			return this.parentGroup ? this.parentGroup.getName(this.language) : '';
 		}
 	},
 	methods: {
@@ -161,6 +173,7 @@ export default {
 			return () => {
 				if (this.current == group) {
 					this.current = null;
+					return;
 				}
 				else {
 					this.current = Object.freeze(group);
@@ -176,7 +189,7 @@ export default {
 				this.$emit('poiClicked', poi);
 			};
 		},
-		onSubGroupCLick (group) {
+		onSubGroupClick (group) {
 			this.$emit('subGroupClicked', group);
 		},
 		onSubPOICLick (poi) {
@@ -184,6 +197,11 @@ export default {
 		},
 		reset () {
 			this.current = null;
+		},
+		back () {
+			return () => {
+				this.$emit('back');
+			};
 		},
 		subGroups (subGroups) {
 			if (subGroups) {

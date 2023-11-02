@@ -1,6 +1,6 @@
 <template>
 	<div class="wf-component wf-groups-menu">
-		<ul class="wf-list" :class="['wf-list-count-' + count]">
+		<ul class="wf-list" :class="['wf-list-count-' + count]" v-if="parentGroup">
 			<li class="wf-list-item wf-list-header" v-if="showParentGroup" :v-touch:tap="back()">{{ currentGroupName }}</li>
 			<li class="wf-list-item" :class='{"active": current && topic.id == current.id}' v-for="topic in sortedGroups" :key='topic.id' >
 				<div class="wf-item-content" v-touch:tap="onClick(topic)">
@@ -16,6 +16,13 @@
 					</li>
 				</ul>
 			</li>
+			<div v-if="showPOIs">
+				<li class="wf-list-item" v-for="poi in sortedPOIs(parentGroup.pois)" :key='poi.id' v-touch:tap="onPOICLick(poi)">
+					<slot name="poi" :poi="poi">
+						<POI :poi="poi" :showLogo="showPOILogo" :showName="showPOIName" :showPathButton="showPOIPathButton" :showDescription="showPOIDescription" :showRoomID="showPOIRoomID" :showFloor="showPOIFloor"/>
+					</slot>
+				</li>
+			</div>
 		</ul>
 	</div>
 </template>
