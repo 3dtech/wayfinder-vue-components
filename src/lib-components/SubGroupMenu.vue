@@ -152,7 +152,6 @@ export default {
 			this.$store.dispatch('wf/SET_CURRENT_GROUP', null);
 		},
 		sortGroups () {
-			console.log('sortGroups')
 			let arr = []; // Copy arr for sorting
 			let topic;
 			let groups = this.poiGroups;

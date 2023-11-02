@@ -162,11 +162,13 @@ export default {
 				if (this.current == group) {
 					this.current = null;
 				}
-				else  {
+				else {
 					this.current = Object.freeze(group);
 				}
-				
-				this.$emit('clicked', group);
+				//emit only if this is a leaf
+				if(!(this.current && this.showSubGroups && group.childGroups && group.childGroups.length > 0)){
+					this.$emit('clicked', group);
+				}  
 			};
 		},
 		onPOICLick (poi) {
