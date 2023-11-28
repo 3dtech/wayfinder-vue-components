@@ -13,9 +13,9 @@
 				<span class="wf-search-no-results-text" v-show="showNoResultsText && results.length == 0">{{noResultsText}}</span>
 			</div>
 			<div class="wf-search-input-container" v-if="showOutputField">
-				<input id="wf-search-input" ref='searchInput'/>
+				<input :id="inputId" ref='searchInput'/>
 			</div>
-			<div id="wf-keyboard-container" class="wf-keyboard" v-if="showKeyboard">
+			<div :id="keyboardContainerId" class="wf-keyboard" v-if="showKeyboard">
 			</div>
 		</div>
 	</div>
@@ -94,50 +94,58 @@ export default {
 		return {
 			results: [],
 			poi: {},
-			keyboard: false
+			keyboard: false,
+			inputId: "",
+			keyboardContainerId: "",
 		}
 	},
 	mounted () {
-		this.keyboard = new OSK('wf-search-input', 'wf-keyboard-container');
-		this.keyboard.on('change', (keyword) => {
-			let results = this.$wayfinder.search.search(keyword);
+		let now = Date.now();
+		this.inputId = 'wf-search-input-' + now;
+		this.keyboardContainerId = 'wf-keyboard-container-'+ now;
+		// Lets wait when the ID's are mapped
+		this.$nextTick(() => {
+			this.keyboard = new OSK(this.inputId, this.keyboardContainerId);
+			this.keyboard.on('change', (keyword) => {
+				let results = this.$wayfinder.search.search(keyword);
 
-			if (this.limit > 0) {
-				results = results.slice(0, this.limit);
-			}
-			else {
-				results = results.slice();
-			}
-			let resultArr = Object.values(results).map((poi) => {
-				return Object.assign(Object.create(Object.getPrototypeOf(poi)), poi);;
-			});
-			this.results = resultArr;
-			if (keyword.length > 1) {
-				if (Object.values(this.results).length > 0) {
-					this.$wayfinder.statistics.onSearch(keyword, "successful");
+				if (this.limit > 0) {
+					results = results.slice(0, this.limit);
 				}
 				else {
-					this.$wayfinder.statistics.onSearch(keyword, "unsuccessful");
+					results = results.slice();
 				}
-			}
-		});
-		this.keyboard.addLayout('en', {
-			"name": "English",
-			"keyboard":"US International",
-			"local_name": "English",
-			"lang": "en",
-			"keys": {
-				"default": [
-					["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", {"key": "Delete", "action": ["backspace"], "cls": "key2x"}],
-					["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
-					["a", "s", "d", "f", "g", "h", "j", "k", "l"],
-					["z", "x", "c", "v", "b", "n", "m"],
-					[{"key": " ", "cls": "key_spacebar"}]
-				]
-			}
-		});
+				let resultArr = Object.values(results).map((poi) => {
+					return Object.assign(Object.create(Object.getPrototypeOf(poi)), poi);;
+				});
+				this.results = resultArr;
+				if (keyword.length > 1) {
+					if (Object.values(this.results).length > 0) {
+						this.$wayfinder.statistics.onSearch(keyword, "successful");
+					}
+					else {
+						this.$wayfinder.statistics.onSearch(keyword, "unsuccessful");
+					}
+				}
+			});
+			this.keyboard.addLayout('en', {
+				"name": "English",
+				"keyboard":"US International",
+				"local_name": "English",
+				"lang": "en",
+				"keys": {
+					"default": [
+						["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", {"key": "Delete", "action": ["backspace"], "cls": "key2x"}],
+						["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
+						["a", "s", "d", "f", "g", "h", "j", "k", "l"],
+						["z", "x", "c", "v", "b", "n", "m"],
+						[{"key": " ", "cls": "key_spacebar"}]
+					]
+				}
+			});
 
-		this.keyboard.changeLayout(this.language);
+			this.keyboard.changeLayout(this.language);
+		});
 	},
 	watch: {
 		searchVisible (current) {
