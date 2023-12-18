@@ -72,7 +72,7 @@ export default Vue.extend({
 <template>
   <div id="app">
     <div class="map-container">
-      <WFMap @loaded="mapDataLoaded" project="5352314779785be852b5cd79a132fc43"/>
+      <WFMap @loaded="mapDataLoaded" project="f77f3630755f36959fbea9d174ac8ca5"/>
       <WFYAH/>
       <WFFloorsMenu :currentFloor="currentFloor"/>
     </div>

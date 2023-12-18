@@ -8,7 +8,9 @@
 				height: container.height + '%',
 				backgroundImage: 'url(\'' + container.url + '\')'
 			}">
-				<video width="100%" height="auto" :src="container.url" v-if="isVideo(container)" muted></video>
+				<video width="100%" height="auto" v-if="isVideo(container)" muted crossorigin="anonymous">
+					<source :src="container.url" :type="container.type">
+				</video>
 				<div class="wf-qr" v-html="qr" v-show="container.containerType.indexOf('qr') > -1 && qr != null" :class="[container.containerType]"></div>
 			</div>
 			<slot :frame="frame"></slot>
@@ -145,6 +147,8 @@ export default {
 			video.currentTime = 0;
 			var playPromise = video.play();
 			playPromise.catch((err) => {
+				console.warn("Video playback failed", err);
+				video.load();
 				clearTimeout(this.timer);
 				setTimeout(() => {
 					this.playVideo(video, duration);
