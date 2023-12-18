@@ -136,7 +136,7 @@ export default {
 						if(video) {
 							console.log('video not loaded. try again')
 							video.load();
-							this.play();
+							this.timer = setTimeout(this.play, 300);
 						}
 						else {
 							this.timer = setTimeout(this.play, frame.duration);
