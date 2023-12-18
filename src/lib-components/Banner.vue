@@ -131,9 +131,16 @@ export default {
 					if (video && video.readyState) {
 						setTimeout(() => {
 							this.playVideo(video, frame.duration);
-						}, 0);
+						}, 10);
 					} else {
-						this.timer = setTimeout(this.play, frame.duration);
+						if(video) {
+							console.log('video not loaded. try again')
+							video.load();
+							this.play();
+						}
+						else {
+							this.timer = setTimeout(this.play, frame.duration);
+						}
 					}
 				}
 				else {
