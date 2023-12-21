@@ -134,13 +134,10 @@ export default {
 						}, 10);
 					} else {
 						if(video) {
-							console.log('video not loaded. try again')
+							console.log('video not loaded. try again', video.readyState)
 							video.load();
-							this.timer = setTimeout(this.play, 300);
 						}
-						else {
-							this.timer = setTimeout(this.play, frame.duration);
-						}
+						this.timer = setTimeout(this.play, frame.duration);
 					}
 				}
 				else {
