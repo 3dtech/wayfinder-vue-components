@@ -4,6 +4,28 @@ import Vue from 'vue';
 function clone(obj) {
 	return Object.assign(Object.create(Object.getPrototypeOf(obj)), obj);
 }
+
+function freezeGroup(g) {
+	Object.defineProperty(g, 'parent', { configurable: false });
+	Object.defineProperty(g, 'color', { configurable: false });
+	Object.defineProperty(g, 'desciptions', { configurable: false });
+	Object.defineProperty(g, 'childGroups', { configurable: false });
+	Object.defineProperty(g, 'names', { configurable: false });
+
+	return g;
+}
+var freezeProps = ["floor", "groups", "groupNames", "node", "settings", "names", "descriptions", "advertisements", "meshNode", "submesh", "canvasBoard"]
+function freezePOI(p) {
+	for(let f in freezeProps) {
+		Object.defineProperty(p, freezeProps[f], { configurable: false });
+	}
+
+	delete p.wayfinder;
+	delete p.engine;
+	delete p.poiComponent;
+
+	return p;
+}
 export default {
 	namespaced: true,
 	state: {
@@ -42,7 +64,7 @@ export default {
 				let _f;
 				state.floors = Object.freeze(Vue.prototype.$wayfinder.building.getSortedFloors().map(f => {
 					_f = clone(f);
-					_f.pois = _f.pois.slice();
+					_f.pois = _f.pois.map(p => freezePOI(Object.freeze(clone(p))));
 					delete _f.nodes;
 					delete _f.node3D;
 					return _f;
@@ -66,12 +88,8 @@ export default {
 				Object.keys(groups).forEach(key => {
 				  if (parseInt(groups[key].showInTopMenu)) {
 					g = clone(groups[key]);
-					g.pois = g.pois.map(p => Object.freeze(clone(p)));
-					Object.defineProperty(g, 'parent', { configurable: false });
-					Object.defineProperty(g, 'color', { configurable: false });
-					Object.defineProperty(g, 'desciptions', { configurable: false });
-					Object.defineProperty(g, 'childGroups', { configurable: false });
-					Object.defineProperty(g, 'names', { configurable: false });
+					g = freezeGroup(g);
+					g.pois = g.pois.map(p => freezePOI(Object.freeze(clone(p))));
 					shortcuts.push(Object.freeze(g));
 				  }
 				});
@@ -104,16 +122,8 @@ export default {
 		xPOIs: state => {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined') {
 				state.pois = Object.freeze(Vue.prototype.$wayfinder.poisArray.map(p => {
-					let _p = clone(p)
-					Object.defineProperty(_p, 'floor', { configurable: false });
-					Object.defineProperty(_p, 'groups', { configurable: false });
-					Object.defineProperty(_p, 'node', { configurable: false });
-					delete _p.object;
-					delete _p.meshNode;
-					delete _p.submesh;
-					delete _p.wayfinder;
-					delete _p.engine;
-					delete _p.canvasBoard;
+					let _p = clone(p);
+					_p = freezePOI(_p);
 					return _p;
 				  }));
 			}
@@ -125,13 +135,8 @@ export default {
 
 				for(let g in groups) {
 					let group = clone(groups[g]);
-					Object.defineProperty(group, 'color', { configurable: false });
-					Object.defineProperty(group, 'desciptions', { configurable: false });
-					Object.defineProperty(group, 'childGroups', { configurable: false });
-					Object.defineProperty(group, 'names', { configurable: false });
-					Object.defineProperty(group, 'parent', { configurable: false });
-
-					group.pois = groups[g].pois.map(p => Object.freeze(clone(p)));
+					group = freezeGroup(group);
+					group.pois = groups[g].pois.map(p => freezePOI(Object.freeze(clone(p))));
 					_groups.push(group);
 				}		
 				state.poiGroups = Object.freeze(_groups);
