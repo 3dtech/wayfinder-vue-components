@@ -6,6 +6,7 @@ function clone(obj) {
 }
 
 function freezeGroup(g) {
+	g = clone(g);
 	Object.defineProperty(g, 'parent', { configurable: false });
 	Object.defineProperty(g, 'color', { configurable: false });
 	Object.defineProperty(g, 'desciptions', { configurable: false });
@@ -14,14 +15,14 @@ function freezeGroup(g) {
 
 	return g;
 }
-var freezeProps = ["floor", "groups", "groupNames", "node", "settings", "names", "descriptions", "advertisements", "meshNode", "submesh", "canvasBoard", "poiComponent"]
+var freezeProps = ["floor", "groups", "groupNames", "node", "settings", "names", "descriptions", "advertisements", "meshNode", "submesh", "canvasBoard", "poiComponent", "wayfinder", "engine"]
 function freezePOI(p) {
+	p = clone(p);
 	for(let f in freezeProps) {
-		Object.defineProperty(p, freezeProps[f], { configurable: false });
+		if(typeof p[freezeProps[f]] !== "undefined") {
+			Object.defineProperty(p, freezeProps[f], { configurable: false });
+		}
 	}
-
-	delete p.wayfinder;
-	delete p.engine;
 
 	return p;
 }
@@ -63,7 +64,7 @@ export default {
 				let _f;
 				state.floors = Object.freeze(Vue.prototype.$wayfinder.building.getSortedFloors().map(f => {
 					_f = clone(f);
-					_f.pois = _f.pois.map(p => freezePOI(Object.freeze(clone(p))));
+					_f.pois = _f.pois.map(p => freezePOI(p));
 					delete _f.nodes;
 					delete _f.node3D;
 					return _f;
@@ -86,9 +87,8 @@ export default {
 				let g;
 				Object.keys(groups).forEach(key => {
 				  if (parseInt(groups[key].showInTopMenu)) {
-					g = clone(groups[key]);
-					g = freezeGroup(g);
-					g.pois = g.pois.map(p => freezePOI(Object.freeze(clone(p))));
+					g = freezeGroup(groups[key]);
+					g.pois = g.pois.map(p => freezePOI(p));
 					shortcuts.push(Object.freeze(g));
 				  }
 				});
@@ -121,21 +121,18 @@ export default {
 		xPOIs: state => {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined') {
 				state.pois = Object.freeze(Vue.prototype.$wayfinder.poisArray.map(p => {
-					let _p = clone(p);
-					_p = freezePOI(_p);
-					return _p;
-				  }));
+					return freezePOI(p);
+				}));
 			}
 		},
 		xTopics: (state) => {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined') {
 				let groups = Vue.prototype.$wayfinder.poiGroups;
 				let _groups = [];
-
+				let group;
 				for(let g in groups) {
-					let group = clone(groups[g]);
-					group = freezeGroup(group);
-					group.pois = groups[g].pois.map(p => freezePOI(Object.freeze(clone(p))));
+					group = freezeGroup(groups[g]);
+					group.pois = groups[g].pois.map(p => freezePOI(p));
 					_groups.push(group);
 				}		
 				state.poiGroups = Object.freeze(_groups);
@@ -166,6 +163,9 @@ export default {
 					}
 				}
 			}
+		},
+		freezePOI: (state) => (p) => {
+			return freezePOI(p);
 		}
 	},
 	mutations: {

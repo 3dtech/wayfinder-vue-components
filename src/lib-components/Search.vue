@@ -116,7 +116,7 @@ export default {
 					results = results.slice();
 				}
 				let resultArr = Object.values(results).map((poi) => {
-					return Object.assign(Object.create(Object.getPrototypeOf(poi)), poi);;
+					return this.$store.getters["wf/freezePOI"](poi);
 				});
 				this.results = resultArr;
 				if (keyword.length > 1) {
@@ -127,6 +127,7 @@ export default {
 						this.$wayfinder.statistics.onSearch(keyword, "unsuccessful");
 					}
 				}
+				console.log('wf', this.$wayfinder);
 			});
 			this.keyboard.addLayout('en', {
 				"name": "English",
