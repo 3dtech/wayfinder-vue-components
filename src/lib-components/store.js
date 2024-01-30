@@ -14,7 +14,7 @@ function freezeGroup(g) {
 
 	return g;
 }
-var freezeProps = ["floor", "groups", "groupNames", "node", "settings", "names", "descriptions", "advertisements", "meshNode", "submesh", "canvasBoard"]
+var freezeProps = ["floor", "groups", "groupNames", "node", "settings", "names", "descriptions", "advertisements", "meshNode", "submesh", "canvasBoard", "poiComponent"]
 function freezePOI(p) {
 	for(let f in freezeProps) {
 		Object.defineProperty(p, freezeProps[f], { configurable: false });
@@ -22,7 +22,6 @@ function freezePOI(p) {
 
 	delete p.wayfinder;
 	delete p.engine;
-	delete p.poiComponent;
 
 	return p;
 }
