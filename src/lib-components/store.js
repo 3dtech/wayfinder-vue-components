@@ -68,6 +68,9 @@ export default {
 					g = clone(groups[key]);
 					g.pois = g.pois.map(p => Object.freeze(clone(p)));
 					Object.defineProperty(g, 'parent', { configurable: false });
+					Object.defineProperty(building, 'floors', { configurable: false });
+					Object.defineProperty(building, 'currentFloor', { configurable: false });
+					Object.defineProperty(building, 'sortedFloors', { configurable: false });
 					shortcuts.push(Object.freeze(g));
 				  }
 				});
@@ -121,10 +124,13 @@ export default {
 
 				for(let g in groups) {
 					let group = clone(groups[g]);
+					Object.defineProperty(group, 'color', { configurable: false });
+					Object.defineProperty(group, 'desciptions', { configurable: false });
+					Object.defineProperty(group, 'childGroups', { configurable: false });
+					Object.defineProperty(group, 'names', { configurable: false });
+					Object.defineProperty(group, 'parent', { configurable: false });
+
 					group.pois = groups[g].pois.map(p => Object.freeze(clone(p)));
-					Object.defineProperty(group, 'parent', {
-						configurable: false
-					});
 					_groups.push(group);
 				}		
 				state.poiGroups = Object.freeze(_groups);
