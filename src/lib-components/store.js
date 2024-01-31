@@ -24,6 +24,9 @@ function freezePOI(p) {
 		}
 	}
 
+	delete p.wayfinder;
+	delete p.engine;
+
 	return p;
 }
 export default {
