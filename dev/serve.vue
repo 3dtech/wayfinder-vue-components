@@ -100,6 +100,8 @@ export default Vue.extend({
           <WFTab name="2">
             <WFScrollableArea ref="filteredScroll">
               <div>
+                <WFClock/>
+                <WFDate format="ddd. DD. MMM"/>
                 <WFFilteredMenu changed="isit" @clicked="showPOI">
                     <template v-slot:default="slotProps">
                       <WFPOI :poi="slotProps.poi" :showAccessibilityPathButton="true"/>

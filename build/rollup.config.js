@@ -84,7 +84,8 @@ if (!argv.format || argv.format === 'es') {
     input: 'src/entry.esm.js',
     external,
     output: {
-      file: 'dist/wayfinder-vue-components.esm.js',
+      //file: 'dist/wayfinder-vue-components.esm.js',
+      dir: 'dist/',
       format: 'esm',
       exports: 'named',
     },
@@ -116,7 +117,8 @@ if (!argv.format || argv.format === 'cjs') {
     external,
     output: {
       compact: true,
-      file: 'dist/wayfinder-vue-components.ssr.js',
+      //file: 'dist/wayfinder-vue-components.ssr.js',
+      dir: 'dist/',
       format: 'cjs',
       name: 'WayfinderVueComponents',
       exports: 'auto',
@@ -139,13 +141,14 @@ if (!argv.format || argv.format === 'cjs') {
   buildFormats.push(umdConfig);
 }
 
-if (!argv.format || argv.format === 'iife') {
+/*if (!argv.format || argv.format === 'iife') {
   const unpkgConfig = {
     ...baseConfig,
     external,
     output: {
       compact: true,
-      file: 'dist/wayfinder-vue-components.min.js',
+      //file: 'dist/wayfinder-vue-components.min.js',
+      dir: 'dist/',
       format: 'iife',
       name: 'WayfinderVueComponents',
       exports: 'auto',
@@ -165,7 +168,7 @@ if (!argv.format || argv.format === 'iife') {
     ],
   };
   buildFormats.push(unpkgConfig);
-}
+}*/
 
 // Export config
 export default buildFormats;

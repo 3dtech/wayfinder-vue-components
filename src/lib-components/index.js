@@ -13,6 +13,8 @@ export { default as WFFloorsMenu } from './FloorsMenu.vue';
 export { default as WFFilteredMenu } from './FilteredMenu.vue';
 export { default as WFSearch } from './Search.vue';
 export { default as WFLoading } from './Loading.vue';
+export { default as WFClock } from './Clock.vue';
+export { default as WFDate } from './Date.vue';
 
 export { default as WFTabs } from './Tabs.vue';
 export { default as WFTab } from './Tab.vue';

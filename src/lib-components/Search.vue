@@ -178,9 +178,6 @@ export default {
 				this.keyboard.changeLayout(this.language);
 				this.keyboard.clearValue();
 			}
-
-			if (this.$refs.searchInput)
-				this.$refs.searchInput.value = '';
 		},
 		setOutput (output) {
 			this.keyboard.setOutput(output);
