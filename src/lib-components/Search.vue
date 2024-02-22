@@ -225,6 +225,7 @@ export default {
 		border: 1px solid black;
 		outline: none;
 		background-repeat: no-repeat;
+		user-select: none;
 	}
 
 	.wf-search	.wf-keyboard {
