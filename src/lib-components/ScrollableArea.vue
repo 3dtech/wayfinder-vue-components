@@ -21,7 +21,7 @@ export default {
 	},
 	mounted () {
 		this.$nextTick(() => {
-            if (!this.scroll) {
+            if (!this.scroll && this.$refs.area) {
 			    this.scroll = new ScrollArea(this.$refs.area);
             }
 		});

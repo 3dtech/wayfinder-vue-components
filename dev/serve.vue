@@ -102,6 +102,7 @@ export default Vue.extend({
               <div>
                 <WFClock/>
                 <WFDate format="ddd. DD. MMM"/>
+                Translatable: <WFTranslate k="go_to_floor2" :params="['1th floor', '2th floor']">Default</WFTranslate>
                 <WFFilteredMenu changed="isit" @clicked="showPOI">
                     <template v-slot:default="slotProps">
                       <WFPOI :poi="slotProps.poi" :showAccessibilityPathButton="true"/>

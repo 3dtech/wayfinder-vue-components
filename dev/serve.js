@@ -6,6 +6,8 @@ import Dev from './serve.vue';
 // To register individual components where they are used (serve.vue) instead of using the
 // library as a whole, comment/remove this import and it's corresponding "Vue.use" call
 import WayfinderVueComponents from '@/entry.esm';
+import LoadScript from 'vue-plugin-load-script';
+
 
 import Vue2TouchEvents from 'vue2-touch-events'
 import VueObserveVisibility from 'vue-observe-visibility'
@@ -71,6 +73,9 @@ function load3D () {
 }
 
 function load2D () {
+  /*loadScript("https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js", function () {
+    console.log('load.dayjs')
+  });*/
 	loadScript(host + "/js/dist/2d/latest/Wayfinder2D.debug.js", function () {
   	loadVue();
 	});

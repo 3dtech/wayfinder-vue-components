@@ -1,4 +1,5 @@
 import store from './store';
+
 let wfStore;
 export default {
     init (_store) {
