@@ -6,6 +6,7 @@
 
 <script>
 export default {
+    name: "Clock",
     data() {
         return {
             time: new Date()

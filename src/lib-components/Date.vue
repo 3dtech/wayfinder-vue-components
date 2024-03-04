@@ -22,6 +22,7 @@ function loadScript(url, callback) {
 }
 
 export default {
+    name: "Date",
     props: {
 		format: {type: String, default: "DD.MM" },
 	},
