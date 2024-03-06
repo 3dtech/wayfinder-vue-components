@@ -1,11 +1,10 @@
 <template>
   <div class="wf-date">
-    {{ date }}
+    {{ datestr }}
   </div>
 </template>
 
 <script>
-import dayjs from 'dayjs';
 import { mapState } from 'vuex';
 
 function loadScript(url, callback) {
@@ -41,7 +40,7 @@ export default {
     },
     computed: {
         ...mapState('wf', ['language']),
-        date() {
+        datestr() {
             if (typeof dayjs !== "undefined") {
                 return dayjs(this.time).format(this.format);
             }
@@ -71,6 +70,9 @@ export default {
             loadScript(this.$wayfinder.options.assetsLocation + "/dayjs/locale/" + locale + ".js", (a) => {
                 console.log('locale.loaded', a, locale, this.language)
                 this.locales[locale] = true;
+                if (this.language == locale && dayjs) {
+                    dayjs.locale(this.language);
+                }
             });
         }
     }

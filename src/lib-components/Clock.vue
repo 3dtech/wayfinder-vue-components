@@ -24,7 +24,6 @@ export default {
         },
         seconds() {
             return (this.time.getSeconds() < 10 ? "0" : "") + this.time.getSeconds()
-            return (this.time.getSeconds() < 10 ? "0" : "") + this.time.getSeconds()
         },
     },
     methods: {
