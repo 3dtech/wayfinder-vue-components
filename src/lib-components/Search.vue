@@ -15,7 +15,7 @@
 			<div class="wf-search-input-container" v-if="showOutputField">
 				<input :id="inputId" ref='searchInput'/>
 			</div>
-			<div :id="keyboardContainerId" class="wf-keyboard" v-if="showKeyboard">
+			<div :id="keyboardContainerId" class="wf-keyboard" v-show="showKeyboard">
 			</div>
 		</div>
 	</div>
