@@ -140,6 +140,7 @@ export default Vue.extend({
           <WFTab name="9">
             <WFPageMenu container="transport" @clicked="pageMenuClicked"></WFPageMenu>
             <WFPage container="transport" :slug="pageSlug"></WFPage>
+            <WFPage container="transport" slug="empty"></WFPage>
           </WFTab>
           <WFTab name="10">
             <WFPOI :poi="currentPOI" :showLogo="true" :showAccessibilityPathButton="true" :showDistance="true"></WFPOI>

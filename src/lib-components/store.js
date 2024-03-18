@@ -24,8 +24,8 @@ function freezePOI(p) {
 		}
 	}
 
-	delete p.wayfinder;
-	delete p.engine;
+	p.wayfinder = undefined;
+	p.engine = undefined;
 
 	return p;
 }
