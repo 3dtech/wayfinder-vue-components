@@ -1,6 +1,6 @@
 <template>
-	<div class="wf-page-item wf-page-browser" v-if="item">
-        <div v-html="item.value[language]"></div>
+	<div class="wf-page-item wf-page-image" v-if="item">
+        <img :src="src"/>
 	</div>
 </template>
 
@@ -9,9 +9,12 @@
 import { mapState } from 'vuex';
 
 export default {
-	name: "html",
+	name: "page-image",
 	computed: {
 		...mapState('wf', ['language']),
+		src () {
+			return WayfinderAPI.getURL("images", "get", this.item.value[this.language]);
+		}
 	},
 	props: {
 		item: {

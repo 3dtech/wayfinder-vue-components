@@ -1,5 +1,5 @@
 <template>
-	<div class="wf-page-item" v-if="item">
+	<div class="wf-page-item wf-page-html" v-if="item">
         <div v-html="item.value[language]"></div>
 	</div>
 </template>

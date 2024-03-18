@@ -48,7 +48,7 @@ export default {
             let arr = [];
             if (this.pages && typeof this.pages == "object" && this.pages[this.container]) {
                 arr = Object.values(this.pages[this.container]).filter((page) => {
-                    return (page && page.visible);
+                    return (page && parseInt(page.visible));
                 }); // Copy and filter array
 				if (this.sortAZ) {
 					arr = arr.sort((a, b) => {

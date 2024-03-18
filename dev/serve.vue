@@ -72,8 +72,9 @@ export default Vue.extend({
 <template>
   <div id="app">
     <div class="map-container">
-      <WFMap @loaded="mapDataLoaded" project="f77f3630755f36959fbea9d174ac8ca5"/>
+      <WFMap @loaded="mapDataLoaded" project="f7250a8a12f618041b11cf6b0ecbc251"/>
       <WFYAH/>
+      <WFZoomMenu/>
       <WFFloorsMenu :currentFloor="currentFloor"/>
     </div>
     <div class="content">
@@ -137,8 +138,8 @@ export default Vue.extend({
              <WFGroupPOIsMenu :group="group"></WFGroupPOIsMenu>
           </WFTab>
           <WFTab name="9">
-            <WFPageMenu container="default" @clicked="pageMenuClicked"></WFPageMenu>
-            <WFPage container="default" :slug="pageSlug"></WFPage>
+            <WFPageMenu container="transport" @clicked="pageMenuClicked"></WFPageMenu>
+            <WFPage container="transport" :slug="pageSlug"></WFPage>
           </WFTab>
           <WFTab name="10">
             <WFPOI :poi="currentPOI" :showLogo="true" :showAccessibilityPathButton="true" :showDistance="true"></WFPOI>
@@ -251,5 +252,11 @@ export default Vue.extend({
     height: 5rem;
     width: 5rem;
     background-size: contain;
+  }
+
+  .wf-zoommenu {
+    position: absolute;
+    right: 0;
+    bottom: 8rem;
   }
 </style>

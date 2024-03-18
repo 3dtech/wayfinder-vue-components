@@ -3,7 +3,7 @@
 		<div class="wf-page-icon" :class="[page.icon ? 'wf-has-icon' : '']" v-html="page.icon"></div>
         <label class="wf-page-name" v-if="showName" v-html="pageName || ''"></label>
         <div class="wf-page-content">
-			<div v-if="page.type == 'wf-page-collection'">
+			<div v-if="page.type == 'collection'">
 				<component v-for="(item, index) in page.items" :key="item.id" :class="['wf-page-item-' + index ]" :is="itemType(item)" :item="item"></component> 
 			</div>
 			<div v-if="page.type !== 'collection'" class="wf-page-single">
@@ -18,12 +18,14 @@
 import { mapState } from 'vuex';
 import PageHTML from './page_items/PageHTML.vue';
 import PageURL from './page_items/PageUrl.vue';
+import PageIMAGE from './page_items/PageImage.vue';
 
 export default {
 	name: "Page",
 	components: {
 		PageHTML,
-		PageURL
+		PageURL,
+		PageIMAGE
 	},
 	computed: {
 		...mapState('wf', ['language', 'pages']),
