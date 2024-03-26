@@ -1,6 +1,6 @@
 <template>
     <div class="wf-component wf-zoommenu">
-        <div class="wf-item wf-zoom-in" @mousedown="start(1)" @mouseleave="stop()" @mouseup="stop()">+</div>
+        <div class="wf-item wf-zoom-in" v-touch:start="touchStart(1)" v-touch:end="touchStop()" @mousedown="start(1)" @mouseleave="stop()" @mouseup="stop()">+</div>
         <div class="wf-item wf-zoom-out" @mousedown="start(-1)" @mouseleave="stop()" @mouseup="stop()">-</div>
     </div>
 </template>
@@ -12,7 +12,18 @@ export default {
         zooming: false
 	}),
     methods: {
+        touchStart (dir) {
+            return () => {
+				this.start(dir);
+			}; 
+        },
+        touchStop () {
+            return () => {
+				this.stop();
+			}; 
+        },
 		start (dir) {
+            console.trace();
             this.direction = dir;
             this.zooming = true;
             this.zoom();
@@ -23,6 +34,7 @@ export default {
             clearTimeout(timer);
 		},
         zoom () {
+           
             if(this.direction > 0) {
                 this.$wayfinder.zoomIn();
             }

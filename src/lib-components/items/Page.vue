@@ -69,6 +69,9 @@ export default {
 		pages () {
 			this.updatePage();
 		},
+		container () {
+			this.updatePage();
+		},
 		index () {
 			if (this.index >= 1) {
 				this.currentIndex = this.index;
@@ -96,12 +99,10 @@ export default {
 				}
 				else if (this.currentIndex > -1 && this.pages[this.container][this.currentIndex]) {
 					this.page = this.pages[this.container][this.currentIndex];
-					
 				}
 			}
 		},
 		itemType (item) {
-			console.log('item', item);
 			if (item && item.type) {
 				return "Page"+item.type.toUpperCase();
 			}
