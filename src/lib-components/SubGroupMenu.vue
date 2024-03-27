@@ -135,11 +135,11 @@ export default {
 	methods: {
 		onClick (group) {
 			return () => {
-				if (this.current == group) {
+				if (this.current && group && this.current.id == group.id) {
 					this.current = null;
 				}
-				else  {
-					this.current = group;
+				else {
+					this.current = Object.freeze(group);
 				}
 				this.$emit('clicked', group);
 			};

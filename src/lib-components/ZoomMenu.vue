@@ -23,7 +23,6 @@ export default {
 			}; 
         },
 		start (dir) {
-            console.trace();
             this.direction = dir;
             this.zooming = true;
             this.zoom();

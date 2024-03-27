@@ -171,7 +171,7 @@ export default {
 	methods: {
 		onClick (group) {
 			return () => {
-				if (this.current == group) {
+				if (this.current && group && this.current.id == group.id) {
 					this.current = null;
 					return;
 				}
@@ -179,7 +179,7 @@ export default {
 					this.current = Object.freeze(group);
 				}
 				//emit only if this is a leaf
-				if(!(this.current && this.showSubGroups && group.childGroups && group.childGroups.length > 0)){
+				if(!(this.current && this.showSubGroups && group && group.childGroups && group.childGroups.length > 0)){
 					this.$emit('clicked', group);
 				}  
 			};
