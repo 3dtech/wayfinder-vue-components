@@ -1,6 +1,6 @@
 <template>
 	<div class="wf-page" v-if="page">
-		<div class="wf-page-icon" :class="[page.icon ? 'wf-has-icon' : '']" v-html="page.icon"></div>
+		<div class="wf-page-icon" v-if="showIcon" :class="[page.icon ? 'wf-has-icon' : '']" v-html="page.icon"></div>
         <label class="wf-page-name" v-if="showName" v-html="pageName || ''"></label>
         <div class="wf-page-content">
 			<div v-if="page.type == 'collection'">
@@ -52,6 +52,10 @@ export default {
 		showName: {
 			type: Boolean,
 			default: true
+		},
+		showIcon: {
+			type: Boolean,
+			default: false
 		},
 		playAll: {
 			type: Boolean,
