@@ -1,7 +1,7 @@
 <template>
     <div class="wf-component wf-zoommenu">
         <div class="wf-item wf-zoom-in" v-touch:start="touchStart(1)" v-touch:end="touchStop()" @mousedown="start(1)" @mouseleave="stop()" @mouseup="stop()">+</div>
-        <div class="wf-item wf-zoom-out" v-touch:start="touchStart(1)" v-touch:end="touchStop()" @mousedown="start(-1)" @mouseleave="stop()" @mouseup="stop()">-</div>
+        <div class="wf-item wf-zoom-out" v-touch:start="touchStart(-1)" v-touch:end="touchStop()" @mousedown="start(-1)" @mouseleave="stop()" @mouseup="stop()">-</div>
     </div>
 </template>
 <script>
