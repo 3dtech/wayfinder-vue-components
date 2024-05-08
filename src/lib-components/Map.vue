@@ -111,7 +111,7 @@ export default {
 
 			wayfinder.events.on("map-click", (poi) => {
 				if (poi) {
-					this.$emit('poiClicked', poi, true);
+					this.$emit('poiClicked', this.$store.getters["wf/freezePOI"](poi), true);
 					wayfinder.statistics.onClick(poi.id, "map");
 				}
 			});
