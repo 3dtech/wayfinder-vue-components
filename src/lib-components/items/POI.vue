@@ -35,7 +35,7 @@ export default {
 			return !!(this.$listeners && this.$listeners.showPath);
 		},
 		hasShowAccessibilityPathListener () {
-			return !!(this.$listeners && this.$listeners.showPath);
+			return !!(this.$listeners && this.$listeners.showAccessibilityPath);
 		}
 	},
 	props: {

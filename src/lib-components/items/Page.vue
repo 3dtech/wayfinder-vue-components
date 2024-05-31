@@ -1,16 +1,18 @@
 <template>
-	<div class="wf-page" v-if="page">
-		<div class="wf-page-icon" v-if="showIcon" :class="[page.icon ? 'wf-has-icon' : '']" v-html="page.icon"></div>
-        <label class="wf-page-name" v-if="showName" v-html="pageName || ''"></label>
-        <div class="wf-page-content">
-			<div v-if="page.type == 'collection'">
-				<component v-for="(item, index) in page.items" :key="item.id" :class="['wf-page-item-' + index ]" :is="itemType(item)" :item="item"></component> 
+	<div class="wf-page">
+		<div class="wf-page-container" v-if="page">
+			<div class="wf-page-icon" v-if="showIcon" :class="[page.icon ? 'wf-has-icon' : '']" v-html="page.icon"></div>
+			<label class="wf-page-name" v-if="showName" v-html="pageName || ''"></label>
+			<div class="wf-page-content">
+				<div v-if="page.type == 'collection'">
+					<component v-for="(item, index) in page.items" :key="item.id" :class="['wf-page-item-' + index ]" :is="itemType(item)" :item="item"></component> 
+				</div>
+				<div v-if="page.type !== 'collection'" class="wf-page-single">
+					<component :is="itemType(page)" :item="page"></component> 
+				</div>
 			</div>
-			<div v-if="page.type !== 'collection'" class="wf-page-single">
-				<component :is="itemType(page)" :item="page"></component> 
-            </div>
-			 <slot name="tabs"></slot>
-        </div>
+		</div>
+		<slot name="tabs"></slot>
 	</div>
 </template>
 

@@ -138,9 +138,16 @@ export default Vue.extend({
              <WFGroupPOIsMenu :group="group"></WFGroupPOIsMenu>
           </WFTab>
           <WFTab name="9">
-            <WFPageMenu container="transport" @clicked="pageMenuClicked"></WFPageMenu>
-            <WFPage container="transport" :slug="pageSlug"></WFPage>
-            <WFPage container="transport" slug="empty"></WFPage>
+            <WFPageMenu @clicked="pageMenuClicked"></WFPageMenu>
+            <WFPage :slug="pageSlug">
+              <template v-slot:tabs>
+						    <WFTabs ref="tabs" activeTab="map" @tabChanged="tabChanged">
+                  <WFTab name="map">
+                    TAB
+                  </WFTab>
+                </WFTabs>
+              </template>
+            </WFPage>
           </WFTab>
           <WFTab name="10">
             <WFPOI :poi="currentPOI" :showLogo="true" :showAccessibilityPathButton="true" :showDistance="true"></WFPOI>
