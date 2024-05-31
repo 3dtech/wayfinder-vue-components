@@ -9,6 +9,7 @@
 			<div v-if="page.type !== 'collection'" class="wf-page-single">
 				<component :is="itemType(page)" :item="page"></component> 
             </div>
+			 <slot name="tabs"></slot>
         </div>
 	</div>
 </template>
