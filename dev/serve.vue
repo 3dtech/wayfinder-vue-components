@@ -72,7 +72,7 @@ export default Vue.extend({
 <template>
   <div id="app">
     <div class="map-container">
-      <WFMap @loaded="mapDataLoaded" project="f7250a8a12f618041b11cf6b0ecbc251"/>
+      <WFMap @loaded="mapDataLoaded" project="3a7c4f9b4c68cf011245a6191797fcb3"/>
       <WFYAH/>
       <WFZoomMenu/>
       <WFFloorsMenu :currentFloor="currentFloor"/>
@@ -139,13 +139,14 @@ export default Vue.extend({
           </WFTab>
           <WFTab name="9">
             <WFPageMenu @clicked="pageMenuClicked"></WFPageMenu>
-            <WFPage :slug="pageSlug">
+            <WFPage :slug="pageSlug" defaultTab="map">
               <template v-slot:tabs>
-						    <WFTabs ref="tabs" activeTab="map" @tabChanged="tabChanged">
-                  <WFTab name="map">
-                    TAB
-                  </WFTab>
-                </WFTabs>
+                <WFTab name="map">
+                  TAB 1
+                </WFTab>
+                <WFTab name="tab2">
+                  TAB 2
+                </WFTab>
               </template>
             </WFPage>
           </WFTab>

@@ -7,12 +7,14 @@
 				<div v-if="page.type == 'collection'">
 					<component v-for="(item, index) in page.items" :key="item.id" :class="['wf-page-item-' + index ]" :is="itemType(item)" :item="item"></component> 
 				</div>
-				<div v-if="page.type !== 'collection'" class="wf-page-single">
+				<div v-if="isSingle" class="wf-page-single">
 					<component :is="itemType(page)" :item="page"></component> 
 				</div>
 			</div>
 		</div>
-		<slot name="tabs"></slot>
+		<WFTabs ref="tabs" :activeTab="currentTab">
+			<slot name="tabs"></slot>
+		</WFTabs>
 	</div>
 </template>
 
@@ -37,7 +39,15 @@ export default {
                 return this.page.name[this.language];
             }
             else return "";
-        }
+        },
+		currentTab () {
+			return this.tab !== null ? this.tab : this.defaultTab;
+		},
+		isSingle () {
+			if (this.page && ['collection', 'tab'].indexOf(this.page.type) > -1) return false;
+
+			return true;
+		}
 	},
 	props: {
 		container: {
@@ -67,6 +77,10 @@ export default {
 		duration: {
 			type: Number,
 			default: 30
+		},
+		defaultTab: {
+			type: String,
+			default: null
 		}
 	},
 	mounted () {
@@ -107,6 +121,13 @@ export default {
 				else if (this.currentIndex > -1 && this.pages[this.container][this.currentIndex]) {
 					this.page = this.pages[this.container][this.currentIndex];
 				}
+
+				if(this.page && this.page.type == "tab") {
+					this.tab = this.page.slug;
+				}
+				else {
+					this.tab = null;
+				}
 			}
 		},
 		itemType (item) {
@@ -120,7 +141,8 @@ export default {
 	data: function () {
 		return {
 			currentIndex: 1,
-			page: null
+			page: null,
+			tab: null
 		}
 	}
 };
