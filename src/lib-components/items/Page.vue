@@ -186,6 +186,13 @@ export default {
 </script>
 
 <style scoped>
+	.wf-page-container {
+		width: 100%;
+		height: 100%;
+	}
 
-
+	.wf-page-container .wf-page-content {
+		width: 100%;
+		height: 100%;
+	}
 </style>
