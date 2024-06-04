@@ -79,14 +79,17 @@ export default {
 		}
 	},
 	mounted () {
-		this.updatePage();
-
 		if (this.defaultTab) {
 			this.tab = this.defaultTab;
 		}
+
+		this.updatePage();
 	},
 	watch: {
 		pages () {
+			if (this.defaultTab) {
+				this.tab = this.defaultTab;
+			}
 			this.updatePage();
 		},
 		container () {
@@ -159,11 +162,9 @@ export default {
 				if(this.page && this.page.type == "tab") {
 					this.tab = this.page.slug;
 				}
-				else {
+				else if (this.page){
 					this.tab = null;
 				}
-
-				console.log('tab', this.tab)
 			}
 		},
 		itemType (item) {

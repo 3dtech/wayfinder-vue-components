@@ -87,6 +87,10 @@ export default {
 		transition: opacity 0.3s ease-out 0.5s;
 	}
 
+	.wf-tabs-animate-none .wf-tab {
+		transition: none !important;
+	}
+
 
 	.wf-tab.wf-active {
 		opacity: 1;
