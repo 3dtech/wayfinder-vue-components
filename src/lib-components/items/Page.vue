@@ -4,12 +4,7 @@
 			<div class="wf-page-icon" v-if="showIcon" :class="[page.icon ? 'wf-has-icon' : '']" v-html="page.icon"></div>
 			<label class="wf-page-name" v-if="showName" v-html="pageName || ''"></label>
 			<div class="wf-page-content">
-				<div v-if="page.type == 'collection'">
-					<component v-for="(item, index) in page.items" :key="item.id" :class="['wf-page-item-' + index ]" :is="itemType(item)" :item="item"></component> 
-				</div>
-				<div v-if="isSingle" class="wf-page-single">
-					<component :is="itemType(page)" :item="page"></component> 
-				</div>
+				<component v-for="(item, index) in page.items" :key="item.id" :class="['wf-page-item-' + index ]" :is="itemType(item)" :item="item"></component> 
 			</div>
 		</div>
 		<WFTabs ref="tabs" :activeTab="currentTab">
@@ -41,7 +36,7 @@ export default {
             else return "";
         },
 		currentTab () {
-			return this.tab !== null ? this.tab : this.defaultTab;
+			return this.tab;
 		},
 		isSingle () {
 			if (this.page && ['collection', 'tab'].indexOf(this.page.type) > -1) return false;
@@ -54,7 +49,7 @@ export default {
 			type: String,
 			default: "default"
 		},
-		index: {
+		pid: {
 			type: Number,
 			default: -1
 		},
@@ -85,6 +80,10 @@ export default {
 	},
 	mounted () {
 		this.updatePage();
+
+		if (this.defaultTab) {
+			this.tab = this.defaultTab;
+		}
 	},
 	watch: {
 		pages () {
@@ -93,41 +92,78 @@ export default {
 		container () {
 			this.updatePage();
 		},
-		index () {
-			if (this.index >= 1) {
-				this.currentIndex = this.index;
+		pid () {
+			let page = this.findByID(parseInt(this.pid));
+
+			if (page) {
+				this.page = page;
 				this.updatePage();
+			}
+			else {
+				console.log('Page with ID', this.pid, 'not found');
 			}
 		},
 		slug () {
-			this.updatePage();
+			let page = this.findBySlug(this.slug.toLowerCase());
+			if (page) {
+				this.page = page;
+				this.updatePage();
+			}
+			else {
+				console.log('Page with slug', this.slug, 'not found');
+			}
+		},
+		index () {
+			let page = this.findBySlug(this.slug);if (page) {
+				this.page = page;
+				this.updatePage();
+			}
+			else {
+				console.log('Page with slug', this.slug, 'not found');
+			}
 		}
 	},
 	methods: {
-		updatePage () {
+		findByID (id) {
 			if (this.pages && this.pages[this.container]) {
-				console.log('updatePage1', this.page, this.container, this.currentIndex, this.slug )
-				if (this.slug != null){
+				if (id > -1) {
 					let page;
 					for(let p in this.pages[this.container]) {
 						page = this.pages[this.container][p];
-						if (page.slug.toLowerCase() == this.slug.toLowerCase()) {
-							console.log('updatePage2', this.page, this.container, this.currentIndex, this.slug )
-							this.page = page;
-							break;
+						if (parseInt(page.id) == id) {
+							return page
 						}
 					}
 				}
-				else if (this.currentIndex > -1 && this.pages[this.container][this.currentIndex]) {
-					this.page = this.pages[this.container][this.currentIndex];
-				}
+			}
 
+			return false;
+		},
+		findBySlug (slug) {
+			if (this.pages && this.pages[this.container]) {
+				if (this.id > -1) {
+					let page;
+					for(let p in this.pages[this.container]) {
+						page = this.pages[this.container][p];
+						if (page.slug.toLowerCase() == slug) {
+							return page;
+						}
+					}
+				}
+			}
+
+			return false;
+		},
+		updatePage () {
+			if (this.pages && this.pages[this.container]) {
 				if(this.page && this.page.type == "tab") {
 					this.tab = this.page.slug;
 				}
 				else {
 					this.tab = null;
 				}
+
+				console.log('tab', this.tab)
 			}
 		},
 		itemType (item) {

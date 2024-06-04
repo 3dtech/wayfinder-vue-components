@@ -44,6 +44,7 @@ export default Vue.extend({
     pageMenuClicked (page) {
       console.log('page', page);
       this.pageSlug = page.slug;
+      this.currentPage = page;
     },
     groupPOIClicked (poi) {
       console.log('poi', poi);
@@ -63,7 +64,8 @@ export default Vue.extend({
       currentTab: 1,
       currentGroup: null,
       currentPOI: null,
-      pageSlug: "slug"
+      pageSlug: "slug",
+      currentPage: null
     }
   }
 });
@@ -139,13 +141,13 @@ export default Vue.extend({
           </WFTab>
           <WFTab name="9">
             <WFPageMenu @clicked="pageMenuClicked"></WFPageMenu>
-            <WFPage :slug="pageSlug" defaultTab="map">
+            <WFPage :pid="currentPage ? parseInt(currentPage.id) : -1" defaultTab="map">
               <template v-slot:tabs>
                 <WFTab name="map">
-                  TAB 1
+                  Map
                 </WFTab>
-                <WFTab name="tab2">
-                  TAB 2
+                <WFTab name="contacts">
+                  Contacts
                 </WFTab>
               </template>
             </WFPage>

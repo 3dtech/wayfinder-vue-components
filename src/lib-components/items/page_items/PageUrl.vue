@@ -1,6 +1,6 @@
 <template>
 	<div class="wf-page-item wf-page-url" v-if="item">
-		<iframe :src="item.value[language]" nwdisable nwfaketop></iframe>
+		<iframe v-if="item.value" :src="item.value[language]" nwdisable nwfaketop></iframe>
 	</div>
 </template>
 

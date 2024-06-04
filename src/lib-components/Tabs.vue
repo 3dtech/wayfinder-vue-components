@@ -30,14 +30,13 @@ export default {
 		}
 	},
 	watch: {
-		activeTab: function(newVal) { // watch it
-			if(newVal) {
-				this.activate(newVal);
-			}
+		activeTab: function() { // watch it
+			this.activate();
 		}
 	},
 	methods: {
 		activate () {
+			console.log('tabs.activate', this.activeTab, this.$props.activeTab)
 			this.currentTab = null;
 			for (var tab in this.tabs) {
 				if (this.tabs[tab].name == this.$props.activeTab) {
