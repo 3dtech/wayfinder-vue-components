@@ -144,7 +144,7 @@ export default {
 		},
 		findBySlug (slug) {
 			if (this.pages && this.pages[this.container]) {
-				if (this.id > -1) {
+				if (slug.length > 0) {
 					let page;
 					for(let p in this.pages[this.container]) {
 						page = this.pages[this.container][p];
@@ -173,6 +173,15 @@ export default {
 			}
 
 			return "";
+		},
+		changePageWithSlug (slug) {
+			let page = this.findBySlug(slug);
+			if (page) {
+				this.updatePage();
+				return true;
+			}
+
+			return false;
 		}
 	},
 	data: function () {
