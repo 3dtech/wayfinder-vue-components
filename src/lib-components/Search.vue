@@ -118,7 +118,6 @@ export default {
 				let resultArr = Object.values(results).map((poi) => {
 					return this.$store.getters["wf/freezePOI"](poi);
 				});
-				console.log('resultArr', resultArr,  this.$wayfinder)
 				this.results = resultArr;
 				if (keyword.length > 1) {
 					if (Object.values(this.results).length > 0) {

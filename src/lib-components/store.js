@@ -15,7 +15,7 @@ function freezeGroup(g) {
 
 	return g;
 }
-var freezeProps = ["floor", "groups", "groupNames", "node", "settings", "names", "descriptions", "advertisements", "meshNode", "submesh", "canvasBoard", "poiComponent", "wayfinder", "engine"]
+var freezeProps = ["floor", "groups", "groupNames", "node", "settings", "names", "descriptions", "advertisements", "meshNode", "submesh", "canvasBoard", "poiComponent", "wayfinder", "engine", "open"]
 function freezePOI(p) {
 	p = clone(p);
 	for(let f in freezeProps) {
