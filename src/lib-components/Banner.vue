@@ -1,6 +1,6 @@
 <template>
 	<div class="wf-component wf-banner" ref="frames" v-observe-visibility="visibilityChanged">
-		<div class="wf-frame" v-for="(frame, index) in orderedFrames" :key="frame.id" :class="[{ 'wf-active': index == current }, frameKeywords]">
+		<div class="wf-frame" v-for="(frame, index) in displayedFrames" :key="frame.id" :class="[{ 'wf-active': index == current }, frameKeywords]">
 			<div class="wf-frame-container" v-for="container in frame.containers" :key="container.id" :class="[container.containerType]" @click="onClick(frame, container)" :style="{
 				left: container.left + '%',
 				top: container.top + '%',
@@ -33,7 +33,7 @@ export default {
 	computed: {//yahLogo
 		...mapState('wf', ['banners']),
 		orderedFrames () {
-			return this.loadedFrames.sort((a, b) => {
+			return Object.values(this.loadedFrames).sort((a, b) => {
 				return a.index > b.index
 			});
 		}
@@ -41,7 +41,8 @@ export default {
 	data () {
 		return {
 			frames: [],
-			loadedFrames: [],
+			loadedFrames: {},
+			displayedFrames: [],
 			current: -1,
 			timer: null,
 			fadeDuration: 500,
@@ -79,11 +80,6 @@ export default {
 				this.frames.forEach((f, i) => this.preloadFrame(i, f));
 
 				this.$emit('hasbanners', (this.frames.length > 0));
-				if(this.playOnBoot) {
-					this.$nextTick(function () {
-						this.play();
-					});
-				}
 			}
 		},
 		qrURL (val) {
@@ -157,8 +153,13 @@ export default {
 			if (frame) {
 				frame.loadCount++;
 				if (frame.loadCount >= frame.containers.length) {
-					this.loadedFrames.push(frame);
+					this.$set(this.loadedFrames, frame.id, frame);
+					this.displayedFrames = Object.values(this.loadedFrames).sort((a, b) => a.index > b.index);
 					frame.loaded = true;
+
+					if(!this.timer && this.playOnBoot) {
+						this.play();
+					}
 				}
 			}
 		},
@@ -172,15 +173,15 @@ export default {
 			}
 		},
 		play () {
-			if (this.current >= this.loadedFrames.length) {
+			if (this.current >= this.displayedFrames.length) {
 				return;
 			}
 
-			if (this.loadedFrames.length > 0) {
+			if (this.displayedFrames.length > 0) {
 				this.next();
 			}
 
-			let frame = this.loadedFrames[this.current];
+			let frame = this.displayedFrames[this.current];
 
 			if (this.timer != null) {
 				clearTimeout(this.timer);
@@ -191,7 +192,7 @@ export default {
 			}
 			
 			this.displayQR = frame && frame.keywords ? frame.keywords.join(",").indexOf("qr-") > -1: false;
-			this.frameKeywords = frame.keywords.map(k => "keyword-" + k);
+			this.frameKeywords = frame.keywords.filter(k => typeof k === "string" && k.length > 0).map(k => "wf-keyword-" + k);
 
 			// console.log('displayQR', this.displayQR, this.qr);
 			// console.log('this.refs', this.$refs['frames']);
@@ -239,7 +240,7 @@ export default {
 		},
 
 		next () {
-			if (this.current < this.loadedFrames.length - 1) {
+			if (this.current < this.displayedFrames.length - 1) {
 				this.current++;
 			}
 			else {
