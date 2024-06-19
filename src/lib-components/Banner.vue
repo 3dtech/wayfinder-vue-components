@@ -1,13 +1,13 @@
 <template>
 	<div class="wf-component wf-banner" ref="frames" v-observe-visibility="visibilityChanged">
-		<div class="wf-frame" v-for="(frame, index) in frames" :key="frame.id" :class="[{ 'wf-active': index == current }, frameKeywords]">
+		<div class="wf-frame" v-for="(frame, index) in orderedFrames" :key="frame.id" :class="[{ 'wf-active': index == current }, frameKeywords]">
 			<div class="wf-frame-container" v-for="container in frame.containers" :key="container.id" :class="[container.containerType]" @click="onClick(frame, container)" :style="{
 				left: container.left + '%',
 				top: container.top + '%',
 				width: container.width + '%',
 				height: container.height + '%',
-				backgroundImage: 'url(\'' + container.url + '\')'
 			}">
+				<img :src="container.url" v-if="!isVideo(container)"/>
 				<video width="100%" height="auto" v-if="isVideo(container)" muted crossorigin="anonymous">
 					<source :src="container.url" :type="container.type">
 				</video>
@@ -31,11 +31,17 @@ export default {
 		qrURL: {type: String, default: "https://3dwayfinder.com" }
 	},
 	computed: {//yahLogo
-		...mapState('wf', ['banners'])
+		...mapState('wf', ['banners']),
+		orderedFrames () {
+			return this.loadedFrames.sort((a, b) => {
+				return a.index > b.index
+			});
+		}
 	},
 	data () {
 		return {
 			frames: [],
+			loadedFrames: [],
 			current: -1,
 			timer: null,
 			fadeDuration: 500,
@@ -64,13 +70,13 @@ export default {
 						enabled = enabled && (new Date(frame.to_date)).getTime() >= now;
 					}
 
-					if(enabled) {
-						for(let c in frame.containers) {
-							frame.containers[c].url = this.getUrl(frame.containers[c]);
-						}
-					}
+					frame.loaded = false;
+					frame.loadCount = 0;
+
 					return enabled;
 				});
+
+				this.frames.forEach((f, i) => this.preloadFrame(i, f));
 
 				this.$emit('hasbanners', (this.frames.length > 0));
 				if(this.playOnBoot) {
@@ -90,6 +96,72 @@ export default {
 		this.renderQR();
 	},
 	methods: {
+		preloadFrame (index, frame) {
+			frame.index = index;
+			for(let c in frame.containers) {
+				frame.containers[c].url = this.getUrl(frame.containers[c]);
+				frame.containers[c].loadFailed = 0;
+				this.fetchMedia(index, frame.containers[c])
+			}
+		},
+		loadFailed (frameIndex, container) {
+			let scope = this;
+			console.log('loadFailed', container)
+			container.loadFailed++;
+
+			setTimeout(function () {
+				scope.fetchMedia(frameIndex, container);
+			}, Math.max(5000, container.loadFailed * 5000));
+			
+		},
+		fetchMedia (frameIndex, container) {
+			if(container && container.advertisement_id > 0) {
+				let scope = this;
+				if(container.type.indexOf("image") == 0) {
+					let img = new Image();
+					img.src = container.url;
+					img.onload = function () {
+						scope.loaded(frameIndex, container);
+					}
+
+					img.onerror = function () {
+						scope.loadFailed(frameIndex, container);
+					}
+				}
+				else if(container.type.indexOf("video") == 0) {
+					var video;
+					try {
+						video = new Video();
+					} catch(e) {
+						video = document.createElement('video');
+					}
+					video.src = container.url;
+					video.onloadeddata = function () {
+						scope.loaded(frameIndex, container);
+					}
+
+					video.onerror = function () {
+						scope.loadFailed(frameIndex, container);
+					}
+
+					video.load();
+				}
+			}
+			else {
+				console.log('skipping container', container);
+			}
+		},
+		loaded (frameIndex) {
+			let frame = this.frames[frameIndex];
+			
+			if (frame) {
+				frame.loadCount++;
+				if (frame.loadCount >= frame.containers.length) {
+					this.loadedFrames.push(frame);
+					frame.loaded = true;
+				}
+			}
+		},
 		visibilityChanged (visible) {
 			this.visible = visible;
 			if (visible) {
@@ -100,15 +172,15 @@ export default {
 			}
 		},
 		play () {
-			if (this.current >= this.frames.length) {
+			if (this.current >= this.loadedFrames.length) {
 				return;
 			}
 
-			if (this.frames.length > 0) {
+			if (this.loadedFrames.length > 0) {
 				this.next();
 			}
 
-			let frame = this.frames[this.current];
+			let frame = this.loadedFrames[this.current];
 
 			if (this.timer != null) {
 				clearTimeout(this.timer);
@@ -117,7 +189,6 @@ export default {
 			if(!frame) {
 				return;
 			}
-
 			
 			this.displayQR = frame && frame.keywords ? frame.keywords.join(",").indexOf("qr-") > -1: false;
 			this.frameKeywords = frame.keywords.map(k => "keyword-" + k);
@@ -168,7 +239,7 @@ export default {
 		},
 
 		next () {
-			if (this.current < this.frames.length - 1) {
+			if (this.current < this.loadedFrames.length - 1) {
 				this.current++;
 			}
 			else {
@@ -225,10 +296,13 @@ export default {
 	}
 
 	.wf-banner .wf-frame .wf-frame-container {
-		background-size: cover;
-		background-position: 50% 50%;
-		background-repeat: no-repeat;
 		position: absolute;
+	}
+
+	.wf-banner .wf-frame .wf-frame-container img {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
 	}
 
 	.wf-banner .wf-frame.wf-active {
