@@ -35,6 +35,9 @@ export default Vue.extend({
       this.currentGroup = group;
       this.$store.dispatch('wf/SET_FILTERED_POIS', group.pois);
     },
+    bannerClicked () {
+      console.log('bannerClicked')
+    },
     reset () {
       this.$store.dispatch('wf/RESET');
     },
@@ -131,7 +134,7 @@ export default Vue.extend({
             </WFSearch>
           </WFTab>
           <WFTab name="5">
-            <WFBanner template="Default" container="screensaver-portrait" :playOnBoot="true"></WFBanner>
+            <WFBanner template="Default" container="screensaver-portrait" @clicked="bannerClicked" :playOnBoot="true"></WFBanner>
             <!--WFBanner template="default" container="advertisements" qrURL="https://google.com" :playOnBoot="true"></WFBanner-->
           </WFTab>
           <WFTab name="6">
