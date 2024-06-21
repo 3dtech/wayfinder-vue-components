@@ -141,8 +141,12 @@ export default Vue.extend({
              <WFAZMenu></WFAZMenu>
           </WFTab>
           <WFTab name="7">
-             <WFShortcutsMenu></WFShortcutsMenu>
-             <WFAlphabet :pois="Object.values(pois)" :group="'12'"></WFAlphabet>
+            <WFScrollableArea>
+              <div>
+                <WFShortcutsMenu></WFShortcutsMenu>
+                <WFAlphabet :pois="Object.values(pois)" :group="'12'"></WFAlphabet>
+              </div>
+            </WFScrollableArea>
           </WFTab>
           <WFTab name="8">
              <WFGroupPOIsMenu :group="group"></WFGroupPOIsMenu>
