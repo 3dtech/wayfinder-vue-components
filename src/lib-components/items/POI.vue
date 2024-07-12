@@ -139,7 +139,7 @@ export default {
 				return 'url("' + this.poi.getIconUrl() + '")';
 			}
 			else {
-				return "";
+				return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
 			}
 		},
 		isImage () {
