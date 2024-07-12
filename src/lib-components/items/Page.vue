@@ -1,5 +1,5 @@
 <template>
-	<div class="wf-page" :class="['wf-page-slug-' + (page.slug ? page.slug : 'none'), 'wf-page-type-' + page.type, page.classes]">
+	<div class="wf-page" :class="['wf-page-slug-' + (page && page.slug ? page.slug : 'none'), 'wf-page-type-' + (page ? page.type : 'none'), page ? page.classes : '']">
 		<div class="wf-page-container" v-if="page" :class="{'wf-page-empty': page.items.length === 0}">
 			<div class="wf-page-icon" v-if="showIcon" :class="[page.icon ? 'wf-has-icon' : '']" v-html="page.icon"></div>
 			<label class="wf-page-name" v-if="showName" v-html="pageName || ''"></label>
