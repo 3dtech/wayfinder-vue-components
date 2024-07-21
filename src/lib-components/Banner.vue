@@ -107,7 +107,7 @@ export default {
 
 			setTimeout(function () {
 				scope.fetchMedia(frameIndex, container);
-			}, Math.max(5000, container.loadFailed * 5000));
+			}, Math.max(10000, container.loadFailed * 10000));
 			
 		},
 		fetchMedia (frameIndex, container) {

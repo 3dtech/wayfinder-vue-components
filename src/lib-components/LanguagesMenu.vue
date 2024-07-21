@@ -1,7 +1,7 @@
 <template>
 	<div class="wf-component wf-languages-menu" :class="{'wf-active': active }">
 		<ul class="wf-list" :class="['wf-list-count-' + count, (active ? 'wf-active': '')]">
-			<li v-for="lang in languages" class="wf-list-item wf-language" :key='lang.getName()' @click="changeLanguage(lang)" v-show="!(hideActive && lang.getName() == language)" :class='["wf-lang-" + lang.getName(), { "wf-active": lang.getName() == language, "wf-display": active}]'>
+			<li v-for="lang in sortedLanguages" class="wf-list-item wf-language" :key='lang.getName()' @click="changeLanguage(lang)" v-show="!(hideActive && lang.getName() == language)" :class='["wf-lang-" + lang.getName(), { "wf-active": lang.getName() == language, "wf-display": active}]'>
 				<div v-if="showFlag" class="wf-lang-flag" :style="{ backgroundImage: 'url('+getFlagImage(lang.flagImage)+')'}"></div>
 				<label v-if="labelType == 'code'">{{lang.getName()}}</label>
 				<label v-if="labelType == 'native'">{{lang.getNativeName()}}</label>
@@ -20,6 +20,15 @@ export default {
 		...mapState('wf', ['languages', 'language', 'reset']),
 		count () {
 			return this.languages.length;
+		},
+		sortedLanguages () {
+			if(this.languages && this.order == "order") {
+				return this.languages.slice().sort((a, b) => {
+					return a.order - b.order;
+				})
+			}
+
+			return this.languages;
 		}
 	},
 	props: {
@@ -42,6 +51,10 @@ export default {
 		title: {
 			type: String,
 			default: "Select language"
+		},
+		order: {
+			type: String,
+			default: "id"
 		}
 	},
 	data () {

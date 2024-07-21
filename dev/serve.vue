@@ -82,10 +82,13 @@ export default Vue.extend({
 <template>
   <div id="app">
     <div class="map-container">
-      <WFMap @loaded="mapDataLoaded" project="efad13d2532c67e6cf96b3efd508f1a4"/>
-      <WFYAH/>
-      <WFZoomMenu/>
-      <WFFloorsMenu :currentFloor="currentFloor"/>
+      <WFMap @loaded="mapDataLoaded" project="a69b782522d22b3f24e706f0b726f015"/>
+      <div class="map-footer">
+        <WFYAH/>
+        <WFZoomMenu/>
+        <WFFloorsMenu :currentFloor="currentFloor"/>
+        <WFFlagsMenu :showFlag="false" labelType="native" order="order"/>
+      </div>
     </div>
     <div class="content">
       <section class="tab-serve">
@@ -194,6 +197,14 @@ export default Vue.extend({
     width: 50%;
     position: relative;
   }
+
+  .map-footer {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+
   .content {
     display: flex;
     flex-direction: column;
@@ -254,8 +265,6 @@ export default Vue.extend({
   }
 
   .wf-yah {
-    position: absolute;
-    bottom: 1rem;
     width: 4rem;
     height: 4rem;
   }

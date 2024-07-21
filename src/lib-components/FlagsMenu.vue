@@ -2,7 +2,7 @@
 	<div class="wf-component wf-languages-container" :class="[(active ? 'wf-active': '')]">
 		<div class="wf-languages-container-select" v-if="showTitle">Select language</div>
 		<div class="wf-list" :class="['wf-list-count-' + count]">
-			<div v-for="lang in languages" :key='lang.getName()' @click="changeLanguage(lang)" :class='["item", "language", "lang-" + lang.getName(), { active: lang.getName() == language, display: active}]'>
+			<div v-for="lang in sortedLanguages" :key='lang.getName()' @click="changeLanguage(lang)" :class='["item", "language", "lang-" + lang.getName(), { active: lang.getName() == language, display: active}]'>
 				<div v-if="showFlag" class="wf-flag" :style="{ backgroundImage: 'url('+getFlagImage(lang.flagImage)+')'}"></div>
 				<label v-if="labelType == 'code'">{{lang.getName()}}</label>
 				<label v-if="labelType == 'native'">{{lang.getNativeName()}}</label>
@@ -21,6 +21,15 @@ export default {
 		...mapState('wf', ['languages', 'language', 'reset']),
 		count () {
 			return this.languages.length;
+		},
+		sortedLanguages () {
+			if(this.languages && this.order == "order") {
+				return this.languages.slice().sort((a, b) => {
+					return a.order - b.order;
+				})
+			}
+
+			return this.languages;
 		}
 	},
 	props: {
@@ -36,6 +45,10 @@ export default {
 			type: String,
 			default: "none"
 		},
+		order: {
+			type: String,
+			default: "id"
+		}
 	},
 	data () {
 		return {
@@ -47,7 +60,6 @@ export default {
 			this.$wayfinder.setLanguage(language.name);
 			this.$emit("changeLanguage", language);
 		},
-
 		getFlagImage (id) {
 			return WayfinderAPI.getURL("images", "thumbnail", [id]);		
 		}
