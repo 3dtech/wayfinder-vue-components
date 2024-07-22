@@ -82,7 +82,7 @@ export default Vue.extend({
 <template>
   <div id="app">
     <div class="map-container">
-      <WFMap @loaded="mapDataLoaded" project="a69b782522d22b3f24e706f0b726f015"/>
+      <WFMap @loaded="mapDataLoaded" project="efad13d2532c67e6cf96b3efd508f1a4"/>
       <div class="map-footer">
         <WFYAH/>
         <WFZoomMenu/>
