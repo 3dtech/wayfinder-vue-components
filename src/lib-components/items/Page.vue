@@ -83,13 +83,11 @@ export default {
 		}
 	},
 	mounted () {
-		console.log('page.mounted', this.defaultTab, this.index, this.page)
 		if (this.defaultTab) {
 			this.tab = this.defaultTab;
 		}
 		else if (!this.page) {
 			this.page = this.findByIndex(this.index);
-			console.log('page.index', this.index, this.page)
 		}
 
 		this.updatePage();
@@ -99,9 +97,10 @@ export default {
 			if (this.defaultTab) {
 				this.tab = this.defaultTab;
 			}
-			if(!this.page) {
-
+			else if (!this.page) {
+				this.page = this.findByIndex(this.index);
 			}
+			
 			this.updatePage();
 		},
 		container () {
@@ -157,7 +156,6 @@ export default {
 		},
 		findByIndex (index) {
 			if (this.pages && this.pages[this.container]) {
-				
 				if (index > -1) {
 					let page = Object.values(this.pages[this.container])[parseInt(index)];
 					return page;
