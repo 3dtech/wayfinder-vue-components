@@ -117,7 +117,8 @@ export default {
 			}
 		},
 		index () {
-			let page = this.findBySlug(this.slug);if (page) {
+			let page = this.findBySlug(this.slug);
+			if (page) {
 				this.page = page;
 				this.updatePage();
 			}

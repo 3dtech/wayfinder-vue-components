@@ -29,19 +29,10 @@ export default {
 	},
 	mounted () {
 		this.load();
-		this.resize();
-
-		window.onresize = () => {
-			this.resize();
-		}
 	},
 	methods: {
-		load () {
-			//if (typeof Wayfinder2D !== "undefined" || typeof Wayfinder2D !== "undefined")
-			//	throw new Error("Wayfinder not loaded");
-			// wayfinder = new Wayfinder3D();
-			
-			
+		load () {		
+			console.log('load', this.$WF_MAP_TYPE)	
 			if (typeof this.$WF_MAP_TYPE !== "undefined" && this.$WF_MAP_TYPE == "2d") {
 				wayfinder = new Wayfinder2D();
 			}
@@ -71,7 +62,6 @@ export default {
 			var scope = this;
 			var pathTextTime = wayfinder.settings.getInt('path.message.duration', 5) * 1000;
 			wayfinder.events.on("data-loaded", function () {
-				console.log('data-loaded', scope.loaded);
 				if(!scope.loaded) {
 					// update getters
 					scope.$store.dispatch('wf/SET_CURRENT_FLOOR', wayfinder.getCurrentFloor() || null);
@@ -125,16 +115,6 @@ export default {
 					wayfinder.resize();
 				}
 			});
-		},
-		resize () {
-			let _l = window.matchMedia("(orientation: landscape)");
-			let _pm = window.matchMedia("(max-height: 1024px) and (orientation: portrait)");
-			let _lm = window.matchMedia("(max-width: 1024px) and (orientation: landscape)");
-			this.landscape = _l ? _l.matches : false;
-			let mobile = (_pm ? _pm.matches : false) || (_lm ? _lm.matches : false);
-			this.$store.dispatch('wf/SET_LANDSCAPE', this.landscape);
-			this.$store.dispatch('wf/SET_PORTRAIT', !this.landscape);
-			this.$store.dispatch('wf/SET_MOBILE', mobile);
 		},
 		update () {
 			for(var i in this.$store._wrappedGetters) {

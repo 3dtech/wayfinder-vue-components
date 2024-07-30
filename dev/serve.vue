@@ -80,9 +80,11 @@ export default Vue.extend({
 </script>
 
 <template>
-  <div id="app">
+  <WFApp id="app">
+    PROJECT: {{ $WF_PROJECT }}
     <div class="map-container">
-      <WFMap @loaded="mapDataLoaded" project="efad13d2532c67e6cf96b3efd508f1a4"/>
+      
+      <WFMap @loaded="mapDataLoaded" :project="$WF_PROJECT"/>
       <div class="map-footer">
         <WFYAH/>
         <WFZoomMenu/>
@@ -176,7 +178,7 @@ export default Vue.extend({
         </WFTabs>
       </section>
     </div>
-  </div>
+  </WFApp>
 </template>
 
 <style>

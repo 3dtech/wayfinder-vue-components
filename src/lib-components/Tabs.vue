@@ -36,7 +36,7 @@ export default {
 	},
 	methods: {
 		activate () {
-			console.log('tabs.activate', this.activeTab, this.$props.activeTab)
+			//console.log('tabs.activate', this.activeTab, this.$props.activeTab)
 			this.currentTab = null;
 			for (var tab in this.tabs) {
 				if (this.tabs[tab].name == this.$props.activeTab) {

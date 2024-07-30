@@ -1,4 +1,82 @@
 /* eslint-disable import/prefer-default-export */
+
+const urls = {
+  api: {
+    live: "//wayfinder-cdn.com/api",
+    enterprise: "//example.com/api",
+    dev: "//api.3dwayfinder.com",
+    snapshot: "../../../api/"
+  },
+  assets: {
+    live: "https://wayfinder-cdn.com/shared/",
+    dev: "//static.3dwayfinder.com/shared/",
+    enterprise: "//example.com/shared/",
+    snapshot: "../../../shared/"
+  },
+  js: {
+    live: "https://wayfinder-cdn.com/",
+    dev: "//static.3dwayfinder.com",
+    enterprise: "//example.com/js/",
+    snapshot: "../../../"
+  }
+}
+
+function getURL(_env, type) {
+  return urls[type][_env];
+}
+
+/* global WF_MAP_TYPE WayfinderAPI wayfinder*/
+
+function loadScript(url, callback) {
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  
+  var x = document.getElementsByTagName('head')[0];
+  x.appendChild(s);
+  if (typeof callback == "function") {
+    s.onload = callback;
+    s.src = url;
+  }
+}
+
+function load3D (env, callback) {
+    loadScript(getURL(env, "js") + "/shared/js/minified/frak-latest.debug.js", function () {
+      loadScript(getURL(env, "js") + "/js/dist/3d/latest/Wayfinder3D.debug.js", function () {
+        callback();
+      });
+    });
+  }
+  
+function load2D (env, callback) {
+    loadScript(getURL(env, "js") + "/js/dist/2d/latest/Wayfinder2D.debug.js", function () {
+        callback();
+    });
+}
+
+function loadWayfinder (type, env, callback) {
+    if(location && location.search) {
+        var options = decodeURI(location.search.substring(1));
+        if (options.indexOf("mobile=") > -1) {
+            type = "2d";
+            load2D(env, callback);
+        } else if (type == "2d") {
+            load2D(env, callback);
+        }
+    else {
+        load3D(env, callback);
+    }
+    } else {
+        console.log('WF_MAP_TYPE', type);
+        if (typeof type == "undefined" ||  type == "2d") {
+            load2D(env, callback);
+        } else {
+            load2D(env, callback);
+        }
+    }
+}
+
+export { default as WFApp } from './App.vue';
 export { default as WFMap } from './Map.vue';
 export { default as WFAZMenu } from './AZMenu.vue';
 export { default as WFFlagsMenu } from './FlagsMenu.vue';
@@ -31,3 +109,5 @@ export { default as WFTranslate } from './items/Translate.vue';
 export { default as WFYAH } from './YAH.vue';
 
 export { default as WFBrowser } from './pages/Browser.vue';
+
+export { loadWayfinder };

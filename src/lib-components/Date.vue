@@ -70,7 +70,7 @@ export default {
             loadScript(this.$wayfinder.options.assetsLocation + "/dayjs/locale/" + locale + ".js", (a) => {
                 console.log('locale.loaded', a, locale, this.language)
                 this.locales[locale] = true;
-                if (this.language == locale && dayjs) {
+                if (this.language == locale && typeof dayjs === "undefined") {
                     dayjs.locale(this.language);
                 }
             });
