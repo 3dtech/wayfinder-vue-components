@@ -55,7 +55,6 @@ function load2D (env, callback) {
 }
 
 function loadWayfinder (type, env, callback) {
-    console.log('loadWayfinder', type, env)
     if(location && location.search) {
         var options = decodeURI(location.search.substring(1));
         if (options.indexOf("mobile=") > -1) {

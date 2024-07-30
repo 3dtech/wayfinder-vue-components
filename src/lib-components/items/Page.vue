@@ -7,7 +7,7 @@
 				<component v-for="(item, index) in page.items" :key="item.id" :class="['wf-page-item-' + index ]" :is="itemType(item)" :item="item"></component> 
 			</div>
 		</div>
-		<WFTabs ref="tabs" :activeTab="currentTab">
+		<WFTabs ref="tabs" :activeTab="currentTab" v-if="currentTab">
 			<slot name="tabs"></slot>
 		</WFTabs>
 	</div>
@@ -76,11 +76,20 @@ export default {
 		defaultTab: {
 			type: String,
 			default: null
+		},
+		index: {
+			type: Number,
+			default: 0
 		}
 	},
 	mounted () {
+		console.log('page.mounted', this.defaultTab, this.index, this.page)
 		if (this.defaultTab) {
 			this.tab = this.defaultTab;
+		}
+		else if (!this.page) {
+			this.page = this.findByIndex(this.index);
+			console.log('page.index', this.index, this.page)
 		}
 
 		this.updatePage();
@@ -89,6 +98,9 @@ export default {
 		pages () {
 			if (this.defaultTab) {
 				this.tab = this.defaultTab;
+			}
+			if(!this.page) {
+
 			}
 			this.updatePage();
 		},
@@ -117,13 +129,13 @@ export default {
 			}
 		},
 		index () {
-			let page = this.findBySlug(this.slug);
+			let page = this.findByIndex(this.index);
 			if (page) {
 				this.page = page;
 				this.updatePage();
 			}
 			else {
-				console.log('Page with slug', this.slug, 'not found');
+				console.log('Page with index', this.index, 'not found');
 			}
 		}
 	},
@@ -138,6 +150,17 @@ export default {
 							return page
 						}
 					}
+				}
+			}
+
+			return false;
+		},
+		findByIndex (index) {
+			if (this.pages && this.pages[this.container]) {
+				
+				if (index > -1) {
+					let page = Object.values(this.pages[this.container])[parseInt(index)];
+					return page;
 				}
 			}
 
