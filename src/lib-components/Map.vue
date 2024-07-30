@@ -141,7 +141,10 @@ export default {
 			wayfinder.run();
 		},
 		visibilityChanged (visible) {
-			Vue.prototype.$wayfinder.resize();
+			if (Vue.prototype.$wayfinder) {
+				Vue.prototype.$wayfinder.resize();
+			}
+			
 		},
 	},
 	data () {
