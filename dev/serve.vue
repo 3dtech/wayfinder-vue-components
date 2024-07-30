@@ -81,9 +81,7 @@ export default Vue.extend({
 
 <template>
   <WFApp id="app">
-    PROJECT: {{ $WF_PROJECT }}
     <div class="map-container">
-      
       <WFMap @loaded="mapDataLoaded" :project="$WF_PROJECT"/>
       <div class="map-footer">
         <WFYAH/>

@@ -55,23 +55,23 @@ function load2D (env, callback) {
 }
 
 function loadWayfinder (type, env, callback) {
+    console.log('loadWayfinder', type, env)
     if(location && location.search) {
         var options = decodeURI(location.search.substring(1));
         if (options.indexOf("mobile=") > -1) {
-            type = "2d";
             load2D(env, callback);
         } else if (type == "2d") {
             load2D(env, callback);
         }
-    else {
-        load3D(env, callback);
-    }
+        else {
+            load3D(env, callback);
+        }
     } else {
         console.log('WF_MAP_TYPE', type);
         if (typeof type == "undefined" ||  type == "2d") {
             load2D(env, callback);
         } else {
-            load2D(env, callback);
+            load3D(env, callback);
         }
     }
 }
