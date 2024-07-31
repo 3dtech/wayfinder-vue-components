@@ -1,13 +1,15 @@
 <template>
 	<div class="wf-page" :class="['wf-page-slug-' + (page && page.slug ? page.slug : 'none'), 'wf-page-type-' + (page ? page.type : 'none'), page ? page.classes : '']">
-		<div class="wf-page-container" v-if="page" :class="{'wf-page-empty': page.items.length === 0}">
-			<div class="wf-page-icon" v-if="showIcon" :class="[page.icon ? 'wf-has-icon' : '']" v-html="page.icon"></div>
-			<label class="wf-page-name" v-if="showName" v-html="pageName || ''"></label>
-			<div class="wf-page-content">
-				<component v-for="(item, index) in page.items" :key="item.id" :class="['wf-page-item-' + index ]" :is="itemType(item)" :item="item"></component> 
+		<ScrollableArea :enable="scrollable">
+			<div class="wf-page-container" v-if="page" :class="{'wf-page-empty': page.items.length === 0}">
+				<div class="wf-page-icon" v-if="showIcon" :class="[page.icon ? 'wf-has-icon' : '']" v-html="page.icon"></div>
+				<label class="wf-page-name" v-if="showName" v-html="pageName || ''"></label>
+				<div class="wf-page-content">
+					<component v-for="(item, index) in page.items" :key="item.id" :class="['wf-page-item-' + index ]" :is="itemType(item)" :item="item"></component> 
+				</div>
 			</div>
-		</div>
-		<WFTabs ref="tabs" :activeTab="currentTab" v-if="currentTab">
+		</ScrollableArea>
+		<WFTabs ref="tabs" :activeTab="currentTab" v-show="currentTab">
 			<slot name="tabs"></slot>
 		</WFTabs>
 	</div>
@@ -19,13 +21,15 @@ import { mapState } from 'vuex';
 import PageHTML from './page_items/PageHTML.vue';
 import PageURL from './page_items/PageUrl.vue';
 import PageIMAGE from './page_items/PageImage.vue';
+import ScrollableArea from '../ScrollableArea.vue';
 
 export default {
 	name: "Page",
 	components: {
 		PageHTML,
 		PageURL,
-		PageIMAGE
+		PageIMAGE,
+		ScrollableArea
 	},
 	computed: {
 		...mapState('wf', ['language', 'pages']),
@@ -80,6 +84,10 @@ export default {
 		index: {
 			type: Number,
 			default: 0
+		},
+		scrollable: {
+			type: Boolean,
+			default: false
 		}
 	},
 	mounted () {

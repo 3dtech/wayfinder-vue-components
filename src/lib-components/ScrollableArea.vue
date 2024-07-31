@@ -9,8 +9,14 @@ import ScrollArea from '@3dwayfinder/scrollarea'
 
 export default {
 	name: 'ScrollableArea',
+	props: {
+		enable: {
+			type: Boolean,
+			default: true
+		},
+	},
 	data: () => ({
-		scroll: null,
+		scroll: null
 	}),
 	updated(){
 		this.$nextTick(() => {
@@ -28,24 +34,28 @@ export default {
 	},
 	methods: {
 		activate () {
-			this.makeScroll();
+			if (this.enable) {
+				this.makeScroll();
+			}
 		},
 		reset () {
 			this.$nextTick(() => {
-				if(this.scroll) {
+				if(this.enable && this.scroll) {
 					this.scroll.reset();
 				}
 			});
 		},
 		resize () {
 			this.$nextTick(() => {
-				if(this.scroll) {
+				if(this.enable && this.scroll) {
 					this.scroll.resize();
 				}
 			});
 		},
 		scrollToSection (index, direction, animate, animSpeed) {
-			this.scroll.scrollToSection(index, direction, animate, animSpeed);
+			if(this.scroll) {
+				this.scroll.scrollToSection(index, direction, animate, animSpeed);
+			}
 		}
 	}
 };

@@ -106,6 +106,7 @@ export { default as WFGroup } from './items/Group.vue';
 export { default as WFPage } from './items/Page.vue';
 export { default as WFTranslate } from './items/Translate.vue';
 export { default as WFYAH } from './YAH.vue';
+export { default as WFIcon } from './items/Icon.vue';
 
 export { default as WFBrowser } from './pages/Browser.vue';
 
