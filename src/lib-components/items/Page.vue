@@ -28,7 +28,6 @@ export default {
 		PageHTML,
 		PageURL,
 		PageIMAGE,
-		ScrollableArea
 	},
 	computed: {
 		...mapState('wf', ['language', 'pages']),
