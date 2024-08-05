@@ -57,6 +57,7 @@ export default {
 	},
 	methods: {
 		changeLanguage (language) {
+			this.active = !this.active;
 			this.$wayfinder.setLanguage(language.name);
 			this.$emit("changeLanguage", language);
 		},
