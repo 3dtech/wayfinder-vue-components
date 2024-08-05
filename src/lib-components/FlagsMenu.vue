@@ -74,17 +74,17 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	.languages-container.active {
+	.wf-languages-container.wf-active {
 		height: fit-content;
 		z-index: 10;
 	}
 
-	.languages-container.active .languages-container-select {
+	.wf-languages-container.wf-active .wf-languages-container-select {
 		visibility: initial;
 		opacity: 1;
 	}
 
-	.languages-container .languages-container-select {
+	.wf-languages-container .wf-languages-container-select {
 		opacity: 0;
 		padding-bottom: 0.5rem;
 		margin: auto;
@@ -95,7 +95,7 @@ export default {
 		font-size: 1rem;
 	}
 
-	.languages-container .language .flag {
+	.wf-languages-container .language .wf-flag {
 		width: 70%;
 		height: 100%;
 		background-size: cover;
@@ -103,11 +103,11 @@ export default {
 		background-repeat: no-repeat;
 	}
 
-	.languages-container .language .active {
+	.wf-languages-container .language .wf-active {
 		height: 3.5rem;
 		margin-bottom: 1rem;
 	}
-	.languages-container .language .display {
+	.wf-languages-container .language .display {
 		height: 3.5rem;
 		margin-bottom: 1.5rem;
 	}

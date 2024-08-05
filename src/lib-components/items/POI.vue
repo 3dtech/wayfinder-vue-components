@@ -4,12 +4,12 @@
 		<div class="wf-poi-name" v-if="showName" v-html="poi.getName(language) || 'POI'"></div>
 		<div class="wf-show-path" v-if="showPathButton" v-touch:tap="showPath">
 			<button>
-				<label data-translation-element="show_path">{{show_path}}</label> <i></i>
+				<WFTranslate k="show_path">{{show_path}}</WFTranslate> <i></i>
 			</button>
 		</div>
 		<div class="wf-show-path wf-show-accessibility-path" v-if="showAccessibilityPathButton" v-touch:tap="showAccessibilityPath">
 			<button>
-				<label data-translation-element="show_accessibility_path">{{show_accessibility_path}}</label> <i></i>
+				<WFTranslate k="show_accessibility_path">Show Accessibility Path</WFTranslate> <i></i>
 			</button>
 		</div>
 		<div class="wf-poi-description" v-if="showDescription" v-html="poi.getDescription(language) || ''"></div>

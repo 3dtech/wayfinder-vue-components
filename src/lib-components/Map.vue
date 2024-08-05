@@ -144,7 +144,6 @@ export default {
 			if (Vue.prototype.$wayfinder) {
 				Vue.prototype.$wayfinder.resize();
 			}
-			
 		},
 	},
 	data () {

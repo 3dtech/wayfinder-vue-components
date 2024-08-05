@@ -5,10 +5,6 @@
 </template>
 
 <script>
-const env = "live";
-let WF_MAP_TYPE = "2d";   
-let WF_PROJECT = "demo";
-
 const urls = {
   api: {
     live: "//wayfinder-cdn.com/api",
@@ -28,10 +24,6 @@ const urls = {
     enterprise: "//example.com/js/",
     snapshot: "../../../"
   }
-}
-
-function getURL(_env, type) {
-  return urls[type][_env];
 }
 
 /* global WF_MAP_TYPE WayfinderAPI wayfinder*/
