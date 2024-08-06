@@ -1,6 +1,6 @@
 <template>
 	<div class="wf-page-item wf-page-html" v-if="item">
-        <div v-html="value"></div>
+        <div v-html="value" :class="item.classes"></div>
 	</div>
 </template>
 

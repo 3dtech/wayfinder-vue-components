@@ -97,7 +97,7 @@ export default {
 	}
 
 	.wf-languages-container .language .wf-flag {
-		width: 70%;
+		width: 190%;
 		height: 100%;
 		background-size: cover;
 		background-position: 50%;
