@@ -77,7 +77,14 @@ export default {
 					return enabled;
 				});
 
-				this.frames.forEach((f, i) => this.preloadFrame(i, f));
+				this.frames.forEach((f, i) => {
+					if(!this.loadedFrames[f.id]) {
+						this.preloadFrame(i, f);
+					}
+					else {
+						console.log('frame allready loaded', f.id);
+					}
+				});
 
 				this.$emit('hasbanners', (this.frames.length > 0));
 			}
@@ -159,7 +166,6 @@ export default {
 				if (frame.loadCount >= frame.containers.length) {
 					this.$set(this.loadedFrames, frame.id, frame);
 					this.displayedFrames = Object.values(this.loadedFrames).sort((a, b) => a.index > b.index);
-					frame.loaded = true;
 
 					if(!this.timer && this.playOnBoot) {
 						this.play();
@@ -211,9 +217,11 @@ export default {
 					} else {
 						if(video) {
 							console.log('video not ready. try again', video.readyState)
-							setTimeout(function () {
-								video.load();
-							}, Math.max(frame.duration, 500));
+							// maybe we should remove it?
+							setTimeout(() =>{
+								console.log('play next instead')
+								this.play();
+							}, 100);
 						}
 						this.timer = setTimeout(this.play, frame.duration);
 					}
@@ -230,7 +238,6 @@ export default {
 			var playPromise = video.play();
 			playPromise.catch((err) => {
 				console.warn("Video playback failed", err);
-				video.load();
 				clearTimeout(this.timer);
 				setTimeout(() => {
 					this.playVideo(video, duration);
