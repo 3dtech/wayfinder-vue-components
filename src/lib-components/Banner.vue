@@ -104,10 +104,14 @@ export default {
 			let scope = this;
 			console.log('loadFailed', container)
 			container.loadFailed++;
-
-			setTimeout(function () {
-				scope.fetchMedia(frameIndex, container);
-			}, Math.max(10000, container.loadFailed * 10000));
+			if (container.loadFailed <= 30) {
+				setTimeout(function () {
+					scope.fetchMedia(frameIndex, container);
+				}, Math.max(10000, container.loadFailed * 10000));
+			}
+			else {
+				console.log('skipping container', frameIndex, container);
+			}
 			
 		},
 		fetchMedia (frameIndex, container) {

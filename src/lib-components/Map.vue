@@ -2,6 +2,14 @@
 	<div class="wf-component wf-map-container" v-observe-visibility="visibilityChanged">
 		<canvas id="map"/>
 		<div class="wf-map-path-text" v-show="(showPathText && pathTextVisible)">{{pathText}}</div>
+		<div id="poi-popup" class="wf-poi-popup" ref="poiPopup" v-show="POIPopupEnabled && isPOIPopupVisible()">
+			<div class="wf-poi-popup-content" v-if="popupPOI">
+				<label class="title" target="_new">{{popupPOI.getName(language)}}</label>
+				<button v-if="showPOIPopupPathButton" class="wf-btn" @click="showPath(popupPOI)"><WFIcon name="path"></WFIcon><WFTranslate k="show_path">Show Path</WFTranslate></button>
+				<button v-if="showPOIPopupInfoButton" class="wf-btn" @click="showInfo(popupPOI)"><WFIcon name="info"></WFIcon><WFTranslate k="info">Show Info</WFTranslate></button>
+			</div>
+			<div class="wf-pin-down"></div>
+		</div>
 	</div>
 </template>
 
@@ -26,6 +34,18 @@ export default {
 			type: Boolean,
 			default: true
 		},	
+		POIPopupEnabled: {
+			type: Boolean,
+			default: false
+		},
+		showPOIPopupPathButton: {
+			type: Boolean,
+			default: true
+		},
+		showPOIPopupInfoButton: {
+			type: Boolean,
+			default: true
+		}
 	},
 	mounted () {
 		this.load();
@@ -86,6 +106,13 @@ export default {
 				this.pathTextVisible = true;
 			});
 
+			wayfinder.events.on("map-update", () => {
+				if (this.poiPopupVisible && this.popupPOI) {
+					this.showPOIPopup(this.popupPOI);
+				}	
+			});
+
+
 			wayfinder.events.on("floor-change", (floor) => {
 				// console.log('cbOnFloorChange', floor, wayfinder.settings.getInt('path.message.duration', 1))
 				if (floor) {
@@ -97,16 +124,26 @@ export default {
 						this.pathTextVisible = false;
 					}, pathTextTime);
 				}
+
+				if (this.poiPopupVisible && this.popupPOI && this.popupPOI.floor == floor) {
+					this.showPOIPopup(this.popupPOI);
+				}
+				else {
+					this.poiPopupVisible = false;
+				}
 			});
 
 			wayfinder.events.on("map-click", (poi) => {
 				if (poi) {
-					this.$emit('poiClicked', this.$store.getters["wf/freezePOI"](poi), true);
+					poi = this.$store.getters["wf/freezePOI"](poi);
+					this.$emit('poiClicked', poi, true);
 					wayfinder.statistics.onClick(poi.id, "map");
+					this.showPOIPopup(poi);
 				}
 			});
 
 			wayfinder.events.on("map-touch", () => {
+				this.poiPopupVisible = false;
 				this.$emit('onTouch');
 			});
 
@@ -145,12 +182,57 @@ export default {
 				Vue.prototype.$wayfinder.resize();
 			}
 		},
+		showPath (poi) {
+			this.poiPopupVisible = false;
+			this.$emit('showInfo', poi);
+		},
+		showInfo (poi) {
+			this.poiPopupVisible = false;
+			this.$emit('showInfo', poi);
+		},
+		showPOIPopup (poi, _width) {
+			console.log('showPOIPopup', poi)
+			this.popupPOI = Object.freeze(poi);
+			let width = _width || 155;
+			let position = this.$wayfinder.getScreenPosition(poi);	
+			let offset =  (this.$wayfinder.settings.getFloat("poi.2d.icon-size", 24, poi) - 24) / 2;
+			this.$refs.poiPopup.style.left = position[0] + "px";
+
+			this.$nextTick(() => {			
+				this.$refs.poiPopup.style.top = position[1] - offset + "px";
+				this.$refs.poiPopup.style.marginTop = "revert-layer";
+				this.$refs.poiPopup.style.marginLeft = "revert-layer";
+				this.$refs.poiPopup.classList.remove("wf-pin-up");
+				this.$refs.poiPopup.classList.remove("wf-pin-left");
+				this.$refs.poiPopup.classList.remove("wf-pin-right");
+
+
+				if(position[1] < 100) {
+					this.$refs.poiPopup.style.marginTop = (- offset * 2) + "px";
+					this.$refs.poiPopup.classList.add("wf-pin-up");
+				}
+
+				if(position[0] < width / 2) {
+					this.$refs.poiPopup.style.marginLeft = -position[0] + "px";
+					this.$refs.poiPopup.classList.add("wf-pin-left");
+				}
+			});
+			
+			this.poiPopupVisible = true;
+		},
+		hidePOIPopup () {
+			this.poiPopupVisible = false;
+		},
+		isPOIPopupVisible () {
+			return (this.$wayfinder && this.popupPOI && this.poiPopupVisible && this.popupPOI.getNode().floor == this.$wayfinder.getCurrentFloor())
+		},
 	},
 	data () {
 		return {
 			loaded: false,
 			pathTextVisible: false,
-			pathText: ''
+			pathText: '',
+			poiPopupVisible: false,
 		}
 	}
 
@@ -179,5 +261,62 @@ export default {
 		left: 50%;
 		margin-left: -15ch;
 		padding: 0.5em;
-	}	
+	}
+
+	#wf-poi-popup {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        width: 15.5rem;
+        height: auto;
+        background-color: #fff;
+        padding: 0.4rem;
+        text-align: center;
+        margin-top: -15.5rem;
+        margin-left: -7.75rem;
+        transform-origin: bottom;
+        animation-duration: 0.5s;
+        animation-iteration-count: 2;
+        cursor: pointer;
+	}
+    .wf-poi-popup-content {
+		display: flex;
+		flex-direction: column;
+		justify-content: stretch;
+		height: 100%;
+	}
+
+	.wf-poi-popup-content > label {
+		flex-grow: 1;
+		font-size: 1.6rem;
+		margin-top: 0.6rem;
+		text-align: center;
+		line-height: 1.2;
+		font-weight: 600;
+		margin-bottom: 1.6rem;
+	}
+        
+    .wf-pin-down {
+		background-color: white ;
+		width: 1rem;
+		height: 1rem;
+		position: absolute;
+		bottom: -0.5rem;
+		border-radius: 1rem 0 0 0;
+		transform: rotate(45deg);
+		left: 50%;
+		margin-left: -0.75rem;
+	}
+
+    
+    .wf-pin-up .wf-poi-popup-content {
+		margin-bottom: 0;
+	}
+
+    .wf-pin-up .wf-pin-down {
+		top: -0.5rem;
+		bottom: auto;
+		transform: rotate(-45deg);
+    }
 </style>
