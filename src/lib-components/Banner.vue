@@ -86,7 +86,7 @@ export default {
 					}
 				});
 
-				this.$emit('hasbanners', (this.frames.length > 0));
+				this.$emit('hasbanners', (this.frames.length > 0), this.template, this.container);
 			}
 		},
 		qrURL (val) {
