@@ -107,7 +107,7 @@ export default {
 			});
 
 			wayfinder.events.on("map-update", () => {
-				if (this.poiPopupVisible && this.popupPOI) {
+				if (this.POIPopupEnabled && this.poiPopupVisible && this.popupPOI) {
 					this.showPOIPopup(this.popupPOI);
 				}	
 			});
@@ -192,33 +192,35 @@ export default {
 		},
 		showPOIPopup (poi, _width) {
 			console.log('showPOIPopup', poi)
-			this.popupPOI = Object.freeze(poi);
-			let width = _width || 155;
-			let position = this.$wayfinder.getScreenPosition(poi);	
-			let offset =  (this.$wayfinder.settings.getFloat("poi.2d.icon-size", 24, poi) - 24) / 2;
-			this.$refs.poiPopup.style.left = position[0] + "px";
+			if (this.POIPopupEnabled && this.$refs.poiPopup) {
+				this.popupPOI = Object.freeze(poi);
+				let width = _width || 155;
+				let position = this.$wayfinder.getScreenPosition(poi);	
+				let offset =  (this.$wayfinder.settings.getFloat("poi.2d.icon-size", 24, poi) - 24) / 2;
+				this.$refs.poiPopup.style.left = position[0] + "px";
 
-			this.$nextTick(() => {			
-				this.$refs.poiPopup.style.top = position[1] - offset + "px";
-				this.$refs.poiPopup.style.marginTop = "revert-layer";
-				this.$refs.poiPopup.style.marginLeft = "revert-layer";
-				this.$refs.poiPopup.classList.remove("wf-pin-up");
-				this.$refs.poiPopup.classList.remove("wf-pin-left");
-				this.$refs.poiPopup.classList.remove("wf-pin-right");
+				this.$nextTick(() => {			
+					this.$refs.poiPopup.style.top = position[1] - offset + "px";
+					this.$refs.poiPopup.style.marginTop = "revert-layer";
+					this.$refs.poiPopup.style.marginLeft = "revert-layer";
+					this.$refs.poiPopup.classList.remove("wf-pin-up");
+					this.$refs.poiPopup.classList.remove("wf-pin-left");
+					this.$refs.poiPopup.classList.remove("wf-pin-right");
 
 
-				if(position[1] < 100) {
-					this.$refs.poiPopup.style.marginTop = (- offset * 2) + "px";
-					this.$refs.poiPopup.classList.add("wf-pin-up");
-				}
+					if(position[1] < 100) {
+						this.$refs.poiPopup.style.marginTop = (- offset * 2) + "px";
+						this.$refs.poiPopup.classList.add("wf-pin-up");
+					}
 
-				if(position[0] < width / 2) {
-					this.$refs.poiPopup.style.marginLeft = -position[0] + "px";
-					this.$refs.poiPopup.classList.add("wf-pin-left");
-				}
-			});
-			
-			this.poiPopupVisible = true;
+					if(position[0] < width / 2) {
+						this.$refs.poiPopup.style.marginLeft = -position[0] + "px";
+						this.$refs.poiPopup.classList.add("wf-pin-left");
+					}
+				});
+				
+				this.poiPopupVisible = true;
+			}
 		},
 		hidePOIPopup () {
 			this.poiPopupVisible = false;
