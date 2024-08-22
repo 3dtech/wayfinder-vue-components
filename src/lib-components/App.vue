@@ -46,6 +46,11 @@ export default {
 		window.onresize = () => {
 			this.resize();
 		}
+
+		this.lastClick = setTimeout(() => { // Start screensaver
+			this.$emit("screensaving");
+			this.screensaver = true;
+		}, this.maxInActivity * 1000);
 	},
     methods: {
 		onClick () {
