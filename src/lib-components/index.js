@@ -46,7 +46,15 @@ function load3D (env, callback) {
         callback();
       });
     });
-  }
+}
+
+function load3D2 (env, callback) {
+  loadScript(getURL(env, "js") + "/shared/js/minified/frak2.debug.js", function () {
+    loadScript(getURL(env, "js") + "/js/dist/3d/latest/Wayfinder3D.debug.js", function () {
+      callback();
+    });
+  });
+}
   
 function load2D (env, callback) {
     loadScript(getURL(env, "js") + "/js/dist/2d/latest/Wayfinder2D.debug.js", function () {
@@ -58,9 +66,12 @@ function loadWayfinder (type, env, callback) {
     if(location && location.search) {
         var options = decodeURI(location.search.substring(1));
         if (options.indexOf("mobile=") > -1) {
-            load2D(env, callback);
+          load2D(env, callback);
         } else if (type == "2d") {
-            load2D(env, callback);
+          load2D(env, callback);
+        }
+        else if (type == "3d2") {
+          load3D2(env, callback);
         }
         else {
             load3D(env, callback);

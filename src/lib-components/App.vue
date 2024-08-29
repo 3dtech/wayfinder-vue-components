@@ -61,6 +61,7 @@ export default {
 			this.lastClick = setTimeout(() => { // Start screensaver
 				this.$emit("screensaving");
                 this.screensaver = true;
+				this.$wayfinder.restoreDefaultState();
 			}, this.maxInActivity * 1000);
 			return false;
 		},
