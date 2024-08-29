@@ -18,7 +18,7 @@ Vue.use(Vue2TouchEvents,
   })
 
 Vue.config.productionTip = false;
-const WF_MAP_TYPE = "3d";
+const WF_MAP_TYPE = "3d2";
 const WF_API = "dev";
 
 
