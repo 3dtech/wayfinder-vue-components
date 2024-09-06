@@ -65,7 +65,6 @@ function load2D (env, callback) {
 function loadWayfinder (type, env, callback) {
     if(location && location.search) {
         var options = decodeURI(location.search.substring(1));
-        console.log('type', type)
         if (options.indexOf("mobile=") > -1) {
           load2D(env, callback);
         } else if (type == "2d") {
@@ -75,18 +74,17 @@ function loadWayfinder (type, env, callback) {
           load3D2(env, callback);
         }
         else {
-            load3D(env, callback);
+          load3D(env, callback);
         }
     } else {
-        console.log('WF_MAP_TYPE', type);
         if (typeof type == "undefined" ||  type == "2d") {
-            load2D(env, callback);
+          load2D(env, callback);
         }
         else if (type == "3d2") {
           load3D2(env, callback);
         }
         else {
-            load3D(env, callback);
+          load3D(env, callback);
         }
     }
 }
