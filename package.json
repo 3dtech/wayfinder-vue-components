@@ -1,6 +1,6 @@
 {
   "name": "@3dwayfinder/wayfinder-vue-components",
-  "version": "1.10.20",
+  "version": "1.10.21",
   "description": "VueJS UI components for 3D Wayfinder floor plans",
   "main": "dist/wayfinder-vue-components.ssr.js",
   "browser": "dist/wayfinder-vue-components.esm.js",
@@ -21,7 +21,7 @@
     "doc": "node tools/generateComponentDoc.js "
   },
   "dependencies": {
-    "@3dwayfinder/scrollarea": "^1.0.17",
+    "@3dwayfinder/scrollarea": "^1.0.19",
     "dayjs": "^1.11.10",
     "on-screen-js-keyboard": "^1.4.1",
     "qrcode-svg": "^1.1.0",
