@@ -21,7 +21,7 @@
     "doc": "node tools/generateComponentDoc.js "
   },
   "dependencies": {
-    "@3dwayfinder/scrollarea": "^1.0.19",
+    "@3dwayfinder/scrollarea": "^1.0.21",
     "dayjs": "^1.11.10",
     "on-screen-js-keyboard": "^1.4.1",
     "qrcode-svg": "^1.1.0",
