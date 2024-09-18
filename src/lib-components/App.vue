@@ -1,5 +1,5 @@
 <template>
-  <div class="wf-app" v-touch='onClick' :class="{'wf-screensaving': screensaver}">
+  <div class="wf-app" v-touch:start='onClick' :class="{'wf-screensaving': screensaver}">
     <slot/>
   </div>
 </template>
@@ -53,9 +53,9 @@ export default {
 		}, this.maxInActivity * 1000);
 	},
     methods: {
-		onClick () {
+		onClick (e) {
 			clearTimeout(this.lastClick);
-			this.$emit("touched");
+			this.$emit("touched", e);
             this.screensaver = false;
             
 			this.lastClick = setTimeout(() => { // Start screensaver
