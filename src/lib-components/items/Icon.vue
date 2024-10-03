@@ -17,7 +17,6 @@ export default {
 <style scoped>
     svg {
         min-height: 1rem;
-        width: auto;
         display: inline-block;
     }
 </style>
