@@ -3,7 +3,7 @@
 		<ul class="wf-list" :class="['wf-list-count-' + count]">
 			<slot name="prepend"/>
 			<li class="wf-list-item wf-list-header" v-if="showParentGroup" v-touch:tap="back()">{{ currentGroupName }}</li>
-			<li class="wf-list-item" :class='{"active": current && topic.id == current.id}' v-for="topic in sortedGroups" :key='topic.id' >
+			<li class="wf-list-item" :class='{"wf-active": current && topic.id == current.id}' v-for="topic in sortedGroups" :key='topic.id' >
 				<div class="wf-item-content" v-touch:tap="onClick(topic)">
 					<slot :group="topic">
 						<Group :group="topic" :showIcon="showIcon" :showPOICount="showPOICount"/>

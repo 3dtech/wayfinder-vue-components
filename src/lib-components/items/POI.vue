@@ -1,15 +1,15 @@
 <template>
 	<div class="wf-poi" v-if="poi">
-		<div class="wf-poi-image" v-if="showLogo" :style="{'background-image': getImage()}" :class="[isImage()]"></div>
+		<img class="wf-poi-image" v-if="showLogo" :src="getImage()" :class="[isImage()]"></div>
 		<div class="wf-poi-name" v-if="showName" v-html="poi.getName(language) || 'POI'"></div>
 		<div class="wf-show-path" v-if="showPathButton" v-touch:tap="showPath">
 			<button>
-				<WFTranslate k="show_path">{{show_path}}</WFTranslate> <i></i>
+				<WFTranslate k="show_path">{{show_path}}</WFTranslate> <WFIcon :name="pathIcon" v-if="showPathIcon"></WFIcon>
 			</button>
 		</div>
 		<div class="wf-show-path wf-show-accessibility-path" v-if="showAccessibilityPathButton" v-touch:tap="showAccessibilityPath">
 			<button>
-				<WFTranslate k="show_accessibility_path">Show Accessibility Path</WFTranslate> <i></i>
+				<WFTranslate k="show_accessibility_path">Show Accessibility Path</WFTranslate> <WFIcon :name="accessibilityPathIcon" v-if="showPathIcon"></WFIcon>
 			</button>
 		</div>
 		<div class="wf-poi-description" v-if="showDescription" v-html="poi.getDescription(language) || ''"></div>
@@ -74,7 +74,19 @@ export default {
 		showDistance: {
 			type: Boolean,
 			default: false
-		}
+		},
+		pathIcon: {
+			type: String,
+			default: "path"
+		},
+		showPathIcon: {
+			type: Boolean,
+			default: true
+		},
+		accessibilityPathIcon: {
+			type: String,
+			default: "accessibility-path"
+		},
 	},
 	mounted () {
 		if (this.$wayfinder) {

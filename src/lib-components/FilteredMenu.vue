@@ -1,7 +1,7 @@
 <template>
 	<div class="wf-component wf-filteredmenu">
 		<ul class="wf-list" :class="['wf-list-count-' + count]">
-			<li class="wf-list-item" @click="onClick(poiitem)" v-touch:tap="onClick(poiitem)" :class='{"active": currentPOI && poiitem.id == currentPOI.id}' v-for="poiitem in sortedPOIs" :key='poiitem.id'>
+			<li class="wf-list-item" @click="onClick(poiitem)" v-touch:tap="onClick(poiitem)" :class='{"wf-active": currentPOI && poiitem.id == currentPOI.id}' v-for="poiitem in sortedPOIs" :key='poiitem.id'>
 				<slot :poi="poiitem"><POI :poi="poiitem" :showLogo="showLogo" :showName="showName" :showPathButton="showPathButton" :showDescription="showDescription" :showRoomID="showRoomID" :showFloor="showFloor"/></slot>
 			</li>
 		</ul>

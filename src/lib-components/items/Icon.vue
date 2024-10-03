@@ -1,5 +1,5 @@
 <template>
-    <svg class="icon" :class='["wf-icon-"+ this.name]' viewbox="0 0 32 32">
+    <svg class="wf-icon" :class='["wf-icon-"+ this.name]' viewbox="0 0 32 32">
         <use :xlink:href="iconName"></use>
     </svg>
 </template>
@@ -16,7 +16,7 @@ export default {
 </script>
 <style scoped>
     svg {
-        height: 1rem;
+        min-height: 1rem;
         width: auto;
         display: inline-block;
     }
