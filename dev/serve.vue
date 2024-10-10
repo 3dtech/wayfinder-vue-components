@@ -64,6 +64,7 @@ export default Vue.extend({
       console.log('showPOI', poi)
       this.currentTab = 10;
       this.currentPOI = poi;
+      this.$refs.map.showPOIPopup(poi);
     }
   },
   data () {
@@ -82,7 +83,7 @@ export default Vue.extend({
 <template>
   <WFApp id="app">
     <div class="map-container">
-      <WFMap @loaded="mapDataLoaded" :project="$WF_PROJECT" :POIPopupEnabled="true"/>
+      <WFMap ref="map" @loaded="mapDataLoaded" :project="$WF_PROJECT" :POIPopupEnabled="true"/>
       <div class="map-footer">
         <WFYAH/>
         <WFZoomMenu/>

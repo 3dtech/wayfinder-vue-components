@@ -241,6 +241,7 @@ export default {
 			pathTextVisible: false,
 			pathText: '',
 			poiPopupVisible: false,
+			popupPOI: null
 		}
 	}
 
