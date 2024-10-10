@@ -18,8 +18,9 @@ Vue.use(Vue2TouchEvents,
   })
 
 Vue.config.productionTip = false;
-const WF_MAP_TYPE = "3d2";
+const WF_MAP_TYPE = "2d";
 const WF_API = "dev";
+const WF_PROJECT = "33ba7f9724740d846d41315f57bb37e4";
 
 
 /* global WF_MAP_TYPE WayfinderAPI wayfinder*/
@@ -45,7 +46,7 @@ function loadVue () {
     store,
     render: h => h(Dev),
     created () {
-      Vue.use(WayfinderVueComponents, this.$store, WF_MAP_TYPE, "efad13d2532c67e6cf96b3efd508f1a4") // Create it by passing in the store you want to use
+      Vue.use(WayfinderVueComponents, this.$store, WF_MAP_TYPE, WF_PROJECT) // Create it by passing in the store you want to use
     }
   }).$mount('#app')
 }
