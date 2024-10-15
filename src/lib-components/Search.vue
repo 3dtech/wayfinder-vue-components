@@ -1,6 +1,6 @@
 <template>
 	<div class="wf-component wf-search">
-		<div class="wf-close" v-if="showCloseButton" @click="close($event)" data-translation-element="close">Close</div>
+		<div class="wf-close" v-if="showCloseButton" @click="close($event)"><WFTranslate k="close">Close</WFTranslate></div>
 		<div class="wf-search-container">
 			<div class="wf-search-results" :class='{"wf-no-results": results.length == 0}'>
 				<transition-group name="list" tag="ul" class="wf-list">
@@ -10,7 +10,7 @@
 						</slot>
 					</li>
 				</transition-group>
-				<span class="wf-search-no-results-text" v-show="showNoResultsText && results.length == 0">{{noResultsText}}</span>
+				<span class="wf-search-no-results-text" v-show="showNoResultsText && results.length == 0"><WFTranslate k="no-search-results">No results</WFTranslate></span>
 			</div>
 			<div class="wf-search-input-container" v-if="showOutputField">
 				<input :id="inputId" ref='searchInput'/>
