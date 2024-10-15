@@ -90,7 +90,7 @@ export default {
 			wayfinder.events.on("data-loaded", function () {
 				if(!scope.loaded) {
 					// update getters
-					scope.$store.dispatch('wf/SET_CURRENT_FLOOR', wayfinder.getCurrentFloor() || null);
+					scope.$store.dispatch('wf/SET_CURRENT_FLOOR', Object.freeze(wayfinder.getCurrentFloor()) || null);
 					scope.$store.dispatch('wf/SET_INACTIVITY_TIME', wayfinder.settings.getInt('kiosk.max-inactivity', 30));
 
 					scope.update(wayfinder);
@@ -122,7 +122,7 @@ export default {
 			wayfinder.events.on("floor-change", (floor) => {
 				// console.log('cbOnFloorChange', floor, wayfinder.settings.getInt('path.message.duration', 1))
 				if (floor) {
-					this.$store.dispatch('wf/SET_CURRENT_FLOOR', floor);
+					this.$store.dispatch('wf/SET_CURRENT_FLOOR', Object.freeze(floor));
 					this.$emit('onTouch');
 				}
 				if (this.pathTextVisible) {
