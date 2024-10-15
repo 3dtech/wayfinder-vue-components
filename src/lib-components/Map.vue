@@ -197,7 +197,7 @@ export default {
 			this.$emit('showInfo', poi);
 		},
 		showPOIPopup (poi, _width) {
-			//console.log('showPOIPopup', poi)
+			console.log('showPOIPopup', poi, this.POIPopupEnabled, this.$refs)
 			if (this.POIPopupEnabled && this.$refs.poiPopup) {
 				this.popupPOI = Object.freeze(poi);
 				let width = _width || 155;

@@ -1,7 +1,7 @@
 <template>
 	<button class="wf-component wf-yah" @click="onClicked()">
 		<i class="wf-icon" :style="{'background-image': yahLogo}"/>
-		<label data-translation-element="yah">YAH</label>
+		<label v-if="showLabel" data-translation-element="yah">YAH</label>
 	</button>
 </template>
 
@@ -11,7 +11,12 @@ import { mapState } from 'vuex';
 
 export default {
 	name: 'YAH',
-	
+	props: {
+		showLabel: {
+			type: Boolean,
+			default: true
+		},
+	},
 	computed: {//yahLogo
 		...mapState('wf', ['yahLogo', 'language'])
 	},
