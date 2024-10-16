@@ -4,15 +4,9 @@
 		<div class="wf-map-path-text" v-show="(showPathText && pathTextVisible)">{{pathText}}</div>
 		<div id="wf-poi-popup" class="wf-poi-popup" ref="poiPopup" v-show="POIPopupEnabled && isPOIPopupVisible()" v-if="popupPOI">
 			<div class="wf-poi-popup-content" >
-				<label class="title" target="_new">{{popupPOI.getName(language)}}</label>
-				<button v-if="showPOIPopupPathButton" class="wf-btn" @click="showPath(popupPOI)">
-					<WFIcon name="path"></WFIcon>
-					<WFTranslate k="show_path">Show Path</WFTranslate>
-				</button>
-				<button v-if="showPOIPopupInfoButton" class="wf-btn" @click="showInfo(popupPOI)">
-					<WFIcon name="info"></WFIcon>
-					<WFTranslate k="info">Show Info</WFTranslate>
-				</button>
+				<slot name="poi" :poi="popupPOI">
+					<POI :poi="popupPOI" :showLogo="showPOILogo" :showName="showPOIName" :showPathButton="showPOIPathButton" :showDescription="showPOIDescription" :showRoomID="showPOIRoomID" :showFloor="showPOIFloor"/>
+				</slot>
 			</div>
 			<div class="wf-pin-down"></div>
 		</div>
