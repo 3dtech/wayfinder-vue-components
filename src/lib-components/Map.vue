@@ -5,7 +5,7 @@
 		<div id="wf-poi-popup" class="wf-poi-popup" ref="poiPopup" v-show="POIPopupEnabled && isPOIPopupVisible()" v-if="popupPOI">
 			<div class="wf-poi-popup-content" >
 				<slot name="poi" :poi="popupPOI">
-					<WFPOI :poi="popupPOI" :showLogo="showPOILogo" :showName="showPOIName" :showPathButton="showPOIPathButton" :showDescription="showPOIDescription" :showRoomID="showPOIRoomID" :showFloor="showPOIFloor"/>
+					<POI :poi="popupPOI" :showLogo="showPOILogo" :showName="showPOIName" :showPathButton="showPOIPathButton" :showDescription="showPOIDescription" :showRoomID="showPOIRoomID" :showFloor="showPOIFloor"/>
 				</slot>
 			</div>
 			<div class="wf-pin-down"></div>
@@ -18,10 +18,15 @@
 import Vue from 'vue';
 import { mapState } from 'vuex';
 
+import POI from './items/POI.vue';
+
 var wayfinder;
 
 export default {
 	name: 'Map',
+	components: {
+		POI,
+	},
 	props: {
 		project: {type: String},
 		api: {
