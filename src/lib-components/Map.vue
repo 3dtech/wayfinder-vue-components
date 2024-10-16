@@ -22,6 +22,8 @@
 <script>
 /* global wayfinder: true, Wayfinder3D Wayfinder2D WayfinderAPI WF_MAP_TYPE, location */
 import Vue from 'vue';
+import { mapState } from 'vuex';
+
 var wayfinder;
 
 export default {
@@ -52,6 +54,9 @@ export default {
 			type: Boolean,
 			default: true
 		}
+	},
+	computed: {
+		...mapState('wf', ['language']),
 	},
 	mounted () {
 		this.load();
@@ -197,11 +202,13 @@ export default {
 			this.$emit('showInfo', poi);
 		},
 		showPOIPopup (poi, _width) {
-			console.log('showPOIPopup', poi, this.POIPopupEnabled, this.$refs)
-			if (this.POIPopupEnabled && this.$refs.poiPopup) {
-				this.popupPOI = Object.freeze(poi);
+			this.popupPOI = Object.freeze(poi);
+			console.log('showPOIPopup', poi, this.POIPopupEnabled, this.popupPOI, this.$refs.poiPopup)
+
+			if (this.POIPopupEnabled && this.popupPOI && this.$refs.poiPopup && poi.getNode()) {
 				let width = _width || 155;
 				let position = this.$wayfinder.getScreenPosition(poi);	
+				console.log('position', position)
 				let offset =  (this.$wayfinder.settings.getFloat("poi.2d.icon-size", 24, poi) - 24) / 2;
 				this.$refs.poiPopup.style.left = position[0] + "px";
 
