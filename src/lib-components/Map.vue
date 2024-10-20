@@ -2,13 +2,13 @@
 	<div class="wf-component wf-map-container" v-observe-visibility="visibilityChanged">
 		<canvas id="map"/>
 		<div class="wf-map-path-text" v-show="(showPathText && pathTextVisible)">{{pathText}}</div>
-		<div id="wf-poi-popup" class="wf-poi-popup" ref="poiPopup" v-show="POIPopupEnabled && isPOIPopupVisible()" v-if="popupPOI">
-			<div class="wf-poi-popup-content" >
+		<div id="wf-poi-popup" class="wf-poi-popup" ref="poiPopup" v-show="POIPopupEnabled && isPOIPopupVisible()">
+			<div class="wf-poi-popup-content" v-if="popupPOI">
 				<slot name="poi" :poi="popupPOI">
 					<POI :poi="popupPOI" :showLogo="showPOILogo" :showName="showPOIName" :showPathButton="showPOIPathButton" :showDescription="showPOIDescription" :showRoomID="showPOIRoomID" :showFloor="showPOIFloor"/>
 				</slot>
 			</div>
-			<div class="wf-pin-down"></div>
+			<div class="wf-pin-down" v-if="popupPOI"></div>
 		</div>
 	</div>
 </template>
@@ -226,17 +226,17 @@ export default {
 		},
 		showPOIPopup (poi, _width) {
 			this.popupPOI = Object.freeze(poi);
-
 			if (this.POIPopupEnabled && this.popupPOI && this.$refs.poiPopup && poi.getNode()) {
 				let width = _width || 155;
 				let position = this.$wayfinder.getScreenPosition(poi);	
 				let offset =  (this.$wayfinder.settings.getFloat("poi.2d.icon-size", 24, poi) - 24) / 2;
 				this.$refs.poiPopup.style.left = position[0] + "px";
 
-				this.$nextTick(() => {			
+				this.$nextTick(() => {
+					//console.log('pos', position, offset, this.$refs.poiPopup.clientHeight, this.$refs.poiPopup.clientWidth)	
 					this.$refs.poiPopup.style.top = position[1] - offset + "px";
-					this.$refs.poiPopup.style.marginTop = "revert-layer";
-					this.$refs.poiPopup.style.marginLeft = "revert-layer";
+					this.$refs.poiPopup.style.marginTop = -this.$refs.poiPopup.clientHeight + "px";
+					this.$refs.poiPopup.style.marginLeft = -(this.$refs.poiPopup.clientWidth / 2) + "px";
 					this.$refs.poiPopup.classList.remove("wf-pin-up");
 					this.$refs.poiPopup.classList.remove("wf-pin-left");
 					this.$refs.poiPopup.classList.remove("wf-pin-right");
@@ -286,6 +286,7 @@ export default {
 	.wf-map-container canvas {
 		width: 100%;
 		height: 100%;
+		position: relative;
 	}
 
 	.wf-map-container .wf-map-path-text {
@@ -308,10 +309,7 @@ export default {
         width: 15.5rem;
         height: auto;
         background-color: #fff;
-        padding: 0.4rem;
         text-align: center;
-        margin-top: -15.5rem;
-        margin-left: -7.75rem;
         transform-origin: bottom;
         animation-duration: 0.5s;
         animation-iteration-count: 2;

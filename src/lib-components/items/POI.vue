@@ -148,10 +148,10 @@ export default {
 		},
 		getImage () {
 			if (this.poi.getBackgroundUrl())
-				return 'url("' + this.poi.getBackgroundUrl() + '")';
+				return this.poi.getBackgroundUrl();
 				
 			else if (this.poi.getIconUrl()) {
-				return 'url("' + this.poi.getIconUrl() + '")';
+				return this.poi.getIconUrl();
 			}
 			else {
 				return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";

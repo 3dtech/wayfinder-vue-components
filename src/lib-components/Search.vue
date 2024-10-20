@@ -211,7 +211,6 @@ export default {
 		flex-direction: column;
 		justify-content: flex-end;
 		height: 100%;
-		padding: 1rem;
 	}
 
 	.wf-search	.wf-search-input-container input {

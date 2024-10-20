@@ -293,4 +293,12 @@ export default Vue.extend({
     right: 0;
     bottom: 8rem;
   }
+
+  .wf-poi-popup {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0 , 0.2);
+  }
+
+  .wf-poi-popup .wf-poi-popup-content {
+    border: 1px solid #ccc
+  }
 </style>
