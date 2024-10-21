@@ -1,5 +1,5 @@
 <template>
-	<div class="wf-component wf-map-container" v-observe-visibility="visibilityChanged">
+	<div class="wf-component wf-map-container" v-observe-visibility="visibilityChanged" v-touch:start='onTouch'>
 		<canvas id="map"/>
 		<div class="wf-map-path-text" v-show="(showPathText && pathTextVisible)">{{pathText}}</div>
 		<div id="wf-poi-popup" class="wf-poi-popup" ref="poiPopup" v-show="POIPopupEnabled && isPOIPopupVisible()">
@@ -215,6 +215,9 @@ export default {
 			if (Vue.prototype.$wayfinder) {
 				Vue.prototype.$wayfinder.resize();
 			}
+		},
+		onTouch () {
+			this.$wayfinder.run();
 		},
 		showPath (poi) {
 			this.poiPopupVisible = false;
