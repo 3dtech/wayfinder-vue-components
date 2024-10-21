@@ -57,11 +57,13 @@ export default {
 			clearTimeout(this.lastClick);
 			this.$emit("touched", e);
             this.screensaver = false;
+			this.$wayfinder.run();
             
 			this.lastClick = setTimeout(() => { // Start screensaver
 				this.$emit("screensaving");
                 this.screensaver = true;
 				this.$wayfinder.restoreDefaultState();
+				this.$wayfinder.pause();
 			}, this.maxInActivity * 1000);
 			return false;
 		},

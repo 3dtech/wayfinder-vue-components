@@ -1,11 +1,11 @@
 <template>
 	<div class="wf-component wf-shortcuts-menu">
-		<ul class="wf-list" :class="['wf-list-count-' + count]">
-			<li v-for="shortcut in shortcuts" :key='shortcut.getID()' class="wf-list-item wf-shortcut" @click="showShortcut(shortcut)" :class='["wf-shortcut-" + shortcut.getID()]'>
+		<div class="wf-list" :class="['wf-list-count-' + count]">
+			<button v-for="shortcut in shortcuts" :key='shortcut.getID()' class="wf-list-item wf-shortcut" @click="showShortcut(shortcut)" :class='["wf-shortcut-" + shortcut.getID()]'>
 				<img class="wf-icon" v-if="showIcon" :src="getImage(shortcut.imageID)"/>
 				<label v-if="showLabel">{{shortcut.getName(language)}}</label>
-			</li>
-		</ul>
+			</button>
+		</div>
 	</div>
 </template>
 
