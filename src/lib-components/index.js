@@ -2,19 +2,22 @@
 
 const urls = {
   api: {
-    live: "//wayfinder-cdn.com/api",
+    live: "//api.3dwayfinder.com",
+    cdn: "https://wayfinder-cdn.com/api",
     enterprise: "//example.com/api",
     dev: "//api.3dwayfinder.com",
     snapshot: "../../../api/"
   },
   assets: {
     live: "https://wayfinder-cdn.com/shared/",
+    cdn: "https://wayfinder-cdn.com/shared/",
     dev: "//static.3dwayfinder.com/shared/",
     enterprise: "//example.com/shared/",
     snapshot: "../../../shared/"
   },
   js: {
     live: "https://wayfinder-cdn.com/",
+    cdn: "https://wayfinder-cdn.com/",
     dev: "//static.3dwayfinder.com",
     enterprise: "//example.com/js/",
     snapshot: "../../../"
