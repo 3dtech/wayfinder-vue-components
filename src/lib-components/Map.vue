@@ -93,6 +93,23 @@ export default {
 			else {
 				wayfinder = new Wayfinder3D();
 			}
+
+			let api = "//api.3dwayfinder.com";
+
+			switch (this.$WF_ENV) {
+				case "live":
+					api = "//api.3dwayfinder.com";
+				break;
+				case "snapshot":
+					api = "../../../api/";
+				break;
+				case "cdn":
+					api = "https://wayfinder-cdn.com/api";
+				break;
+				case "enterprise":
+					api = "//localhost:8080/api";
+				break;
+			}
 			// WayfinderAPI.LOCATION = 'http://localhost:8080/api/';
 			Vue.prototype.$wayfinder = wayfinder;
 			Vue.directive('wf-translate', {
@@ -104,7 +121,7 @@ export default {
 					} 
 				}
 			});
-			WayfinderAPI.LOCATION = this.api;
+			WayfinderAPI.LOCATION = api;
 			wayfinder.options.assetsLocation = this.assets;
 			console.log('this.project', this.project);
 			if (this.project) {
