@@ -1,6 +1,6 @@
 <template>
 	<div class="wf-poi" v-if="poi">
-		<img class="wf-poi-image" v-if="showLogo" :src="getImage()" :class="[isImage()]"/>
+		<img class="wf-poi-image" v-if="showLogo && hasLogo" :src="getImage()" :class="[isImage()]"/>
 		<div class="wf-poi-name" v-if="showName" v-html="poi.getName(language) || 'POI'"></div>
 		<div class="wf-show-path" v-if="showPathButton" v-touch:tap="showPath">
 			<button>
@@ -14,7 +14,7 @@
 				<WFIcon :name="accessibilityPathIcon" v-if="showPathIcon"></WFIcon>
 			</button>
 		</div>
-		<div class="wf-poi-description" v-if="showDescription" v-html="poi.getDescription(language) || ''"></div>
+		<div class="wf-poi-description" v-if="showDescription && poi.getDescription(language) != false" v-html="poi.getDescription(language) || ''"></div>
 		<div class="wf-poi-room_id" v-if="showRoomID" v-html="poi.room_id || ''"></div>
 		<div class="wf-poi-floor" v-if="showFloor && poi.getFloor()" v-html="poi.getFloor().getName(language) || ''"></div>
 		<div class="wf-poi-distance" v-if="showDistance">
@@ -156,6 +156,9 @@ export default {
 			else {
 				return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
 			}
+		},
+		hasLogo () {
+			return this.poi.getIconUrl();
 		},
 		isImage () {
 			if(this.poi.getBackgroundUrl()) return "image-background";
