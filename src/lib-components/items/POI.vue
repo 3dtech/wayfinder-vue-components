@@ -1,6 +1,6 @@
 <template>
 	<div class="wf-poi" v-if="poi">
-		<img class="wf-poi-image" v-if="showLogo && hasLogo" :src="getImage()" :class="[isImage()]"/>
+		<img class="wf-poi-image" v-if="showLogo" :src="getImage()" :class="[isImage()]"/>
 		<div class="wf-poi-name" v-if="showName" v-html="poi.getName(language) || 'POI'"></div>
 		<div class="wf-show-path" v-if="showPathButton" v-touch:tap="showPath">
 			<button>
@@ -104,7 +104,6 @@ export default {
 			}
 		},
 		poi () {
-			console.log('poi', this.poi);
 			if (this.showDistance && this.$wayfinder) {
 				let path = this.$wayfinder.findPath(this.$wayfinder.getKioskNode(), this.poi.getNode());
 				this.path2Text = this.$wayfinder.pathToText(path);
@@ -147,18 +146,15 @@ export default {
 			}
 		},
 		getImage () {
-			if (this.poi.getBackgroundUrl())
+			if (!!this.poi.getBackgroundUrl())
 				return this.poi.getBackgroundUrl();
 				
-			else if (this.poi.getIconUrl()) {
+			else if (!!this.poi.getIconUrl()) {
 				return this.poi.getIconUrl();
 			}
 			else {
 				return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
 			}
-		},
-		hasLogo () {
-			return this.poi.getIconUrl();
 		},
 		isImage () {
 			if(this.poi.getBackgroundUrl()) return "image-background";
