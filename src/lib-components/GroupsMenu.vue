@@ -6,7 +6,7 @@
 			<li class="wf-list-item" :class='{"wf-active": current && topic.id == current.id}' v-for="topic in sortedGroups" :key='topic.id' >
 				<div class="wf-item-content" v-touch:tap="onClick(topic)">
 					<slot :group="topic">
-						<Group :group="topic" :showIcon="showIcon" :showPOICount="showPOICount"/>
+						<Group :group="topic" :showIcon="showIcon" :showPOICount="showPOICount" :showDescription="showDescription"/>
 					</slot>
 				</div>
 				<ul v-show="current && topic.id == current.id && subGroups(topic.childGroups).length > 0" v-if="showSubGroups">
@@ -105,6 +105,10 @@ export default {
 			default: true
 		},
 		showParentGroup: {
+			type: Boolean,
+			default: false
+		},
+		showDescription: {
 			type: Boolean,
 			default: false
 		}
