@@ -4,7 +4,7 @@
 		<div class="wf-search-container">
 			<div class="wf-search-results" :class='{"wf-no-results": results.length == 0}'>
 				<transition-group name="list" tag="ul" class="wf-list">
-					<li class="wf-list-item" @click="onClick(poiitem)" :class='{"wf-active": currentPOI && poiitem.id == currentPOI.id}' v-for="poiitem in results" :key='poiitem.id' v-if="poiitem && poiitem.getShowInMenu()">
+					<li class="wf-list-item" @click="onClick(poiitem)" :class='{"wf-active": currentPOI && poiitem.id == currentPOI.id}' v-for="poiitem in results" :key='poiitem.id'>
 						<slot :poi="poiitem">
 							<POI :poi="poiitem" :showLogo="showLogo" :showName="showName" :showPathButton="showPathButton" :showDescription="showDescription" :showRoomID="showRoomID" :showFloor="showFloor"/>
 						</slot>
@@ -108,6 +108,9 @@ export default {
 			this.keyboard = new OSK(this.inputId, this.keyboardContainerId);
 			this.keyboard.on('change', (keyword) => {
 				let results = this.$wayfinder.search.search(keyword);
+				results = results.filter((poi) => {
+					return poi.getShowInMenu();
+				})
 
 				if (this.limit > 0) {
 					results = results.slice(0, this.limit);
