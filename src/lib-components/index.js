@@ -105,7 +105,10 @@ export { default as WFShortcutsMenu } from './ShortcutsMenu.vue';
 export { default as WFZoomMenu } from './ZoomMenu.vue';
 export { default as WFFloorsMenu } from './FloorsMenu.vue';
 export { default as WFFilteredMenu } from './FilteredMenu.vue';
+export { default as WFPOIAdvertisements } from './POIAdvertisements.vue';
+
 export { default as WFSearch } from './Search.vue';
+
 export { default as WFLoading } from './Loading.vue';
 export { default as WFClock } from './Clock.vue';
 export { default as WFDate } from './Date.vue';
@@ -119,6 +122,7 @@ export { default as WFPageMenu } from './PageMenu.vue';
 export { default as WFAlphabet } from './Alphabet.vue';
 
 export { default as WFPOI } from './items/POI.vue';
+export { default as WFPOIAdvertisement } from './items/POIAdvertisement.vue';
 export { default as WFGroup } from './items/Group.vue';
 export { default as WFPage } from './items/Page.vue';
 export { default as WFTranslate } from './items/Translate.vue';

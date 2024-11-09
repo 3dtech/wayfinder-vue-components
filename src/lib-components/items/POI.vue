@@ -17,6 +17,7 @@
 		<div class="wf-poi-description" v-if="showDescription && poi.getDescription(language) != false" v-html="poi.getDescription(language) || ''"></div>
 		<div class="wf-poi-room_id" v-if="showRoomID" v-html="poi.room_id || ''"></div>
 		<div class="wf-poi-floor" v-if="showFloor && poi.getFloor()" v-html="poi.getFloor().getName(language) || ''"></div>
+		<WFPOIAdvertisements v-if="showAds && hasAdvertisements" :ads="poi.getAdvertisements()"></WFPOIAdvertisements>
 		<div class="wf-poi-distance" v-if="showDistance">
 			<span class="wf-path-time">{{pathTime}}</span>
 			<span class="wf-path-steps">{{pathSteps}}</span>
@@ -38,6 +39,13 @@ export default {
 		},
 		hasShowAccessibilityPathListener () {
 			return !!(this.$listeners && this.$listeners.showAccessibilityPath);
+		},
+		hasAdvertisements () {
+			if (this.poi && typeof this.poi.getAdvertisements() == "object"  && this.poi.getAdvertisements().length > 0) {
+				return true;
+			}
+
+			return false;
 		}
 	},
 	props: {
@@ -88,6 +96,10 @@ export default {
 		accessibilityPathIcon: {
 			type: String,
 			default: "accessibility-path"
+		},
+		showAds: {
+			type: Boolean,
+			default: false
 		},
 	},
 	mounted () {

@@ -135,7 +135,10 @@ export default Vue.extend({
             </WFGroupsMenu>
           </WFTab>
           <WFTab name="4">
-            <WFSearch>
+            <WFSearch @clicked="showPOI">
+              <template v-slot="slotProps" >
+                <strong> {{ slotProps.poi.getName("en") }}</strong>
+              </template>
             </WFSearch>
           </WFTab>
           <WFTab name="5">
@@ -170,7 +173,7 @@ export default Vue.extend({
             </WFPage>
           </WFTab>
           <WFTab name="10">
-            <WFPOI :poi="currentPOI" :showLogo="true" :showDescription="true" :showAccessibilityPathButton="true" :showDistance="true"></WFPOI>
+            <WFPOI :poi="currentPOI" :showLogo="true" :showDescription="true" :showAccessibilityPathButton="true" :showDistance="true" :showAds="true"></WFPOI>
           </WFTab>
           <WFTab name="11">
             <WFSubGroupMenu :parent="1" :showPOIs="true" :showParentGroup="true"  :showDescription="true"></WFSubGroupMenu>
