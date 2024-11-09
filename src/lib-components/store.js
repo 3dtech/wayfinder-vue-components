@@ -1,5 +1,6 @@
 /* global wayfinder: false, WayfinderAPI */
 import Vue from 'vue';
+import POIAdvertisement from './items/POIAdvertisement.vue';
 
 function clone(obj) {
 	return Object.assign(Object.create(Object.getPrototypeOf(obj)), obj);
@@ -50,6 +51,7 @@ export default {
 		maxInActivity: 30,
 		reset: 0,
 		pages: {},
+		poiAdvertisements: [],
 		template: {
 
 		}
@@ -166,6 +168,11 @@ export default {
 					}
 				}
 			}
+		},
+		xPOIAdvertisements: (state) => (p) => {
+			state.poiAdvertisements = Object.freeze(Vue.prototype.$wayfinder.poiAdvertisements.map(p => {
+				return Object.reeze(p);
+			}));
 		},
 		freezePOI: (state) => (p) => {
 			return freezePOI(p);
