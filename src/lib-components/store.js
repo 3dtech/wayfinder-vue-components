@@ -1,6 +1,5 @@
 /* global wayfinder: false, WayfinderAPI */
 import Vue from 'vue';
-import POIAdvertisement from './items/POIAdvertisement.vue';
 
 function clone(obj) {
 	return Object.assign(Object.create(Object.getPrototypeOf(obj)), obj);
@@ -169,10 +168,12 @@ export default {
 				}
 			}
 		},
-		xPOIAdvertisements: (state) => (p) => {
-			state.poiAdvertisements = Object.freeze(Vue.prototype.$wayfinder.poiAdvertisements.map(p => {
-				return Object.reeze(p);
-			}));
+		xPOIAdvertisements: (state) => {
+			if (typeof Vue.prototype.$wayfinder !== 'undefined') {
+				state.poiAdvertisements = Object.freeze(Vue.prototype.$wayfinder.poiAdvertisements.map(p => {
+					return Object.freeze(p);
+				}));
+			}
 		},
 		freezePOI: (state) => (p) => {
 			return freezePOI(p);
