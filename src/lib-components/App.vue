@@ -26,18 +26,13 @@ const urls = {
   }
 }
 
-/* global WF_MAP_TYPE WayfinderAPI wayfinder*/
-
-
 export default {
-    props: {
-		maxInActivity: { type: Number, default: 30 }
-	},
     data () {
         return {
             lastClick: false,
             landscape: false,
 			screensaver: false,
+			maxInActivity: 30
         }
     },
     mounted () {
@@ -46,6 +41,11 @@ export default {
 		window.onresize = () => {
 			this.resize();
 		}
+
+		this.$wayfinder.events.on("data-loaded", () => {
+			this.maxInActivity = this.$wayfinder.settings.getInt("kiosk.max-inactivity", 30);
+			console.log('maxInActivity', this.maxInActivity)
+		})
 
 		this.lastClick = setTimeout(() => { // Start screensaver
 			this.$emit("screensaving");
