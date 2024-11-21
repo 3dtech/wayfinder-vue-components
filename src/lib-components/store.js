@@ -36,7 +36,7 @@ export default {
 		pois: [],
 		poiGroups: [],
 		loaded: false,
-		language: 'en',
+		language: '',
 		languages: [],
 		shortcuts: [],
 		filteredPOIs: [],

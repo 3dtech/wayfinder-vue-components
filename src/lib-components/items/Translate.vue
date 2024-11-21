@@ -40,10 +40,13 @@ export default {
     },
   },
   mounted () {
-    this.update();
+    this.$nextTick(() => {
+      this.update();
+    });    
   },
   methods: {
     update () {
+      console.log('translate', this.k,  this.language, this.k.length, typeof this.$wayfinder, this.$wayfinder.translator.exists(this.k), this.$wayfinder.translator.get(this.k, this.params))
       if (this.$wayfinder && this.k && this.k.length > 0 && this.$wayfinder.translator.exists(this.k)) {
         this.value = this.$wayfinder.translator.get(this.k, this.params);
         this.translated = true;

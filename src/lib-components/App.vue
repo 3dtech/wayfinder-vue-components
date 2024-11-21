@@ -44,7 +44,6 @@ export default {
 
 		this.$wayfinder.events.on("data-loaded", () => {
 			this.maxInActivity = this.$wayfinder.settings.getInt("kiosk.max-inactivity", 30);
-			console.log('maxInActivity', this.maxInActivity)
 		})
 
 		this.lastClick = setTimeout(() => { // Start screensaver

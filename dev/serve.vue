@@ -95,6 +95,7 @@ export default Vue.extend({
     <div class="content">
       <section class="tab-serve">
         <h2 class="appName">{{appName}} @ <label v-if="building">{{building.name}}</label></h2>
+        <WFTranslate k="accessible">Vale tõlge</WFTranslate>
         <div>
           <button @click="currentTab = 1">Browser</button>
           <button @click="currentTab = 2">Filtered</button>
