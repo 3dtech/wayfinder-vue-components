@@ -205,6 +205,10 @@ export default {
 				this.poiPopupVisible = false;
 			});
 
+			wayfinder.events.on("path-end", () => {
+				this.poiPopupVisible = this.POIPopupEnabled && this.popupPOI;
+			});
+
 			window.addEventListener('resize', () => {
 				if (wayfinder) {
 					wayfinder.resize();
