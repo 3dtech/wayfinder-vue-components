@@ -41,11 +41,12 @@ export default {
     computed: {
         ...mapState('wf', ['language']),
         datestr() {
-            if (typeof dayjs !== "undefined") {
+            console.log('datestr', this.time, typeof dayjs, this.language !== '' ? this.language : 'en')
+            if (typeof dayjs === "object") {
                 return dayjs(this.time).format(this.format);
             }
             else {
-                return this.time.toLocaleString(this.language, {"dateStyle": "long"});
+                return this.time.toLocaleString(this.language !== '' ? this.language : 'en', {"dateStyle": "long"});
             }
             
         },
@@ -53,7 +54,7 @@ export default {
     watch: {
 		language () {
             this.time = new Date();
-			if (typeof dayjs !== "undefined") {
+			if (typeof dayjs === "object") {
                 if(!this.locales[this.language]) {
                     this.loadLocale(this.language);
                 }
@@ -71,7 +72,7 @@ export default {
                 this.locales[locale] = true;
                 if (this.language == locale && typeof dayjs !== "undefined") {
                     console.log('locale.set', locale, this.language, "dayjs", typeof dayjs)
-                    dayjs.locale(this.language);
+                    dayjs.locale(this.language !== '' ? this.language : 'en');
                 }
             });
         }

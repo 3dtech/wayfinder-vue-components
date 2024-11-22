@@ -95,7 +95,12 @@ export default Vue.extend({
     <div class="content">
       <section class="tab-serve">
         <h2 class="appName">{{appName}} @ <label v-if="building">{{building.name}}</label></h2>
-        <WFTranslate k="accessible">Vale tõlge</WFTranslate>
+        
+        <div>
+          Clock: <WFClock/>
+                Date: <WFDate format="ddd. DD. MMM"/>
+                Translatable: <WFTranslate k="go_to_floor" :params="['1th floor', '2th floor']">Vale tõlge</WFTranslate>
+        </div>
         <div>
           <button @click="currentTab = 1">Browser</button>
           <button @click="currentTab = 2">Filtered</button>
@@ -110,6 +115,7 @@ export default Vue.extend({
           <button @click="currentTab = 11">SubGroupMenu</button>
           <button @click="reset()">Reset</button>
         </div>
+          
         <WFTabs :activeTab="currentTab" animate="none">
           <WFTab name="1">
             <WFBrowser src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSppH80saUz9eIllJ_jOLbvC9XN5kJM7mMSFGNzPLXJ1mXr1_2LDIXBCCPOqhAh_hNyMN9RQ6uGekWz/pubhtml"></WFBrowser>
@@ -117,9 +123,7 @@ export default Vue.extend({
           <WFTab name="2">
             <WFScrollableArea ref="filteredScroll">
               <div>
-                <WFClock/>
-                <WFDate format="ddd. DD. MMM"/>
-                Translatable: <WFTranslate k="go_to_floor" :params="['1th floor', '2th floor']">Default</WFTranslate>
+              
                 <WFFilteredMenu changed="isit" @clicked="showPOI">
                     <template v-slot:default="slotProps">
                       <WFPOI :poi="slotProps.poi" :showAccessibilityPathButton="true"/>

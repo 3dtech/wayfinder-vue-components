@@ -201,6 +201,10 @@ export default {
 				this.$emit('onTouch');
 			});
 
+			wayfinder.events.on("path-start", () => {
+				this.poiPopupVisible = false;
+			});
+
 			window.addEventListener('resize', () => {
 				if (wayfinder) {
 					wayfinder.resize();
