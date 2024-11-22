@@ -46,7 +46,7 @@ function loadVue () {
     store,
     render: h => h(Dev),
     created () {
-      Vue.use(WayfinderVueComponents, this.$store, WF_MAP_TYPE, WF_PROJECT, "live") // Create it by passing in the store you want to use
+      Vue.use(WayfinderVueComponents, this.$store, WF_MAP_TYPE, WF_PROJECT, "live", "http://localhost:3333") // Create it by passing in the store you want to use
     }
   }).$mount('#app')
 }

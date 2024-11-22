@@ -109,6 +109,9 @@ export default {
 				case "enterprise":
 					api = "//localhost:8080/api";
 				break;
+				case "custom":
+					api = this.$WF_API;
+				break;
 			}
 			// WayfinderAPI.LOCATION = 'http://localhost:8080/api/';
 			Vue.prototype.$wayfinder = wayfinder;

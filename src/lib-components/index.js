@@ -1,13 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 
 const urls = {
-  api: {
-    live: "//api.3dwayfinder.com",
-    cdn: "https://wayfinder-cdn.com/api",
-    enterprise: "//example.com/api",
-    dev: "//api.3dwayfinder.com",
-    snapshot: "../../../api/"
-  },
   assets: {
     live: "https://wayfinder-cdn.com/shared/",
     cdn: "https://wayfinder-cdn.com/shared/",
