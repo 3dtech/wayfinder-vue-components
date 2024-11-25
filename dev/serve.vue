@@ -84,7 +84,7 @@ export default Vue.extend({
 <template>
   <WFApp id="app">
     <div class="map-container">
-      <WFMap ref="map" @loaded="mapDataLoaded" :project="$WF_PROJECT" :POIPopupEnabled="true"/>
+      <WFMap ref="map" @loaded="mapDataLoaded" :project="$WF_PROJECT" :POIPopupEnabled="true" :showPOIPathButton="true"/>
       <div class="map-footer">
         <WFYAH/>
         <WFZoomMenu/>
