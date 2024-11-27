@@ -65,7 +65,7 @@ export default {
 	methods: {
 		changeLanguage (language) {
 			if (this.$listeners && this.$listeners.changeLanguage) {
-				this.$emit("change", language);
+				this.$emit("change", Object.freeze(language));
 			}
 			else {
 				this.$wayfinder.setLanguage(language.name);

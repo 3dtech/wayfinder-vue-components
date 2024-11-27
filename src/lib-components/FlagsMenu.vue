@@ -59,7 +59,7 @@ export default {
 		changeLanguage (language) {
 			this.active = !this.active;
 			this.$wayfinder.setLanguage(language.name);
-			this.$emit("changeLanguage", language);
+			this.$emit("changeLanguage", Object.freeze(language));
 		},
 		getFlagImage (id) {
 			return WayfinderAPI.getURL("images", "thumbnail", [id]);		

@@ -219,7 +219,6 @@ export default {
 		update () {
 			for(var i in this.$store._wrappedGetters) {
 				if (i.indexOf("wf") === 0) {
-					console.log('getters', i)
 					this.$store._wrappedGetters[i](this.$store.state);
 				}
 			}
