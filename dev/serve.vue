@@ -66,6 +66,9 @@ export default Vue.extend({
       this.currentTab = 10;
       this.currentPOI = poi;
       this.$refs.map.showPOIPopup(poi);
+    },
+    debug () {
+      console.log('wf', this.$wayfinder)
     }
   },
   data () {
@@ -89,13 +92,12 @@ export default Vue.extend({
         <WFYAH/>
         <WFZoomMenu/>
         <WFFloorsMenu :currentFloor="currentFloor"/>
-        <WFFlagsMenu :showFlag="false" labelType="native" order="order"/>
+        <WFFlagsMenu :showFlag="false" :showTitle="true" labelType="native" order="order"/>
       </div>
     </div>
     <div class="content">
       <section class="tab-serve">
-        <h2 class="appName">{{appName}} @ <label v-if="building">{{building.name}}</label></h2>
-        
+        <h2 class="appName" @click="debug">{{appName}} @ <label v-if="building">{{building.name}}</label></h2>
         <div>
           Clock: <WFClock/>
                 Date: <WFDate format="ddd. DD. MMM"/>

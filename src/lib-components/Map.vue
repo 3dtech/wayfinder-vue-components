@@ -206,7 +206,6 @@ export default {
 			});
 
 			wayfinder.events.on("path-finished", () => {
-				console.log('path-end', this.popupPOI)
 				this.showPOIPopup(this.popupPOI);
 			});
 
@@ -265,7 +264,7 @@ export default {
 				this.$refs.poiPopup.style.left = position[0] + "px";
 
 				this.$nextTick(() => {
-					//console.log('pos', position, offset, this.$refs.poiPopup.clientHeight, this.$refs.poiPopup.clientWidth)	
+					console.log('pos', position, offset, this.$refs.poiPopup.clientHeight, this.$refs.poiPopup.clientWidth)	
 					this.$refs.poiPopup.style.top = position[1] - offset + "px";
 					this.$refs.poiPopup.style.marginTop = -this.$refs.poiPopup.clientHeight + "px";
 					this.$refs.poiPopup.style.marginLeft = -(this.$refs.poiPopup.clientWidth / 2) + "px";

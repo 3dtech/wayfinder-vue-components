@@ -26,6 +26,9 @@ function freezePOI(p) {
 
 	p.wayfinder = undefined;
 	p.engine = undefined;
+	p.poiComponent = undefined;
+	p.object = undefined;
+	p.submesh = undefined;
 
 	return p;
 }
@@ -60,7 +63,6 @@ export default {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined') {
 				state.language = Object.freeze(Vue.prototype.$wayfinder.getLanguage());
 			}
-
 			return state.language;
 		},
 		xFloors: (state) => {
@@ -74,14 +76,12 @@ export default {
 					return _f;
 				}));
 			}
-
 			return state.floors;
 		},
 		xLanguages: (state) => {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined') {
 				state.languages = Object.freeze(Object.values(Vue.prototype.$wayfinder.getLanguages()).reverse());
 			}
-
 			return state.languages;
 		},
 		xShortcuts: (state) => {
@@ -103,7 +103,6 @@ export default {
 
 				state.shortcuts = shortcuts;
 			}
-
 			return state.shortcuts;
 		},
 		xBuilding: (state) => {
@@ -114,7 +113,6 @@ export default {
 				Object.defineProperty(building, 'sortedFloors', { configurable: false });
 				state.building = Object.freeze(building);
 			}
-
 			return state.building;
 		},
 		xYahLogo: (state) => {
