@@ -264,24 +264,25 @@ export default {
 				this.$refs.poiPopup.style.left = position[0] + "px";
 
 				this.$nextTick(() => {
-					console.log('pos', position, offset, this.$refs.poiPopup.clientHeight, this.$refs.poiPopup.clientWidth)	
-					this.$refs.poiPopup.style.top = position[1] - offset + "px";
-					this.$refs.poiPopup.style.marginTop = -this.$refs.poiPopup.clientHeight + "px";
-					this.$refs.poiPopup.style.marginLeft = -(this.$refs.poiPopup.clientWidth / 2) + "px";
-					this.$refs.poiPopup.classList.remove("wf-pin-up");
-					this.$refs.poiPopup.classList.remove("wf-pin-left");
-					this.$refs.poiPopup.classList.remove("wf-pin-right");
+					this.$nextTick(() => {
+						this.$refs.poiPopup.style.top = position[1] - offset + "px";
+						this.$refs.poiPopup.style.marginTop = -this.$refs.poiPopup.clientHeight + "px";
+						this.$refs.poiPopup.style.marginLeft = -(this.$refs.poiPopup.clientWidth / 2) + "px";
+						this.$refs.poiPopup.classList.remove("wf-pin-up");
+						this.$refs.poiPopup.classList.remove("wf-pin-left");
+						this.$refs.poiPopup.classList.remove("wf-pin-right");
 
 
-					if(position[1] < 100) {
-						this.$refs.poiPopup.style.marginTop = (- offset * 2) + "px";
-						this.$refs.poiPopup.classList.add("wf-pin-up");
-					}
+						if(position[1] < 100) {
+							this.$refs.poiPopup.style.marginTop = (- offset * 2) + "px";
+							this.$refs.poiPopup.classList.add("wf-pin-up");
+						}
 
-					if(position[0] < width / 2) {
-						this.$refs.poiPopup.style.marginLeft = -position[0] + "px";
-						this.$refs.poiPopup.classList.add("wf-pin-left");
-					}
+						if(position[0] < width / 2) {
+							this.$refs.poiPopup.style.marginLeft = -position[0] + "px";
+							this.$refs.poiPopup.classList.add("wf-pin-left");
+						}
+					});
 				});
 				
 				this.poiPopupVisible = true;
