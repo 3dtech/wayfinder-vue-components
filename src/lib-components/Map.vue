@@ -179,7 +179,7 @@ export default {
 					}, pathTextTime);
 				}
 
-				if (this.poiPopupVisible && this.popupPOI && this.popupPOI.floor == floor) {
+				if (this.poiPopupVisible && this.popupPOI &&  this.popupPOI.floor && this.popupPOI.floor.id == floor.id) {
 					this.showPOIPopup(this.popupPOI);
 				}
 				else {
@@ -192,7 +192,6 @@ export default {
 					poi = this.$store.getters["wf/freezePOI"](poi);
 					this.$emit('poiClicked', poi, true);
 					wayfinder.statistics.onClick(poi.id, "map");
-					this.showPOIPopup(poi);
 				}
 			});
 
@@ -205,8 +204,10 @@ export default {
 				this.poiPopupVisible = false;
 			});
 
-			wayfinder.events.on("path-finished", () => {
-				this.showPOIPopup(this.popupPOI);
+			wayfinder.events.on("path-finished", () => {		
+				if (this.POIPopupEnabled && this.popupPOI) {
+					this.showPOIPopup(this.popupPOI);
+				}
 			});
 
 			window.addEventListener('resize', () => {
