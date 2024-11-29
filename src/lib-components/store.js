@@ -175,6 +175,9 @@ export default {
 		},
 		freezePOI: (state) => (p) => {
 			return freezePOI(p);
+		},
+		freezeGroup: (state) => (p) => {
+			return freezeGroup(p);
 		}
 	},
 	mutations: {
