@@ -60,8 +60,12 @@ export default {
 			this.lastClick = setTimeout(() => { // Start screensaver
 				this.$emit("screensaving");
                 this.screensaver = true;
+				this.$wayfinder.showKiosk();
 				this.$wayfinder.restoreDefaultState();
-				this.$wayfinder.pause();
+				this.$nextTick(() => {
+					this.$wayfinder.pause();
+				});
+				
 			}, this.maxInActivity * 1000);
 			return false;
 		},
