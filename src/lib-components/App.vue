@@ -62,9 +62,9 @@ export default {
                 this.screensaver = true;
 				this.$wayfinder.showKiosk();
 				this.$wayfinder.restoreDefaultState();
-				this.$nextTick(() => {
+				setTimeout(() => {
 					this.$wayfinder.pause();
-				});
+				}, 1000);
 				
 			}, this.maxInActivity * 1000);
 			return false;
