@@ -256,10 +256,11 @@ export default {
 			this.poiPopupVisible = false;
 			this.$emit('showInfo', poi);
 		},
-		showPOIPopup (poi, _width) {
+		showPOIPopup (poi, _width, _height) {
 			this.popupPOI = Object.freeze(poi);
 			if (this.POIPopupEnabled && this.popupPOI && this.$refs.poiPopup && poi.getNode()) {
 				let width = _width || 155;
+				let height = _height || 100;
 				let position = this.$wayfinder.getScreenPosition(poi);	
 				let offset =  (this.$wayfinder.settings.getFloat("poi.2d.icon-size", 24, poi) - 24) / 2;
 				this.$refs.poiPopup.style.left = position[0] + "px";
@@ -274,7 +275,7 @@ export default {
 						this.$refs.poiPopup.classList.remove("wf-pin-right");
 
 
-						if(position[1] < 100) {
+						if(position[1] < height) {
 							this.$refs.poiPopup.style.marginTop = (- offset * 2) + "px";
 							this.$refs.poiPopup.classList.add("wf-pin-up");
 						}
