@@ -57,6 +57,22 @@ export default {
 	},
 	watch: {
 		banners () {
+			this.load();
+		},
+		qrURL (val) {
+			if (val && val !== "") {
+				this.renderQR();
+			}
+		}
+	},
+	mounted () {
+		this.renderQR();
+		if(this.playOnBoot) {
+			this.load();
+		}
+	},
+	methods: {
+		load() {
 			let now = Date.now();
 			let _template = 'template-' + this.template.toLowerCase();
 			if (this.template && this.container && this.banners[_template] && this.banners[_template][this.container]) {
@@ -89,16 +105,6 @@ export default {
 				this.$emit('hasbanners', (this.frames.length > 0), this.template, this.container);
 			}
 		},
-		qrURL (val) {
-			if (val && val !== "") {
-				this.renderQR();
-			}
-		}
-	},
-	mounted () {
-		this.renderQR();
-	},
-	methods: {
 		preloadFrame (index, frame) {
 			frame.index = index;
 			for(let c in frame.containers) {

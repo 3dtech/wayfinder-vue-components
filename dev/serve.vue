@@ -149,7 +149,7 @@ export default Vue.extend({
             </WFSearch>
           </WFTab>
           <WFTab name="5">
-            <WFBanner template="Default" container="screensaver-portrait" @clicked="bannerClicked" :playOnBoot="true"></WFBanner>
+            <WFBanner template="default" container="screensaver" @clicked="bannerClicked" :playOnBoot="true"></WFBanner>
             <!--WFBanner template="default" container="advertisements" qrURL="https://google.com" :playOnBoot="true"></WFBanner-->
           </WFTab>
           <WFTab name="6">
