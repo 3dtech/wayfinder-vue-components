@@ -272,7 +272,6 @@ export default {
 						this.$refs.poiPopup.style.top = position[1] - offset + "px";
 						this.$refs.poiPopup.style.marginTop = -this.$refs.poiPopup.clientHeight + "px";
 						this.$refs.poiPopup.style.marginLeft = -(this.$refs.poiPopup.clientWidth / 2) + "px";
-						this.$refs.poiPopup.style.marginRight = "0px";
 						this.$refs.poiPopup.classList.remove("wf-pin-up");
 						this.$refs.poiPopup.classList.remove("wf-pin-left");
 						this.$refs.poiPopup.classList.remove("wf-pin-right");
@@ -289,7 +288,7 @@ export default {
 						}
 
 						if(position[0] > mapWidth - (width / 2)) {
-							this.$refs.poiPopup.style.marginRight = (mapWidth - position[0]) + "px";
+							this.$refs.poiPopup.style.marginLeft = (-(mapWidth - position[0]) - width) + "px";
 							this.$refs.poiPopup.classList.add("wf-pin-left");
 						}
 					});
@@ -384,6 +383,15 @@ export default {
 		transform: rotate(45deg);
 		left: 50%;
 		margin-left: -0.75rem;
+	}
+
+	.wf-pin-left {
+		left: 1rem;
+	}
+
+	.wf-pin-right {
+		right: 1rem;
+		left: auto;
 	}
 
     
