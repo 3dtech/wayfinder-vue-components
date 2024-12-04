@@ -1,5 +1,5 @@
 <template>
-	<div class="wf-component wf-map-container" v-observe-visibility="visibilityChanged" v-touch:start='onTouch'>
+	<div class="wf-component wf-map-container" ref="container" v-observe-visibility="visibilityChanged" v-touch:start='onTouch'>
 		<canvas id="map"/>
 		<div class="wf-map-path-text" v-show="(showPathText && pathTextVisible)">{{pathText}}</div>
 		<div id="wf-poi-popup" class="wf-poi-popup" ref="poiPopup" v-show="POIPopupEnabled && isPOIPopupVisible()">
@@ -265,11 +265,14 @@ export default {
 				let offset =  (this.$wayfinder.settings.getFloat("poi.2d.icon-size", 24, poi) - 24) / 2;
 				this.$refs.poiPopup.style.left = position[0] + "px";
 
+				let mapWidth = this.$refs.container ? this.$refs.container.clientWidth : 320;
+
 				this.$nextTick(() => {
 					this.$nextTick(() => {
 						this.$refs.poiPopup.style.top = position[1] - offset + "px";
 						this.$refs.poiPopup.style.marginTop = -this.$refs.poiPopup.clientHeight + "px";
 						this.$refs.poiPopup.style.marginLeft = -(this.$refs.poiPopup.clientWidth / 2) + "px";
+						this.$refs.poiPopup.style.marginRight = "0px";
 						this.$refs.poiPopup.classList.remove("wf-pin-up");
 						this.$refs.poiPopup.classList.remove("wf-pin-left");
 						this.$refs.poiPopup.classList.remove("wf-pin-right");
@@ -282,6 +285,11 @@ export default {
 
 						if(position[0] < width / 2) {
 							this.$refs.poiPopup.style.marginLeft = -position[0] + "px";
+							this.$refs.poiPopup.classList.add("wf-pin-right");
+						}
+
+						if(position[0] > mapWidth - (width / 2)) {
+							this.$refs.poiPopup.style.marginRight = (mapWidth - position[0]) + "px";
 							this.$refs.poiPopup.classList.add("wf-pin-left");
 						}
 					});
