@@ -65,6 +65,8 @@ export default {
 				setTimeout(() => {
 					this.$wayfinder.pause();
 				}, 1000);
+
+				this.$store.dispatch('wf/SET_RESET', Date.now());
 				
 			}, this.maxInActivity * 1000);
 			return false;

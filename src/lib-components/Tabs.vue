@@ -38,24 +38,36 @@ export default {
 		activate () {
 			//console.log('tabs.activate', this.activeTab, this.$props.activeTab)
 			this.currentTab = null;
+			let activeTab = 0;
+
 			for (var tab in this.tabs) {
 				if (this.tabs[tab].name == this.$props.activeTab) {
 					this.tabs[tab].isActive = true;
+					this.tabs[tab].isVisible = true;
 					this.$emit('tabChanged', this.tabs[tab]);
 					this.currentTab = this.tabs[tab];
 					this.activeTabIndex = tab;
-					if (this.animate === "vertical") {
-						this.$refs.slide.style.transform = "translateX(0) translateY(-" + tab * 100 + "%)";
-					}
-					else {
-						this.$refs.slide.style.transform = "translateY(0) translateX(-" + tab * 100 + "%)";
-					}
+					activeTab = tab;
+					//this.tabs[tab].style.display = "block";
+					this.$nextTick (() => {
+						this.slide(activeTab);
+					});
+
 				}
 				else {
 					this.tabs[tab].isActive = false;
+					this.tabs[tab].isVisible = false;
 				}
 			}
-		}
+		},
+		slide (tab) {
+			if (this.animate === "vertical") {
+				this.$refs.slide.style.transform = "translateX(0) translateY(-" + tab * 100 + "%)";
+			}
+			else {
+				this.$refs.slide.style.transform = "translateY(0) translateX(-" + tab * 100 + "%)";
+			}
+}
 	}
 };
 </script>
