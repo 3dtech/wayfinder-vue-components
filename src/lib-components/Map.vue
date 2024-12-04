@@ -284,12 +284,12 @@ export default {
 
 						if(position[0] < width / 2) {
 							this.$refs.poiPopup.style.marginLeft = -position[0] + "px";
-							this.$refs.poiPopup.classList.add("wf-pin-right");
+							this.$refs.poiPopup.classList.add("wf-pin-left");
 						}
 
 						if(position[0] > mapWidth - (width / 2)) {
-							this.$refs.poiPopup.style.marginLeft = (-(mapWidth - position[0]) - width) + "px";
-							this.$refs.poiPopup.classList.add("wf-pin-left");
+							this.$refs.poiPopup.style.marginLeft = -width + "px";
+							this.$refs.poiPopup.classList.add("wf-pin-right");
 						}
 					});
 				});
@@ -385,11 +385,11 @@ export default {
 		margin-left: -0.75rem;
 	}
 
-	.wf-pin-left {
+	.wf-pin-left .wf-pin-down {
 		left: 1rem;
 	}
 
-	.wf-pin-right {
+	.wf-pin-right .wf-pin-down {
 		right: 1rem;
 		left: auto;
 	}
