@@ -13,7 +13,7 @@
 					<SubGroupMenu :parent="parseInt(topic.id)" :showPOICount="showPOICount" :az="az" :order="order" :showIcon="showIcon" :showPOIs="showPOIs" :sortPOIs="sortPOIs" @clicked="onSubGroupClick" @poiClicked="onSubPOICLick"/>
 				</ul>
 				<ul class="wf-list wf-sublist" v-if="topic.pois.length > 0 && showPOIs" v-show="current && topic.id == current.id">
-					<li class="wf-list-item" v-for="poi in sortedPOIs(topic.pois)" :key='poi.id' v-touch:tap="onPOICLick(poi)">
+					<li class="wf-list-item" v-for="poi in sortedPOIs(topic.pois)" :class='{"wf-active": currentPOI && poi.id == currentPOI.id}' :key='poi.id' v-touch:tap="onPOICLick(poi)">
 						<slot name="poi" :poi="poi">
 							<POI :poi="poi" :showLogo="showPOILogo" :showName="showPOIName" :showPathButton="showPOIPathButton" :showDescription="showPOIDescription" :showRoomID="showPOIRoomID" :showFloor="showPOIFloor"/>
 						</slot>
@@ -47,6 +47,10 @@ export default {
 		parent: {
 			type: Number,
 			default: -1
+		},
+		currentPOI: {
+			type: Object,
+			default: null
 		},
 		showPOICount: {
 			type: Boolean,
