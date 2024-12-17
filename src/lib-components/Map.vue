@@ -262,6 +262,13 @@ export default {
 				let width = _width || 155;
 				let height = _height || 100;
 				let position = this.$wayfinder.getScreenPosition(poi);	
+				
+				if (!position) {
+		          this.poiPopupVisible = false;
+		          console.log('popup no position')
+		          return;
+		        } 
+
 				let offset =  (this.$wayfinder.settings.getFloat("poi.2d.icon-size", 24, poi) - 24) / 2;
 				this.$refs.poiPopup.style.left = position[0] + "px";
 
