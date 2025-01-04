@@ -123,5 +123,6 @@ export { default as WFYAH } from './YAH.vue';
 export { default as WFIcon } from './items/Icon.vue';
 
 export { default as WFBrowser } from './pages/Browser.vue';
+export { default as WFPath2Text } from './Path2Text.vue';
 
 export { loadWayfinder };

@@ -18,10 +18,8 @@
 		<div class="wf-poi-room_id" v-if="showRoomID" v-html="poi.room_id || ''"></div>
 		<div class="wf-poi-floor" v-if="showFloor && poi.getFloor()" v-html="poi.getFloor().getName(language) || ''"></div>
 		<WFPOIAdvertisements v-if="showAds && hasAdvertisements" :ads="poi.getAdvertisements()"></WFPOIAdvertisements>
-		<div class="wf-poi-distance" v-if="showDistance">
-			<span class="wf-path-time">{{pathTime}}</span>
-			<span class="wf-path-steps">{{pathSteps}}</span>
-			<span class="wf-path-length">{{pathLength}}</span>
+		<div class="wf-poi-distance" v-if="showDistance && path2Text">
+			<WFPath2Text :path="path2Text"></WFPath2Text>
 		</div>
 	</div>
 </template>
@@ -118,7 +116,7 @@ export default {
 		poi () {
 			if (this.showDistance && this.$wayfinder) {
 				let path = this.$wayfinder.findPath(this.$wayfinder.getKioskNode(), this.poi.getNode());
-				this.path2Text = this.$wayfinder.pathToText(path);
+				this.path2Text = Object.freeze(this.$wayfinder.pathToText(path));
 				console.log('watch.path', this.path2Text);
 			}
 		}

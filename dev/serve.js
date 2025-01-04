@@ -18,9 +18,9 @@ Vue.use(Vue2TouchEvents,
   })
 
 Vue.config.productionTip = false;
-const WF_MAP_TYPE = "2d";
+const WF_MAP_TYPE = "3d";
 const WF_API = "dev";
-const WF_PROJECT = "33ba7f9724740d846d41315f57bb37e4";
+const WF_PROJECT = "611dcd9e1a5a5dc25723ecd0bd36bdbc";
 
 
 /* global WF_MAP_TYPE WayfinderAPI wayfinder*/

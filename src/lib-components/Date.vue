@@ -41,7 +41,7 @@ export default {
     computed: {
         ...mapState('wf', ['language']),
         datestr() {
-            console.log('datestr', this.time, typeof dayjs, this.language !== '' ? this.language : 'en')
+           //console.log('datestr', this.time, typeof dayjs, this.language !== '' ? this.language : 'en')
             if (typeof dayjs === "object") {
                 return dayjs(this.time).format(this.format);
             }
@@ -71,7 +71,7 @@ export default {
             loadScript(this.$wayfinder.options.assetsLocation + "/dayjs/locale/" + locale + ".js", (a) => {
                 this.locales[locale] = true;
                 if (this.language == locale && typeof dayjs !== "undefined") {
-                    console.log('locale.set', locale, this.language, "dayjs", typeof dayjs)
+                    //console.log('locale.set', locale, this.language, "dayjs", typeof dayjs)
                     dayjs.locale(this.language !== '' ? this.language : 'en');
                 }
             });
