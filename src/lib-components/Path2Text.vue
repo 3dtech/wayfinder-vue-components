@@ -53,6 +53,11 @@ export default {
 			default: null
 		},
     },
+    mounted () {
+        this.$nextTick(() => {
+            this.makePath();
+        });
+    },
     data: function () {
 		return {
 			pathTime: 0,
