@@ -1,5 +1,5 @@
 <template>
-	<div class="wf-component wf-languages-container" :class="[(active ? 'wf-active': '')]">
+	<div class="wf-component wf-languages-container" :class="[(active ? 'wf-active': '')]" v-if="(showWhenMoreThanOne && count > 1) || !showWhenMoreThanOne">
 		<div class="wf-languages-container-select" v-if="showTitle">Select language</div>
 		<div class="wf-list" :class="['wf-list-count-' + count]">
 			<div v-for="lang in sortedLanguages" :key='lang.getName()' @click="changeLanguage(lang)" :class='["item", "language", "lang-" + lang.getName(), { active: lang.getName() == language, display: active}]'>
@@ -48,6 +48,10 @@ export default {
 		order: {
 			type: String,
 			default: "id"
+		},
+		showWhenMoreThanOne: {
+			type: Boolean,
+			default: true
 		}
 	},
 	data () {
