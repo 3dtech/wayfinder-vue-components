@@ -29,7 +29,7 @@
             </svg>
         </slot>
         <!--span class="wf-path-time">{{pathTime}}</span-->
-        <div class="wf-path-steps">
+        <div class="wf-path-steps" v-if="showPath2Text">
             <div v-for="(step, index) in steps" :key="index" class="wf-step">
                 <svg class="wf-icon" :class='["wf-icon-"+ step.type]' viewbox="0 0 32 32">
                     <use :xlink:href="step.icon"></use>
@@ -39,7 +39,10 @@
                 </div>
             </div>
         </div>
-        <WFTranslate class="wf-path-length" k="path-distance" :params="[path.distance]"></WFTranslate>
+        <span>
+            <WFTranslate v-if="showDistance" class="wf-path-length" k="path-distance" :params="[path.distance]"></WFTranslate>
+            <label v-if="showTime" class="wf-path-time">{{ timeText }}</label>
+        </span>
     </div>
 </template>
 <script>
@@ -52,6 +55,18 @@ export default {
 			type: Object,
 			default: null
 		},
+        showDistance: {
+			type: Boolean,
+			default: false
+		},
+        showTime: {
+			type: Boolean,
+			default: false
+		},
+		showPath2Text: {
+			type: Boolean,
+			default: false
+		},
     },
     mounted () {
         this.$nextTick(() => {
@@ -60,7 +75,7 @@ export default {
     },
     data: function () {
 		return {
-			pathTime: 0,
+            timeText: "",
             steps: null
         }
     },
@@ -90,10 +105,14 @@ export default {
         },
 		makePath () {
             if (this.path) {
-				this.pathTime = Math.ceil(this.path.distance * 1.2);
+				var pathTime = this.path.distance * 1.2;
+                
+                var minutes = Math.floor(pathTime / 60);
+                var seconds = Math.ceil(pathTime - Math.floor(pathTime / 60) * 60);
+                this.timeText = this.$wayfinder.translator.get("path-time", [minutes, seconds]);
                 this.steps = this.path.steps.map(s => this.makeStep(s));
 
-				console.log('watch.path', this.path);
+				console.log('watch.path', this.path, pathTime,   this.time);
 			}
         }
     }

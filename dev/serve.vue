@@ -180,7 +180,7 @@ export default Vue.extend({
             </WFPage>
           </WFTab>
           <WFTab name="10">
-            <WFPOI :poi="currentPOI" :showLogo="true" :showDescription="true" :showAccessibilityPathButton="true" :showDistance="true" :showAds="true"></WFPOI>
+            <WFPOI :poi="currentPOI" :showLogo="true" :showDescription="true" :showAccessibilityPathButton="true" :showDistance="true" :showPath2Text="false"  :showPathTime="true" :showAds="true"></WFPOI>
           </WFTab>
           <WFTab name="11">
             <WFSubGroupMenu :parent="1" :showPOIs="true" :showParentGroup="true"  :showDescription="true"></WFSubGroupMenu>

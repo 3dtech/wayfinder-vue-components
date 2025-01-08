@@ -19,7 +19,7 @@
 		<div class="wf-poi-floor" v-if="showFloor && poi.getFloor()" v-html="poi.getFloor().getName(language) || ''"></div>
 		<WFPOIAdvertisements v-if="showAds && hasAdvertisements" :ads="poi.getAdvertisements()"></WFPOIAdvertisements>
 		<div class="wf-poi-distance" v-if="showDistance && path2Text">
-			<WFPath2Text :path="path2Text"></WFPath2Text>
+			<WFPath2Text :path="path2Text" :showDistance="showDistance" :showPath="showPath2Text" :showTime="showPathTime"></WFPath2Text>
 		</div>
 	</div>
 </template>
@@ -80,6 +80,14 @@ export default {
 			default: false
 		},
 		showDistance: {
+			type: Boolean,
+			default: false
+		},
+		showPath2Text: {
+			type: Boolean,
+			default: false
+		},
+		showPathTime: {
 			type: Boolean,
 			default: false
 		},
