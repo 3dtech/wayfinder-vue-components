@@ -38,6 +38,9 @@ export default {
     k () {
       this.update();
     },
+    params () {
+      this.update();
+    }
   },
   mounted () {
     this.$nextTick(() => {

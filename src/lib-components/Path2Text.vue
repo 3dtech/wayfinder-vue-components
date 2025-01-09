@@ -41,6 +41,7 @@
         </div>
         <span>
             <WFTranslate v-if="showDistance" class="wf-path-length" k="path-distance" :params="[path.distance]"></WFTranslate>
+            <WFTranslate v-if="showStepCount" class="wf-path-steps" k="path-step-count" :params="[stepCount]"></WFTranslate>
             <label v-if="showTime" class="wf-path-time">{{ timeText }}</label>
         </span>
     </div>
@@ -67,6 +68,10 @@ export default {
 			type: Boolean,
 			default: false
 		},
+		showStepCount: {
+			type: Boolean,
+			default: false
+		},
     },
     mounted () {
         this.$nextTick(() => {
@@ -76,7 +81,8 @@ export default {
     data: function () {
 		return {
             timeText: "",
-            steps: null
+            steps: null,
+            stepCount: 0
         }
     },
     watch: {
@@ -111,8 +117,9 @@ export default {
                 var seconds = Math.ceil(pathTime - Math.floor(pathTime / 60) * 60);
                 this.timeText = this.$wayfinder.translator.get("path-time", [minutes, seconds]);
                 this.steps = this.path.steps.map(s => this.makeStep(s));
+                this.stepCount = Math.round(this.path.distance / 0.9);
 
-				console.log('watch.path', this.path, pathTime,   this.time);
+				console.log('watch.path', this.path, pathTime,   this.time, this.stepCount);
 			}
         }
     }
