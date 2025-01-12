@@ -95,6 +95,7 @@ export default {
 			}
 
 			let api = "//api.3dwayfinder.com";
+			let assets = this.assets ? this.assets : "//static.3dwayfinder.com/shared/";
 
 			switch (this.$WF_ENV) {
 				case "live":
@@ -102,12 +103,15 @@ export default {
 				break;
 				case "snapshot":
 					api = "../../../api/";
+					assets = "../../../shared/";
 				break;
 				case "cdn":
 					api = "https://wayfinder-cdn.com/api";
+					assets = "https://wayfinder-cdn.com/shared/";
 				break;
 				case "enterprise":
 					api = "//localhost:8080/api";
+					assets = "../../../shared/";
 				break;
 				case "custom":
 					api = this.$WF_API;
@@ -125,7 +129,7 @@ export default {
 				}
 			});
 			WayfinderAPI.LOCATION = api;
-			wayfinder.options.assetsLocation = this.assets;
+			wayfinder.options.assetsLocation = assets;
 			console.log('this.project', this.project);
 			if (this.project) {
 				wayfinder.options.project = this.project;
