@@ -111,7 +111,7 @@ export default {
         },
 		makePath () {
             if (this.path) {
-				var pathTime = this.path.distance * 1.2;
+				var pathTime = this.path.distance / 1.2;
                 
                 var minutes = Math.floor(pathTime / 60);
                 var seconds = Math.ceil(pathTime - Math.floor(pathTime / 60) * 60);
