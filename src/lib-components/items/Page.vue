@@ -4,9 +4,7 @@
 			<div class="wf-page-container" :class="{'wf-page-empty': page.items.length === 0}">
 				<div class="wf-page-icon" v-if="showIcon" :class="[page.icon ? 'wf-has-icon' : '']" v-html="page.icon"></div>
 				<label class="wf-page-name" v-if="showName" v-html="pageName || ''"></label>
-				<div class="wf-page-content">
-					<component v-for="(item, index) in page.items" :key="item.id" :class="['wf-page-item-' + index ]" :is="itemType(item)" :item="item"></component> 
-				</div>
+				<WFPageContent :page="page"></WFPageContent>
 			</div>
 		</WFScrollableArea>
 		<WFTabs ref="tabs" :activeTab="currentTab" v-show="currentTab">

@@ -75,7 +75,7 @@ export default {
 		load() {
 			let now = Date.now();
 			let _template = 'template-' + this.template.toLowerCase();
-			if (this.template && this.container && this.banners[_template] && this.banners[_template][this.container]) {
+			if (this.banners && this.template && this.container && this.banners[_template] && this.banners[_template][this.container]) {
 				this.frames = this.banners[_template][this.container].filter((frame) => {
 					let enabled = frame.enabled;
 					
