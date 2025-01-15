@@ -97,6 +97,7 @@ export default {
 			this.updatePage();
 		},
 		container () {
+			this.getDefaultPage();
 			this.updatePage();
 		},
 		pid () {
