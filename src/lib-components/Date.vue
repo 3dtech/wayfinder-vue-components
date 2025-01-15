@@ -68,13 +68,18 @@ export default {
             setTimeout(this.addDate, 60*1000);
         },
         loadLocale (locale) {
-            loadScript(this.$wayfinder.options.assetsLocation + "/dayjs/locale/" + locale + ".js", (a) => {
-                this.locales[locale] = true;
-                if (this.language == locale && typeof dayjs !== "undefined") {
-                    //console.log('locale.set', locale, this.language, "dayjs", typeof dayjs)
-                    dayjs.locale(this.language !== '' ? this.language : 'en');
-                }
-            });
+            if(this.$wayfinder) {
+                loadScript(this.$wayfinder.options.assetsLocation + "/dayjs/locale/" + locale + ".js", (a) => {
+                    this.locales[locale] = true;
+                    if (this.language == locale && typeof dayjs !== "undefined") {
+                        //console.log('locale.set', locale, this.language, "dayjs", typeof dayjs)
+                        dayjs.locale(this.language !== '' ? this.language : 'en');
+                    }
+                });
+            }
+            else {
+                console.warn('wayfinder not present');
+            }
         }
     }
 }
