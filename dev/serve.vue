@@ -178,6 +178,7 @@ export default Vue.extend({
                 </WFTab>
               </template>
             </WFPage>
+            <WFPage container="transport" slug="empty"/>
           </WFTab>
           <WFTab name="10">
             <WFPOI :poi="currentPOI" :showLogo="true" :showDescription="true" :showAccessibilityPathButton="true" :showDistance="true" :showPath2Text="false"  :showPathTime="true" :showAds="true" :showPathStepCount="true"></WFPOI>

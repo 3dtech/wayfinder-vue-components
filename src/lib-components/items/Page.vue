@@ -90,6 +90,9 @@ export default {
 		if (this.defaultTab) {
 			this.tab = this.defaultTab;
 		}
+		else if (typeof this.slug === "string" && this.slug.length > 0) {
+			this.page = this.findBySlug(this.slug);
+		}
 		else if (!this.page) {
 			this.page = this.findByIndex(this.index);
 		}
@@ -184,6 +187,7 @@ export default {
 			return false;
 		},
 		updatePage () {
+			console.log('updatePage', this.container, this.slug)
 			if (this.pages && this.pages[this.container]) {
 				if(this.page && this.page.type == "tab") {
 					this.tab = this.page.slug;

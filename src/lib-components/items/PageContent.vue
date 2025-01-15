@@ -1,7 +1,7 @@
 <template>
 	<div class="wf-page-content" v-if="page">
 		<component v-for="(item, index) in page.items" :key="item.id" :class="['wf-page-item-' + index ]" :is="itemType(item)" :item="item"></component> 
-	</div>>
+	</div>
 </template>
 
 <script>
