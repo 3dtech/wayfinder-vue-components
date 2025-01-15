@@ -87,27 +87,13 @@ export default {
 		}
 	},
 	mounted () {
-		if (this.defaultTab) {
-			this.tab = this.defaultTab;
-		}
-		else if (typeof this.slug === "string" && this.slug.length > 0) {
-			this.page = this.findBySlug(this.slug);
-		}
-		else if (!this.page) {
-			this.page = this.findByIndex(this.index);
-		}
-
+		console.log('mounted.page', this.defaultTab, this.slug, this.page)
+		this.getDefaultPage();
 		this.updatePage();
 	},
 	watch: {
 		pages () {
-			if (this.defaultTab) {
-				this.tab = this.defaultTab;
-			}
-			else if (!this.page) {
-				this.page = this.findByIndex(this.index);
-			}
-			
+			this.getDefaultPage();			
 			this.updatePage();
 		},
 		container () {
@@ -146,6 +132,17 @@ export default {
 		}
 	},
 	methods: {
+		getDefaultPage () {
+			if (this.defaultTab) {
+				this.tab = this.defaultTab;
+			}
+			else if (typeof this.slug === "string" && this.slug.length > 0) {
+				this.page = this.findBySlug(this.slug);
+			}
+			else if (!this.page) {
+				this.page = this.findByIndex(this.index);
+			}
+		},
 		findByID (id) {
 			if (this.pages && this.pages[this.container]) {
 				if (id > -1) {
