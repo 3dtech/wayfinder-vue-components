@@ -55,7 +55,6 @@ export default Vue.extend({
       }
     },
     groupPOIClicked (poi) {
-      console.log('poi', poi);
       this.$refs.map.showPOIPopup(poi);
     },
     resetScroll() {

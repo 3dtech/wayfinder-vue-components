@@ -95,6 +95,7 @@ export default {
 			}
 
 			let api = "//api.3dwayfinder.com";
+			let live_api = "//api.3dwayfinder.com";
 			let assets = this.assets ? this.assets : "//static.3dwayfinder.com/shared/";
 
 			switch (this.$WF_ENV) {
@@ -111,10 +112,12 @@ export default {
 				break;
 				case "enterprise":
 					api = "//localhost:8080/api";
+					live_api = api;
 					assets = "../../../shared/";
 				break;
 				case "custom":
 					api = this.$WF_API;
+					live_api = api;
 				break;
 			}
 			// WayfinderAPI.LOCATION = 'http://localhost:8080/api/';
@@ -129,6 +132,7 @@ export default {
 				}
 			});
 			WayfinderAPI.LOCATION = api;
+			WayfinderAPI.LIVE_LOCATION = live_api;
 			wayfinder.options.assetsLocation = assets;
 			console.log('this.project', this.project);
 			if (this.project) {
@@ -147,7 +151,7 @@ export default {
 
 					scope.update(wayfinder);
 					scope.$store.dispatch('wf/SET_INACTIVITY_TIME', wayfinder.settings.getInt('kiosk.max-inactivity', 30));
-					scope.$emit('loaded');	
+					scope.$emit('loaded');
 				}
 			});
 
@@ -192,6 +196,7 @@ export default {
 			});
 
 			wayfinder.events.on("map-click", (poi) => {
+				console.log('map-click', poi)
 				if (poi) {
 					poi = this.$store.getters["wf/freezePOI"](poi);
 					this.$emit('poiClicked', poi, true);
