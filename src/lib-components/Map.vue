@@ -111,7 +111,7 @@ export default {
 					assets = "https://wayfinder-cdn.com/shared/";
 				break;
 				case "enterprise":
-					api = "//localhost:8080/api";
+					api = "../../../api/";
 					live_api = api;
 					assets = "../../../shared/";
 				break;
