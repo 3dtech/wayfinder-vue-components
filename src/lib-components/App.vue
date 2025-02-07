@@ -8,20 +8,20 @@
 const urls = {
   api: {
     live: "//wayfinder-cdn.com/api",
-    enterprise: "//example.com/api",
+    enterprise: "../../../api/",
     dev: "//api.3dwayfinder.com",
     snapshot: "../../../api/"
   },
   assets: {
     live: "https://wayfinder-cdn.com/shared/",
     dev: "//static.3dwayfinder.com/shared/",
-    enterprise: "//example.com/shared/",
+    enterprise: "../../../shared/",
     snapshot: "../../../shared/"
   },
   js: {
     live: "https://wayfinder-cdn.com/",
     dev: "//static.3dwayfinder.com",
-    enterprise: "//example.com/js/",
+    enterprise: "../../../",
     snapshot: "../../../"
   }
 }

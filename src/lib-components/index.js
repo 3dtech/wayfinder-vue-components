@@ -5,14 +5,14 @@ const urls = {
     live: "https://wayfinder-cdn.com/shared/",
     cdn: "https://wayfinder-cdn.com/shared/",
     dev: "//static.3dwayfinder.com/shared/",
-    enterprise: "//example.com/shared/",
+    enterprise: "../../../shared/",
     snapshot: "../../../shared/"
   },
   js: {
     live: "https://wayfinder-cdn.com/",
     cdn: "https://wayfinder-cdn.com/",
     dev: "//static.3dwayfinder.com",
-    enterprise: "//example.com/js/",
+    enterprise: "../../../",
     snapshot: "../../../"
   }
 }
