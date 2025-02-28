@@ -86,7 +86,21 @@ export default {
 	},
 	methods: {
 		load () {		
-			console.log('load', this.$WF_MAP_TYPE)	
+			var _project = this.project;
+			var options = decodeURI(location.search.substring(1));
+			console.log('options', options)
+			//override from url
+			if (options.indexOf("mobile=") > -1) {
+				this.$WF_MAP_TYPE = "2d";
+			}
+			
+			if (options.indexOf("project=") > -1) {
+				const params = new URLSearchParams(location.search);
+				_project = params.get("project");
+			}
+
+			console.log('wf.load', this.$WF_MAP_TYPE, _project)
+
 			if (typeof this.$WF_MAP_TYPE !== "undefined" && this.$WF_MAP_TYPE == "2d") {
 				wayfinder = new Wayfinder2D();
 			}
@@ -113,19 +127,12 @@ export default {
 				case "enterprise":
 					api = "../../../api/";
 					assets = "../../../shared/";
-
-					var loc = window.location, new_uri;
-					if (loc.protocol === "https:") {
-						new_uri = "wss:";
-					} else {
-						new_uri = "ws:";
-					}
-					new_uri += "//" + loc.host  + "/api/";
-					live_api = new_uri;
+					var loc = window.location;
+					live_api = loc.host + "/";
 				break;
 				case "custom":
 					api = this.$WF_API;
-					live_api = api;
+					live_api = api; //TODO should be /monitor/
 				break;
 			}
 			// WayfinderAPI.LOCATION = 'http://localhost:8080/api/';
@@ -142,12 +149,12 @@ export default {
 			WayfinderAPI.LOCATION = api;
 			WayfinderAPI.LIVE_LOCATION = live_api;
 			wayfinder.options.assetsLocation = assets;
-			console.log('this.project', this.project);
+
 			if (this.project) {
-				wayfinder.options.project = this.project;
+				wayfinder.options.project = _project;
 			}
 			
-			wayfinder.open();
+			wayfinder.open(_project);
 
 			var scope = this;
 			var pathTextTime = wayfinder.settings.getInt('path.message.duration', 5) * 1000;
