@@ -87,6 +87,7 @@ export default {
 	methods: {
 		load () {		
 			var _project = this.project;
+			var _api = this.$WF_ENV;
 			var options = decodeURI(location.search.substring(1));
 			console.log('options', options)
 			//override from url
@@ -95,8 +96,13 @@ export default {
 			}
 			
 			if (options.indexOf("project=") > -1) {
-				const params = new URLSearchParams(location.search);
+				var params = new URLSearchParams(location.search);
 				_project = params.get("project");
+			}
+
+			if (options.indexOf("api=")) {
+				var params = new URLSearchParams(location.search);
+				_api = params.get("api");
 			}
 
 			console.log('wf.load', this.$WF_MAP_TYPE, _project)
@@ -112,7 +118,7 @@ export default {
 			let live_api = "//api.3dwayfinder.com";
 			let assets = this.assets ? this.assets : "//static.3dwayfinder.com/shared/";
 
-			switch (this.$WF_ENV) {
+			switch (_api) {
 				case "live":
 					api = "//api.3dwayfinder.com";
 				break;
