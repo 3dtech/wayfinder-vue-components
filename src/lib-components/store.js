@@ -167,7 +167,7 @@ export default {
 			}
 		},
 		xPOIAdvertisements: (state) => {
-			if (typeof Vue.prototype.$wayfinder !== 'undefined') {
+			if (typeof Vue.prototype.$wayfinder !== 'undefined' && Array.isArray(Vue.prototype.$wayfinder.poiAdvertisements)) {
 				state.poiAdvertisements = Object.freeze(Vue.prototype.$wayfinder.poiAdvertisements.map(p => {
 					return Object.freeze(p);
 				}));
