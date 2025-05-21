@@ -100,7 +100,7 @@ export default {
 				_project = params.get("project");
 			}
 
-			if (options.indexOf("api=")) {
+			if (options.indexOf("api=") > -1) {
 				var params = new URLSearchParams(location.search);
 				_api = params.get("api");
 			}
@@ -114,20 +114,20 @@ export default {
 				wayfinder = new Wayfinder3D();
 			}
 
-			let api = "//api.3dwayfinder.com";
-			let live_api = "//api.3dwayfinder.com";
+			let api = WayfinderAPI.LOCATION;
+			let live_api = WayfinderAPI.LIVE_LOCATION;
 			let assets = this.assets ? this.assets : "//static.3dwayfinder.com/shared/";
-
+			console.log('_api', _api, this.$WF_ENV);
 			switch (_api) {
 				case "live":
-					api = "//api.3dwayfinder.com";
+					api = WayfinderAPI.LOCATION;
 				break;
 				case "snapshot":
 					api = "../../../api/";
 					assets = "../../../shared/";
 				break;
 				case "cdn":
-					api = "https://wayfinder-cdn.com/api";
+					api = WayfinderAPI.CDN_LOCATION;
 					assets = "https://wayfinder-cdn.com/shared/";
 				break;
 				case "enterprise":
@@ -152,7 +152,7 @@ export default {
 					} 
 				}
 			});
-			console.log('API', api, "env", this.$WF_ENV, "live", live_api, "assets", assets);
+			console.log('API', api, "env", this.$WF_ENV, "live", live_api);
 			WayfinderAPI.LOCATION = api;
 			WayfinderAPI.LIVE_LOCATION = live_api;
 			wayfinder.options.assetsLocation = assets;
