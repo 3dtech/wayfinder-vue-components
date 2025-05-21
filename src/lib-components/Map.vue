@@ -152,6 +152,7 @@ export default {
 					} 
 				}
 			});
+			console.log('API', api, "env", this.$WF_ENV, "live", live_api, "assets", assets);
 			WayfinderAPI.LOCATION = api;
 			WayfinderAPI.LIVE_LOCATION = live_api;
 			wayfinder.options.assetsLocation = assets;
