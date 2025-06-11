@@ -56,7 +56,8 @@ export default {
 			clearTimeout(this.lastClick);
 			this.$emit("touched", e);
             this.screensaver = false;
-            
+            this.$wayfinder.run();
+
 			this.lastClick = setTimeout(() => { // Start screensaver
 				this.$emit("screensaving");
                 this.screensaver = true;
