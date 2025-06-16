@@ -13,7 +13,8 @@ const urls = {
     cdn: "https://wayfinder-cdn.com/",
     dev: "//static.3dwayfinder.com",
     enterprise: "../../../",
-    snapshot: "../../../"
+    snapshot: "../../../",
+    local: "./js/"
   }
 }
 
