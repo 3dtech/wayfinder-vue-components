@@ -14,7 +14,7 @@ const urls = {
     dev: "//static.3dwayfinder.com",
     enterprise: "../../../",
     snapshot: "../../../",
-    local: "./js/"
+    local: "./"
   }
 }
 
