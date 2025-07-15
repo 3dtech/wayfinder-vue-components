@@ -18,7 +18,7 @@ Vue.use(Vue2TouchEvents,
   })
 
 Vue.config.productionTip = false;
-const WF_MAP_TYPE = "3d";
+const WF_MAP_TYPE = "2d";
 const WF_API = "cdn";
 const WF_PROJECT = "8aac0a8fcdaf1f3e720b6b0d89775a00";
 const customAPI = "http://localhost:3333";
@@ -39,7 +39,7 @@ const store = new Vuex.Store({
   }
 })
 
-loadWayfinder(WF_MAP_TYPE, WF_API, loadVue);
+loadWayfinder(WF_MAP_TYPE, "live", loadVue);
 
 function loadVue () {
   new Vue({

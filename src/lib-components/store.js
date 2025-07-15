@@ -221,6 +221,9 @@ export default {
 		},
 		RESET: (state, pois) => {
 			state.reset = Date.now();
+		},
+		LOADED: (state) => (p) => {
+			state.loaded = true;
 		}
 	},
 	actions: {
@@ -269,6 +272,9 @@ export default {
 		},
 		SET_TEMPLATE_SETTINGS: (context) => {
 
+		},
+		LOADED : (context) => {
+			context.commit('LOADED', true);
 		}
 	}
 };

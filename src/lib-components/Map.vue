@@ -174,6 +174,7 @@ export default {
 					scope.update(wayfinder);
 					scope.$store.dispatch('wf/SET_INACTIVITY_TIME', wayfinder.settings.getInt('kiosk.max-inactivity', 30));
 					scope.$emit('loaded');
+					scope.$store.dispatch('wf/LOADED', true);
 				}
 			});
 
