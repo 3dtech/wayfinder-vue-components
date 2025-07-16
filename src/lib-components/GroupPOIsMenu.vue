@@ -2,14 +2,18 @@
 	<div class="wf-component wf-group-pois-menu">
 		<ul class="wf-list" :class="['wf-list-count-' + count]">
 			<li class="wf-list-item wf-list-header" v-touch:tap="back()">{{ currentGroupName }}</li>
-			<li class="wf-list-item" v-touch:tap="onClick(poi)" :class='{"wf-active": currentPOI && poi.id == currentPOI.id}' v-for="poi in getPOIs" :key='poi.id' v-html="poi.getName(language)"></li>
+			<li class="wf-list-item" v-touch:tap="onClick(poi)" :class='{"wf-active": currentPOI && poi.id == currentPOI.id}' v-for="poi in getPOIs" :key='poi.id'>
+				<slot name="poi" :poi="poi">
+					<POI :poi="poi" :showLogo="showPOILogo" :showName="showPOIName" :showPathButton="showPOIPathButton" :showDescription="showPOIDescription" :showRoomID="showPOIRoomID" :showFloor="showPOIFloor"/>
+				</slot>
+			</li>
 		</ul>
 	</div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-
+import POI from './items/POI.vue';
 export default {
 	name: 'GroupPOIsMenu',
 	props: {
@@ -20,7 +24,50 @@ export default {
 		currentPOI: {
 			type: Object,
 			default: null
+		},
+		az: {
+			type: Boolean,
+			default: false
+		},
+		order: {
+			type: Boolean,
+			default: false
+		},
+		showPOILogo: {
+			type: Boolean,
+			default: false
+		},
+		showPOIName: {
+			type: Boolean,
+			default: true
+		},
+		showPOIPathButton: {
+			type: Boolean,
+			default: false
+		},
+		showPOIDescription: {
+			type: Boolean,
+			default: false
+		},
+		showPOIRoomID: {
+			type: Boolean,
+			default: false
+		},
+		showPOIFloor: {
+			type: Boolean,
+			default: false
+		},
+		sortPOIs: {
+			type: Boolean,
+			default: true
+		},
+		showDescription: {
+			type: Boolean,
+			default: false
 		}
+	},
+	components: {
+		POI
 	},
 	data () {
 		return {
