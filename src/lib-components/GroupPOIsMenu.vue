@@ -1,7 +1,7 @@
 <template>
 	<div class="wf-component wf-group-pois-menu">
 		<ul class="wf-list" :class="['wf-list-count-' + count]">
-			<li class="wf-list-item wf-list-header" v-touch:tap="back()">{{ currentGroupName }}</li>
+			<li class="wf-list-item wf-list-header" v-if="showGroupHeader" v-touch:tap="back()">{{ currentGroupName }}</li>
 			<li class="wf-list-item" v-touch:tap="onClick(poi)" :class='{"wf-active": currentPOI && poi.id == currentPOI.id}' v-for="poi in getPOIs" :key='poi.id'>
 				<slot :poi="poi">
 					<POI :poi="poi" :showLogo="showPOILogo" :showName="showPOIName" :showPathButton="showPOIPathButton" :showDescription="showPOIDescription" :showRoomID="showPOIRoomID" :showFloor="showPOIFloor"/>
@@ -64,7 +64,11 @@ export default {
 		showDescription: {
 			type: Boolean,
 			default: false
-		}
+		},
+		showGroupHeader: {
+			type: Boolean,
+			default: false
+		},
 	},
 	components: {
 		POI
