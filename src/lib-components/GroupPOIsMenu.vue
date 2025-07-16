@@ -3,7 +3,7 @@
 		<ul class="wf-list" :class="['wf-list-count-' + count]">
 			<li class="wf-list-item wf-list-header" v-touch:tap="back()">{{ currentGroupName }}</li>
 			<li class="wf-list-item" v-touch:tap="onClick(poi)" :class='{"wf-active": currentPOI && poi.id == currentPOI.id}' v-for="poi in getPOIs" :key='poi.id'>
-				<slot name="poi" :poi="poi">
+				<slot :poi="poi">
 					<POI :poi="poi" :showLogo="showPOILogo" :showName="showPOIName" :showPathButton="showPOIPathButton" :showDescription="showPOIDescription" :showRoomID="showPOIRoomID" :showFloor="showPOIFloor"/>
 				</slot>
 			</li>
