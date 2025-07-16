@@ -82,7 +82,22 @@ export default {
                 return page["name"][this.language];
             }
             return "";
-        }
+        },
+		findBySlug (slug) {
+			if (this.pages && this.pages[this.container]) {
+				if (slug.length > 0) {
+					let page;
+					for(let p in this.pages[this.container]) {
+						page = this.pages[this.container][p];
+						if (page.slug.toLowerCase() == slug) {
+							return page;
+						}
+					}
+				}
+			}
+
+			return false;
+		}
 	}
 };
 </script>
