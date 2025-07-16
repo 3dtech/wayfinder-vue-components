@@ -222,8 +222,8 @@ export default {
 		RESET: (state, pois) => {
 			state.reset = Date.now();
 		},
-		LOADED: (state) => (p) => {
-			state.loaded = p;
+		LOADED: (state, val) => {
+			state.loaded = val;
 		}
 	},
 	actions: {
