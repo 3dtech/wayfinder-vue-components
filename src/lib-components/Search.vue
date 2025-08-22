@@ -14,6 +14,9 @@
 			</div>
 			<div class="wf-search-input-container" v-if="showOutputField">
 				<input :id="inputId" ref='searchInput'/>
+				<div class="wf-search-clear" v-if="showClearButton" @click="clear($event)">
+					<WFIcon name="clear"></WFIcon>
+				</div>
 			</div>
 			<div :id="keyboardContainerId" class="wf-keyboard" v-show="showKeyboard">
 			</div>
@@ -34,7 +37,10 @@ export default {
 		POI
 	},
 	computed: {
-		...mapState('wf', ['language', 'reset'])
+		...mapState('wf', ['language', 'reset']),
+		hasClearListener(){
+			return !!(this.$listeners && this.$listeners.clear);
+		}
 	},
 	props: {
 		limit: {
@@ -42,6 +48,10 @@ export default {
 			default: -1
 		},
 		showCloseButton: {
+			type: Boolean,
+			default: false
+		},
+		showClearButton: {
 			type: Boolean,
 			default: false
 		},
@@ -105,6 +115,7 @@ export default {
 		this.keyboardContainerId = 'wf-keyboard-container-'+ now;
 		// Lets wait when the ID's are mapped
 		this.$nextTick(() => {
+			
 			this.keyboard = new OSK(this.inputId, this.keyboardContainerId);
 			this.keyboard.on('change', (keyword) => {
 				let results = this.$wayfinder.search.search(keyword);
@@ -173,6 +184,12 @@ export default {
 		close () {
 			this.$emit('close');
 			this.resetValues();
+		},
+		clear () {
+			this.$emit('clear');
+			if (!this.hasClearListener()) {
+				this.resetValues();
+			}
 		},
 		resetValues () {
 			this.results = [];
