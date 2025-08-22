@@ -336,6 +336,10 @@ export default {
 				this.poiPopupVisible = true;
 			}
 		},
+		clearPopup () {
+			this.popupPOI = null;
+			this.poiPopupVisible = false;
+		},
 		hidePOIPopup () {
 			this.poiPopupVisible = false;
 		},
