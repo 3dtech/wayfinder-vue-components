@@ -187,7 +187,7 @@ export default {
 		},
 		clear () {
 			this.$emit('clear');
-			if (!this.hasClearListener()) {
+			if (!this.hasClearListener) {
 				this.resetValues();
 			}
 		},
