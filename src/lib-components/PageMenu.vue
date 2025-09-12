@@ -5,9 +5,7 @@
 				<slot :page="page">
 					<i v-show="showIcon" class="wf-icon" v-html="page.icon"></i>
 					<label v-show="showName">{{getName(page)}}</label>
-					<div v-if="showPopup" v-show="active(currentPage, page)" class="wf-page-popup">
-						<Page :container="container" :pid="parseInt(page.id)" :showIcon="popUpShowIcon" :showName="popUpShowName" :scrollable="popUpScrollable" />
-					</div>
+					<Page v-if="showPopup" class="wf-page-popup" v-show="active(currentPage, page)" :container="container" :pid="parseInt(page.id)" :showIcon="popUpShowIcon" :showName="popUpShowName" :scrollable="popUpScrollable" />
 				</slot>
 			</li>
 		</ul>
