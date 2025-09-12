@@ -6,7 +6,7 @@
 					<i v-show="showIcon" class="wf-icon" v-html="page.icon"></i>
 					<label v-show="showName">{{getName(page)}}</label>
 					<div v-if="showPopup" v-show="active(page)" class="wf-page-popup">
-						<WFPage :page="page" :showIcon="popUpShowIcon" :showName="popUpShowName" :scrollable="popUpScrollable" />
+						<WFPage :pid="page.id" :showIcon="popUpShowIcon" :showName="popUpShowName" :scrollable="popUpScrollable" />
 					</div>
 				</slot>
 			</li>
