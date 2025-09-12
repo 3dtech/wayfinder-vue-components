@@ -72,6 +72,7 @@ export default {
 		...mapState('wf', ['pages', 'language']),
 		sortedPages () {
             let arr = [];
+			
             if (this.pages && typeof this.pages == "object" && this.pages[this.container]) {
                 arr = Object.values(this.pages[this.container]).filter((page) => {
                     return (page && parseInt(page.visible));

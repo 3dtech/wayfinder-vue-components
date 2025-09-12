@@ -1,5 +1,5 @@
 <template>
-	<div class="wf-component wf-scrollable" ref="area">
+	<div class="wf-component wf-scrollable" :class="{'wf-scrolling-disabled': !enable}" ref="area">
 		<slot/>
 	</div>
 </template>
