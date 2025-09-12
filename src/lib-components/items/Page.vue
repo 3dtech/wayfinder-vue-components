@@ -2,9 +2,11 @@
 	<div class="wf-page" :class="['wf-page-slug-' + (page && page.slug ? page.slug : 'none'), 'wf-page-type-' + (page ? page.type : 'none'), page ? page.classes : '']">
 		<WFScrollableArea :enable="scrollable" v-if="page">
 			<div class="wf-page-container" :class="{'wf-page-empty': page.items.length === 0}">
-				<div class="wf-page-icon" v-if="showIcon" :class="[page.icon ? 'wf-has-icon' : '']" v-html="page.icon"></div>
-				<label class="wf-page-name" v-if="showName" v-html="pageName || ''"></label>
-				<WFPageContent :page="page"></WFPageContent>
+				<slot :page="page">
+					<div class="wf-page-icon" v-if="showIcon" :class="[page.icon ? 'wf-has-icon' : '']" v-html="page.icon"></div>
+					<label class="wf-page-name" v-if="showName" v-html="pageName || ''"></label>
+					<WFPageContent :page="page"></WFPageContent>
+				</slot>
 			</div>
 		</WFScrollableArea>
 		<WFTabs ref="tabs" :activeTab="currentTab" v-show="currentTab">

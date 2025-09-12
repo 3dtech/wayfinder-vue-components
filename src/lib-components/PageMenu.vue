@@ -1,9 +1,14 @@
 <template>
 	<div class="wf-component wf-page-menu">
 		<ul class="wf-list" :class="['wf-list-count-' + count]">
-			<li class="wf-list-item" @click="onClick(page)" v-touch:tap="onClick(page)" :class='{"wf-active": currentPage && page.id == currentPage.id}' v-for="page in sortedPages" :key='page.id'>
-				<i v-show="showIcon" class="wf-icon" v-html="page.icon"></i>
-                <label v-show="showName">{{getName(page)}}</label>
+			<li class="wf-list-item" @click="onClick(page)" v-touch:tap="onClick(page)" :class='{"wf-active": active(page)}' v-for="page in sortedPages" :key='page.id'>
+				<slot :page="page">
+					<i v-show="showIcon" class="wf-icon" v-html="page.icon"></i>
+					<label v-show="showName">{{getName(page)}}</label>
+					<div v-if="showPopup" v-show="active(page)" class="wf-page-popup">
+						<WFPage :page="page" :showIcon="popUpShowIcon" :showName="popUpShowName" :scrollable="popUpScrollable" />
+					</div>
+				</slot>
 			</li>
 		</ul>
 	</div>
@@ -36,6 +41,22 @@ export default {
 			type: Boolean,
 			default: false
 		},
+		showPopup: {
+			type: Boolean,
+			default: false
+		},
+		popUpScrollable: {
+			type: Boolean,
+			default: true
+		},
+		popUpShowName: {
+			type: Boolean,
+			default: true
+		},
+		popUpShowIcon: {
+			type: Boolean,
+			default: false
+		}
 	},
 	data () {
 		return {
@@ -96,6 +117,12 @@ export default {
 				}
 			}
 
+			return false;
+		},
+		active (page) {
+			if (this.currentPage && page) {
+				return this.currentPage.id == page.id;
+			}
 			return false;
 		}
 	}
