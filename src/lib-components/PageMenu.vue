@@ -5,8 +5,8 @@
 				<slot :page="page">
 					<i v-show="showIcon" class="wf-icon" v-html="page.icon"></i>
 					<label v-show="showName">{{getName(page)}}</label>
-					<div v-if="showPopup" v-show="active(page)" class="wf-page-popup">
-						<WFPage :pid="page ? parseInt(page.id) : -1" :container="container" :showIcon="popUpShowIcon" :showName="popUpShowName" :scrollable="popUpScrollable" />
+					<div v-if="showPopup" v-show="active(currentPage, page)" class="wf-page-popup">
+						<Page :container="container" :pid="parseInt(page.id)" :showIcon="popUpShowIcon" :showName="popUpShowName" :scrollable="popUpScrollable" />
 					</div>
 				</slot>
 			</li>
@@ -17,9 +17,14 @@
 <script>
 /* global */
 import { mapState } from 'vuex';
+import Page from './items/Page.vue';
+
 
 export default {
 	name: 'PageMenu',
+	components: {
+		Page,
+	},
 	props: {
         container: {
             type: String,
@@ -92,6 +97,11 @@ export default {
 			return arr;
 		}
 	},
+	watch: {
+		currentPage () {
+			console.log('currentPage changed', this.currentPage);
+		},
+	},
 	methods: {
 		onClick (page) {
 			return () => {
@@ -119,9 +129,9 @@ export default {
 
 			return false;
 		},
-		active (page) {
-			if (this.currentPage && page) {
-				return this.currentPage.id == page.id;
+		active (currentPage, page) {
+			if (currentPage && page) {
+				return currentPage.id == page.id;
 			}
 			return false;
 		}

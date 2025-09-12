@@ -49,10 +49,6 @@ export default Vue.extend({
 
       this.pageSlug = page.slug;
       this.currentPage = page;
-      if(this.$refs["pages"]) {
-        let p = this.$refs["pages"].findBySlug("map");
-        console.log("p", p);
-      }
     },
     groupPOIClicked (poi) {
       this.$refs.map.showPOIPopup(poi);
@@ -166,7 +162,7 @@ export default Vue.extend({
              <WFGroupPOIsMenu :group="group"></WFGroupPOIsMenu>
           </WFTab>
           <WFTab name="9">
-            <WFPageMenu container="general" @clicked="pageMenuClicked" :showPopup="true"></WFPageMenu>
+            <WFPageMenu container="general" @clicked="pageMenuClicked" :showPopup="true" :currentPage="currentPage"></WFPageMenu>
             <WFPage ref="pages" :pid="currentPage ? parseInt(currentPage.id) : -1" defaultTab="map">
               <template v-slot:tabs>
                 <WFTab name="map">
@@ -177,7 +173,7 @@ export default Vue.extend({
                 </WFTab>
               </template>
             </WFPage>
-            <WFPage container="transport" slug="empty"/>
+            <WFPage container="general" :pid="5"/>
           </WFTab>
           <WFTab name="10">
             <WFPOI :poi="currentPOI" :showLogo="true" :showDescription="true" :showAccessibilityPathButton="true" :showDistance="true" :showPath2Text="false"  :showPathTime="true" :showAds="true" :showPathStepCount="true"></WFPOI>

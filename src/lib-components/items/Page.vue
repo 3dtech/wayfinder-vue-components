@@ -1,5 +1,6 @@
 <template>
 	<div class="wf-page" :class="['wf-page-slug-' + (page && page.slug ? page.slug : 'none'), 'wf-page-type-' + (page ? page.type : 'none'), page ? page.classes : '']">
+		<slot name="header" :page="page"></slot>
 		<WFScrollableArea :enable="scrollable" v-if="page">
 			<div class="wf-page-container" :class="{'wf-page-empty': page.items.length === 0}">
 				<slot :page="page">
@@ -12,6 +13,7 @@
 		<WFTabs ref="tabs" :activeTab="currentTab" v-show="currentTab">
 			<slot name="tabs"></slot>
 		</WFTabs>
+		<slot name="footer" :page="page"></slot>
 	</div>
 </template>
 
@@ -89,7 +91,6 @@ export default {
 		}
 	},
 	mounted () {
-		console.log('mounted.page', this.defaultTab, this.slug, this.page)
 		this.getDefaultPage();
 		this.updatePage();
 	},
@@ -110,7 +111,7 @@ export default {
 				this.updatePage();
 			}
 			else {
-				console.log('Page with ID', this.pid, 'not found');
+				console.log('Page with ID', this.pid, 'in', this.container, 'not found');
 			}
 		},
 		slug () {
@@ -142,8 +143,14 @@ export default {
 			else if (typeof this.slug === "string" && this.slug.length > 0) {
 				this.page = this.findBySlug(this.slug);
 			}
+			else if (this.pid > -1) {
+				this.page = this.findByID(this.pid);
+			}
 			else if (!this.page) {
 				this.page = this.findByIndex(this.index);
+			}
+			else {
+				console.log('Default page not found', this.pid, this.slug, this.index, this.container);
 			}
 		},
 		findByID (id) {
@@ -152,6 +159,7 @@ export default {
 					let page;
 					for(let p in this.pages[this.container]) {
 						page = this.pages[this.container][p];
+						
 						if (parseInt(page.id) == id) {
 							return page
 						}
@@ -187,7 +195,6 @@ export default {
 			return false;
 		},
 		updatePage () {
-			console.log('updatePage', this.container, this.slug)
 			if (this.pages && this.pages[this.container]) {
 				if(this.page && this.page.type == "tab") {
 					this.tab = this.page.slug;
