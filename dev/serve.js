@@ -19,7 +19,7 @@ Vue.use(Vue2TouchEvents,
 
 Vue.config.productionTip = false;
 const WF_MAP_TYPE = "2d";
-const WF_API = "cdn";
+const WF_API = "live";
 const WF_PROJECT = "2e9a2048fbd59efed237a19eed0cb7ae";
 const customAPI = "http://localhost:3333";
 
