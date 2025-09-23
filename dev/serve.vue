@@ -61,6 +61,7 @@ export default Vue.extend({
       this.currentTab = 10;
       this.currentPOI = poi;
       this.$refs.map.showPOIPopup(poi);
+      console.log('wf', this.$wayfinder)
     },
     debug () {
       console.log('wf', this.$wayfinder)
@@ -82,7 +83,7 @@ export default Vue.extend({
 <template>
   <WFApp id="app">
     <div class="map-container">
-      <WFMap ref="map" @loaded="mapDataLoaded" :project="$WF_PROJECT" :POIPopupEnabled="true" :showPOIPathButton="true"/>
+      <WFMap ref="map" @loaded="mapDataLoaded" :project="$WF_PROJECT" :POIPopupEnabled="true" :showPOIPathButton="true" @poiClicked="showPOI"/>
       <div class="map-footer">
         <WFYAH/>
         <WFZoomMenu/>

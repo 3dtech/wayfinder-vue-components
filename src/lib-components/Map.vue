@@ -219,7 +219,6 @@ export default {
 			});
 
 			wayfinder.events.on("map-click", (poi) => {
-				console.log('map-click', poi)
 				if (poi) {
 					poi = this.$store.getters["wf/freezePOI"](poi);
 					this.$emit('poiClicked', poi, true);

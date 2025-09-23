@@ -38,6 +38,7 @@ function freezeFloor(f) {
 	_f.pois = _f.pois.map(p => freezePOI(p));
 	delete _f.nodes;
 	delete _f.node3D;
+	console.log('freezeFloor', _f)
 	return _f;
 }
 export default {
