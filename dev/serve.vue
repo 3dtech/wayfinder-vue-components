@@ -31,7 +31,6 @@ export default Vue.extend({
      // this.isit = 'yes';
     },
     setGroup (group, a) {
-      console.log('setGroup', group, a)
       this.currentGroup = group;
       this.$store.dispatch('wf/SET_FILTERED_POIS', group.pois);
     },
