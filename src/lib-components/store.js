@@ -32,6 +32,14 @@ function freezePOI(p) {
 
 	return p;
 }
+
+function freezeFloor(f) {
+	let _f = clone(f);
+	_f.pois = _f.pois.map(p => freezePOI(p));
+	delete _f.nodes;
+	delete _f.node3D;
+	return _f;
+}
 export default {
 	namespaced: true,
 	state: {
@@ -67,14 +75,7 @@ export default {
 		},
 		xFloors: (state) => {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined' && Vue.prototype.$wayfinder.building) {
-				let _f;
-				state.floors = Object.freeze(Vue.prototype.$wayfinder.building.getSortedFloors().map(f => {
-					_f = clone(f);
-					_f.pois = _f.pois.map(p => freezePOI(p));
-					delete _f.nodes;
-					delete _f.node3D;
-					return _f;
-				}));
+				state.floors = Object.freeze(Vue.prototype.$wayfinder.building.getSortedFloors().map(f => freezeFloor(f)));
 			}
 			return state.floors;
 		},
@@ -108,10 +109,15 @@ export default {
 		xBuilding: (state) => {
 			if (Vue.prototype.$wayfinder !== 'undefined') {
 				let building = clone(Vue.prototype.$wayfinder.building);
-				Object.defineProperty(building, 'floors', { configurable: false });
-				Object.defineProperty(building, 'currentFloor', { configurable: false });
-				Object.defineProperty(building, 'sortedFloors', { configurable: false });
-				state.building = Object.freeze(building);
+				//console.log('building', building)
+				building.currentFloor = freezeFloor(building.currentFloor);
+				/*Object.keys(building.floors).forEach(function(key, index) { 
+					building.floors[key] = freezeFloor(building.floors[key]);
+				});*/
+
+				building.sortedFloors = Object.freeze(building.sortedFloors.map(f => freezeFloor(f)));
+				//console.log('building', clone(building))
+				state.building = clone(building);
 			}
 			return state.building;
 		},
