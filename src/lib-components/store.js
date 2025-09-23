@@ -199,6 +199,9 @@ export default {
 		},
 		freezeGroup: (state) => (p) => {
 			return freezeGroup(p);
+		},
+		freezeFloor: (state) => (f) => {
+			return freezeFloor(f);
 		}
 	},
 	mutations: {
