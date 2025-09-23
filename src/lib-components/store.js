@@ -15,7 +15,7 @@ function freezeGroup(g) {
 
 	return g;
 }
-var freezeProps = ["floor", "groups", "groupNames", "node", "settings", "names", "descriptions", "advertisements", "meshNode", "submesh", "canvasBoard", "poiComponent", "wayfinder", "engine", "open"]
+var freezeProps = ["floor", "groups", "groupNames", "node", "settings", "names", "descriptions", "advertisements", "meshNode", "submesh", "canvasBoard", "poiComponent", "wayfinder", "engine", "open", "attributes"]
 function freezePOI(p) {
 	p = clone(p);
 	for(let f in freezeProps) {
@@ -29,16 +29,24 @@ function freezePOI(p) {
 	p.poiComponent = undefined;
 	p.object = undefined;
 	p.submesh = undefined;
+	p.floor = freezeFloor(p.floor, true);
 
 	return p;
 }
 
-function freezeFloor(f) {
+function freezeFloor(f, deletePOIs) {
 	let _f = clone(f);
-	_f.pois = _f.pois.map(p => freezePOI(p));
+	
 	delete _f.nodes;
 	delete _f.node3D;
-	console.log('freezeFloor', _f)
+
+	if (deletePOIs) {
+		delete _f.pois;
+	}
+	else {
+		_f.pois = _f.pois.map(p => freezePOI(p));
+	}
+
 	return _f;
 }
 export default {
@@ -112,10 +120,16 @@ export default {
 				let building = clone(Vue.prototype.$wayfinder.building);
 				//console.log('building', building)
 				building.currentFloor = freezeFloor(building.currentFloor);
-				/*Object.keys(building.floors).forEach(function(key, index) { 
-					building.floors[key] = freezeFloor(building.floors[key]);
-				});*/
+				building.description = Object.freeze(building.description);
+				building.link = Object.freeze(building.link);
+				building.location = Object.freeze(building.location);
+				
+				let _floors = {};
+				Object.keys(building.floors).forEach(function(key, index) { 
+					_floors[key] = freezeFloor(building.floors[key]);
+				});
 
+				building.floors = _floors;
 				building.sortedFloors = Object.freeze(building.sortedFloors.map(f => freezeFloor(f)));
 				//console.log('building', clone(building))
 				state.building = clone(building);
@@ -149,7 +163,7 @@ export default {
 		},
 		xBanners: (state) => {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined') {
-				state.banners = Object.assign({}, Vue.prototype.$wayfinder.getFilteredAdvertisements());
+				state.banners = Object.assign({}, Object.freeze(Vue.prototype.$wayfinder.getFilteredAdvertisements()));
 			}
 		},
 		xTemplateSettings: (state) => {
