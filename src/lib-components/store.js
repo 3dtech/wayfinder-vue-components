@@ -15,7 +15,16 @@ function freezeGroup(g) {
 
 	return g;
 }
-var freezeProps = ["floor", "groups", "groupNames", "node", "settings", "names", "descriptions", "advertisements", "meshNode", "submesh", "canvasBoard", "poiComponent", "wayfinder", "engine", "open", "attributes"]
+
+function freezeNode(n) {
+	n = clone(n);
+	delete n.floor;
+	delete n.pois;
+	Object.defineProperty(n, 'neighbours', { configurable: false });
+
+	return n;
+}
+var freezeProps = ["floor", "groupNames", "node", "settings", "names", "descriptions", "advertisements", "meshNode", "submesh", "canvasBoard", "poiComponent", "wayfinder", "engine", "open", "attributes"]
 function freezePOI(p) {
 	p = clone(p);
 	for(let f in freezeProps) {
@@ -23,7 +32,9 @@ function freezePOI(p) {
 			Object.defineProperty(p, freezeProps[f], { configurable: false });
 		}
 	}
-
+	p.node = freezeNode(p.node);
+	p.groups = p.groups.map((g) => freezeGroup(g));
+	
 	p.wayfinder = undefined;
 	p.engine = undefined;
 	p.poiComponent = undefined;
@@ -39,6 +50,8 @@ function freezeFloor(f, deletePOIs) {
 	
 	delete _f.nodes;
 	delete _f.node3D;
+
+	Object.defineProperty(_f, 'names', { configurable: false });
 
 	if (deletePOIs) {
 		delete _f.pois;
