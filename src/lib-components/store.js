@@ -43,7 +43,7 @@ function freezeFloor(f, deletePOIs) {
 	if (deletePOIs) {
 		delete _f.pois;
 	}
-	else {
+	else if(_f.pois){
 		_f.pois = _f.pois.map(p => freezePOI(p));
 	}
 
