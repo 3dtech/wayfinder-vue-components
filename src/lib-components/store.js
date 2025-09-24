@@ -33,7 +33,7 @@ function freezeNode(n, skip) {
 		delete n.neighbours;
 	}
 	else if (n.neighbours) {
-		n.neighbours = n.neighbours.map((n) = freezeNode(n, true));
+		n.neighbours = n.neighbours.map((n) => freezeNode(n, true));
 	}
 
 	Object.defineProperty(n, 'neighbours', { configurable: false });
