@@ -5,7 +5,7 @@ function clone(obj) {
 	return Object.assign(Object.create(Object.getPrototypeOf(obj)), obj);
 }
 
-function freezeGroup(g) {
+function freezeGroup(g, skip) {
 	g = clone(g);
 	Object.defineProperty(g, 'parent', { configurable: false });
 	Object.defineProperty(g, 'color', { configurable: false });
@@ -13,39 +13,63 @@ function freezeGroup(g) {
 	Object.defineProperty(g, 'childGroups', { configurable: false });
 	Object.defineProperty(g, 'names', { configurable: false });
 
+	if (skip) {
+		delete g.pois;
+	}
+	else if (g.pois) {
+		g.pois = g.pois.map(p => freezePOI(p, true));
+	}
+	
+
 	return g;
 }
 
-function freezeNode(n) {
+function freezeNode(n, skip) {
 	n = clone(n);
 	delete n.floor;
 	delete n.pois;
+
+	if (skip) {
+		delete n.neighbours;
+	}
+	else if (n.neighbours) {
+		n.neighbours = n.neighbours.map((n) = freezeNode(n, true));
+	}
+
 	Object.defineProperty(n, 'neighbours', { configurable: false });
 
 	return n;
 }
-var freezeProps = ["floor", "groupNames", "node", "settings", "names", "descriptions", "advertisements", "meshNode", "submesh", "canvasBoard", "poiComponent", "wayfinder", "engine", "open", "attributes"]
-function freezePOI(p) {
+var freezeProps = ["floor", "groupNames", "settings", "names", "descriptions", "advertisements", "meshNode", "submesh", "canvasBoard", "poiComponent", "wayfinder", "engine", "open", "attributes"]
+function freezePOI(p, skip) {
 	p = clone(p);
 	for(let f in freezeProps) {
 		if(typeof p[freezeProps[f]] !== "undefined") {
 			Object.defineProperty(p, freezeProps[f], { configurable: false });
 		}
 	}
+
 	p.node = freezeNode(p.node);
-	p.groups = p.groups.map((g) => freezeGroup(g));
+
+	if (skip) {
+		delete p.groups;
+	}
+	else if (p.groups) {
+		p.groups = p.groups.map((g) => freezeGroup(g, true));
+	}
 	
 	p.wayfinder = undefined;
 	p.engine = undefined;
 	p.poiComponent = undefined;
 	p.object = undefined;
 	p.submesh = undefined;
+	p.meshNode = undefined;
 	p.floor = freezeFloor(p.floor, true);
 
 	return p;
 }
 
-function freezeFloor(f, deletePOIs) {
+function freezeFloor(f, skip) {
 	let _f = clone(f);
 	
 	delete _f.nodes;
@@ -53,7 +77,7 @@ function freezeFloor(f, deletePOIs) {
 
 	Object.defineProperty(_f, 'names', { configurable: false });
 
-	if (deletePOIs) {
+	if (skip) {
 		delete _f.pois;
 	}
 	else if(_f.pois){
