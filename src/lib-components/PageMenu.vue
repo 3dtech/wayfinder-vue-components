@@ -1,7 +1,7 @@
 <template>
 	<div class="wf-component wf-page-menu">
 		<ul class="wf-list" :class="['wf-list-count-' + count]">
-			<li class="wf-list-item" @click="onClick(page)" v-touch:tap="onClick(page)" :class='{"wf-active": active(page)}' v-for="page in sortedPages" :key='page.id'>
+			<li class="wf-list-item" @click="onClick(page)" v-touch:tap="onClick(page)" :class='{"wf-active": activeId == page.id}' v-for="page in sortedPages" :key='page.id'>
 				<slot :page="page">
 					<i v-show="showIcon" class="wf-icon" v-html="page.icon"></i>
 					<label v-show="showName">{{getName(page)}}</label>
@@ -63,7 +63,8 @@ export default {
 	},
 	data () {
 		return {
-			count: 0
+			count: 0,
+			activeId: -1
 		}
 	},
 	computed: {
@@ -99,6 +100,7 @@ export default {
 	watch: {
 		currentPage () {
 			console.log('currentPage changed', this.currentPage);
+			this.activeId = this.currentPage ? parseInt(this.currentPage.id) : -1;
 		},
 	},
 	methods: {
