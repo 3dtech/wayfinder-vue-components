@@ -89,6 +89,7 @@ function freezeFloor(f, skip) {
 export default {
 	namespaced: true,
 	state: {
+		buildings: [],
 		floors: [],
 		pois: [],
 		poiGroups: [],
@@ -151,6 +152,11 @@ export default {
 				state.shortcuts = shortcuts;
 			}
 			return state.shortcuts;
+		},
+		xBuildings: (state) => {
+			state.buildings = Vue.prototype.$wayfinder.getBuildings().map(b => {
+				return b.serialize();
+			});
 		},
 		xBuilding: (state) => {
 			if (Vue.prototype.$wayfinder !== 'undefined') {

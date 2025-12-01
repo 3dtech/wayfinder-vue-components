@@ -1,7 +1,7 @@
 <template>
 	<div class="wf-component wf-page-menu">
 		<ul class="wf-list" :class="['wf-list-count-' + count]">
-			<li class="wf-list-item" @click="onClick(page)" v-touch:tap="onClick(page)" :class='{"wf-active": activeId == page.id}' v-for="page in sortedPages" :key='page.id'>
+			<li class="wf-list-item" v-touch:tap="onClick(page)" :class='{"wf-active": activeId == page.id}' v-for="page in sortedPages" :key='page.id'>
 				<slot :page="page">
 					<i v-show="showIcon" class="wf-icon" v-html="page.icon"></i>
 					<label v-show="showName">{{getName(page)}}</label>
