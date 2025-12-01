@@ -99,6 +99,7 @@ export default {
 		shortcuts: [],
 		filteredPOIs: [],
 		currentFloor: null,
+		currentBuilding: null,
 		building: null,
 		yahLogo: '',
 		banners: null,
@@ -280,6 +281,9 @@ export default {
 		SET_CURRENT_FLOOR: (state, floor) => {
 			state.currentFloor = floor;
 		},
+		SET_CURRENT_BUILDING: (state, building) => {
+			state.currentBuilding = building;
+		},
 		SET_FILTERED_POIS: (state, pois) => {
 			state.filteredPOIs = pois;
 		},
@@ -323,6 +327,9 @@ export default {
 		},
 		SET_CURRENT_FLOOR :  (context, floor) => {
 			context.commit('SET_CURRENT_FLOOR',  Object.freeze(floor));
+		},
+		SET_CURRENT_BUILDING :  (context, building) => {
+			context.commit('SET_CURRENT_BUILDING',  Object.freeze(building));
 		},
 		SET_FILTERED_POIS : (context, pois) => {
 			pois = pois.map(p => {

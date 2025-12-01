@@ -168,8 +168,9 @@ export default {
 			wayfinder.events.on("data-loaded", function () {
 				if(!scope.loaded) {
 					// update getters
-					console.log('scope.$store', scope.$store)
 					scope.$store.dispatch('wf/SET_CURRENT_FLOOR', scope.$store.getters["wf/freezeFloor"](wayfinder.getCurrentFloor()) || null);
+					scope.$store.dispatch('wf/SET_CURRENT_BUILDING', wayfinder.getCurrentBuilding());
+					
 					scope.$store.dispatch('wf/SET_INACTIVITY_TIME', wayfinder.settings.getInt('kiosk.max-inactivity', 30));
 
 					scope.update(wayfinder);
