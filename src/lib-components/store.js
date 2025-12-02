@@ -123,7 +123,7 @@ export default {
 		},
 		xFloors: (state) => {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined' && Vue.prototype.$wayfinder.building) {
-				state.floors = Object.freeze(Vue.prototype.$wayfinder.building.getSortedFloors().map(f => freezeFloor(f)));
+				state.floors = Vue.prototype.$wayfinder.getCurrentBuilding().getSortedFloors().map(f => f.copy());
 			}
 			return state.floors;
 		},
@@ -155,28 +155,17 @@ export default {
 			return state.shortcuts;
 		},
 		xBuildings: (state) => {
-			state.buildings = Vue.prototype.$wayfinder.getBuildings().map(b => {
-				return b.serialize();
+			let buildings = Vue.prototype.$wayfinder.getBuildings();
+			let _buildings = {};
+			Object.keys(Vue.prototype.$wayfinder.getBuildings()).forEach(b => {
+				_buildings[b] = buildings[b].copy();
 			});
+			state.buildings = _buildings;
 		},
 		xBuilding: (state) => {
 			if (Vue.prototype.$wayfinder !== 'undefined') {
-				let building = clone(Vue.prototype.$wayfinder.building);
-				//console.log('building', building)
-				building.currentFloor = freezeFloor(building.currentFloor);
-				building.description = Object.freeze(building.description);
-				building.link = Object.freeze(building.link);
-				building.location = Object.freeze(building.location);
-				
-				let _floors = {};
-				Object.keys(building.floors).forEach(function(key, index) { 
-					_floors[key] = freezeFloor(building.floors[key]);
-				});
-
-				building.floors = _floors;
-				building.sortedFloors = Object.freeze(building.sortedFloors.map(f => freezeFloor(f)));
-				//console.log('building', clone(building))
-				state.building = clone(building);
+				let _building = Vue.prototype.$wayfinder.getCurrentBuilding();
+				state.building = _building.copy();
 			}
 			return state.building;
 		},

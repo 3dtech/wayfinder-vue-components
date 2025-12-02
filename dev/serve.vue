@@ -38,7 +38,7 @@ export default Vue.extend({
       console.log('bannerClicked')
     },
     reset () {
-      this.$store.dispatch('wf/RESET');
+      this.$store.dispatch('wf/SET_RESET');
     },
     log (msg) {
       console.log('log', msg);

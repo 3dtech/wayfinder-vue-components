@@ -203,7 +203,8 @@ export default {
 			wayfinder.events.on("floor-change", (floor) => {
 				// console.log('cbOnFloorChange', floor, wayfinder.settings.getInt('path.message.duration', 1))
 				if (floor) {
-					this.$store.dispatch('wf/SET_CURRENT_FLOOR', this.$store.getters["wf/freezeFloor"](floor));
+					this.$store.dispatch('wf/SET_CURRENT_FLOOR', wayfinder.getCurrentFloor().copy());
+					this.$store.dispatch('wf/SET_CURRENT_BUILDING', wayfinder.getCurrentBuilding().copy());
 					this.$emit('onTouch');
 				}
 				if (this.pathTextVisible) {
