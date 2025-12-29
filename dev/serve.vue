@@ -64,6 +64,11 @@ export default Vue.extend({
     },
     debug () {
       console.log('wf', this.$wayfinder)
+    },
+    scroll () {
+      if (this.$refs.page2) {
+        this.$refs.page2.scrollToSection(2, 'top', true, 300);
+      }
     }
   },
   data () {
@@ -162,8 +167,8 @@ export default Vue.extend({
              <WFGroupPOIsMenu :group="group"></WFGroupPOIsMenu>
           </WFTab>
           <WFTab name="9">
-            <WFPageMenu container="general" @clicked="pageMenuClicked" :showPopup="true" :currentPage="currentPage"></WFPageMenu>
-            <WFPage ref="pages" :pid="currentPage ? parseInt(currentPage.id) : -1" defaultTab="map">
+            <WFPageMenu container="default" @clicked="pageMenuClicked" :showPopup="true" :currentPage="currentPage"></WFPageMenu>
+            <WFPage ref="pages" :pid="currentPage ? parseInt(currentPage.id) : 0" defaultTab="map">
               <template v-slot:tabs>
                 <WFTab name="map">
                   Map
@@ -173,7 +178,8 @@ export default Vue.extend({
                 </WFTab>
               </template>
             </WFPage>
-            <WFPage container="general" :pid="5"/>
+            <button @click="scroll()">Scroll to page</button>
+            <WFPage container="klaasitoostus" ref="page2"/>
           </WFTab>
           <WFTab name="10">
             <WFPOI :poi="currentPOI" :showLogo="true" :showDescription="true" :showAccessibilityPathButton="true" :showDistance="true" :showPath2Text="false"  :showPathTime="true" :showAds="true" :showPathStepCount="true"></WFPOI>

@@ -40,10 +40,10 @@ export default {
 			let arr = []; // Copy arr for sorting
 			let floor;
 			let floors = this.floors;
-
+			
 			for (let i in floors) {
 				floor = floors[i];
-				if(floor && floor.getShowInMenu() && floor.getName(this.language)) {
+				if(floor && floor.showInMenu && floor.getName(this.language)) {
 					arr.push(floor);
 				}
 			}

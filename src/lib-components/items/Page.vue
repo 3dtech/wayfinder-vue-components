@@ -1,7 +1,7 @@
 <template>
 	<div class="wf-page" :class="['wf-page-slug-' + (page && page.slug ? page.slug : 'none'), 'wf-page-type-' + (page ? page.type : 'none'), page ? page.classes : '']">
 		<slot name="header" :page="page"></slot>
-		<WFScrollableArea  v-if="page" :enable="!!page.scrollable">
+		<WFScrollableArea ref="scrollableArea" v-if="page" :enable="!!page.scrollable">
 			<div class="wf-page-container" :class="{'wf-page-empty': page.items.length === 0}">
 				<slot :page="page">
 					<div class="wf-page-icon" v-if="showIcon" :class="[page.icon ? 'wf-has-icon' : '']" v-html="page.icon"></div>
@@ -215,6 +215,11 @@ export default {
 			}
 
 			return false;
+		},
+		scrollToSection (index, direction, animate, animSpeed) {
+			if(this.$refs.scrollableArea) {
+				this.$refs.scrollableArea.scrollToSection(index, direction, animate, animSpeed);
+			}
 		}
 	},
 	data: function () {
