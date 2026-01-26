@@ -240,7 +240,7 @@ export default {
 		height: 100%;
 	}
 
-	.wf-page-container .wf-page-content {
+	.wf-page-container:not(.wf-page-empty) .wf-page-content {
 		width: 100%;
 		height: 100%;
 	}
