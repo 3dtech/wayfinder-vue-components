@@ -20,7 +20,7 @@ Vue.use(Vue2TouchEvents,
 Vue.config.productionTip = false;
 const WF_MAP_TYPE = "2d";
 const WF_API = "live";
-const WF_PROJECT = "a6a4aa7e50fc8dc9fced2ea505bf66fe";
+const WF_PROJECT = "44003380d0f5698b6707799fd3b1fc87";
 const customAPI = "http://localhost:3333";
 
 /* global WF_MAP_TYPE WayfinderAPI wayfinder*/

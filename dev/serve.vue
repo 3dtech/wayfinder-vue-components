@@ -167,14 +167,14 @@ export default Vue.extend({
              <WFGroupPOIsMenu :group="group"></WFGroupPOIsMenu>
           </WFTab>
           <WFTab name="9">
-            <WFPageMenu container="default" @clicked="pageMenuClicked" :showPopup="true" :currentPage="currentPage"></WFPageMenu>
+            <WFPageMenu container="default" @clicked="pageMenuClicked" :showPopup="false" :currentPage="currentPage"></WFPageMenu>
             <WFPage ref="pages" :pid="currentPage ? parseInt(currentPage.id) : 0" defaultTab="map">
               <template v-slot:tabs>
                 <WFTab name="map">
-                  Map
+                  <div>Map content</div>
                 </WFTab>
                 <WFTab name="contacts">
-                  Contacts
+                  <div>Contacts content</div>
                 </WFTab>
               </template>
             </WFPage>

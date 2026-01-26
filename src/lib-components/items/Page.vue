@@ -9,10 +9,10 @@
 					<WFPageContent :page="page"></WFPageContent>
 				</slot>
 			</div>
+			<WFTabs ref="tabs" :activeTab="currentTab" v-show="currentTab">
+				<slot name="tabs"></slot>
+			</WFTabs>
 		</WFScrollableArea>
-		<WFTabs ref="tabs" :activeTab="currentTab" v-show="currentTab">
-			<slot name="tabs"></slot>
-		</WFTabs>
 		<slot name="footer" :page="page"></slot>
 	</div>
 </template>
