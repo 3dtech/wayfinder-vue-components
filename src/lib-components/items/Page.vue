@@ -1,8 +1,8 @@
 <template>
 	<div class="wf-page" :class="['wf-page-slug-' + (page && page.slug ? page.slug : 'none'), 'wf-page-type-' + (page ? page.type : 'none'), page ? page.classes : '']">
 		<slot name="header" :page="page"></slot>
-		<WFScrollableArea ref="scrollableArea" v-if="page" :enable="!!page.scrollable">
-			<div class="wf-page-container" :class="{'wf-page-empty': page.items.length === 0}">
+		<WFScrollableArea ref="scrollableArea" :enable="!!page.scrollable">
+			<div v-if="page" class="wf-page-container" :class="{'wf-page-empty': page.items.length === 0}">
 				<slot :page="page">
 					<div class="wf-page-icon" v-if="showIcon" :class="[page.icon ? 'wf-has-icon' : '']" v-html="page.icon"></div>
 					<label class="wf-page-name" v-if="showName" v-html="pageName || ''"></label>
