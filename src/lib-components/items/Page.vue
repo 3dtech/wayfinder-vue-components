@@ -1,7 +1,7 @@
 <template>
 	<div class="wf-page" :class="['wf-page-slug-' + (page && page.slug ? page.slug : 'none'), 'wf-page-type-' + (page ? page.type : 'none'), page ? page.classes : '']">
 		<slot name="header" :page="page"></slot>
-		<WFScrollableArea ref="scrollableArea" :enable="!!page.scrollable">
+		<WFScrollableArea ref="scrollableArea" :enable="page && !!page.scrollable">
 			<div v-if="page" class="wf-page-container" :class="{'wf-page-empty': page.items.length === 0}">
 				<slot :page="page">
 					<div class="wf-page-icon" v-if="showIcon" :class="[page.icon ? 'wf-has-icon' : '']" v-html="page.icon"></div>
@@ -40,6 +40,7 @@ export default {
             else return "";
         },
 		currentTab () {
+			console.log('currentTab', this.tab)
 			return this.tab;
 		},
 		isSingle () {
@@ -133,6 +134,7 @@ export default {
 	},
 	methods: {
 		getDefaultPage () {
+			console.log('getDefaultPage', this.defaultTab)
 			if (this.defaultTab) {
 				this.tab = this.defaultTab;
 			}
