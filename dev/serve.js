@@ -39,7 +39,7 @@ const store = new Vuex.Store({
   }
 })
 
-loadWayfinder(WF_MAP_TYPE, "dev", loadVue);
+loadWayfinder(WF_MAP_TYPE, "dev", "3.16.3", loadVue);
 
 function loadVue () {
   new Vue({
