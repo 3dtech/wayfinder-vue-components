@@ -38,7 +38,7 @@ function loadScript(url, callback) {
 }
 
 function load3D (env, version, callback) {
-  loadScript(getURL(env, "js") + `/js/dist/3d/${version}/frak2.debug.js`, function () {
+  loadScript(getURL(env, "js") + `/js/dist/3d/${version}/frak2-latest.min.js`, function () {
     loadScript(getURL(env, "js") + `/js/dist/3d/${version}/Wayfinder3D.debug.js`, function () {
       callback();
     });
