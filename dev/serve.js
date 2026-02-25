@@ -29,7 +29,7 @@ const store = new Vuex.Store({
     count: 0,
     appName: "Wayfinder Vue Components",
     currentPOI: false,
-		currentTab: 'groups',
+    currentTab: 'groups',
     currentGroup: false,
   },
   mutations: {
@@ -39,13 +39,13 @@ const store = new Vuex.Store({
   }
 })
 
-loadWayfinder(WF_MAP_TYPE, "dev", "3.16.3", loadVue);
+loadWayfinder(WF_MAP_TYPE, "dev", "dev", loadVue);
 
-function loadVue () {
+function loadVue() {
   new Vue({
     store,
     render: h => h(Dev),
-    created () {
+    created() {
       Vue.use(WayfinderVueComponents, this.$store, WF_MAP_TYPE, WF_PROJECT, WF_API, customAPI) // Create it by passing in the store you want to use
     }
   }).$mount('#app')
