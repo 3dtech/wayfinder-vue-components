@@ -2,11 +2,14 @@ import store from './store';
 
 let wfStore;
 export default {
-    init (_store) {
+    init(_store) {
         _store.registerModule('wf', store);
         wfStore = _store;
     },
-    loadPages () {
+    loadPages() {
         wfStore.dispatch('wf/LOAD_PAGES');
+    },
+    loadMenus() {
+        wfStore.dispatch('wf/LOAD_MENUS');
     }
 }

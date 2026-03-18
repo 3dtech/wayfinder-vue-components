@@ -111,6 +111,7 @@ export default {
 		maxInActivity: 30,
 		reset: 0,
 		pages: {},
+		menus: {},
 		poiAdvertisements: [],
 		template: {
 
@@ -281,6 +282,9 @@ export default {
 		SET_PAGES: (state, pages) => {
 			state.pages = pages;
 		},
+		SET_MENUS: (state, menus) => {
+			state.menus = menus;
+		},
 		RESET: (state, pois) => {
 			state.reset = Date.now();
 		},
@@ -332,6 +336,13 @@ export default {
 			Logistics.getJSON(WayfinderAPI.getURL("pages", "getAll", []), null, function (data) {
 				if (data && data.data) {
 					context.commit('SET_PAGES', Object.freeze(data.data));
+				}
+			});
+		},
+		LOAD_MENUS: (context) => {
+			Logistics.getJSON(WayfinderAPI.getURL("menus", "getAll", []), null, function (data) {
+				if (data && data.data) {
+					context.commit('SET_MENUS', Object.freeze(data.data));
 				}
 			});
 		},

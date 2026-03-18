@@ -103,17 +103,20 @@ export { default as WFTab } from './Tab.vue';
 export { default as WFTabButtons } from './TabButtons.vue';
 export { default as WFScrollableArea } from './ScrollableArea.vue';
 export { default as WFBanner } from './Banner.vue';
-export { default as WFPageMenu } from './PageMenu.vue';
 export { default as WFAlphabet } from './Alphabet.vue';
 
 export { default as WFPOI } from './items/POI.vue';
 export { default as WFPOIAdvertisement } from './items/POIAdvertisement.vue';
 export { default as WFGroup } from './items/Group.vue';
-export { default as WFPage } from './items/Page.vue';
+
 export { default as WFPageContent } from './items/PageContent.vue';
 export { default as WFTranslate } from './items/Translate.vue';
 export { default as WFYAH } from './YAH.vue';
 export { default as WFIcon } from './items/Icon.vue';
+
+export { default as WFPage } from './items/Page.vue';
+export { default as WFPageMenu } from './PageMenu.vue';
+export { default as WFMenu } from './Menu.vue';
 
 export { default as WFBrowser } from './pages/Browser.vue';
 export { default as WFPath2Text } from './Path2Text.vue';
