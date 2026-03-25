@@ -43,22 +43,6 @@ export default {
 		sortAZ: {
 			type: Boolean,
 			default: false
-		},
-		showPopup: {
-			type: Boolean,
-			default: false
-		},
-		popUpScrollable: {
-			type: Boolean,
-			default: true
-		},
-		popUpShowName: {
-			type: Boolean,
-			default: true
-		},
-		popUpShowIcon: {
-			type: Boolean,
-			default: false
 		}
 	},
 	data () {

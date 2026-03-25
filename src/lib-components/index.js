@@ -56,13 +56,13 @@ function loadWayfinder (type, env, version, callback) {
         callback = version;
         version = "dev";
     }
-
+    
     if(location && location.search) {
         var options = decodeURI(location.search.substring(1));
         if (options.indexOf("mobile=") > -1) {
           load2D(env, version, callback);
         } else if (type == "2d") {
-          load2D(env, callback);
+          load2D(env, version, callback);
         }
         else {
           load3D(env, version, callback);
