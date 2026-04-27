@@ -119,6 +119,7 @@ export default Vue.extend({
           <button @click="currentTab = 9">Page</button>
           <button @click="currentTab = 10">POI</button>
           <button @click="currentTab = 11">SubGroupMenu</button>
+          <button @click="currentTab = 12">RouteChooser</button>
           <button @click="reset()">Reset</button>
         </div>
 
@@ -195,8 +196,10 @@ export default Vue.extend({
               :showPathStepCount="true"></WFPOI>
           </WFTab>
           <WFTab name="11">
-            <WFSubGroupMenu :parent="1" :showPOIs="true" :showParentGroup="true" :showDescription="true">
-            </WFSubGroupMenu>
+            <WFSubGroupMenu :parent="1" :showPOIs="true" :showParentGroup="true" :showDescription="true"></WFSubGroupMenu>
+          </WFTab>
+           <WFTab name="12">
+            <WFRouteChooser :parent="1" :showPOIs="true" :showParentGroup="true" :showDescription="true"></WFRouteChooser>
           </WFTab>
         </WFTabs>
       </section>
