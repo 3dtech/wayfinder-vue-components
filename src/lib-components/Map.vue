@@ -248,7 +248,7 @@ export default {
 			});
 
 			wayfinder.events.on("building-change", () => {
-				this.$store._wrappedGetters["wfCurrentBuilding"](this.$store.state);
+				this.$store.dispatch('wf/SET_CURRENT_BUILDING', wayfinder.getCurrentBuilding().copy());
 			});
 
 			window.addEventListener('resize', () => {
