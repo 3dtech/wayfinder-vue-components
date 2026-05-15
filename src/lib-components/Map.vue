@@ -247,6 +247,10 @@ export default {
 				}
 			});
 
+			wayfinder.events.on("building-change", () => {
+				this.$store._wrappedGetters["wfCurrentBuilding"](this.$store.state);
+			});
+
 			window.addEventListener('resize', () => {
 				if (wayfinder) {
 					wayfinder.resize();
