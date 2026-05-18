@@ -1,19 +1,36 @@
 <template>
-	<div class="wf-component wf-map-container" ref="container" v-observe-visibility="visibilityChanged"
-		v-touch:start='onTouch'>
-		<canvas id="map" />
-		<div class="wf-map-path-text" v-show="(showPathText && pathTextVisible)">{{ pathText }}</div>
-		<div id="wf-poi-popup" class="wf-poi-popup" ref="poiPopup" v-show="POIPopupEnabled && isPOIPopupVisible()">
-			<div class="wf-poi-popup-content" v-if="popupPOI">
-				<slot name="poi" :poi="popupPOI">
-					<POI :poi="popupPOI" :showLogo="showPOILogo" :showName="showPOIName"
-						:showPathButton="showPOIPathButton" :showDescription="showPOIDescription"
-						:showRoomID="showPOIRoomID" :showFloor="showPOIFloor" />
-				</slot>
-			</div>
-			<div class="wf-pin-down" v-if="popupPOI"></div>
-		</div>
-	</div>
+  <div
+    class="wf-component wf-map-container"
+    ref="container"
+    v-observe-visibility="visibilityChanged"
+    v-touch:start="onTouch"
+  >
+    <canvas id="map" />
+    <div class="wf-map-path-text" v-show="showPathText && pathTextVisible">
+      {{ pathText }}
+    </div>
+    <div
+      id="wf-poi-popup"
+      class="wf-poi-popup"
+      ref="poiPopup"
+      v-show="POIPopupEnabled && isPOIPopupVisible()"
+    >
+      <div class="wf-poi-popup-content" v-if="popupPOI">
+        <slot name="poi" :poi="popupPOI">
+          <POI
+            :poi="popupPOI"
+            :showLogo="showPOILogo"
+            :showName="showPOIName"
+            :showPathButton="showPOIPathButton"
+            :showDescription="showPOIDescription"
+            :showRoomID="showPOIRoomID"
+            :showFloor="showPOIFloor"
+          />
+        </slot>
+      </div>
+      <div class="wf-pin-down" v-if="popupPOI"></div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -208,10 +225,8 @@ export default {
 			wayfinder.events.on("floor-change", (floor) => {
 				// console.log('cbOnFloorChange', floor, wayfinder.settings.getInt('path.message.duration', 1))
 				if (floor) {
-					
-					this.$store.dispatch('wf/SET_CURRENT_BUILDING', wayfinder.getCurrentBuilding().copy());
 					this.$store.dispatch('wf/SET_CURRENT_FLOOR', wayfinder.getCurrentFloor().copy());
-					
+
 					this.$emit('onTouch');
 				}
 				if (this.pathTextVisible) {
@@ -252,9 +267,7 @@ export default {
 			});
 
 			wayfinder.events.on("building-change", () => {
-				this.$store.dispatch('wf/SET_CURRENT_BUILDING', wayfinder.getCurrentBuilding().copy());
-				this.$store.dispatch('wf/SET_CURRENT_FLOOR', wayfinder.getCurrentFloor().copy());
-
+				this.updateBuilding();
 			});
 
 			window.addEventListener('resize', () => {
@@ -272,7 +285,16 @@ export default {
 			Vue.prototype.$wayfinder.update();
 			Vue.prototype.$wayfinder.resize();
 			Vue.prototype.$wayfinder.translator.translate();
-		},
+        },
+        updateBuilding() {
+          updateStoreGetter("wf/xBuilding");
+          updateStoreGetter("wf/xFloors");
+        },
+        updateStoreGetter(key, state) {
+          if (this.$store._wrappedGetters[key]) {
+            this.$store._wrappedGetters[key](state);
+          }
+        },
 		reset() {
 			wayfinder.restoreDefaultState();
 		},
@@ -377,90 +399,89 @@ export default {
 
 <style scoped>
 .wf-map-container {
-	position: relative;
-	width: 100%;
-	height: 100%;
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .wf-map-container canvas {
-	width: 100%;
-	height: 100%;
-	position: relative;
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .wf-map-container .wf-map-path-text {
-	width: 30ch;
-	text-align: center;
-	background-color: white;
-	position: absolute;
-	bottom: 25%;
-	margin: auto;
-	left: 50%;
-	margin-left: -15ch;
-	padding: 0.5em;
+  width: 30ch;
+  text-align: center;
+  background-color: white;
+  position: absolute;
+  bottom: 25%;
+  margin: auto;
+  left: 50%;
+  margin-left: -15ch;
+  padding: 0.5em;
 }
 
 #wf-poi-popup {
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 10;
-	width: 15.5rem;
-	height: auto;
-	background-color: #fff;
-	text-align: center;
-	transform-origin: bottom;
-	animation-duration: 0.5s;
-	animation-iteration-count: 2;
-	cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 15.5rem;
+  height: auto;
+  background-color: #fff;
+  text-align: center;
+  transform-origin: bottom;
+  animation-duration: 0.5s;
+  animation-iteration-count: 2;
+  cursor: pointer;
 }
 
 .wf-poi-popup-content {
-	display: flex;
-	flex-direction: column;
-	justify-content: stretch;
-	height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  height: 100%;
 }
 
-.wf-poi-popup-content>label {
-	flex-grow: 1;
-	font-size: 1.6rem;
-	margin-top: 0.6rem;
-	text-align: center;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 1.6rem;
+.wf-poi-popup-content > label {
+  flex-grow: 1;
+  font-size: 1.6rem;
+  margin-top: 0.6rem;
+  text-align: center;
+  line-height: 1.2;
+  font-weight: 600;
+  margin-bottom: 1.6rem;
 }
 
 .wf-pin-down {
-	background-color: white;
-	width: 1rem;
-	height: 1rem;
-	position: absolute;
-	bottom: -0.5rem;
-	border-radius: 1rem 0 0 0;
-	transform: rotate(45deg);
-	left: 50%;
-	margin-left: -0.75rem;
+  background-color: white;
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  bottom: -0.5rem;
+  border-radius: 1rem 0 0 0;
+  transform: rotate(45deg);
+  left: 50%;
+  margin-left: -0.75rem;
 }
 
 .wf-pin-left .wf-pin-down {
-	left: 1rem;
+  left: 1rem;
 }
 
 .wf-pin-right .wf-pin-down {
-	right: 1rem;
-	left: auto;
+  right: 1rem;
+  left: auto;
 }
 
-
 .wf-pin-up .wf-poi-popup-content {
-	margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .wf-pin-up .wf-pin-down {
-	top: -0.5rem;
-	bottom: auto;
-	transform: rotate(-45deg);
+  top: -0.5rem;
+  bottom: auto;
+  transform: rotate(-45deg);
 }
 </style>

@@ -217,11 +217,9 @@ export default {
 					if (keys.length > 0) {
 						let curSetting = state.template;
 						keys.forEach((key) => {
-							console.log('reduce', key, value, state.template);
 							if (!curSetting[key]) {
 								curSetting[key] = {};
 							}
-
 							curSetting = curSetting[key];
 						});
 
@@ -236,12 +234,10 @@ export default {
 					if (s.indexOf("template.") === 0) {
 						keys = s.split(".");
 						keys.shift(); // remove "template"
-						name = keys.pop();	// remove setting name
+            name = keys.pop();	// remove setting name
 						setSettings(keys, camelize(name), wfSettings.get(s));
 					}
 				}
-
-				console.log("template", state.template);
 			}
 		},
 		xPOIAdvertisements: (state) => {
