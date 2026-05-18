@@ -207,20 +207,41 @@ export default {
 				const wfSettings = Vue.prototype.$wayfinder.settings;
 				let setting;
 				function camelize(str) {
-					let strs = str.split(".");
-					str = strs[strs.length - 1];
 					str = str.replaceAll("-", " ");
 					return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
 						return index === 0 ? word.toLowerCase() : word.toUpperCase();
 					}).replace(/\s+/g, '');
 				}
 
-				for (let s in wfSettings.data) {
-					if (s.indexOf("template.") === 0) {
-						setting = wfSettings.data[s];
-						state.template[camelize(s)] = wfSettings.get(s);
+				function setSettings(keys, name, value) {
+					if (keys.length > 0) {
+						let curSetting = state.template;
+						keys.forEach((key) => {
+							console.log('reduce', key, value, state.template);
+							if (!curSetting[key]) {
+								curSetting[key] = {};
+							}
+
+							curSetting = curSetting[key];
+						});
+
+						curSetting[name] = value;
+						state.template = Object.assign({}, state.template);
 					}
 				}
+
+				let keys = [];
+				let name = "";
+				for (let s in wfSettings.data) {
+					if (s.indexOf("template.") === 0) {
+						keys = s.split(".");
+						keys.shift(); // remove "template"
+						name = keys.pop();	// remove setting name
+						setSettings(keys, camelize(name), wfSettings.get(s));
+					}
+				}
+
+				console.log("template", state.template);
 			}
 		},
 		xPOIAdvertisements: (state) => {

@@ -170,9 +170,11 @@ export default {
 			var pathTextTime = wayfinder.settings.getInt('path.message.duration', 5) * 1000;
 			wayfinder.events.on("data-loaded", function () {
 				if (!scope.loaded) {
-					// update getters
-					scope.$store.dispatch('wf/SET_CURRENT_FLOOR', wayfinder.getCurrentFloor().copy()); //scope.$store.getters["wf/freezeFloor"](wayfinder.getCurrentFloor()) || null);
-					scope.$store.dispatch('wf/SET_CURRENT_BUILDING', wayfinder.getCurrentBuilding().copy());
+					let floor = wayfinder.getCurrentFloor();
+					if (floor) {
+						scope.$store.dispatch('wf/SET_CURRENT_BUILDING', wayfinder.getCurrentBuilding().copy());
+						scope.$store.dispatch('wf/SET_CURRENT_FLOOR', wayfinder.getCurrentFloor().copy());
+					}
 
 					scope.$store.dispatch('wf/SET_INACTIVITY_TIME', wayfinder.settings.getInt('kiosk.max-inactivity', 30));
 
@@ -206,8 +208,10 @@ export default {
 			wayfinder.events.on("floor-change", (floor) => {
 				// console.log('cbOnFloorChange', floor, wayfinder.settings.getInt('path.message.duration', 1))
 				if (floor) {
-					this.$store.dispatch('wf/SET_CURRENT_FLOOR', wayfinder.getCurrentFloor().copy());
+					
 					this.$store.dispatch('wf/SET_CURRENT_BUILDING', wayfinder.getCurrentBuilding().copy());
+					this.$store.dispatch('wf/SET_CURRENT_FLOOR', wayfinder.getCurrentFloor().copy());
+					
 					this.$emit('onTouch');
 				}
 				if (this.pathTextVisible) {
@@ -249,6 +253,8 @@ export default {
 
 			wayfinder.events.on("building-change", () => {
 				this.$store.dispatch('wf/SET_CURRENT_BUILDING', wayfinder.getCurrentBuilding().copy());
+				this.$store.dispatch('wf/SET_CURRENT_FLOOR', wayfinder.getCurrentFloor().copy());
+
 			});
 
 			window.addEventListener('resize', () => {
