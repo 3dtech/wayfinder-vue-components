@@ -216,7 +216,7 @@ export default {
 				}
 
 				for (let s in wfSettings.data) {
-					if (s.indexOf("template.default") === 0) {
+					if (s.indexOf("template.") === 0) {
 						setting = wfSettings.data[s];
 						state.template[camelize(s)] = wfSettings.get(s);
 					}
