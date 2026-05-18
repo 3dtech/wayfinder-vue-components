@@ -163,6 +163,9 @@ export default {
 			}
 			// WayfinderAPI.LOCATION = 'http://localhost:8080/api/';
 			Vue.prototype.$wayfinder = wayfinder;
+			if (window) {
+				window.wayfinder = wayfinder;
+			}
 			Vue.directive('wf-translate', {
 				bind: function (el, binding, vnode) {
 					if (wayfinder) {
@@ -287,8 +290,8 @@ export default {
 			Vue.prototype.$wayfinder.translator.translate();
         },
         updateBuilding() {
-          updateStoreGetter("wf/xBuilding");
-          updateStoreGetter("wf/xFloors");
+          this.updateStoreGetter("wf/xBuilding", this.$store.state);
+          this.updateStoreGetter("wf/xFloors", this.$store.state);
         },
         updateStoreGetter(key, state) {
           if (this.$store._wrappedGetters[key]) {

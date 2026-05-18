@@ -35,6 +35,11 @@ export default {
 			count: 0
 		}
 	},
+	watch: {
+		floors() {
+			console.log('floors', this.floors)
+		}
+	},
 	computed: {
 		...mapState('wf', ['floors', 'language']),
 		filteredFloors() {
