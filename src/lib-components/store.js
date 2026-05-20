@@ -158,17 +158,29 @@ export default {
 			return state.shortcuts;
 		},
 		xBuildings: (state) => {
+			if (typeof Vue.prototype.$wayfinder === 'undefined' || typeof Vue.prototype.$wayfinder.getBuildings !== 'function') {
+				return state.buildings;
+			}
+
 			let buildings = Vue.prototype.$wayfinder.getBuildings();
 			let _buildings = {};
-			Object.keys(Vue.prototype.$wayfinder.getBuildings()).forEach(b => {
-				_buildings[b] = buildings[b].copy();
-			});
+			if (Array.isArray(buildings)) {
+				_buildings = buildings.map(b => {
+					return typeof b.copy === 'function' ? b.copy() : b;
+				});
+			}
+			else {
+				Object.keys(buildings).forEach(b => {
+					_buildings[b] = typeof buildings[b].copy === 'function' ? buildings[b].copy() : buildings[b];
+				});
+			}
 			state.buildings = _buildings;
+			return state.buildings;
 		},
 		xBuilding: (state) => {
-			if (Vue.prototype.$wayfinder !== 'undefined') {
+			if (typeof Vue.prototype.$wayfinder !== 'undefined' && typeof Vue.prototype.$wayfinder.getCurrentBuilding === 'function') {
 				let _building = Vue.prototype.$wayfinder.getCurrentBuilding();
-				state.building = _building.copy();
+				state.building = _building && typeof _building.copy === 'function' ? _building.copy() : _building;
 			}
 			return state.building;
 		},
@@ -341,7 +353,7 @@ export default {
 			context.commit('SET_CURRENT_FLOOR', Object.freeze(floor));
 		},
 		SET_CURRENT_BUILDING: (context, building) => {
-			context.commit('SET_CURRENT_BUILDING', Object.freeze(building));
+			context.commit('SET_CURRENT_BUILDING', building ? Object.freeze(building) : null);
 		},
 		SET_FILTERED_POIS: (context, pois) => {
 			pois = pois.map(p => {

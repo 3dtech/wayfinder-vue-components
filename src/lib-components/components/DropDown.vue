@@ -134,6 +134,7 @@ export default {
 			}
 
 			return this.normalizedOptions.filter((option) => {
+				console.log('normalizedOptions', option.label, option.label.toLowerCase().indexOf(normalizedQuery), normalizedQuery)
 				return option.label.toLowerCase().indexOf(normalizedQuery) !== -1;
 			});
 		},
@@ -167,7 +168,7 @@ export default {
 				this.syncQueryWithValue();
 			}
 		},
-		options () {
+		options() {
 			this.syncQueryWithValue();
 		}
 	},
@@ -214,7 +215,7 @@ export default {
 		},
 		openDropdown () {
 			this.isOpen = true;
-			this.deferredQuery = this.query;
+			this.deferredQuery = '';
 		},
 		closeDropdown () {
 			this.isOpen = false;

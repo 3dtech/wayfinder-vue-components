@@ -1,51 +1,58 @@
 <script>
-import Vue from 'vue';
+import Vue from "vue";
 
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
 // Uncomment import and local "components" registration if library is not registered globally.
 // import { WayfinderVueComponentsSample } from '@/entry.esm';
 
 export default Vue.extend({
-  name: 'ServeDev',
+  name: "ServeDev",
   // components: {
   //  WayfinderVueComponentsSample,
   // }
   computed: {
-    ...mapState('wf', ['pois', 'poiGroups', 'building', 'template', 'currentFloor', 'poiAdvertisements']),
-    ...mapState(['appName']),
+    ...mapState("wf", [
+      "pois",
+      "poiGroups",
+      "building",
+      "template",
+      "currentFloor",
+      "poiAdvertisements",
+    ]),
+    ...mapState(["appName"]),
     group() {
       if (this.poiGroups && Object.values(this.poiGroups).length > 0) {
         return Object.values(this.poiGroups)[0];
       }
 
       return null;
-    }
+    },
   },
   mounted() {
-    console.log('mounted', this.$wayfinderApp)
+    console.log("mounted", this.$wayfinderApp);
     this.$wayfinderApp.loadPages();
     this.$wayfinderApp.loadMenus();
   },
   methods: {
     mapDataLoaded() {
-      this.$store.dispatch('wf/SET_FILTERED_POIS', Object.values(this.pois));
+      this.$store.dispatch("wf/SET_FILTERED_POIS", Object.values(this.pois));
       // this.isit = 'yes';
     },
     setGroup(group, a) {
       this.currentGroup = group;
-      this.$store.dispatch('wf/SET_FILTERED_POIS', group.pois);
+      this.$store.dispatch("wf/SET_FILTERED_POIS", group.pois);
     },
     bannerClicked() {
-      console.log('bannerClicked')
+      console.log("bannerClicked");
     },
     reset() {
-      this.$store.dispatch('wf/SET_RESET');
+      this.$store.dispatch("wf/SET_RESET");
     },
     log(msg) {
-      console.log('log', msg);
+      console.log("log", msg);
     },
     menuClicked(page) {
-      console.log('page', page);
+      console.log("page", page);
 
       this.pageSlug = page.slug;
       this.currentPage = page;
@@ -57,20 +64,20 @@ export default Vue.extend({
       this.$refs.filteredScroll.reset();
     },
     showPOI(poi) {
-      console.log('showPOI', poi)
+      console.log("showPOI", poi);
       this.currentTab = 10;
       this.currentPOI = poi;
       this.$refs.map.showPOIPopup(poi);
-      console.log('wf', this.$wayfinder)
+      console.log("wf", this.$wayfinder);
     },
     debug() {
-      console.log('wf', this.$wayfinder)
+      console.log("wf", this.$wayfinder);
     },
     scroll() {
       if (this.$refs.page2) {
-        this.$refs.page2.scrollToSection(2, 'top', true, 300);
+        this.$refs.page2.scrollToSection(2, "top", true, 300);
       }
-    }
+    },
   },
   data() {
     return {
@@ -79,33 +86,51 @@ export default Vue.extend({
       currentGroup: null,
       currentPOI: null,
       pageSlug: "slug",
-      currentPage: null
-    }
-  }
+      currentPage: null,
+    };
+  },
 });
 </script>
 
 <template>
   <WFApp id="app">
     <div class="map-container">
-      <WFMap ref="map" @loaded="mapDataLoaded" :project="$WF_PROJECT" :POIPopupEnabled="true" :showPOIPathButton="true"
-        @poiClicked="showPOI" />
+      <WFMap
+        ref="map"
+        @loaded="mapDataLoaded"
+        :project="$WF_PROJECT"
+        :POIPopupEnabled="true"
+        :showPOIPathButton="true"
+        @poiClicked="showPOI"
+      />
+      <WFBuildingSelect class="building-select" />
       <div class="map-footer">
         <WFYAH />
         <WFZoomMenu />
+
         <WFFloorsMenu :currentFloor="currentFloor" />
-        <WFFlagsMenu :showFlag="false" :showTitle="true" labelType="native" order="order" />
+        <WFFlagsMenu
+          :showFlag="false"
+          :showTitle="true"
+          labelType="native"
+          order="order"
+        />
       </div>
     </div>
     <div class="content">
       <section class="tab-serve">
-        <h2 class="appName" @click="debug">{{ appName }} @ <label v-if="building">{{ building.name }}</label></h2>
+        <h2 class="appName" @click="debug">
+          {{ appName }} @ <label v-if="building">{{ building.name }}</label>
+        </h2>
         <div>
           Clock:
           <WFClock />
           Date:
           <WFDate format="ddd. DD. MMM" />
-          Translatable: <WFTranslate k="go_to_floor" :params="['1th floor', '2th floor']">Vale tõlge</WFTranslate>
+          Translatable:
+          <WFTranslate k="go_to_floor" :params="['1th floor', '2th floor']"
+            >Vale tõlge</WFTranslate
+          >
         </div>
         <div>
           <button @click="currentTab = 1">Browser</button>
@@ -126,7 +151,8 @@ export default Vue.extend({
         <WFTabs :activeTab="currentTab" animate="none">
           <WFTab name="1">
             <WFBrowser
-              src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSppH80saUz9eIllJ_jOLbvC9XN5kJM7mMSFGNzPLXJ1mXr1_2LDIXBCCPOqhAh_hNyMN9RQ6uGekWz/pubhtml">
+              src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSppH80saUz9eIllJ_jOLbvC9XN5kJM7mMSFGNzPLXJ1mXr1_2LDIXBCCPOqhAh_hNyMN9RQ6uGekWz/pubhtml"
+            >
             </WFBrowser>
           </WFTab>
           <WFTab name="2">
@@ -134,8 +160,13 @@ export default Vue.extend({
               <div>
                 <WFFilteredMenu changed="isit" @clicked="showPOI">
                   <template v-slot:default="slotProps">
-                    <WFPOI :poi="slotProps.poi" :showAccessibilityPathButton="true" />
-                    <div class="footer">ROOM ID: {{ slotProps.poi.room_id }}</div>
+                    <WFPOI
+                      :poi="slotProps.poi"
+                      :showAccessibilityPathButton="true"
+                    />
+                    <div class="footer">
+                      ROOM ID: {{ slotProps.poi.room_id }}
+                    </div>
                   </template>
                 </WFFilteredMenu>
                 <button @click="resetScroll">Reset scroll</button>
@@ -143,8 +174,15 @@ export default Vue.extend({
             </WFScrollableArea>
           </WFTab>
           <WFTab name="3">
-            <WFGroupsMenu @clicked="setGroup" :currentGroup="currentGroup" :showDescription="true" :showPOIs="true"
-              :order="true" :showSubGroups="true" @poiClicked="groupPOIClicked">
+            <WFGroupsMenu
+              @clicked="setGroup"
+              :currentGroup="currentGroup"
+              :showDescription="true"
+              :showPOIs="true"
+              :order="true"
+              :showSubGroups="true"
+              @poiClicked="groupPOIClicked"
+            >
               <template v-slot:poi>
                 <div>POI</div>
               </template>
@@ -158,7 +196,12 @@ export default Vue.extend({
             </WFSearch>
           </WFTab>
           <WFTab name="5">
-            <WFBanner template="default" container="screensaver" @clicked="bannerClicked" :playOnBoot="true"></WFBanner>
+            <WFBanner
+              template="default"
+              container="screensaver"
+              @clicked="bannerClicked"
+              :playOnBoot="true"
+            ></WFBanner>
             <!--WFBanner template="default" container="advertisements" qrURL="https://google.com" :playOnBoot="true"></WFBanner-->
           </WFTab>
           <WFTab name="6">
@@ -168,7 +211,10 @@ export default Vue.extend({
             <WFScrollableArea>
               <div>
                 <WFShortcutsMenu></WFShortcutsMenu>
-                <WFAlphabet :pois="Object.values(pois)" :group="'12'"></WFAlphabet>
+                <WFAlphabet
+                  :pois="Object.values(pois)"
+                  :group="'12'"
+                ></WFAlphabet>
               </div>
             </WFScrollableArea>
           </WFTab>
@@ -177,7 +223,11 @@ export default Vue.extend({
           </WFTab>
           <WFTab name="9">
             <WFMenu container="default" @clicked="menuClicked"></WFMenu>
-            <WFPage ref="pages" :pid="currentPage ? parseInt(currentPage.id) : 0" defaultTab="map">
+            <WFPage
+              ref="pages"
+              :pid="currentPage ? parseInt(currentPage.id) : 0"
+              defaultTab="map"
+            >
               <template v-slot:tabs>
                 <WFTab name="map">
                   <div>Map content</div>
@@ -191,15 +241,33 @@ export default Vue.extend({
             <WFPage container="klaasitoostus" ref="page2" />
           </WFTab>
           <WFTab name="10">
-            <WFPOI :poi="currentPOI" :showLogo="true" :showDescription="true" :showAccessibilityPathButton="true"
-              :showDistance="true" :showPath2Text="false" :showPathTime="true" :showAds="true"
-              :showPathStepCount="true"></WFPOI>
+            <WFPOI
+              :poi="currentPOI"
+              :showLogo="true"
+              :showDescription="true"
+              :showAccessibilityPathButton="true"
+              :showDistance="true"
+              :showPath2Text="false"
+              :showPathTime="true"
+              :showAds="true"
+              :showPathStepCount="true"
+            ></WFPOI>
           </WFTab>
           <WFTab name="11">
-            <WFSubGroupMenu :parent="1" :showPOIs="true" :showParentGroup="true" :showDescription="true"></WFSubGroupMenu>
+            <WFSubGroupMenu
+              :parent="1"
+              :showPOIs="true"
+              :showParentGroup="true"
+              :showDescription="true"
+            ></WFSubGroupMenu>
           </WFTab>
-           <WFTab name="12">
-            <WFRouteChooser :parent="1" :showPOIs="true" :showParentGroup="true" :showDescription="true"></WFRouteChooser>
+          <WFTab name="12">
+            <WFRouteChooser
+              :parent="1"
+              :showPOIs="true"
+              :showParentGroup="true"
+              :showDescription="true"
+            ></WFRouteChooser>
           </WFTab>
         </WFTabs>
       </section>
@@ -251,7 +319,7 @@ body {
   height: 240px;
 }
 
-.wf-scrollable>div {
+.wf-scrollable > div {
   padding-bottom: 3rem;
 }
 
@@ -295,6 +363,13 @@ body {
   bottom: 2rem;
 }
 
+.building-select {
+  position: absolute;
+  left: 5rem;
+  top: 2rem;
+  width: 14rem;
+}
+
 .wf-yah {
   width: 4rem;
   height: 4rem;
@@ -328,6 +403,6 @@ body {
 }
 
 .wf-poi-popup .wf-poi-popup-content {
-  border: 1px solid #ccc
+  border: 1px solid #ccc;
 }
 </style>

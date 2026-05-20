@@ -290,8 +290,13 @@ export default {
 			Vue.prototype.$wayfinder.translator.translate();
         },
         updateBuilding() {
+          this.updateStoreGetter("wf/xBuildings", this.$store.state);
           this.updateStoreGetter("wf/xBuilding", this.$store.state);
           this.updateStoreGetter("wf/xFloors", this.$store.state);
+          if (Vue.prototype.$wayfinder && typeof Vue.prototype.$wayfinder.getCurrentBuilding === "function") {
+            const building = Vue.prototype.$wayfinder.getCurrentBuilding();
+            this.$store.dispatch('wf/SET_CURRENT_BUILDING', building && typeof building.copy === "function" ? building.copy() : building);
+          }
         },
         updateStoreGetter(key, state) {
           if (this.$store._wrappedGetters[key]) {

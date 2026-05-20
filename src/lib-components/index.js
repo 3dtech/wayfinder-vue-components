@@ -28,7 +28,7 @@ function loadScript(url, callback) {
   var s = document.createElement('script');
   s.type = 'text/javascript';
   s.async = true;
-  
+
   var x = document.getElementsByTagName('head')[0];
   x.appendChild(s);
   if (typeof callback == "function") {
@@ -44,7 +44,7 @@ function load3D (env, version, callback) {
     });
   });
 }
-  
+
 function load2D (env, version, callback) {
     loadScript(getURL(env, "js") + `/js/dist/2d/${version}/Wayfinder2D.debug.js`, function () {
         callback();
@@ -56,7 +56,7 @@ function loadWayfinder (type, env, version, callback) {
         callback = version;
         version = "dev";
     }
-    
+
     if(location && location.search) {
         var options = decodeURI(location.search.substring(1));
         if (options.indexOf("mobile=") > -1) {
@@ -86,6 +86,7 @@ export { default as WFGroupsMenu } from './GroupsMenu.vue';
 export { default as WFSubGroupMenu } from './SubGroupMenu.vue';
 export { default as WFGroupPOIsMenu } from './GroupPOIsMenu.vue';
 export { default as WFBuildingLogo } from './BuildingLogo.vue';
+export { default as WFBuildingSelect } from './BuildingSelect.vue';
 export { default as WFShortcutsMenu } from './ShortcutsMenu.vue';
 export { default as WFZoomMenu } from './ZoomMenu.vue';
 export { default as WFFloorsMenu } from './FloorsMenu.vue';

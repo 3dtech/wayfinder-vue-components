@@ -72,13 +72,18 @@ export default {
 			});
 			this.count = arr.length;
 			this.sortedPOIs = arr;
-		},	
+		},
 	},
 	methods: {
 		onClick (poi) {
 			return () => {
-				this.$emit('clicked', poi);
-				this.$wayfinder.statistics.onClick(poi.id, "menu");
+				if (poi) {
+					this.$emit('clicked', poi);
+					this.$wayfinder.statistics.onClick(poi.id, "menu");
+				}
+				else {
+					console.warn("No POI");
+				}
 			};
 		},
 	}
