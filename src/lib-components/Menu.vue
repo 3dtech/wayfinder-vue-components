@@ -1,6 +1,7 @@
 <template>
 	<div class="wf-component wf-menu">
 		<ul class="wf-list" :class="['wf-list-count-' + count]">
+			<slot name="prepend"></slot>
 			<li
 				v-for="menuItem in sortedMenus"
 				:key="menuItem.id"
@@ -13,6 +14,7 @@
 					<label v-show="showName">{{getName(menuItem)}}</label>
 				</slot>
 			</li>
+			<slot name="append"></slot>
 		</ul>
 	</div>
 </template>
