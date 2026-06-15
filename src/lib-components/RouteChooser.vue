@@ -1,10 +1,10 @@
 <template>
   <div class="wf-route-chooser">
     <div>
-        <WFDropDown @select="startSelected" :options="options" valueKey="key"/>
+        <WFDropDown @select="startSelected" :options="options" valueKey="key" :placeholder="widget-route-chooser-source"/>
     </div>
     <div>
-        <WFDropDown @select="endSelected" :options="options" valueKey="key"/>
+        <WFDropDown @select="endSelected" :options="options" valueKey="key" :placeholder="widget-route-chooser-destination"/>
     </div>
     <div v-if="showAccessabilityToggle">
         <div class="wf-checkbox wf-accessibility" @click="toggleAccessibility">
