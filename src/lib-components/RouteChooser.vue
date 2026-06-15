@@ -32,20 +32,6 @@ export default {
 	},
 	computed: {
 		...mapState('wf', ['languages', 'language', 'reset', 'pois']),
-        sourcePlaceholder () {
-            if (this.$wayfinder && this.language) {
-                return this.$wayfinder.translator.get("widget-route-chooser-source");
-            }
-
-            return "Choose starting point";
-        },
-        destinationPlaceholder () {
-            if (this.$wayfinder && this.language) {
-                return this.$wayfinder.translator.get("widget-route-chooser-destination");
-            }
-
-            return "Choose destination";
-        }
     },
     props: {
 		showTitle: {
@@ -70,7 +56,9 @@ export default {
             options: [{
                 key: 1,
                 label: "No options"
-            }]
+            }],
+            sourcePlaceholder: "Choose starting point",
+            destinationPlaceholder: "Choose destination"
 		}
 	},
     mounted () {
@@ -109,7 +97,13 @@ export default {
     watch: {
 		pois: function () {
 			this.updateList();
-		}
+		},
+        language: function () {
+            if (this.$wayfinder && this.language) {
+                this.sourcePlaceholder = this.$wayfinder.translator.get("widget-route-chooser-source");
+                this.destinationPlaceholder = this.$wayfinder.translator.get("widget-route-chooser-destination");
+            }
+        }
 	},
 };
 </script>
