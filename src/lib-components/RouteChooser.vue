@@ -1,10 +1,10 @@
 <template>
   <div class="wf-route-chooser">
     <div>
-        <WFDropDown @select="startSelected" :options="options" valueKey="key" :placeholder="widget-route-chooser-source"/>
+        <WFDropDown @select="startSelected" :options="options" valueKey="key" :placeholder="sourcePlaceholder"/>
     </div>
     <div>
-        <WFDropDown @select="endSelected" :options="options" valueKey="key" :placeholder="widget-route-chooser-destination"/>
+        <WFDropDown @select="endSelected" :options="options" valueKey="key" :placeholder="destinationPlaceholder"/>
     </div>
     <div v-if="showAccessabilityToggle">
         <div class="wf-checkbox wf-accessibility" @click="toggleAccessibility">
@@ -32,6 +32,20 @@ export default {
 	},
 	computed: {
 		...mapState('wf', ['languages', 'language', 'reset', 'pois']),
+        sourcePlaceholder () {
+            if (this.$wayfinder && language) {
+                this.$wayfinder.translator.get("widget-route-chooser-source");
+            }
+
+            return "Choose starting point";
+        },
+        destinationPlaceholder () {
+            if (this.$wayfinder && language) {
+                this.$wayfinder.translator.get("widget-route-chooser-destination");
+            }
+
+            return "Choose destination";
+        }
     },
     props: {
 		showTitle: {
