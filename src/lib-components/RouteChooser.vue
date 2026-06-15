@@ -33,14 +33,14 @@ export default {
 	computed: {
 		...mapState('wf', ['languages', 'language', 'reset', 'pois']),
         sourcePlaceholder () {
-            if (this.$wayfinder && language) {
+            if (this.$wayfinder && this.language) {
                 this.$wayfinder.translator.get("widget-route-chooser-source");
             }
 
             return "Choose starting point";
         },
         destinationPlaceholder () {
-            if (this.$wayfinder && language) {
+            if (this.$wayfinder && this.language) {
                 this.$wayfinder.translator.get("widget-route-chooser-destination");
             }
 
