@@ -389,7 +389,7 @@ export default {
 			this.poiPopupVisible = false;
 		},
 		isPOIPopupVisible() {
-			return (this.$wayfinder && this.popupPOI && this.poiPopupVisible && this.popupPOI.getNode().floor == this.$wayfinder.getCurrentFloor())
+			return (this.$wayfinder && this.popupPOI && this.poiPopupVisible && this.popupPOI.getNode().floor_id == this.$wayfinder.getCurrentFloor().id)
 		},
 	},
 	data() {
