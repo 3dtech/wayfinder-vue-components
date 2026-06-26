@@ -1,6 +1,7 @@
 <template>
 	<div class="wf-component wf-page-menu">
 		<ul class="wf-list" :class="['wf-list-count-' + count]">
+			<slot name="prepend"></slot>
 			<li class="wf-list-item" v-touch:tap="onClick(page)" :class='{"wf-active": activeId == page.id}' v-for="page in sortedPages" :key='page.id'>
 				<slot :page="page">
 					<i v-show="showIcon" class="wf-icon" v-html="page.icon"></i>
@@ -8,6 +9,7 @@
 					<Page v-if="showPopup" class="wf-page-popup" v-show="active(currentPage, page)" :container="container" :pid="parseInt(page.id)" :showIcon="popUpShowIcon" :showName="popUpShowName" :scrollable="popUpScrollable" />
 				</slot>
 			</li>
+			<slot name="append"></slot>
 		</ul>
 	</div>
 </template>
