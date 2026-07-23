@@ -295,7 +295,9 @@ export default {
           this.updateStoreGetter("wf/xFloors", this.$store.state);
           if (Vue.prototype.$wayfinder && typeof Vue.prototype.$wayfinder.getCurrentBuilding === "function") {
             const building = Vue.prototype.$wayfinder.getCurrentBuilding();
+            const floor = Vue.prototype.$wayfinder.getCurrentFloor();
             this.$store.dispatch('wf/SET_CURRENT_BUILDING', building && typeof building.copy === "function" ? building.copy() : building);
+            this.$store.dispatch('wf/SET_CURRENT_FLOOR', floor && typeof building.copy === "function" ? floor.copy() : floor);
           }
         },
         updateStoreGetter(key, state) {

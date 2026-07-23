@@ -1,41 +1,41 @@
 <template>
-  <div class="wf-app" v-touch:start='onTouch' :class="{'wf-screensaving': screensaver}">
-    <slot/>
-  </div>
+	<div class="wf-app" v-touch:start='onTouch' :class="{ 'wf-screensaving': screensaver }">
+		<slot />
+	</div>
 </template>
 
 <script>
 const urls = {
-  api: {
-    live: "//wayfinder-cdn.com/api",
-    enterprise: "../../../api/",
-    dev: "//api.3dwayfinder.com",
-    snapshot: "../../../api/"
-  },
-  assets: {
-    live: "https://wayfinder-cdn.com/shared/",
-    dev: "//static.3dwayfinder.com/shared/",
-    enterprise: "../../../shared/",
-    snapshot: "../../../shared/"
-  },
-  js: {
-    live: "https://wayfinder-cdn.com/",
-    dev: "//static.3dwayfinder.com",
-    enterprise: "../../../",
-    snapshot: "../../../"
-  }
+	api: {
+		live: "//wayfinder-cdn.com/api",
+		enterprise: "../../../api/",
+		dev: "//api.3dwayfinder.com",
+		snapshot: "../../../api/"
+	},
+	assets: {
+		live: "https://wayfinder-cdn.com/shared/",
+		dev: "//static.3dwayfinder.com/shared/",
+		enterprise: "../../../shared/",
+		snapshot: "../../../shared/"
+	},
+	js: {
+		live: "https://wayfinder-cdn.com/",
+		dev: "//static.3dwayfinder.com",
+		enterprise: "../../../",
+		snapshot: "../../../"
+	}
 }
 
 export default {
-    data () {
-        return {
-            lastClick: false,
-            landscape: false,
+	data() {
+		return {
+			lastClick: false,
+			landscape: false,
 			screensaver: false,
 			maxInActivity: 30
-        }
-    },
-    mounted () {
+		}
+	},
+	mounted() {
 		this.resize();
 
 		window.onresize = () => {
@@ -52,16 +52,16 @@ export default {
 			this.screensaver = true;
 		}, this.maxInActivity * 1000);
 	},
-    methods: {
-		onTouch (e) {
+	methods: {
+		onTouch(e) {
 			clearTimeout(this.lastClick);
 			this.$emit("touched", e);
-            this.screensaver = false;
-            this.$wayfinder.run();
+			this.screensaver = false;
+			this.$wayfinder.run();
 
 			this.lastClick = setTimeout(() => { // Start screensaver
 				this.$emit("screensaving");
-                this.screensaver = true;
+				this.screensaver = true;
 				this.$wayfinder.showKiosk();
 				this.$wayfinder.restoreDefaultState();
 				setTimeout(() => {
@@ -73,7 +73,7 @@ export default {
 			}, this.maxInActivity * 1000);
 			return false;
 		},
-        resize () {
+		resize() {
 			let _l = window.matchMedia("(orientation: landscape)");
 			let _pm = window.matchMedia("(max-height: 1024px) and (orientation: portrait)");
 			let _lm = window.matchMedia("(max-width: 1024px) and (orientation: landscape)");
@@ -97,7 +97,7 @@ export default {
 				s.onload = callback;
 				s.src = url;
 			}
-			},
+		},
 		loadColors() {
 			try {
 				const wf = this.$wayfinder;
@@ -146,10 +146,8 @@ export default {
 				root.style.setProperty(`--color-${colorKey}`, colors[colorKey]);
 			});
 		},
-    }
+	}
 }
 </script>
 
-<style>
-
-</style>
+<style></style>
