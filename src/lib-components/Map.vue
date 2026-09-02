@@ -6,7 +6,12 @@
     v-touch:start="onTouch"
   >
     <canvas id="map" />
-    <div class="wf-map-path-text" v-show="showPathText && pathTextVisible">
+    <div
+      class="wf-map-path-text"
+      :class="{ 'wf-map-path-text-positioned': positionFloorChangePopup && pathTextPosition }"
+      :style="pathTextPositionStyle"
+      v-show="showPathText && pathTextVisible"
+    >
       {{ pathText }}
     </div>
     <div
@@ -61,6 +66,10 @@ export default {
 			type: Boolean,
 			default: true
 		},
+		positionFloorChangePopup: {
+			type: Boolean,
+			default: false
+		},
 		POIPopupEnabled: {
 			type: Boolean,
 			default: false
@@ -100,6 +109,16 @@ export default {
 	},
 	computed: {
 		...mapState('wf', ['language']),
+		pathTextPositionStyle() {
+			if (!this.positionFloorChangePopup || !this.pathTextPosition) {
+				return null;
+			}
+
+			return {
+				left: this.pathTextPosition[0] + "px",
+				top: this.pathTextPosition[1] + "px",
+			};
+		},
 	},
 	mounted() {
 		this.load();
@@ -213,12 +232,18 @@ export default {
 				this.update(wayfinder);
 			});
 
-			wayfinder.events.on("floor-change-before", (currentFloor, nextFloor, destinationFloor) => {
+			wayfinder.events.on("floor-change-before", (currentFloor, nextFloor, destinationFloor, spot) => {
 				this.pathText = wayfinder.translator.get("go_to_floor", [currentFloor.getName(wayfinder.getLanguage()), destinationFloor.getName(wayfinder.getLanguage()), nextFloor.getName(wayfinder.getLanguage())])
+				this.floorChangePosition = spot && spot.position ? spot.position : null;
+				console.log('spot', spot)
+				this.updatePathTextPosition();
 				this.pathTextVisible = true;
 			});
 
 			wayfinder.events.on("map-update", () => {
+				if (this.pathTextVisible) {
+					this.updatePathTextPosition();
+				}
 				if (this.POIPopupEnabled && this.poiPopupVisible && this.popupPOI) {
 					this.showPOIPopup(this.popupPOI);
 				}
@@ -335,6 +360,19 @@ export default {
 			this.poiPopupVisible = false;
 			this.$emit('showInfo', poi);
 		},
+		updatePathTextPosition() {
+			this.pathTextPosition = null;
+
+			if (!this.positionFloorChangePopup || typeof wayfinder.getNodeScreenPosition !== "function") {
+				return;
+			}
+
+			let position = wayfinder.getNodeScreenPosition(this.floorChangePosition);
+
+			if (position) {
+				this.pathTextPosition = position;
+			}
+		},
 		showPOIPopup(poi, _width, _height) {
 			this.popupPOI = Object.freeze(poi);
 			if (this.POIPopupEnabled && this.popupPOI && this.$refs.poiPopup && poi.getNode()) {
@@ -399,6 +437,8 @@ export default {
 			loaded: false,
 			pathTextVisible: false,
 			pathText: '',
+			pathTextPosition: null,
+			floorChangePosition: null,
 			poiPopupVisible: false,
 			popupPOI: null
 		}
@@ -430,6 +470,12 @@ export default {
   left: 50%;
   margin-left: -15ch;
   padding: 0.5em;
+}
+
+.wf-map-container .wf-map-path-text.wf-map-path-text-positioned {
+  bottom: auto;
+  margin-left: 0;
+  transform: translate(-50%, calc(-100% - 0.5em));
 }
 
 #wf-poi-popup {

@@ -101,6 +101,7 @@ export default Vue.extend({
         :project="$WF_PROJECT"
         :POIPopupEnabled="true"
         :showPOIPathButton="true"
+        :positionFloorChangePopup="true"
         @poiClicked="showPOI"
       />
       <WFBuildingSelect class="building-select" />
