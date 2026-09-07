@@ -101,7 +101,6 @@ export default {
 	},
 	watch: {
 		currentPage () {
-			console.log('currentPage changed', this.currentPage);
 			this.activeId = this.currentPage ? parseInt(this.currentPage.id) : -1;
 		},
 	},
