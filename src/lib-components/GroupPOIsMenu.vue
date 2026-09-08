@@ -86,7 +86,7 @@ export default {
 				arr = arr.filter(p => p.getShowInMenu());
 				this.count = arr.length;
 				return arr.sort((a, b) => {
-					return a.getName(this.language).localeCompare(b.getName(this.language));
+					return a.getName(this.language)?.localeCompare(b.getName(this.language));
 				});
 			}
 			else {
