@@ -86,7 +86,12 @@ export default {
 				arr = arr.filter(p => p.getShowInMenu());
 				this.count = arr.length;
 				return arr.sort((a, b) => {
-					return a.getName(this.language)?.localeCompare(b.getName(this.language));
+					const aName = a.getName(this.language);
+					const bName = b.getName(this.language);
+
+					if (aName == null || bName == null) return 0;
+
+					return String(aName).localeCompare(String(bName));
 				});
 			}
 			else {

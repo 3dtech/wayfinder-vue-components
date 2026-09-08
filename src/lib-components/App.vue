@@ -27,6 +27,12 @@ const urls = {
 }
 
 export default {
+	props: {
+		appVersion: {
+			type: String,
+			default: "0.0.0"
+		},
+	},
 	data() {
 		return {
 			lastClick: false,
