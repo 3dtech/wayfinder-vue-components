@@ -2,7 +2,7 @@
 	<div class="wf-component wf-languages-container" :class="[(active ? 'wf-active': '')]" v-if="(showWhenMoreThanOne && count > 1) || !showWhenMoreThanOne">
 		<div class="wf-languages-container-select" v-if="showTitle">Select language</div>
 		<div class="wf-list" :class="['wf-list-count-' + count]">
-			<div v-for="lang in sortedLanguages" :key='lang.getName()' @click="changeLanguage(lang)" :class='["item", "language", "lang-" + lang.getName(), { active: lang.getName() == language, display: active}]'>
+			<div v-for="lang in sortedLanguages" v-show="active || lang.getName() == language" :key='lang.getName()' @click="changeLanguage(lang)" :class='["item", "language", "lang-" + lang.getName(), { "wf-active": lang.getName() == language, display: active}]'>
 				<div v-if="showFlag" class="wf-flag" :style="{ backgroundImage: 'url('+getFlagImage(lang.flagImage)+')'}"></div>
 				<label v-if="labelType == 'code'">{{lang.getName()}}</label>
 				<label v-if="labelType == 'native'">{{lang.getNativeName()}}</label>
@@ -61,7 +61,17 @@ export default {
 	},
 	methods: {
 		changeLanguage (language) {
-			this.active = !this.active;
+			if (!this.active) {
+				this.active = true;
+				return;
+			}
+
+			this.active = false;
+
+			if (language.getName() == this.language) {
+				return;
+			}
+
 			this.$wayfinder.setLanguage(language.name);
 			this.$emit("changeLanguage", Object.freeze(language));
 		},
@@ -108,11 +118,11 @@ export default {
 		background-repeat: no-repeat;
 	}
 
-	.wf-languages-container .language .wf-active {
+	.wf-languages-container .language.wf-active {
 		height: 3.5rem;
 		margin-bottom: 1rem;
 	}
-	.wf-languages-container .language .display {
+	.wf-languages-container .language.display {
 		height: 3.5rem;
 		margin-bottom: 1.5rem;
 	}
