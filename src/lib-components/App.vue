@@ -50,7 +50,8 @@ export default {
 
 		this.$wayfinder.events.on("data-loaded", () => {
 			this.maxInActivity = this.$wayfinder.settings.getInt("kiosk.max-inactivity", 30);
-			this.loadColors();
+			this.setColors();
+			this.setTemplateSettings();
 		})
 
 		this.lastClick = setTimeout(() => { // Start screensaver
@@ -104,7 +105,7 @@ export default {
 				s.src = url;
 			}
 		},
-		loadColors() {
+		setColors() {
 			try {
 				const wf = this.$wayfinder;
 
@@ -144,6 +145,9 @@ export default {
 				console.error('Error loading Wayfinder settings:', error);
 				console.warn('Using default settings');
 			}
+		},
+		setTemplateSettings () {
+
 		},
 		applyColorSettings(colors) {
 			const root = document.documentElement;

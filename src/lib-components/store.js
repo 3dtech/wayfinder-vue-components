@@ -113,9 +113,7 @@ export default {
 		pages: {},
 		menus: {},
 		poiAdvertisements: [],
-		template: {
-
-		}
+		template: {}
 	},
 	getters: {
 		xLanguage: (state, context) => {
@@ -217,26 +215,24 @@ export default {
 		xTemplateSettings: (state) => {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined') {
 				const wfSettings = Vue.prototype.$wayfinder.settings;
-				let setting;
-				function camelize(str) {
-					str = str.replaceAll("-", " ");
-					return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
-						return index === 0 ? word.toLowerCase() : word.toUpperCase();
-					}).replace(/\s+/g, '');
-				}
-
 				function setSettings(keys, name, value) {
 					if (keys.length > 0) {
-						let curSetting = state.template;
-						keys.forEach((key) => {
+						let settings = Object.assign({}, state.template);
+						let curSetting = settings;
+						let key = "";
+
+						for (let k = 0; k < keys.length; k++){
+							key = keys[k];
 							if (!curSetting[key]) {
 								curSetting[key] = {};
 							}
 							curSetting = curSetting[key];
-						});
+						}
+
 
 						curSetting[name] = value;
-						state.template = Object.assign({}, state.template);
+						console.log("Template setting: ", key, name, curSetting, value, "settings", settings, state.template)
+						state.template = Object.assign({}, settings);
 					}
 				}
 
@@ -246,10 +242,12 @@ export default {
 					if (s.indexOf("template.") === 0) {
 						keys = s.split(".");
 						keys.shift(); // remove "template"
-            name = keys.pop();	// remove setting name
-						setSettings(keys, camelize(name), wfSettings.get(s));
+            			name = keys.pop();	// remove setting name
+						setSettings(keys, name, wfSettings.get(s));
 					}
 				}
+
+				console.log("Template settings: ", state.template);
 			}
 		},
 		xPOIAdvertisements: (state) => {
