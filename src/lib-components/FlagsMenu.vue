@@ -1,11 +1,18 @@
 <template>
 	<div class="wf-component wf-languages-container" :class="[(active ? 'wf-active': '')]" v-if="(showWhenMoreThanOne && count > 1) || !showWhenMoreThanOne">
-		<div class="wf-languages-container-select" v-if="showTitle">Select language</div>
 		<div class="wf-list" :class="['wf-list-count-' + count]">
-			<div v-for="lang in sortedLanguages" v-show="active || lang.getName() == language" :key='lang.getName()' @click="changeLanguage(lang)" :class='["item", "language", "lang-" + lang.getName(), { "wf-active": lang.getName() == language, display: active}]'>
-				<div v-if="showFlag" class="wf-flag" :style="{ backgroundImage: 'url('+getFlagImage(lang.flagImage)+')'}"></div>
-				<label v-if="labelType == 'code'">{{lang.getName()}}</label>
-				<label v-if="labelType == 'native'">{{lang.getNativeName()}}</label>
+			<div v-if="activeLanguage" @click="toggleMenu" :class='["item", "language", "lang-" + activeLanguage.getName(), "wf-active"]'>
+				<div v-if="showFlag" class="wf-flag" :style="{ backgroundImage: 'url('+getFlagImage(activeLanguage.flagImage)+')'}"></div>
+				<label v-if="labelType == 'code'">{{activeLanguage.getName()}}</label>
+				<label v-if="labelType == 'native'">{{activeLanguage.getNativeName()}}</label>
+			</div>
+			<div v-if="active" class="wf-languages-options" :class="'wf-languages-options-' + dropDirection">
+				<div class="wf-languages-container-select" v-if="showTitle">Select language</div>
+				<div v-for="lang in availableLanguages" :key='lang.getName()' @click="changeLanguage(lang)" :class='["item", "language", "lang-" + lang.getName(), "display"]'>
+					<div v-if="showFlag" class="wf-flag" :style="{ backgroundImage: 'url('+getFlagImage(lang.flagImage)+')'}"></div>
+					<label v-if="labelType == 'code'">{{lang.getName()}}</label>
+					<label v-if="labelType == 'native'">{{lang.getNativeName()}}</label>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -30,6 +37,12 @@ export default {
 			}
 
 			return this.languages;
+		},
+		activeLanguage () {
+			return this.sortedLanguages.find((lang) => lang.getName() == this.language);
+		},
+		availableLanguages () {
+			return this.sortedLanguages.filter((lang) => lang.getName() != this.language);
 		}
 	},
 	props: {
@@ -52,6 +65,11 @@ export default {
 		showWhenMoreThanOne: {
 			type: Boolean,
 			default: true
+		},
+		dropDirection: {
+			type: String,
+			default: "up",
+			validator: (value) => ["up", "down"].indexOf(value) !== -1
 		}
 	},
 	data () {
@@ -60,18 +78,11 @@ export default {
 		}
 	},
 	methods: {
+		toggleMenu () {
+			this.active = !this.active;
+		},
 		changeLanguage (language) {
-			if (!this.active) {
-				this.active = true;
-				return;
-			}
-
 			this.active = false;
-
-			if (language.getName() == this.language) {
-				return;
-			}
-
 			this.$wayfinder.setLanguage(language.name);
 			this.$emit("changeLanguage", Object.freeze(language));
 		},
@@ -89,22 +100,34 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+	.wf-languages-container,
+	.wf-languages-container .wf-list {
+		position: relative;
+	}
+
 	.wf-languages-container.wf-active {
-		height: fit-content;
 		z-index: 10;
 	}
 
-	.wf-languages-container.wf-active .wf-languages-container-select {
-		visibility: initial;
-		opacity: 1;
+	.wf-languages-container .wf-languages-options {
+		position: absolute;
+		left: 0;
+		z-index: 10;
+		min-width: 100%;
+	}
+
+	.wf-languages-container .wf-languages-options-up {
+		bottom: 100%;
+	}
+
+	.wf-languages-container .wf-languages-options-down {
+		top: 100%;
 	}
 
 	.wf-languages-container .wf-languages-container-select {
-		opacity: 0;
 		padding-bottom: 0.5rem;
 		margin: auto;
 		text-align: center;
-		transition: opacity 0.2s ease-in;
 		overflow: hidden;
 		height: 1.5rem;
 		font-size: 1rem;
