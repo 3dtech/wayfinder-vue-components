@@ -68,7 +68,7 @@ export default {
 		},
 		dropDirection: {
 			type: String,
-			default: "up",
+			default: "down",
 			validator: (value) => ["up", "down"].indexOf(value) !== -1
 		}
 	},
@@ -134,9 +134,9 @@ export default {
 	}
 
 	.wf-languages-container .language .wf-flag {
-		width: 190%;
+		width: 100%;
 		height: 100%;
-		background-size: cover;
+		background-size: contain;
 		background-position: 50%;
 		background-repeat: no-repeat;
 	}

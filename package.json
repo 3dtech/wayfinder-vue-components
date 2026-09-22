@@ -1,6 +1,6 @@
 {
   "name": "@3dwayfinder/wayfinder-vue-components",
-  "version": "1.27.0",
+  "version": "1.27.1",
   "description": "VueJS UI components for 3D Wayfinder floor plans",
   "main": "dist/wayfinder-vue-components.ssr.js",
   "browser": "dist/wayfinder-vue-components.esm.js",
@@ -18,7 +18,8 @@
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
-    "release:minor": "npm run build && npm version minor",
+    "release:minor": "node tools/release.cjs minor",
+    "release:build": "node tools/release.cjs patch",
     "doc": "node tools/generateComponentDoc.js "
   },
   "dependencies": {
