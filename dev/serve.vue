@@ -123,6 +123,9 @@ export default Vue.extend({
         <h2 class="appName" @click="debug">
           {{ appName }} @ <label v-if="building">{{ building.name }}</label>
         </h2>
+        
+        <WFBuildingLogo></WFBuildingLogo>
+
         <div>
           Clock:
           <WFClock />
@@ -405,5 +408,11 @@ body {
 
 .wf-poi-popup .wf-poi-popup-content {
   border: 1px solid #ccc;
+}
+
+.wf-building-logo {
+    height: 100%;
+    min-width: 12rem;
+    background-position: 0% !important;
 }
 </style>

@@ -141,9 +141,7 @@ export default {
 				let g;
 				Object.keys(groups).forEach(key => {
 					if (parseInt(groups[key].showInTopMenu)) {
-						g = freezeGroup(groups[key]);
-						g.pois = g.pois.map(p => freezePOI(p));
-						shortcuts.push(Object.freeze(g));
+						shortcuts.push(groups[key].copy());
 					}
 				});
 
@@ -189,22 +187,19 @@ export default {
 		},
 		xPOIs: state => {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined') {
-				state.pois = Object.freeze(Vue.prototype.$wayfinder.poisArray.map(p => {
-					return freezePOI(p);
-				}));
+				state.pois = Vue.prototype.$wayfinder.poisArray.map(p => {
+					return p.copy();
+				});
 			}
 		},
 		xTopics: (state) => {
 			if (typeof Vue.prototype.$wayfinder !== 'undefined') {
 				let groups = Vue.prototype.$wayfinder.poiGroups;
 				let _groups = [];
-				let group;
 				for (let g in groups) {
-					group = freezeGroup(groups[g]);
-					group.pois = groups[g].pois.map(p => freezePOI(p));
-					_groups.push(group);
+					_groups.push(groups[g].copy());
 				}
-				state.poiGroups = Object.freeze(_groups);
+				state.poiGroups = _groups;
 			}
 		},
 		xBanners: (state) => {

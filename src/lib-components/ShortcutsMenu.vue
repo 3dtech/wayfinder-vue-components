@@ -1,7 +1,7 @@
 <template>
 	<div class="wf-component wf-shortcuts-menu">
 		<div class="wf-list" :class="['wf-list-count-' + count]">
-			<button v-for="shortcut in shortcuts" :key='shortcut.getID()' class="wf-list-item wf-shortcut" @click="showShortcut(shortcut)" :class='["wf-shortcut-" + shortcut.getID()]'>
+			<button v-for="shortcut in shortcuts" :key='shortcut.id' class="wf-list-item wf-shortcut" @click="showShortcut(shortcut)" :class='["wf-shortcut-" + shortcut.id]'>
 				<img class="wf-icon" v-if="showIcon" :src="getImage(shortcut.imageID)"/>
 				<label v-if="showLabel">{{shortcut.getName(language)}}</label>
 			</button>

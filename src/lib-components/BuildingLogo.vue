@@ -15,6 +15,7 @@ export default {
 	},
 	methods: {
 		getLogo () {
+			console.log('building', this.building)
 			if (this.building && this.building.logoID) {
 				return 'url(' + WayfinderAPI.getURL("images", "get", this.building.logoID) + ')'
 			}

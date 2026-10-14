@@ -2,7 +2,7 @@
 	<div class="wf-group" v-if="group" :class="[hasImage()]">
 		<label class="wf-name" v-html="group.getName(language)"></label>
         <label class="wf-poi-count" v-if="showPOICount">{{group.pois.length}}</label>
-        <img class="wf-group-icon" v-if="showIcon" :src="group.getIconUrl()"/>
+        <img class="wf-group-icon" v-if="showIcon && group.getIconUrl()" :src="group.getIconUrl()"/>
 		<span class="wf-description" v-if="showDescription" v-html="group.getDescription(language)"></span>
 	</div>
 </template>
