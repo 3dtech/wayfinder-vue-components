@@ -120,7 +120,7 @@ export default {
 			this.keyboard.on('change', (keyword) => {
 				let results = this.$wayfinder.search.search(keyword);
 				results = results.filter((poi) => {
-					return poi.getShowInMenu();
+					return poi.showInMenu;
 				})
 
 				if (this.limit > 0) {

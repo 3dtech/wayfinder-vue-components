@@ -59,7 +59,7 @@ export default {
 		...mapState('wf', ['pois', 'language']),
 		sortedPOIs () {
 			let arr = this.pois.slice().filter((poi) => {
-				return (poi && poi.getShowInMenu());
+				return (poi && poi.showInMenu);
 			}); // Copy and filter array
 			arr = arr.sort((a, b) => {
 				if (a.getName(this.language) && b.getName(this.language)) {

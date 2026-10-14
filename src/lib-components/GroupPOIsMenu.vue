@@ -83,7 +83,7 @@ export default {
 		getPOIs() {
 			if (this.group && this.group.pois) {
 				let arr = this.group.pois.slice(0);
-				arr = arr.filter(p => p.getShowInMenu());
+				arr = arr.filter(p => p.showInMenu);
 				this.count = arr.length;
 				return arr.sort((a, b) => {
 					const aName = a.getName(this.language);

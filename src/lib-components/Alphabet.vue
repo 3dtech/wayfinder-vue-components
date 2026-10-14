@@ -77,7 +77,7 @@ export default {
             let poi, char;
             for(let p in this.pois) {
                 poi = this.pois[p];
-                if ((!this.showInMenu || poi.getShowInMenu()) && poi.getName(this.language) && poi.getName(this.language).length > 0) {
+                if ((!this.showInMenu || poi.showInMenu) && poi.getName(this.language) && poi.getName(this.language).length > 0) {
                     char = poi.getName(this.language)[0].toLowerCase();
                     
                     if(this.groupChars.indexOf(char) > -1) {

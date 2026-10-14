@@ -141,7 +141,7 @@ export default {
 				if(topic.id == this.parent) {
 					this.parentGroup = topic;
 				}
-				if(topic && topic.getShowInMenu() && topic.getName(this.language)) {
+				if(topic && topic.showInMenu && topic.getName(this.language)) {
 					if (this.parent > -1 && parseInt(topic.parent_id) == this.parent) {
 						arr.push(topic);
 					}
@@ -217,7 +217,7 @@ export default {
 				let _g;
 				for(let g in subGroups) {
 					_g = parseInt(subGroups[g]);
-					if(this.poiGroups[_g] && this.poiGroups[_g].getShowInMenu()) {
+					if(this.poiGroups[_g] && this.poiGroups[_g].showInMenu) {
 						groups.push(this.poiGroups[_g]);
 					}
 				}
@@ -230,7 +230,7 @@ export default {
 		},
 		sortedPOIs (pois) {
 			let arr = pois.slice().filter((poi) => {
-				return (poi && poi.getShowInMenu());
+				return (poi && poi.showInMenu);
 			}); // Copy and filter array
 
 			if (!this.sortPOIs) return arr;

@@ -60,7 +60,7 @@ export default {
 	watch: {
 		filteredPOIs: function (val) {
 			let arr = val.slice().filter((poi) => {
-				return (poi && poi.getShowInMenu());
+				return (poi && poi.showInMenu);
 			}); // Copy and filter array
 			arr = arr.sort((a, b) => {
 				if (a.getName(this.language) && b.getName(this.language)) {

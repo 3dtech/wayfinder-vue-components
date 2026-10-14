@@ -2,7 +2,7 @@
 	<div class="wf-component wf-shortcuts-menu">
 		<div class="wf-list" :class="['wf-list-count-' + count]">
 			<button v-for="shortcut in shortcuts" :key='shortcut.id' class="wf-list-item wf-shortcut" @click="showShortcut(shortcut)" :class='["wf-shortcut-" + shortcut.id]'>
-				<img class="wf-icon" v-if="showIcon" :src="getImage(shortcut.imageID)"/>
+				<img class="wf-icon" v-if="showIcon" :src="shortcut.iconUrl"/>
 				<label v-if="showLabel">{{shortcut.getName(language)}}</label>
 			</button>
 		</div>
