@@ -135,13 +135,14 @@ export default {
 			let arr = []; // Copy arr for sorting
 			let topic;
 			let groups = this.poiGroups;
-
 			for (let i in groups) {
 				topic = groups[i];
 				if(topic.id == this.parent) {
 					this.parentGroup = topic;
 				}
+				console.log('topic2', topic, topic.showInMenu,  topic.getName(this.language))
 				if(topic && topic.showInMenu && topic.getName(this.language)) {
+					
 					if (this.parent > -1 && parseInt(topic.parent_id) == this.parent) {
 						arr.push(topic);
 					}

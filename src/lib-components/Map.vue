@@ -375,7 +375,7 @@ export default {
 		},
 		showPOIPopup(poi, _width, _height) {
 			this.popupPOI = Object.freeze(poi);
-			if (this.POIPopupEnabled && this.popupPOI && this.$refs.poiPopup && poi.getNode()) {
+			if (this.POIPopupEnabled && this.popupPOI && this.$refs.poiPopup && poi.node_id) {
 				let width = _width || 155;
 				let height = _height || 100;
 				let position = this.$wayfinder.getScreenPosition(poi);
@@ -429,7 +429,7 @@ export default {
 			this.poiPopupVisible = false;
 		},
 		isPOIPopupVisible() {
-			return (this.$wayfinder && this.popupPOI && this.poiPopupVisible && this.popupPOI.getNode().floor_id == this.$wayfinder.getCurrentFloor().id)
+			return (this.$wayfinder && this.popupPOI && this.poiPopupVisible && this.popupPOI.floor.id == this.$wayfinder.getCurrentFloor().id)
 		},
 	},
 	data() {

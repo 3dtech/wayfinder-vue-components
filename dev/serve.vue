@@ -166,6 +166,7 @@ export default Vue.extend({
                   <template v-slot:default="slotProps">
                     <WFPOI
                       :poi="slotProps.poi"
+                      :showLogo="true"
                       :showAccessibilityPathButton="true"
                     />
                     <div class="footer">

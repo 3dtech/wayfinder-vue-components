@@ -226,7 +226,6 @@ export default {
 
 
 						curSetting[name] = value;
-						console.log("Template setting: ", key, name, curSetting, value, "settings", settings, state.template)
 						state.template = Object.assign({}, settings);
 					}
 				}
@@ -241,8 +240,6 @@ export default {
 						setSettings(keys, name, wfSettings.get(s));
 					}
 				}
-
-				console.log("Template settings: ", state.template);
 			}
 		},
 		xPOIAdvertisements: (state) => {

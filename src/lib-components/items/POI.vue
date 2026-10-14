@@ -127,7 +127,7 @@ export default {
 		},
 		poi () {
 			if (this.showDistance && this.$wayfinder) {
-				let path = this.$wayfinder.findPath(this.$wayfinder.getKioskNode(), this.poi.getNode());
+				let path = this.$wayfinder.findPath(this.$wayfinder.getKioskNode(), this.poi.node_id);
 				this.path2Text = Object.freeze(this.$wayfinder.pathToText(path));
 				console.log('watch.path', this.path2Text);
 			}
@@ -140,7 +140,7 @@ export default {
 					this.$emit('showPath', this.poi);
 				}
 				else {
-					this.$wayfinder.showPath(this.poi.getNode(), this.poi);
+					this.$wayfinder.showPath(this.poi.node_id, this.poi);
 				}
 			}
 		},
@@ -150,7 +150,7 @@ export default {
 					this.$emit('showAccessibilityPath', this.poi);
 				}
 				else {
-					this.$wayfinder.showPath(this.poi.getNode(), this.poi, {"ignoreTypes": ["escalator", "stairs"]});
+					this.$wayfinder.showPath(this.poi.node_id, this.poi, {"ignoreTypes": ["escalator", "stairs"]});
 				}
 			}
 		},
