@@ -203,7 +203,7 @@ export default Vue.extend({
           <WFTab name="5">
             <WFBanner
               template="default"
-              container="screensaver"
+              container="screensaver-portrait"
               @clicked="bannerClicked"
               :playOnBoot="true"
             ></WFBanner>

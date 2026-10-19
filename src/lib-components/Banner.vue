@@ -73,24 +73,13 @@ export default {
 	},
 	methods: {
 		load() {
-			let now = Date.now();
 			let _template = 'template-' + this.template.toLowerCase();
 			if (this.banners && this.template && this.container && this.banners[_template] && this.banners[_template][this.container]) {
 				this.frames = this.banners[_template][this.container].filter((frame) => {
-					let enabled = frame.enabled;
-					
-					if (enabled && frame.from_date) {
-						enabled = enabled && (new Date(frame.from_date)).getTime() <= now;
-					}
-
-					if (enabled && frame.to_date) {
-						enabled = enabled && (new Date(frame.to_date)).getTime() >= now;
-					}
-
 					frame.loaded = false;
 					frame.loadCount = 0;
 
-					return enabled;
+					return frame.enabled;
 				});
 
 				this.frames.forEach((f, i) => {
@@ -189,21 +178,31 @@ export default {
 			}
 		},
 		play () {
-			if (this.current >= this.displayedFrames.length) {
-				return;
-			}
-
-			if (this.displayedFrames.length > 0) {
-				this.next();
-			}
-
-			let frame = this.displayedFrames[this.current];
-
 			if (this.timer != null) {
 				clearTimeout(this.timer);
+				this.timer = null;
+			}
+
+			let now = Date.now();
+			let frame;
+			for (let i = 0; i < this.displayedFrames.length; i++) {
+				this.next();
+				let candidate = this.displayedFrames[this.current];
+				if (candidate.from_date && !((new Date(candidate.from_date)).getTime() <= now)) {
+					continue;
+				}
+				if (candidate.to_date && !((new Date(candidate.to_date)).getTime() >= now)) {
+					continue;
+				}
+				frame = candidate;
+				break;
 			}
 
 			if(!frame) {
+				this.current = -1;
+				if (this.displayedFrames.length > 0) {
+					this.timer = setTimeout(this.play, 1000);
+				}
 				return;
 			}
 			
